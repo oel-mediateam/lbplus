@@ -20,7 +20,7 @@
                 "begin": "1:00",
                 "end": "1:30",
                 "cooldown": 3,
-                "limits": 3
+                "limits": 4
 
             }
 
