@@ -1,26 +1,26 @@
 {
-    'exercise': {
+    "exercise": {
 
-        'id': 1234,
-        'actions': [
+        "id": 1234,
+        "actions": [
 
             {
 
-                'name': 'hit',
-                'begin': '0:30',
-                'end': '0:45',
-                'cooldown': 3,
-                'limits': 5
+                "name": "hit",
+                "begin": "0:30",
+                "end": "0:45",
+                "cooldown": 3,
+                "limits": 5
 
             },
 
             {
 
-                'name': 'punch',
-                'begin': '1:00',
-                'end': '1:30',
-                'cooldown': 3,
-                'limits': 3
+                "name": "punch",
+                "begin": "1:00",
+                "end": "1:30",
+                "cooldown": 3,
+                "limits": 3
 
             }
 
