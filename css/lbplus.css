@@ -1,14 +1,10 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+html, body, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, blockquote, h6, p, blockquote, pre, code,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, li,
+dl, dt, dd, ol, ul, ol, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
@@ -23,11 +19,11 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-html {
+html, body {
   line-height: 1;
 }
 
-ol, ul {
+ol, ul, ol {
   list-style: none;
 }
 
@@ -57,3 +53,222 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
+
+/******** GENERAL ********/
+html, body {
+  font-size: 16px;
+}
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  color: #1e1e1e;
+  line-height: 1.25rem;
+}
+
+div {
+  margin: 1rem 0;
+}
+
+h1, h2, h3, h4, h5, blockquote, h6 {
+  margin: 1rem 0;
+  font-weight: 100;
+  color: #2f2f2f;
+}
+
+h6 {
+  font-size: 120%;
+  line-height: 1.45rem;
+}
+
+h5, blockquote {
+  font-size: 140%;
+  line-height: 1.65rem;
+}
+
+h4 {
+  font-size: 160%;
+  line-height: 1.85rem;
+}
+
+h3 {
+  font-size: 180%;
+  line-height: 2.05rem;
+}
+
+h2 {
+  font-size: 200%;
+  line-height: 2.25rem;
+}
+
+h1 {
+  font-size: 220%;
+  line-height: 2.45rem;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+ul, ol {
+  margin: 1rem 0;
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1rem;
+}
+ul li, ol li {
+  margin-left: 1rem;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+blockquote {
+  position: relative;
+  margin: 1rem 0 1rem 2.25rem;
+}
+
+blockquote:before {
+  position: absolute;
+  content: "\201C";
+  font-family: Arial, "Lucida Grande", sans-serif;
+  font-size: 250%;
+  color: #1e1e1e;
+  top: 0.3125rem;
+  left: -1.25rem;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+hr {
+  margin: 1rem 0;
+  border-top: 0.0625rem solid #1e1e1e;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+pre, code {
+  font-family: monospace;
+  margin: 1rem 0;
+}
+
+code {
+  margin: 0;
+}
+
+/******** LB PLUS ********/
+.lbplus_wrapper {
+  width: 58.75rem;
+  height: 33.0625rem;
+  margin: 0 auto;
+}
+.lbplus_wrapper .lbplus_view {
+  height: 29.3125rem;
+  padding: 1.5625rem 1.5625rem 0 1.5625rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 0.0625rem solid #2f2f2f;
+  border-bottom: none;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper {
+  margin-top: 1.25rem;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_media {
+  width: 40rem;
+  height: 22.5rem;
+  background: #1e1e1e;
+  margin: 0;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions {
+  width: 14.0625rem;
+  float: left;
+  margin: 0 0 0 1.4375rem;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions h4 {
+  text-align: center;
+  line-height: 1.25rem;
+  border-bottom: 1px dashed #1e1e1e;
+  padding-bottom: 16px;
+  margin-top: 0;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn {
+  width: 14.0625rem;
+  height: 3.125rem;
+  background: #354cb1;
+  cursor: pointer;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon {
+  display: block;
+  width: 3.125rem;
+  height: 3.125rem;
+  background: #425fdd;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .action_name {
+  display: block;
+  font-weight: bold;
+  color: #fff;
+  width: 10.9375rem;
+  height: 3.125rem;
+  padding: 1rem;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .action_name.long {
+  font-size: 84%;
+  padding-top: 0.5625rem;
+  line-height: 1rem;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .cooldown {
+  display: block;
+  width: 14.0625rem;
+  height: 0.3125rem;
+  background: #ccc;
+  clear: both;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .cooldown .progress {
+  display: block;
+  height: 0.3125rem;
+  background: #132988;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+.lbplus_wrapper .lbplus_controls {
+  height: 3.75rem;
+  background: #2f2f2f;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*# sourceMappingURL=lbplus.css.map */

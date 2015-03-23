@@ -1,6 +1,317 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+$defaultFont: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$fontSize: 16px;
+$defaultFontColor: #1e1e1e;
+$darkerFontColor: #2f2f2f;
+$gutter: 16px;
 
+// imports
 @import "compass/reset";
+@import "compass/css3/box-sizing";
+
+// functions
+@function rem( $px, $base: $fontSize ) {
+
+    @return ( $px / $base ) * 1rem;
+
+}
+
+/******** GENERAL ********/
+
+html {
+
+    font-size: $fontSize;
+
+}
+
+body {
+
+    @extend html;
+    font-family: $defaultFont;
+    font-weight: 300;
+    color: $defaultFontColor;
+    line-height: rem( $gutter * 1.25 );
+
+}
+
+div {
+
+    margin: rem( $gutter ) 0;
+
+}
+
+#{headings(all)} {
+
+    margin: rem( $gutter ) 0;
+    font-weight: 100;
+    color: $darkerFontColor;
+
+}
+
+h6 {
+
+    font-size: 120%;
+    line-height: rem( $gutter * 1.45 );
+
+}
+
+h5 {
+
+    font-size: 140%;
+    line-height: rem( $gutter * 1.65 );
+
+}
+
+h4 {
+
+    font-size: 160%;
+    line-height: rem( $gutter * 1.85 );
+
+}
+
+h3 {
+
+    font-size: 180%;
+    line-height: rem( $gutter * 2.05 );
+
+}
+
+h2 {
+
+    font-size: 200%;
+    line-height: rem( $gutter * 2.25 );
+
+}
+
+h1 {
+
+    font-size: 220%;
+    line-height: rem( $gutter * 2.45 );
+
+}
+
+h1:first-child {
+
+    margin-top: 0;
+
+}
+
+p {
+
+    margin: rem( $gutter ) 0;
+
+}
+
+ul {
+
+    margin: rem( $gutter ) 0;
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: rem( $gutter );
+
+    li {
+
+        margin-left: rem( $gutter );
+
+    }
+
+}
+
+ol {
+
+    @extend ul;
+    list-style-type: decimal;
+
+}
+
+blockquote {
+
+    position: relative;
+    margin: rem( $gutter ) 0 rem( $gutter ) rem( $gutter * 2.25 );
+    @extend h5;
+
+}
+
+blockquote:before {
+    position: absolute;
+    content: "\201C";
+    font-family: Arial, "Lucida Grande", sans-serif;
+    font-size: 250%;
+    color: $defaultFontColor;
+    top: rem( 5px );
+    left: rem( -20px );
+}
+
+strong {
+
+    font-weight: bold;
+
+}
+
+em {
+
+    font-style: italic;
+
+}
+
+hr {
+
+    margin: rem( $gutter ) 0;
+    border-top: rem( 1px ) solid $defaultFontColor;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+
+}
+
+pre {
+
+    font-family: monospace;
+    margin: rem( $gutter ) 0;
+
+}
+
+code {
+
+    @extend pre;
+    margin: 0;
+
+}
+
+/******** LB PLUS ********/
+.lbplus_wrapper {
+
+    width: rem( 940px );
+    height: rem( 529px );
+    margin: 0 auto;
+
+    .lbplus_view {
+
+        height: rem( 469px );
+        padding: rem( 25px ) rem( 25px ) 0 rem( 25px );
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: rem( 1px ) solid $darkerFontColor;
+        border-bottom: none;
+        @include box-sizing( "border-box" );
+
+        .lbplus_interaction_wrapper {
+
+            margin-top: rem( $gutter * 1.25 );
+
+            .lbplus_media {
+
+                width: rem( 640px );
+                height: rem( 360px );
+                background: $defaultFontColor;
+                margin: 0;
+                float: left;
+
+            }
+
+            .lbplus_actions {
+
+                width: rem( 225px );
+                float: left;
+                margin: 0 0 0 rem( 23px );
+
+                h4 {
+
+                    text-align: center;
+                    line-height: rem( 20px );
+                    border-bottom: 1px dashed $defaultFontColor;
+                    padding-bottom: $gutter;
+                    margin-top: 0;
+
+                }
+
+                .btn {
+
+                    width: rem( 225px );
+                    height: rem( 50px );
+                    background: #354cb1;
+                    cursor: pointer;
+
+                    .icon {
+
+                        display: block;
+                        width: rem( 50px );
+                        height: rem( 50px );
+                        background: #425fdd;
+                        float: left;
+
+                    }
+
+                    .action_name {
+
+                        display: block;
+                        font-weight: bold;
+                        color: #fff;
+                        width: rem( 175px );
+                        height: rem( 50px );
+                        padding: rem( $gutter );
+                        @include box-sizing( "border-box" );
+                        float: left;
+
+                    }
+
+                    .action_name.long {
+
+                        font-size: 84%;
+                        padding-top: rem( 9px );
+                        line-height: rem( 16px );
+
+                    }
+
+                    .cooldown {
+
+                        display: block;
+                        width: rem( 225px );
+                        height: rem( 5px );
+                        background: #ccc;
+                        clear: both;
+
+                        .progress {
+
+                            display: block;
+                            height: rem( 5px );
+                            background: #132988;
+
+                        }
+
+                    }
+
+                }
+
+                .btn:after {
+                    content: ".";
+                    visibility: hidden;
+                    display: block;
+                    height: 0;
+                    clear: both;
+                }
+
+            }
+
+        }
+
+        .lbplus_interaction_wrapper:after {
+
+                content: ".";
+                visibility: hidden;
+                display: block;
+                height: 0;
+                clear: both;
+
+        }
+
+    }
+
+    .lbplus_controls {
+
+        height: rem( 60px );
+        background: $darkerFontColor;
+        @include box-sizing( "border-box" );
+
+    }
+
+}
