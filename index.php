@@ -24,6 +24,7 @@
     <head>
         <title>LB+</title>
         <link href="css/lbplus.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="fonts/style.css" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
         <main class="lbplus_wrapper" role="main">
