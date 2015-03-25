@@ -196,7 +196,7 @@ code {
 
         .lbplus_interaction_wrapper {
 
-            margin-top: rem( $gutter * 1.25 );
+            margin-bottom: 0;
 
             .lbplus_media {
 
@@ -219,8 +219,9 @@ code {
                     text-align: center;
                     line-height: rem( 20px );
                     border-bottom: 1px dashed $defaultFontColor;
-                    padding-bottom: $gutter;
+                    padding-bottom: $gutter - 6;
                     margin-top: 0;
+                    margin-bottom: 0;
 
                 }
 
@@ -228,7 +229,8 @@ code {
 
                     width: rem( 225px );
                     height: rem( 50px );
-                    background: #354cb1;
+                    color: #fff;
+                    font-weight: bold;
                     cursor: pointer;
 
                     .icon {
@@ -236,27 +238,45 @@ code {
                         display: block;
                         width: rem( 50px );
                         height: rem( 50px );
+                        font-size: 115%;
+                        text-align: center;
                         background: #425fdd;
+                        opacity: 1;
+                        padding-top: rem( 15px );
+                        @include box-sizing( "border-box" );
                         float: left;
+
+                        -webkit-transition: opacity .5s, background .5s;
+                        transition: opacity .5s, background .5s;
+
+                        [class^="icon-"], [class*=" icon-"] {
+
+                            display: block;
+                            margin-top: rem( 2px );
+
+                        }
 
                     }
 
                     .action_name {
 
                         display: block;
-                        font-weight: bold;
-                        color: #fff;
                         width: rem( 175px );
                         height: rem( 50px );
-                        padding: rem( $gutter );
+                        padding: rem( $gutter ) rem( $gutter - 5 );
+                        background: #354cb1;
+                        opacity: 1;
                         @include box-sizing( "border-box" );
                         float: left;
+
+                        -webkit-transition: opacity .5s, background .5s;
+                        transition: opacity .5s, background .5s;
 
                     }
 
                     .action_name.long {
 
-                        font-size: 84%;
+                        font-size: 85%;
                         padding-top: rem( 9px );
                         line-height: rem( 16px );
 
@@ -288,6 +308,43 @@ code {
                     display: block;
                     height: 0;
                     clear: both;
+                }
+
+                .btn.disabled {
+
+                    color: #fafafa;
+                    cursor: default;
+
+                    .icon {
+
+                        background: #515151;
+                        opacity: .75;
+                        -webkit-transition: opacity .5s, background .5s;
+                        transition: opacity .5s, background .5s;
+
+                    }
+
+                    .action_name {
+
+                        opacity: .75;
+                        background: #424242;
+                        -webkit-transition: opacity .5s, background .5s;
+                        transition: opacity .5s, background .5s;
+
+                    }
+
+                }
+
+                .btn:nth-of-type(1) {
+
+                    margin-top: rem( $gutter - 6 );
+
+                }
+
+                .btn:last-child {
+
+                    margin-bottom: 0;
+
                 }
 
             }
