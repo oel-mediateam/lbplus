@@ -1,3 +1,4 @@
+/* RESET */
 html, body, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, blockquote, h6, p, blockquote, pre, code,
 a, abbr, acronym, address, big, cite, code,
@@ -60,14 +61,10 @@ html, body {
 }
 
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   color: #1e1e1e;
   line-height: 1.25rem;
-}
-
-div {
-  margin: 1rem 0;
 }
 
 h1, h2, h3, h4, h5, blockquote, h6 {
@@ -104,10 +101,6 @@ h2 {
 h1 {
   font-size: 220%;
   line-height: 2.45rem;
-}
-
-h1:first-child {
-  margin-top: 0;
 }
 
 p {
@@ -175,6 +168,7 @@ code {
   margin: 0 auto;
 }
 .lbplus_wrapper .lbplus_view {
+  position: relative;
   height: 29.3125rem;
   padding: 1.5625rem 1.5625rem 0 1.5625rem;
   overflow-x: hidden;
@@ -185,6 +179,9 @@ code {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.lbplus_wrapper .lbplus_view h1:nth-of-type(1) {
+  margin-top: 0;
+}
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper {
   margin-bottom: 0;
 }
@@ -192,7 +189,6 @@ code {
   width: 40rem;
   height: 22.5rem;
   background: #1e1e1e;
-  margin: 0;
   float: left;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions {
@@ -214,6 +210,7 @@ code {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  margin: 1rem 0;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon {
   display: block;
@@ -222,14 +219,17 @@ code {
   font-size: 115%;
   text-align: center;
   background: #425fdd;
-  opacity: 1;
   padding-top: 0.9375rem;
+  float: left;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  float: left;
-  -webkit-transition: opacity .5s, background .5s;
-  transition: opacity .5s, background .5s;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon [class^="icon-"], .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon [class*=" icon-"] {
   display: block;
@@ -241,13 +241,16 @@ code {
   height: 3.125rem;
   padding: 1rem 0.6875rem;
   background: #354cb1;
+  float: left;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  float: left;
-  -webkit-transition: opacity .5s, background .5s;
-  transition: opacity .5s, background .5s;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .action_name.long {
   font-size: 85%;
@@ -266,28 +269,27 @@ code {
   height: 0.3125rem;
   background: #132988;
 }
-.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
-}
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled {
   color: #fafafa;
   cursor: default;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled .icon {
   background: #515151;
-  opacity: .75;
-  -webkit-transition: opacity .5s, background .5s;
-  transition: opacity .5s, background .5s;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled .action_name {
-  opacity: .75;
   background: #424242;
-  -webkit-transition: opacity .5s, background .5s;
-  transition: opacity .5s, background .5s;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:nth-of-type(1) {
   margin-top: 0.625rem;
@@ -295,19 +297,108 @@ code {
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:last-child {
   margin-bottom: 0;
 }
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:after {
+  overflow: hidden;
+  *zoom: 1;
+}
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+  overflow: hidden;
+  *zoom: 1;
 }
 .lbplus_wrapper .lbplus_controls {
   height: 3.75rem;
   background: #2f2f2f;
+  padding: 1.5625rem;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.lbplus_wrapper .lbplus_controls .progress_bar {
+  width: 40rem;
+  height: 0.625rem;
+  background: #888888;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar .progressed {
+  display: block;
+  width: 0;
+  height: 0.625rem;
+  background: #686868;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar .time {
+  width: 100%;
+  font-size: 70%;
+  color: #fff;
+  float: left;
+  clear: both;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar .time .elapsed, .lbplus_wrapper .lbplus_controls .progress_bar .time .duration {
+  display: block;
+  width: 50%;
+  float: left;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar .time .duration {
+  text-align: right;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar .time:after {
+  overflow: hidden;
+  *zoom: 1;
+}
+.lbplus_wrapper .lbplus_status_msg {
+  position: absolute;
+  width: 50%;
+  font-size: 80%;
+  text-align: right;
+  top: 0.9375rem;
+  right: 1.5625rem;
+  cursor: default;
+}
 
-/*# sourceMappingURL=lbplus.css.map */
+/* ANIMATIONS */
+.blink {
+  -moz-animation-name: blink;
+  -webkit-animation-name: blink;
+  animation-name: blink;
+  -moz-animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -moz-animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

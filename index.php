@@ -25,6 +25,7 @@
         <title>LB+</title>
         <link href="css/lbplus.css" rel="stylesheet" type="text/css" media="all" />
         <link href="fonts/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/demo.css" rel="stylesheet" type="text/css" media="all" /> <!-- demo css; remove for live -->
     </head>
     <body>
         <main class="lbplus_wrapper" role="main">
@@ -34,5 +35,5 @@
         </main>
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
-    <script src="scripts/min/lbplus.js" type="text/javascript"></script>
+    <script src="scripts/lbplus.js" type="text/javascript"></script>
 </html>

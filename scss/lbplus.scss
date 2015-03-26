@@ -1,12 +1,24 @@
-$defaultFont: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$defaultFont: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $fontSize: 16px;
 $defaultFontColor: #1e1e1e;
 $darkerFontColor: #2f2f2f;
 $gutter: 16px;
 
 // imports
+/* RESET */
 @import "compass/reset";
+@import "compass/css3/animation";
 @import "compass/css3/box-sizing";
+@import "compass/css3/opacity";
+@import "compass/css3/transition";
+@import "compass/utilities/general/clearfix";
+
+// mixins
+@mixin smooth_fade() {
+
+    @include transition(opacity .5s, background .5s);
+
+}
 
 // functions
 @function rem( $px, $base: $fontSize ) {
@@ -30,12 +42,6 @@ body {
     font-weight: 300;
     color: $defaultFontColor;
     line-height: rem( $gutter * 1.25 );
-
-}
-
-div {
-
-    margin: rem( $gutter ) 0;
 
 }
 
@@ -86,12 +92,6 @@ h1 {
 
     font-size: 220%;
     line-height: rem( $gutter * 2.45 );
-
-}
-
-h1:first-child {
-
-    margin-top: 0;
 
 }
 
@@ -178,14 +178,17 @@ code {
 }
 
 /******** LB PLUS ********/
+
 .lbplus_wrapper {
 
     width: rem( 940px );
     height: rem( 529px );
     margin: 0 auto;
 
+    // CONTENT
     .lbplus_view {
 
+        position: relative;
         height: rem( 469px );
         padding: rem( 25px ) rem( 25px ) 0 rem( 25px );
         overflow-x: hidden;
@@ -194,6 +197,13 @@ code {
         border-bottom: none;
         @include box-sizing( "border-box" );
 
+        h1:nth-of-type(1) {
+
+            margin-top: 0;
+
+        }
+
+        // INTERACTION (MEDIA & ACTIONS)
         .lbplus_interaction_wrapper {
 
             margin-bottom: 0;
@@ -203,7 +213,6 @@ code {
                 width: rem( 640px );
                 height: rem( 360px );
                 background: $defaultFontColor;
-                margin: 0;
                 float: left;
 
             }
@@ -232,6 +241,7 @@ code {
                     color: #fff;
                     font-weight: bold;
                     cursor: pointer;
+                    margin: rem( $gutter ) 0;
 
                     .icon {
 
@@ -241,13 +251,12 @@ code {
                         font-size: 115%;
                         text-align: center;
                         background: #425fdd;
-                        opacity: 1;
                         padding-top: rem( 15px );
-                        @include box-sizing( "border-box" );
                         float: left;
 
-                        -webkit-transition: opacity .5s, background .5s;
-                        transition: opacity .5s, background .5s;
+                        @include opacity( 1 );
+                        @include box-sizing( "border-box" );
+                        @include smooth_fade();
 
                         [class^="icon-"], [class*=" icon-"] {
 
@@ -265,12 +274,11 @@ code {
                         height: rem( 50px );
                         padding: rem( $gutter ) rem( $gutter - 5 );
                         background: #354cb1;
-                        opacity: 1;
-                        @include box-sizing( "border-box" );
                         float: left;
 
-                        -webkit-transition: opacity .5s, background .5s;
-                        transition: opacity .5s, background .5s;
+                        @include opacity( 1 );
+                        @include box-sizing( "border-box" );
+                        @include smooth_fade();
 
                     }
 
@@ -302,14 +310,6 @@ code {
 
                 }
 
-                .btn:after {
-                    content: ".";
-                    visibility: hidden;
-                    display: block;
-                    height: 0;
-                    clear: both;
-                }
-
                 .btn.disabled {
 
                     color: #fafafa;
@@ -318,18 +318,16 @@ code {
                     .icon {
 
                         background: #515151;
-                        opacity: .75;
-                        -webkit-transition: opacity .5s, background .5s;
-                        transition: opacity .5s, background .5s;
+                        @include opacity( .75 );
+                        @include smooth_fade();
 
                     }
 
                     .action_name {
 
-                        opacity: .75;
                         background: #424242;
-                        -webkit-transition: opacity .5s, background .5s;
-                        transition: opacity .5s, background .5s;
+                        @include opacity( .75 );
+                        @include smooth_fade();
 
                     }
 
@@ -347,27 +345,126 @@ code {
 
                 }
 
+                // clear fix
+                .btn:after {
+
+                    @include clearfix();
+
+                }
+
             }
 
-        }
+        } // end interaction wrapper
 
+        // clear fix
         .lbplus_interaction_wrapper:after {
 
-                content: ".";
-                visibility: hidden;
-                display: block;
-                height: 0;
-                clear: both;
+            @include clearfix();
 
         }
 
-    }
+    } // end content
 
+    // CONTROLS
     .lbplus_controls {
 
         height: rem( 60px );
         background: $darkerFontColor;
+        padding: rem( 25px );
         @include box-sizing( "border-box" );
+
+        .progress_bar {
+
+            width: rem( 640px );
+            height: rem( 10px );
+            background: #888888;
+
+            .progressed {
+
+                display: block;
+                width: 0;
+                height: rem( 10px );
+                background: #686868;
+
+            }
+
+            .time {
+
+                width: 100%;
+                font-size: 70%;
+                color: #fff;
+                float: left;
+                clear: both;
+
+                .elapsed {
+
+                    display: block;
+                    width: 50%;
+                    float: left;
+
+                }
+
+                .duration {
+
+                    @extend .elapsed;
+                    text-align: right;
+
+                }
+
+            }
+
+            .time:after {
+
+                @include clearfix();
+
+            }
+
+        }
+
+    } // end controls
+
+    // STATUS MESSAGE
+    .lbplus_status_msg {
+
+        position: absolute;
+        width: 50%;
+        font-size: 80%;
+        text-align: right;
+        top: rem( 15px );
+        right: rem( 25px );
+        cursor: default;
+
+    }
+
+} // end lbplus_wrapper
+
+/* ANIMATIONS */
+.blink {
+
+    @include animation-properties( (animation-name: blink) );
+    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+@include keyframes( blink ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( 0 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
 
     }
 

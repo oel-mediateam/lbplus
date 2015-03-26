@@ -1,5 +1,7 @@
 <section class="lbplus_view">
 
+    <div class="lbplus_status_msg blink">Processing...</div>
+
     <h1>LiveButton+ Presents</h1>
 
     <div class="lbplus_interaction_wrapper">
@@ -49,5 +51,13 @@
 </section>
 
 <nav class="lbplus_controls">
+
+    <div class="progress_bar">
+        <span class="progressed"></span>
+        <div class="time">
+            <span class="elapsed">00:00</span>
+            <span class="duration">00:30</span>
+        </div>
+    </div>
 
 </nav>

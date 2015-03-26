@@ -1,2 +1,0 @@
-$(document).ready(function(){for(var o=0;o<$(".btn[data-action]").length;o++)$(".btn[data-action]:eq("+o+")").cooldown()}),$.fn.cooldown=function(){var o=$(this),t=o.width(),n=1e3*Number(o.attr("data-cooldown")),d=o.find(".cooldown .progress"),a=$(d.selector);t>=225&&(a.width(0),o.addClass("disabled")),a.animate({width:"225px"},n,function(){o.removeClass("disabled"),setTimeout(function(){o.cooldown()},1e4)})};
-//# sourceMappingURL=./lbplus.js.map
