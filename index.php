@@ -28,12 +28,9 @@
     </head>
     <body>
         <main class="lbplus_wrapper" role="main">
-            <section class="lbplus_view">
-                <?php include_once $view; ?>
-            </section>
-            <nav class="lbplus_controls">
 
-            </nav>
+                <?php include_once $view; ?>
+
         </main>
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
