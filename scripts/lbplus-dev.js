@@ -1,18 +1,53 @@
+var sound_effects = {
+
+    'click': 'sounds/click.mp3',
+    'power_up': 'sounds/power_up.mp3'
+
+};
+
 $( document ).ready( function() {
 
-    // FOR DEV/DEMO PURPOSES
+    $.fn.loadSoundEffects();
 
+    // FOR DEV/DEMO PURPOSES
     for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
 
         $( '.btn[data-action]:eq('+i+')' ).cooldown();
+        $( '.btn[data-action]:eq('+i+')' ).clicked();
 
     }
 
     $( '.progress_bar' ).progress();
-
     // END FOR DEV/DEMO PURPOSES
 
 } );
+
+$.fn.loadSoundEffects = function() {
+
+    $.each( sound_effects, function( sound, src ) {
+
+        var temp = src;
+        sound_effects[sound] = document.createElement( 'audio' );
+        sound_effects[sound].setAttribute( 'src', temp );
+
+    } );
+
+};
+
+// action button clicked
+$.fn.clicked = function() {
+
+    $( this ).on( 'click', function() {
+
+        if ( !$( this ).hasClass( 'disabled' ) ) {
+
+            sound_effects.power_up.play();
+
+        }
+
+    } );
+
+};
 
 // action button cooldown
 $.fn.cooldown = function() {
@@ -45,7 +80,7 @@ $.fn.cooldown = function() {
 
             button.cooldown();
 
-        }, 10000 );
+        }, (cooldown_time_in_second + 10000) );
         // END FOR DEV PURPOSES
 
     } );

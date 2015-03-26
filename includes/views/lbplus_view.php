@@ -1,6 +1,6 @@
 <section class="lbplus_view">
 
-    <div class="lbplus_status_msg blink">Processing...</div>
+    <div class="lbplus_status_msg blink">Demonstrating...</div>
 
     <h1>LiveButton+ Presents</h1>
 
@@ -32,13 +32,13 @@
                 <span class="cooldown"><span class="progress"></span></span>
             </div>
 
-            <div class="btn" data-cooldown="6" data-action="btnFour">
+            <div class="btn" data-cooldown="4" data-action="btnFour">
                 <span class="icon"><span class="icon-grin"></span></span>
                 <span class="action_name">Excited!</span>
                 <span class="cooldown"><span class="progress"></span></span>
             </div>
 
-            <div class="btn" data-cooldown="3" data-action="btnFive">
+            <div class="btn" data-cooldown="7" data-action="btnFive">
                 <span class="icon"><span class="icon-power"></span></span>
                 <span class="action_name">Power up!</span>
                 <span class="cooldown"><span class="progress"></span></span>
