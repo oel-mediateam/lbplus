@@ -6,7 +6,8 @@
 
             {
 
-                "name": "hit",
+                "name": "slap",
+                "icon": "hand",
                 "positions": [
 
                     {
@@ -17,7 +18,7 @@
                     {
                         "begin": "2:30",
                         "end": "2:50"
-                    },
+                    }
 
                 ],
                 "cooldown": 3,
@@ -28,6 +29,7 @@
             {
 
                 "name": "punch",
+                "icon": "fist",
                 "positions": [
 
                     {
@@ -38,7 +40,7 @@
                     {
                         "begin": "3:15",
                         "end": "3:35"
-                    },
+                    }
 
                 ],
                 "cooldown": 3,
