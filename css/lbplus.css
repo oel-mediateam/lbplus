@@ -269,6 +269,12 @@ code {
   height: 0.3125rem;
   background: #132988;
 }
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:active .icon {
+  background: #1f3dc1;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:active .action_name {
+  background: #18309c;
+}
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled {
   color: #fafafa;
   cursor: default;

@@ -310,6 +310,22 @@ code {
 
                 }
 
+                .btn:active {
+
+                    .icon {
+
+                        background: #1f3dc1;
+
+                    }
+
+                    .action_name {
+
+                        background: #18309c;
+
+                    }
+
+                }
+
                 .btn.disabled {
 
                     color: #fafafa;
