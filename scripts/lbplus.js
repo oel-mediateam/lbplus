@@ -1,2 +1,13 @@
-var sound_effects={click:"sounds/click.mp3",power_up:"sounds/power_up.mp3"};$(document).ready(function(){$.fn.loadSoundEffects();for(var o=0;o<$(".btn[data-action]").length;o++)$(".btn[data-action]:eq("+o+")").cooldown(),$(".btn[data-action]:eq("+o+")").clicked();$(".progress_bar").progress()}),$.fn.loadSoundEffects=function(){$.each(sound_effects,function(o,t){var e=t;sound_effects[o]=document.createElement("audio"),sound_effects[o].setAttribute("src",e)})},$.fn.clicked=function(){$(this).on("click",function(){$(this).hasClass("disabled")||sound_effects.power_up.play()})},$.fn.cooldown=function(){var o=$(this),t=o.width(),e=1e3*Number(o.attr("data-cooldown")),n=o.find(".cooldown .progress"),s=$(n.selector);s.width()>=t&&(s.width(0),o.addClass("disabled")),s.animate({width:t},e,function(){o.removeClass("disabled"),setTimeout(function(){o.cooldown()},e+1e4)})},$.fn.progress=function(){var o=$(this),t=o.width(),e=o.find(".progressed"),n=$(e.selector);n.width()>=t&&n.width(0),n.animate({width:t},3e4,function(){setTimeout(function(){o.progress()},1e4)})};
+/*
+ * LiveButtons+
+ * @author: Ethan Lin, Mike Kellum
+ * @uri: https://github.com/oel-mediateam/lbplus
+ * @version: 0.0.1 (alpha)
+ * @license: The Artistic License 2.0
+ *
+ * Copyright (c) 2015 University of Wisconsin-Extension,
+ * Divison of Continuing Education, Outreach & E-Learning
+ *
+*/
+var soundEffects={click:"click",powerUp:"power_up"};$(document).ready(function(){$.fn.loadSoundEffects();for(var t=0;t<$(".btn[data-action]").length;t++)$(".btn[data-action]:eq("+t+")").cooldown(),$(".btn[data-action]:eq("+t+")").clicked();$(".progress_bar").progress()}),$.fn.loadSoundEffects=function(){$.each(soundEffects,function(t,o){var n=o;soundEffects[t]=document.createElement("audio"),soundEffects[t].setAttribute("src","sounds/"+n+".mp3")})},$.fn.clicked=function(){$(this).on("click",function(){$(this).hasClass("disabled")||soundEffects.powerUp.play()})},$.fn.cooldown=function(){var t=$(this),o=t.width(),n=1e3*Number(t.attr("data-cooldown")),e=t.find(".cooldown .progress"),s=$(e.selector);s.width()>=o&&(s.width(0),t.addClass("disabled")),s.animate({width:o},n,function(){t.removeClass("disabled"),setTimeout(function(){t.cooldown()},n+1e4)})},$.fn.progress=function(){var t=$(this),o=t.width(),n=t.find(".progressed"),e=$(n.selector);e.width()>=o&&e.width(0),e.animate({width:o},3e4,function(){setTimeout(function(){t.progress()},1e4)})};
 //# sourceMappingURL=./lbplus.js.map

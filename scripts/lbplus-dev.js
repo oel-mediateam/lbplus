@@ -1,12 +1,27 @@
-var sound_effects = {
+/*
+ * LiveButtons+
+ * @author: Ethan Lin, Mike Kellum
+ * @uri: https://github.com/oel-mediateam/lbplus
+ * @version: 0.0.1 (alpha)
+ * @license: The Artistic License 2.0
+ *
+ * Copyright (c) 2015 University of Wisconsin-Extension,
+ * Divison of Continuing Education, Outreach & E-Learning
+ *
+*/
 
-    'click': 'sounds/click.mp3',
-    'power_up': 'sounds/power_up.mp3'
+// sound effects (global object variable)
+var soundEffects = {
+
+    'click': 'click',
+    'powerUp': 'power_up'
 
 };
 
+// when the document is ready
 $( document ).ready( function() {
 
+    // load the sound effects object
     $.fn.loadSoundEffects();
 
     // FOR DEV/DEMO PURPOSES
@@ -22,26 +37,49 @@ $( document ).ready( function() {
 
 } );
 
+/**
+ * Load the sound effects object
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
 $.fn.loadSoundEffects = function() {
 
-    $.each( sound_effects, function( sound, src ) {
+    // loop through each properity in the soundEffects object
+    $.each( soundEffects, function( sound, src ) {
 
+        // hold the source/value of the current properity temporary
         var temp = src;
-        sound_effects[sound] = document.createElement( 'audio' );
-        sound_effects[sound].setAttribute( 'src', temp );
+
+        // create and assign an audio element to current properity
+        soundEffects[sound] = document.createElement( 'audio' );
+
+        // set the source of the audio to current properity
+        soundEffects[sound].setAttribute( 'src', 'sounds/' + temp + '.mp3' );
 
     } );
 
 };
 
-// action button clicked
+/**
+ * The click event to execute when an action button is clicked
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
 $.fn.clicked = function() {
 
     $( this ).on( 'click', function() {
 
         if ( !$( this ).hasClass( 'disabled' ) ) {
 
-            sound_effects.power_up.play();
+            soundEffects.powerUp.play();
 
         }
 
@@ -49,29 +87,37 @@ $.fn.clicked = function() {
 
 };
 
-// action button cooldown
+/**
+ * The cooldown event to execute when an action button triggered it
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
 $.fn.cooldown = function() {
 
     var button = $( this );
-    var button_width = button.width();
-    var cooldown_time_in_second = Number( button.attr( 'data-cooldown' ) ) * 1000;
-    var progress_bar_element = button.find( '.cooldown .progress' );
-    var progress_bar = $( progress_bar_element.selector );
+    var buttonWidth = button.width();
+    var cooldownTimeInSecond = Number( button.attr( 'data-cooldown' ) ) * 1000;
+    var cooldownBarElement = button.find( '.cooldown .progress' );
+    var cooldownBar = $( cooldownBarElement.selector );
 
     // FOR DEV PURPOSES
-    if ( progress_bar.width() >= button_width ) {
+    if ( cooldownBar.width() >= buttonWidth ) {
 
-        progress_bar.width( 0 );
+        cooldownBar.width( 0 );
         button.addClass( 'disabled' );
 
     }
     // END FOR DEV PURPOSES
 
-    progress_bar.animate( {
+    cooldownBar.animate( {
 
-        'width': button_width
+        'width': buttonWidth
 
-    }, cooldown_time_in_second, function() {
+    }, cooldownTimeInSecond, function() {
 
         button.removeClass( 'disabled' );
 
@@ -80,32 +126,41 @@ $.fn.cooldown = function() {
 
             button.cooldown();
 
-        }, (cooldown_time_in_second + 10000) );
+        }, (cooldownTimeInSecond + 10000) );
         // END FOR DEV PURPOSES
 
     } );
 
 };
 
-// video progress bar
+/**
+ * The animating of the video progress bar
+ * and updating of the timecode as the video is progressing
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
 $.fn.progress = function() {
 
-    var progress_bar = $( this );
-    var progress_bar_width = progress_bar.width();
-    var progressing_bar_element = progress_bar.find( '.progressed' );
-    var progressing_bar = $( progressing_bar_element.selector );
+    var progressBar = $( this );
+    var progressBarWidth = progressBar.width();
+    var progressingBarElement = progressBar.find( '.progressed' );
+    var progressingBar = $( progressingBarElement.selector );
 
     // FOR DEV PURPOSES
-    if ( progressing_bar.width() >= progress_bar_width ) {
+    if ( progressingBar.width() >= progressBarWidth ) {
 
-        progressing_bar.width( 0 );
+        progressingBar.width( 0 );
 
     }
     // END FOR DEV PURPOSES
 
-    progressing_bar.animate( {
+    progressingBar.animate( {
 
-        'width': progress_bar_width
+        'width': progressBarWidth
 
     }, 30000, function() {
 
@@ -113,7 +168,7 @@ $.fn.progress = function() {
 
         setTimeout( function() {
 
-            progress_bar.progress();
+            progressBar.progress();
 
         }, 10000 );
         // END FOR DEV PURPOSES
