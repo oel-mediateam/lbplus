@@ -193,8 +193,8 @@ code {
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions {
   width: 14.0625rem;
-  float: left;
   margin: 0 0 0 1.4375rem;
+  float: left;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions h4 {
   text-align: center;
@@ -389,7 +389,7 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
-  width: 20%;
+  width: 25%;
   height: 4.0625rem;
   font-size: 130%;
   padding-top: 1.25rem;
@@ -414,7 +414,7 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
-  width: 80%;
+  width: 75%;
   height: 4.0625rem;
   font-size: 130%;
   padding: 1.5rem 1rem;

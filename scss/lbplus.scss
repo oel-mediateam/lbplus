@@ -327,8 +327,8 @@ code {
             .lbplus_actions {
 
                 width: rem( 225px );
-                float: left;
                 margin: 0 0 0 rem( 23px );
+                float: left;
 
                 h4 {
 
@@ -498,7 +498,7 @@ code {
                 .icon {
 
                     @include button_icon();
-                    width: 20%;
+                    width: 25%;
                     height: rem( 65px );
                     font-size: 130%;
                     padding-top: rem( 20px );
@@ -508,7 +508,7 @@ code {
                 .action_name {
 
                     @include button_name();
-                    width: 80%;
+                    width: 75%;
                     height: rem( 65px );
                     font-size: 130%;
                     padding: rem( 24px ) rem( $gutter );
