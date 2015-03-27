@@ -63,14 +63,14 @@ html, body {
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  color: #1e1e1e;
+  color: #2f2f2f;
   line-height: 1.25rem;
 }
 
 h1, h2, h3, h4, h5, blockquote, h6 {
   margin: 1rem 0;
   font-weight: 100;
-  color: #2f2f2f;
+  color: #1e1e1e;
 }
 
 h6 {
@@ -131,7 +131,7 @@ blockquote:before {
   content: "\201C";
   font-family: Arial, "Lucida Grande", sans-serif;
   font-size: 250%;
-  color: #1e1e1e;
+  color: #2f2f2f;
   top: 0.3125rem;
   left: -1.25rem;
 }
@@ -146,7 +146,7 @@ em {
 
 hr {
   margin: 1rem 0;
-  border-top: 0.0625rem solid #1e1e1e;
+  border-top: 0.0625rem solid #2f2f2f;
   border-bottom-width: 0;
   border-left-width: 0;
   border-right-width: 0;
@@ -173,7 +173,7 @@ code {
   padding: 1.5625rem 1.5625rem 0 1.5625rem;
   overflow-x: hidden;
   overflow-y: auto;
-  border: 0.0625rem solid #2f2f2f;
+  border: 0.0625rem solid #1e1e1e;
   border-bottom: none;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -188,7 +188,7 @@ code {
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_media {
   width: 40rem;
   height: 22.5rem;
-  background: #1e1e1e;
+  background: #2f2f2f;
   float: left;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions {
@@ -199,7 +199,7 @@ code {
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions h4 {
   text-align: center;
   line-height: 1.25rem;
-  border-bottom: 1px dashed #1e1e1e;
+  border-bottom: 1px dashed #2f2f2f;
   padding-bottom: 10px;
   margin-top: 0;
   margin-bottom: 0;
@@ -313,39 +313,145 @@ code {
 }
 .lbplus_wrapper .lbplus_controls {
   height: 3.75rem;
-  background: #2f2f2f;
-  padding: 1.5625rem;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder {
+  background: #1e1e1e;
+  padding: 1.5625rem 1.5625rem 0;
+  height: 3.75rem;
+  float: left;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar {
   width: 40rem;
   height: 0.625rem;
   background: #888888;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar .progressed {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .progressed {
   display: block;
   width: 0;
   height: 0.625rem;
   background: #686868;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar .time {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .time {
   width: 100%;
   font-size: 70%;
   color: #fff;
   float: left;
   clear: both;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar .time .elapsed, .lbplus_wrapper .lbplus_controls .progress_bar .time .duration {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .time .elapsed, .lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .time .duration {
   display: block;
   width: 50%;
   float: left;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar .time .duration {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .time .duration {
   text-align: right;
 }
-.lbplus_wrapper .lbplus_controls .progress_bar .time:after {
+.lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar .time:after {
+  overflow: hidden;
+  *zoom: 1;
+}
+.lbplus_wrapper .lbplus_controls .main_controls {
+  width: 15.625rem;
+  height: 3.75rem;
+  float: left;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -0.625rem;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon {
+  display: block;
+  width: 20%;
+  height: 4.0625rem;
+  font-size: 130%;
+  text-align: center;
+  padding-top: 1.25rem;
+  background: #425fdd;
+  float: left;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon [class^="icon-"], .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon [class*=" icon-"] {
+  display: block;
+  margin-top: 0.125rem;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .action_name {
+  display: block;
+  width: 80%;
+  height: 4.0625rem;
+  font-size: 130%;
+  background: #354cb1;
+  padding: 1.5rem 1rem;
+  float: left;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .cooldown {
+  display: block;
+  width: 100%;
+  height: 0.3125rem;
+  background: #ccc;
+  clear: both;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .cooldown .progress {
+  display: block;
+  height: 0.3125rem;
+  background: #132988;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind:active .icon {
+  background: #1f3dc1;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind:active .action_name {
+  background: #18309c;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled {
+  cursor: default;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .icon {
+  background: #515151;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .action_name {
+  background: #424242;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -moz-transition: opacity 0.5s, background 0.5s;
+  -o-transition: opacity 0.5s, background 0.5s;
+  -webkit-transition: opacity 0.5s, background 0.5s;
+  transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind:after {
+  overflow: hidden;
+  *zoom: 1;
+}
+.lbplus_wrapper .lbplus_controls:after {
   overflow: hidden;
   *zoom: 1;
 }

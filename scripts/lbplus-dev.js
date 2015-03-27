@@ -28,7 +28,6 @@ $( document ).ready( function() {
     // FOR DEV/DEMO PURPOSES
     for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
 
-        $( '.btn[data-action]:eq('+i+')' ).cooldown();
         $( '.btn[data-action]:eq('+i+')' ).clicked();
 
     }
@@ -90,6 +89,8 @@ $.fn.clicked = function() {
 
             }
 
+            $( this ).cooldown();
+
         }
 
     } );
@@ -107,20 +108,19 @@ $.fn.clicked = function() {
  */
 $.fn.cooldown = function() {
 
+    var index = $( this ).index( '.btn' );
     var button = $( this );
     var buttonWidth = button.width();
     var cooldownTimeInSecond = Number( button.attr( 'data-cooldown' ) ) * 1000;
     var cooldownBarElement = button.find( '.cooldown .progress' );
-    var cooldownBar = $( cooldownBarElement.selector );
+    var cooldownBar = $( cooldownBarElement.selector + ':eq(' + index + ')' );
 
-    // FOR DEV PURPOSES
     if ( cooldownBar.width() >= buttonWidth ) {
 
         cooldownBar.width( 0 );
         button.addClass( 'disabled' );
 
     }
-    // END FOR DEV PURPOSES
 
     cooldownBar.animate( {
 
@@ -129,14 +129,6 @@ $.fn.cooldown = function() {
     }, cooldownTimeInSecond, function() {
 
         button.removeClass( 'disabled' );
-
-        // FOR DEV PURPOSES
-        setTimeout( function() {
-
-            button.cooldown();
-
-        }, (cooldownTimeInSecond + 10000) );
-        // END FOR DEV PURPOSES
 
     } );
 

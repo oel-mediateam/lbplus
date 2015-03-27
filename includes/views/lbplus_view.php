@@ -22,7 +22,7 @@
 
             <div class="btn" data-cooldown="6" data-action="btnTwo">
                 <span class="icon">Su</span>
-                <span class="action_name long">Shut up!<br />... and take my money!</span>
+                <span class="action_name long">Shut up! ... and take my money!</span>
                 <span class="cooldown"><span class="progress"></span></span>
             </div>
 
@@ -52,12 +52,24 @@
 
 <nav class="lbplus_controls">
 
-    <div class="progress_bar">
-        <span class="progressed"></span>
-        <div class="time">
-            <span class="elapsed">00:00</span>
-            <span class="duration">00:30</span>
+    <div class="progress_bar_holder">
+        <div class="progress_bar">
+            <span class="progressed"></span>
+            <div class="time">
+                <span class="elapsed">00:00</span>
+                <span class="duration">00:30</span>
+            </div>
         </div>
+    </div>
+
+    <div class="main_controls">
+
+        <div class="btn rewind" data-cooldown="3" data-action="btnRewind">
+            <span class="icon"><span class="icon-fire"></span></span>
+            <span class="action_name">More! More!</span>
+            <span class="cooldown"><span class="progress"></span></span>
+        </div>
+
     </div>
 
 </nav>

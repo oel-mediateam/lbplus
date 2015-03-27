@@ -1,7 +1,7 @@
 $defaultFont: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $fontSize: 16px;
-$defaultFontColor: #1e1e1e;
-$darkerFontColor: #2f2f2f;
+$defaultFontColor: #2f2f2f;
+$darkerFontColor: #1e1e1e;
 $gutter: 16px;
 
 // imports
@@ -385,59 +385,194 @@ code {
     .lbplus_controls {
 
         height: rem( 60px );
-        background: $darkerFontColor;
-        padding: rem( 25px );
         @include box-sizing( "border-box" );
 
-        .progress_bar {
+        .progress_bar_holder {
 
-            width: rem( 640px );
-            height: rem( 10px );
-            background: #888888;
+            background: $darkerFontColor;
+            padding: rem( 25px ) rem( 25px ) 0;
+            height: rem( 60px );
+            float: left;
 
-            .progressed {
+            @include box-sizing( "border-box" );
 
-                display: block;
-                width: 0;
+            .progress_bar {
+
+                width: rem( 640px );
                 height: rem( 10px );
-                background: #686868;
+                background: #888888;
 
-            }
-
-            .time {
-
-                width: 100%;
-                font-size: 70%;
-                color: #fff;
-                float: left;
-                clear: both;
-
-                .elapsed {
+                .progressed {
 
                     display: block;
-                    width: 50%;
-                    float: left;
+                    width: 0;
+                    height: rem( 10px );
+                    background: #686868;
 
                 }
 
-                .duration {
+                .time {
 
-                    @extend .elapsed;
-                    text-align: right;
+                    width: 100%;
+                    font-size: 70%;
+                    color: #fff;
+                    float: left;
+                    clear: both;
+
+                    .elapsed {
+
+                        display: block;
+                        width: 50%;
+                        float: left;
+
+                    }
+
+                    .duration {
+
+                        @extend .elapsed;
+                        text-align: right;
+
+                    }
+
+                }
+
+                .time:after {
+
+                    @include clearfix();
 
                 }
 
             }
 
-            .time:after {
+        }  // end progress_bar_holder
+
+        .main_controls {
+
+            width: rem( 250px );
+            height: rem( 60px );
+            float: left;
+
+            .btn.rewind {
+
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: rem( -10px );
+
+                .icon {
+
+                    display: block;
+                    width: 20%;
+                    height: rem( 65px );
+                    font-size: 130%;
+                    text-align: center;
+                    padding-top: rem( 20px );
+                    background: #425fdd;
+                    float: left;
+
+                    @include opacity( 1 );
+                    @include box-sizing( "border-box" );
+                    @include smooth_fade();
+
+                    [class^="icon-"], [class*=" icon-"] {
+
+                        display: block;
+                        margin-top: rem( 2px );
+
+                    }
+
+                }
+
+                .action_name {
+
+                    display: block;
+                    width: 80%;
+                    height: rem( 65px );
+                    font-size: 130%;
+                    background: #354cb1;
+                    padding: rem( 24px ) rem( $gutter );
+                    float: left;
+
+                    @include opacity( 1 );
+                    @include box-sizing( "border-box" );
+                    @include smooth_fade();
+
+                }
+
+                .cooldown {
+
+                    display: block;
+                    width: 100%;
+                    height: rem( 5px );
+                    background: #ccc;
+                    clear: both;
+
+                    .progress {
+
+                        display: block;
+                        height: rem( 5px );
+                        background: #132988;
+
+                    }
+
+                }
+
+            }
+
+            .btn.rewind:active {
+
+                .icon {
+
+                    background: #1f3dc1;
+
+                }
+
+                .action_name {
+
+                    background: #18309c;
+
+                }
+
+            }
+
+            .btn.rewind.disabled {
+
+                cursor: default;
+
+                .icon {
+
+                    background: #515151;
+                    @include opacity( .75 );
+                    @include smooth_fade();
+
+                }
+
+                .action_name {
+
+                    background: #424242;
+                    @include opacity( .75 );
+                    @include smooth_fade();
+
+                }
+
+            }
+
+            // clear fix
+            .btn.rewind:after {
 
                 @include clearfix();
 
             }
 
-        }
+        } // end main controls
 
     } // end controls
+
+    .lbplus_controls:after {
+
+        @include clearfix();
+
+    }
 
     // STATUS MESSAGE
     .lbplus_status_msg {
