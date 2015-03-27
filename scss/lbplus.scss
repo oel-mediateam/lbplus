@@ -13,10 +13,117 @@ $gutter: 16px;
 @import "compass/css3/transition";
 @import "compass/utilities/general/clearfix";
 
-// mixins
+// button mixins
 @mixin smooth_fade() {
 
     @include transition(opacity .5s, background .5s);
+
+}
+
+@mixin button() {
+
+    width: rem( 225px );
+    height: rem( 50px );
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin: rem( $gutter ) 0;
+
+}
+
+@mixin button_icon() {
+
+    display: block;
+    width: rem( 50px );
+    height: rem( 50px );
+    font-size: 115%;
+    text-align: center;
+    background: #425fdd;
+    padding-top: rem( 15px );
+    float: left;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+    [class^="icon-"], [class*=" icon-"] {
+
+        display: block;
+        margin-top: rem( 2px );
+
+    }
+
+}
+
+@mixin button_name() {
+
+    display: block;
+    width: rem( 175px );
+    height: rem( 50px );
+    padding: rem( $gutter ) rem( $gutter - 5 );
+    background: #354cb1;
+    float: left;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+}
+
+@mixin button_cooldown() {
+
+    display: block;
+    width: rem( 225px );
+    height: rem( 5px );
+    background: #ccc;
+    clear: both;
+
+    .progress {
+
+        display: block;
+        height: rem( 5px );
+        background: #132988;
+
+    }
+
+}
+
+@mixin button_active() {
+
+    .icon {
+
+        background: #1f3dc1;
+
+    }
+
+    .action_name {
+
+        background: #18309c;
+
+    }
+
+}
+
+@mixin button_disabled() {
+
+    color: #fafafa;
+    cursor: default;
+
+    .icon {
+
+        background: #515151;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
+
+    .action_name {
+
+        background: #424242;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
 
 }
 
@@ -236,49 +343,17 @@ code {
 
                 .btn {
 
-                    width: rem( 225px );
-                    height: rem( 50px );
-                    color: #fff;
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin: rem( $gutter ) 0;
+                    @include button();
 
                     .icon {
 
-                        display: block;
-                        width: rem( 50px );
-                        height: rem( 50px );
-                        font-size: 115%;
-                        text-align: center;
-                        background: #425fdd;
-                        padding-top: rem( 15px );
-                        float: left;
-
-                        @include opacity( 1 );
-                        @include box-sizing( "border-box" );
-                        @include smooth_fade();
-
-                        [class^="icon-"], [class*=" icon-"] {
-
-                            display: block;
-                            margin-top: rem( 2px );
-
-                        }
+                        @include button_icon();
 
                     }
 
                     .action_name {
 
-                        display: block;
-                        width: rem( 175px );
-                        height: rem( 50px );
-                        padding: rem( $gutter ) rem( $gutter - 5 );
-                        background: #354cb1;
-                        float: left;
-
-                        @include opacity( 1 );
-                        @include box-sizing( "border-box" );
-                        @include smooth_fade();
+                        @include button_name();
 
                     }
 
@@ -292,19 +367,7 @@ code {
 
                     .cooldown {
 
-                        display: block;
-                        width: rem( 225px );
-                        height: rem( 5px );
-                        background: #ccc;
-                        clear: both;
-
-                        .progress {
-
-                            display: block;
-                            height: rem( 5px );
-                            background: #132988;
-
-                        }
+                        @include button_cooldown();
 
                     }
 
@@ -312,40 +375,13 @@ code {
 
                 .btn:active {
 
-                    .icon {
-
-                        background: #1f3dc1;
-
-                    }
-
-                    .action_name {
-
-                        background: #18309c;
-
-                    }
+                    @include button_active();
 
                 }
 
                 .btn.disabled {
 
-                    color: #fafafa;
-                    cursor: default;
-
-                    .icon {
-
-                        background: #515151;
-                        @include opacity( .75 );
-                        @include smooth_fade();
-
-                    }
-
-                    .action_name {
-
-                        background: #424242;
-                        @include opacity( .75 );
-                        @include smooth_fade();
-
-                    }
+                    @include button_disabled();
 
                 }
 
@@ -454,66 +490,35 @@ code {
 
             .btn.rewind {
 
-                color: #fff;
-                font-weight: bold;
-                cursor: pointer;
+
+                @include button();
+                width: 100%;
                 margin-top: rem( -10px );
 
                 .icon {
 
-                    display: block;
+                    @include button_icon();
                     width: 20%;
                     height: rem( 65px );
                     font-size: 130%;
-                    text-align: center;
                     padding-top: rem( 20px );
-                    background: #425fdd;
-                    float: left;
-
-                    @include opacity( 1 );
-                    @include box-sizing( "border-box" );
-                    @include smooth_fade();
-
-                    [class^="icon-"], [class*=" icon-"] {
-
-                        display: block;
-                        margin-top: rem( 2px );
-
-                    }
 
                 }
 
                 .action_name {
 
-                    display: block;
+                    @include button_name();
                     width: 80%;
                     height: rem( 65px );
                     font-size: 130%;
-                    background: #354cb1;
                     padding: rem( 24px ) rem( $gutter );
-                    float: left;
-
-                    @include opacity( 1 );
-                    @include box-sizing( "border-box" );
-                    @include smooth_fade();
 
                 }
 
                 .cooldown {
 
-                    display: block;
+                    @include button_cooldown();
                     width: 100%;
-                    height: rem( 5px );
-                    background: #ccc;
-                    clear: both;
-
-                    .progress {
-
-                        display: block;
-                        height: rem( 5px );
-                        background: #132988;
-
-                    }
 
                 }
 
@@ -521,39 +526,13 @@ code {
 
             .btn.rewind:active {
 
-                .icon {
-
-                    background: #1f3dc1;
-
-                }
-
-                .action_name {
-
-                    background: #18309c;
-
-                }
+                @include button_active();
 
             }
 
             .btn.rewind.disabled {
 
-                cursor: default;
-
-                .icon {
-
-                    background: #515151;
-                    @include opacity( .75 );
-                    @include smooth_fade();
-
-                }
-
-                .action_name {
-
-                    background: #424242;
-                    @include opacity( .75 );
-                    @include smooth_fade();
-
-                }
+                @include button_disabled();
 
             }
 

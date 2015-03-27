@@ -362,19 +362,23 @@ code {
   float: left;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind {
+  width: 14.0625rem;
+  height: 3.125rem;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  margin: 1rem 0;
+  width: 100%;
   margin-top: -0.625rem;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon {
   display: block;
-  width: 20%;
-  height: 4.0625rem;
-  font-size: 130%;
+  width: 3.125rem;
+  height: 3.125rem;
+  font-size: 115%;
   text-align: center;
-  padding-top: 1.25rem;
   background: #425fdd;
+  padding-top: 0.9375rem;
   float: left;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
@@ -385,6 +389,10 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
+  width: 20%;
+  height: 4.0625rem;
+  font-size: 130%;
+  padding-top: 1.25rem;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon [class^="icon-"], .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon [class*=" icon-"] {
   display: block;
@@ -392,11 +400,10 @@ code {
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .action_name {
   display: block;
-  width: 80%;
-  height: 4.0625rem;
-  font-size: 130%;
+  width: 10.9375rem;
+  height: 3.125rem;
+  padding: 1rem 0.6875rem;
   background: #354cb1;
-  padding: 1.5rem 1rem;
   float: left;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
@@ -407,13 +414,18 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
+  width: 80%;
+  height: 4.0625rem;
+  font-size: 130%;
+  padding: 1.5rem 1rem;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .cooldown {
   display: block;
-  width: 100%;
+  width: 14.0625rem;
   height: 0.3125rem;
   background: #ccc;
   clear: both;
+  width: 100%;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .cooldown .progress {
   display: block;
@@ -427,6 +439,7 @@ code {
   background: #18309c;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled {
+  color: #fafafa;
   cursor: default;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .icon {
