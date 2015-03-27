@@ -38,7 +38,7 @@
                 <span class="cooldown"><span class="progress"></span></span>
             </div>
 
-            <div class="btn" data-cooldown="7" data-action="btnFive">
+            <div class="btn odd" data-cooldown="7" data-action="btnFive">
                 <span class="icon"><span class="icon-power"></span></span>
                 <span class="action_name">Power up!</span>
                 <span class="cooldown"><span class="progress"></span></span>

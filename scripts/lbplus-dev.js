@@ -14,7 +14,8 @@
 var soundEffects = {
 
     'click': 'click',
-    'powerUp': 'power_up'
+    'powerUp': 'power_up',
+    'odd': 'no_mercy'
 
 };
 
@@ -79,7 +80,15 @@ $.fn.clicked = function() {
 
         if ( !$( this ).hasClass( 'disabled' ) ) {
 
-            soundEffects.powerUp.play();
+            if ( $( this ).hasClass( 'odd' ) ) {
+
+                soundEffects.odd.play();
+
+            } else {
+
+                soundEffects.powerUp.play();
+
+            }
 
         }
 
