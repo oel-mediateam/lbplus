@@ -19,6 +19,9 @@ var soundEffects = {
 
 };
 
+
+/****** CORE *******/
+
 // when the document is ready
 $( document ).ready( function() {
 
@@ -36,6 +39,8 @@ $( document ).ready( function() {
     // END FOR DEV/DEMO PURPOSES
 
 } );
+
+/****** HELPER / EVENT FUNCITONS *******/
 
 /**
  * Load the sound effects object
