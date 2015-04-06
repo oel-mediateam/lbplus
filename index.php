@@ -36,5 +36,5 @@
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/lbplus.js" type="text/javascript"></script>
-    <script src="vendors/ytiframe.js" type="text/javascript"></script
+    <script src="vendors/ytiframe.js" type="text/javascript"></script>
 </html>

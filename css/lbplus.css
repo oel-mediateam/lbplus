@@ -205,12 +205,28 @@ code {
   margin-bottom: 0;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn {
+  position: relative;
   width: 14.0625rem;
   height: 3.125rem;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   margin: 1rem 0;
+  position: relative;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .limits {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: normal;
+  padding: 0.1875rem 0.3125rem 0.125rem;
+  top: -0.3125rem;
+  right: -0.3125rem;
+  background-color: #ef3737;
+  -moz-border-radius: 0.1875rem;
+  -webkit-border-radius: 0.1875rem;
+  border-radius: 0.1875rem;
+  z-index: 10;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon {
   display: block;
@@ -278,6 +294,9 @@ code {
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled {
   color: #fafafa;
   cursor: default;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled .limits {
+  background: #2e2b2b;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled .icon {
   background: #515151;
@@ -362,6 +381,7 @@ code {
   float: left;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind {
+  position: relative;
   width: 14.0625rem;
   height: 3.125rem;
   color: #fff;
@@ -370,6 +390,22 @@ code {
   margin: 1rem 0;
   width: 100%;
   margin-top: -0.625rem;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .limits {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: normal;
+  padding: 0.1875rem 0.3125rem 0.125rem;
+  top: -0.3125rem;
+  right: -0.3125rem;
+  background-color: #ef3737;
+  -moz-border-radius: 0.1875rem;
+  -webkit-border-radius: 0.1875rem;
+  border-radius: 0.1875rem;
+  z-index: 10;
+  top: -0.3125rem;
+  right: 0.3125rem;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon {
   display: block;
@@ -441,6 +477,9 @@ code {
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled {
   color: #fafafa;
   cursor: default;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .limits {
+  background: #2e2b2b;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .icon {
   background: #515151;

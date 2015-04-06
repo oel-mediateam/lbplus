@@ -9,6 +9,7 @@ $gutter: 16px;
 @import "compass/reset";
 @import "compass/css3/animation";
 @import "compass/css3/box-sizing";
+@import "compass/css3/border-radius";
 @import "compass/css3/opacity";
 @import "compass/css3/transition";
 @import "compass/utilities/general/clearfix";
@@ -22,12 +23,29 @@ $gutter: 16px;
 
 @mixin button() {
 
+    position: relative;
     width: rem( 225px );
     height: rem( 50px );
     color: #fff;
     font-weight: bold;
     cursor: pointer;
     margin: rem( $gutter ) 0;
+
+}
+
+@mixin button_limits() {
+
+    position: absolute;
+    font-size: rem( 12px );
+    font-weight: normal;
+    line-height: normal;
+    padding: rem( 3px ) rem( 5px ) rem( 2px );
+    top: rem( -5px );
+    right: rem( -5px );
+    background-color: #ef3737;
+    @include border-radius( rem( 3px ) );
+    z-index: 10;
+
 
 }
 
@@ -108,6 +126,12 @@ $gutter: 16px;
 
     color: #fafafa;
     cursor: default;
+
+    .limits {
+
+        background: #2e2b2b;
+
+    }
 
     .icon {
 
@@ -344,6 +368,13 @@ code {
                 .btn {
 
                     @include button();
+                    position: relative;
+
+                    .limits {
+
+                        @include button_limits();
+
+                    }
 
                     .icon {
 
@@ -494,6 +525,14 @@ code {
                 @include button();
                 width: 100%;
                 margin-top: rem( -10px );
+
+                .limits {
+
+                    @include button_limits();
+                    top: rem( -5px );
+                    right: rem( 5px );
+
+                }
 
                 .icon {
 
