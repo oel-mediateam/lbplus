@@ -456,12 +456,45 @@ code {
 
         .progress_bar_holder {
 
+            position: relative;
             background: $darkerFontColor;
             padding: rem( 25px ) rem( 25px ) 0;
             height: rem( 60px );
             float: left;
 
             @include box-sizing( "border-box" );
+
+            .tag {
+
+                position: absolute;
+                width: rem( 30px );
+                height: rem( 22px );
+                top: rem( -15px );
+                left: 0;
+                font-size: rem( 14px );
+                text-align: center;
+                line-height: rem( 14px );
+                color: #fff;
+                background-color: #3fb33f;
+                padding: rem( 8px ) 0 0;
+                @include border-radius( 50% );
+
+            }
+
+            .tag:after {
+
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	bottom: rem( -9px );
+            	left: rem( 7px );
+            	border-left: 8px solid transparent;
+            	border-right: 8px solid transparent;
+            	border-top: 15px solid #3fb33f;
+
+            }
 
             .progress_bar {
 
