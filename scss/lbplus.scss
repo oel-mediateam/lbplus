@@ -446,7 +446,86 @@ code {
 
         }
 
+        // score wrapper
+        .score_view {
+
+            margin-top: rem( $gutter * -1 );
+
+            .actions_results {
+
+                width: rem( 296px );
+                padding: 0 rem( 10px );
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                p:nth-of-type(odd) {
+
+                    font-size: rem( 18px );
+                    font-weight: 500;
+
+                }
+
+            }
+
+            .miss-hits {
+
+                width: rem( 296px );
+                padding: 0 rem( 10px );
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                p:first-child {
+
+                    margin: rem( $gutter ) 0;
+
+                }
+
+                p {
+
+                    margin: rem( $gutter / 2 ) 0;
+
+                }
+
+            }
+
+            .percentage {
+
+                width: rem( 296px );
+                padding: rem( 125px ) rem( 10px ) 0;
+                text-align: center;
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                .percent {
+
+                    display: block;
+                    font-size: rem( 46px );
+                    line-height: rem( 46px );
+                    font-weight: bold;
+
+                }
+
+                .status {
+
+                    display: block;
+                    font-size: rem( 26px );
+                    line-height: rem( 26px );
+                    font-style: italic;
+                    margin-top: rem( $gutter );
+
+                }
+
+            }
+
+        } // end score_view
+
     } // end content
+
+    .score_view:after {
+
+        @include clearfix();
+
+    }
 
     // CONTROLS
     .lbplus_controls {
@@ -468,7 +547,7 @@ code {
             .tag {
 
                 position: absolute;
-                width: rem( 30px );
+                width: rem( 29px );
                 height: rem( 22px );
                 top: rem( -15px );
                 left: 0;
@@ -477,7 +556,7 @@ code {
                 line-height: rem( 14px );
                 color: #fff;
                 background-color: #3fb33f;
-                padding: rem( 8px ) 0 0;
+                padding: rem( 8px ) 0 0 rem( 1px );
                 @include border-radius( 50% );
 
             }
@@ -551,6 +630,7 @@ code {
 
             width: rem( 250px );
             height: rem( 60px );
+            color: #fff;
             float: left;
 
             .btn.rewind {

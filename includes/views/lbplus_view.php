@@ -74,6 +74,7 @@
         </div>
     </div>
 
+
     <div class="main_controls">
 
         <div class="btn rewind" data-cooldown="3" data-action="btnRewind">

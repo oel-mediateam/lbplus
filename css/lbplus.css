@@ -330,6 +330,61 @@ code {
   overflow: hidden;
   *zoom: 1;
 }
+.lbplus_wrapper .lbplus_view .score_view {
+  margin-top: -1rem;
+}
+.lbplus_wrapper .lbplus_view .score_view .actions_results {
+  width: 18.5rem;
+  padding: 0 0.625rem;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .score_view .actions_results p:nth-of-type(odd) {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.lbplus_wrapper .lbplus_view .score_view .miss-hits {
+  width: 18.5rem;
+  padding: 0 0.625rem;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .score_view .miss-hits p:first-child {
+  margin: 1rem 0;
+}
+.lbplus_wrapper .lbplus_view .score_view .miss-hits p {
+  margin: 0.5rem 0;
+}
+.lbplus_wrapper .lbplus_view .score_view .percentage {
+  width: 18.5rem;
+  padding: 7.8125rem 0.625rem 0;
+  text-align: center;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+}
+.lbplus_wrapper .lbplus_view .score_view .percentage .percent {
+  display: block;
+  font-size: 2.875rem;
+  line-height: 2.875rem;
+  font-weight: bold;
+}
+.lbplus_wrapper .lbplus_view .score_view .percentage .status {
+  display: block;
+  font-size: 1.625rem;
+  line-height: 1.625rem;
+  font-style: italic;
+  margin-top: 1rem;
+}
+.lbplus_wrapper .score_view:after {
+  overflow: hidden;
+  *zoom: 1;
+}
 .lbplus_wrapper .lbplus_controls {
   height: 3.75rem;
   background: #1e1e1e;
@@ -349,7 +404,7 @@ code {
 }
 .lbplus_wrapper .lbplus_controls .progress_bar_holder .tag {
   position: absolute;
-  width: 1.875rem;
+  width: 1.8125rem;
   height: 1.375rem;
   top: -0.9375rem;
   left: 0;
@@ -358,7 +413,7 @@ code {
   line-height: 0.875rem;
   color: #fff;
   background-color: #3fb33f;
-  padding: 0.5rem 0 0;
+  padding: 0.5rem 0 0 0.0625rem;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -408,6 +463,7 @@ code {
 .lbplus_wrapper .lbplus_controls .main_controls {
   width: 15.625rem;
   height: 3.75rem;
+  color: #fff;
   float: left;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind {

@@ -32,6 +32,7 @@
                 ?>
 
         </main>
+        <!-- removed in production -->
         <div class="switch-view">
             <h2>
                 <?php
