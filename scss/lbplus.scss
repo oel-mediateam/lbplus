@@ -452,6 +452,7 @@ code {
     .lbplus_controls {
 
         height: rem( 60px );
+        background: $darkerFontColor;
         @include box-sizing( "border-box" );
 
         .progress_bar_holder {
@@ -605,6 +606,18 @@ code {
             .btn.rewind.disabled {
 
                 @include button_disabled();
+
+                .icon {
+
+                    @include opacity( 1 );
+
+                }
+
+                .action_name {
+
+                    @include opacity( 1 );
+
+                }
 
             }
 

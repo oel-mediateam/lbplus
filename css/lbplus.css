@@ -332,6 +332,7 @@ code {
 }
 .lbplus_wrapper .lbplus_controls {
   height: 3.75rem;
+  background: #1e1e1e;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -527,6 +528,14 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .icon {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .action_name {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind:after {
   overflow: hidden;

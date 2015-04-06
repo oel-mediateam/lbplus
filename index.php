@@ -1,20 +1,15 @@
 <?php
 
     // DEV ONLY
-    // 1 is lbplus view; 0 is score view
+    if ( isset( $_POST['switch'] ) ) {
 
-    $request_view = 1;
-
-    if ( $request_view ) {
-
-        $view = 'includes/views/lbplus_view.php';
+        $view = $_POST['view'];
 
     } else {
 
-        $view = 'includes/views/score_view.php';
+        $view = 'tool';
 
     }
-
 
 ?>
 
@@ -30,9 +25,26 @@
     <body>
         <main class="lbplus_wrapper" role="main">
 
-                <?php include_once $view; ?>
+                <?php
+
+                    ( $view === 'score' ) ? include_once 'includes/views/score_view.php' : include_once 'includes/views/lbplus_view.php';
+
+                ?>
 
         </main>
+        <div class="switch-view">
+            <h2>
+                <?php
+
+                    echo ( $view === 'score' ) ? 'Score Interface View' : '"Tool" Interface View';
+
+                ?>
+            </h2>
+            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <input type="hidden" name="view" value="<?php echo ( $view === 'score' ) ? 'tool' : 'score'; ?>" />
+                <input type="submit" name="switch" value="<?php echo ( $view === 'score' ) ? 'Show Tool View' : 'Show Score View'; ?>" />
+            </form>
+        </div>
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/lbplus.js" type="text/javascript"></script>
