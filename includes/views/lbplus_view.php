@@ -7,8 +7,8 @@
     <div class="lbplus_interaction_wrapper">
 
         <div class="lbplus_media">
-            <div class="overlay"></div>
-            <iframe src="//www.youtube-nocookie.com/embed/GCRgfImEqaY?rel=0&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <div class="overlay"><div id="videoPlayBtn">START</div></div>
+            <div id="ytv" data-videoId="68CNzwinqlg"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -69,8 +69,8 @@
         <div class="progress_bar">
             <span class="progressed"></span>
             <div class="time">
-                <span class="elapsed">00:00</span>
-                <span class="duration">00:30</span>
+                <span class="elapsed">--:--</span>
+                <span class="duration">--:--</span>
             </div>
         </div>
     </div>

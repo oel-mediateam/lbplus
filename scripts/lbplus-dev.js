@@ -10,12 +10,24 @@
  *
 */
 
+/* global YT */
+/* global moment */
+
 // sound effects (global object variable)
 var soundEffects = {
 
     'click': 'click',
     'powerUp': 'power_up',
     'odd': 'no_mercy'
+
+};
+
+// video object
+var video = {
+
+    'player': null,
+    'selector': 'ytv',
+    'vId': null
 
 };
 
@@ -27,6 +39,12 @@ $( document ).ready( function() {
 
     // load the sound effects object
     $.fn.loadSoundEffects();
+
+    // get/set YouTube video ID
+    video.vId = $( '#' + video.selector ).attr( 'data-videoId' );
+
+    // load YouTube video
+    $.fn.loadYouTubeAPI();
 
     // add clicked event listener to all action buttons
     for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
@@ -71,6 +89,27 @@ $.fn.loadSoundEffects = function() {
 };
 
 /**
+ * Load YouTube API and video
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param string, string
+ * @return void
+ *
+ */
+
+$.fn.loadYouTubeAPI = function() {
+
+    // insert YouTube API scripts to HTML head
+    var tag = document.createElement('script');
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+};
+
+/**
  * The click event to execute when an action button is clicked
  * @author Ethan Lin
  * @since 0.0.1
@@ -95,6 +134,7 @@ $.fn.clicked = function() {
 
             }
 
+            $( '.dev-log' ).append( $(this).attr('data-action') + " @ " + ( video.player.getCurrentTime() * 1000 ) + ' <br />' );
             $( this ).cooldown();
 
         }
@@ -220,6 +260,62 @@ $.fn.progress = function() {
  };
 
 
+/****** YOUTUBE API FUNCITONS *******/
+
+function onYouTubeIframeAPIReady() {
+
+    video.player = new YT.Player( video.selector, {
+
+        width: '649',
+        height: '360',
+        videoId: video.vId,
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'disablekb': 1,
+            'enablejsapi': 1,
+            'iv_load_policy': 3,
+            'loop': 0,
+            'modestbranding': 1,
+            'rel': 0,
+            'showinfo': 0
+        },
+        events: {
+
+            'onReady': onPlayerReady,
+
+        }
+
+    } );
+
+}
+
+function onPlayerReady() {
+
+    var duration = video.player.getDuration();
+    duration = duration * 1000;
+    duration = moment(duration).format('mm:ss');
+
+    $( '.progress_bar .time .duration' ).html( duration );
+
+    loadCustomYouTubeEvents();
+
+}
+
+function loadCustomYouTubeEvents() {
+
+    $( '#videoPlayBtn' ).on( 'click', function() {
+
+        $( this ).remove();
+
+        video.player.playVideo();
+
+        //dev purposes
+        $( '#stopVideoBtn' ).removeAttr('disabled');
+
+    } );
+
+}
 
 
 
