@@ -134,8 +134,11 @@ $.fn.clicked = function() {
 
             }
 
-            $( '.dev-log' ).append( $(this).attr('data-action') + " @ " + ( video.player.getCurrentTime() * 1000 ) + ' <br />' );
             $( this ).cooldown();
+
+            // dev purpose
+            $( '.dev-log' ).append( $(this).attr('data-action') + " @ " + ( video.player.getCurrentTime() * 1000 ) + ' <br />' );
+            // end dev purpose
 
         }
 
@@ -197,30 +200,11 @@ $.fn.progress = function() {
     var progressingBarElement = progressBar.find( '.progressed' );
     var progressingBar = $( progressingBarElement.selector );
 
-    // FOR DEV PURPOSES
-    if ( progressingBar.width() >= progressBarWidth ) {
-
-        progressingBar.width( 0 );
-
-    }
-    // END FOR DEV PURPOSES
-
     progressingBar.animate( {
 
         'width': progressBarWidth
 
-    }, 30000, function() {
-
-        // FOR DEV PURPOSES
-
-        setTimeout( function() {
-
-            progressBar.progress();
-
-        }, 10000 );
-        // END FOR DEV PURPOSES
-
-    } );
+    }, 30000);
 
 };
 
@@ -259,7 +243,6 @@ $.fn.progress = function() {
 
  };
 
-
 /****** YOUTUBE API FUNCITONS *******/
 
 function onYouTubeIframeAPIReady() {
@@ -283,6 +266,7 @@ function onYouTubeIframeAPIReady() {
         events: {
 
             'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
 
         }
 
@@ -302,6 +286,27 @@ function onPlayerReady() {
 
 }
 
+function onPlayerStateChange( event ) {
+
+    // dev purposes
+    var states = ['ended','playing','paused','buffering', ,'video cued'];
+    var status = null;
+
+    if ( event.target.getPlayerState() === -1 ) {
+
+        status = 'unstarted';
+
+    } else {
+
+        status = states[event.target.getPlayerState()];
+
+    }
+
+    $( '.dev-log' ).append( status + '<br />');
+    // end dev
+
+}
+
 function loadCustomYouTubeEvents() {
 
     $( '#videoPlayBtn' ).on( 'click', function() {
@@ -310,8 +315,9 @@ function loadCustomYouTubeEvents() {
 
         video.player.playVideo();
 
-        //dev purposes
+        // dev purposes
         $( '#stopVideoBtn' ).removeAttr('disabled');
+        // end dev
 
     } );
 
