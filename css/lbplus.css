@@ -163,6 +163,7 @@ code {
 
 /******** LB PLUS ********/
 .lbplus_wrapper {
+  position: relative;
   width: 58.75rem;
   height: 33.0625rem;
   margin: 0 auto;
@@ -192,10 +193,21 @@ code {
   user-select: none;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_media {
+  position: relative;
   width: 40rem;
   height: 22.5rem;
   background: #2f2f2f;
   float: left;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_media .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_media iframe {
+  width: 100%;
+  height: 100%;
 }
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions {
   width: 14.0625rem;
@@ -716,6 +728,35 @@ code {
   -webkit-user-select: none;
   user-select: none;
 }
+.lbplus_wrapper .transition_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  padding: 8.75rem 1rem 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 99;
+}
+.lbplus_wrapper .transition_overlay .heading, .lbplus_wrapper .transition_overlay .loading {
+  font-size: 400%;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 100;
+  line-height: normal;
+}
+.lbplus_wrapper .transition_overlay .subheading {
+  text-align: center;
+  font-size: 120%;
+  font-weight: 200;
+  line-height: normal;
+}
+.lbplus_wrapper .transition_overlay .loading {
+  margin-top: 1rem;
+}
 
 /* ANIMATIONS */
 .blink {
@@ -731,6 +772,28 @@ code {
   -moz-animation-iteration-count: infinite;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
+}
+
+.spin {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+  -moz-animation-name: spin;
+  -webkit-animation-name: spin;
+  animation-name: spin;
+  -moz-animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -moz-transform-origin: center center;
+  -ms-transform-origin: center center;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
 }
 
 @-moz-keyframes blink {
@@ -764,5 +827,39 @@ code {
   }
   100% {
     opacity: 1;
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

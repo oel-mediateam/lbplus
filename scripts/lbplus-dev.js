@@ -28,13 +28,14 @@ $( document ).ready( function() {
     // load the sound effects object
     $.fn.loadSoundEffects();
 
-    // FOR DEV/DEMO PURPOSES
+    // add clicked event listener to all action buttons
     for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
 
         $( '.btn[data-action]:eq('+i+')' ).clicked();
 
     }
 
+    // FOR DEV/DEMO PURPOSES
     $( '.progress_bar' ).progress();
     // END FOR DEV/DEMO PURPOSES
 
@@ -183,7 +184,40 @@ $.fn.progress = function() {
 
 };
 
+/**
+ * Displaying the transition overlay
+ * with dynamic messages
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param string, string
+ * @return void
+ *
+ */
+ $.fn.showTransition = function( heading, subheading ) {
 
+    $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
+    $( '.transition_overlay' ).css('display','none').fadeIn();
+
+ };
+
+ /**
+ * Hiding the transition overlay
+ * and remove from DOM after completion
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param string, string
+ * @return void
+ *
+ */
+ $.fn.hideTransition = function() {
+
+    $( '.transition_overlay' ).fadeOut( function() {
+        $( this ).remove();
+    } );
+
+ };
 
 
 

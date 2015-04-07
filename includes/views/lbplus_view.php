@@ -7,7 +7,8 @@
     <div class="lbplus_interaction_wrapper">
 
         <div class="lbplus_media">
-            <iframe width="640" height="360" src="//www.youtube-nocookie.com/embed/GCRgfImEqaY?rel=0&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <div class="overlay"></div>
+            <iframe src="//www.youtube-nocookie.com/embed/GCRgfImEqaY?rel=0&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
 
         <div class="lbplus_actions">

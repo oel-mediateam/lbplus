@@ -23,6 +23,7 @@
         <link href="css/demo.css" rel="stylesheet" type="text/css" media="all" /> <!-- demo css; remove for live -->
     </head>
     <body>
+
         <main class="lbplus_wrapper" role="main">
 
                 <?php
@@ -45,13 +46,44 @@
             <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <input type="hidden" name="view" value="<?php echo ( $view === 'score' ) ? 'tool' : 'score'; ?>" />
                 <input type="submit" name="switch" value="<?php echo ( $view === 'score' ) ? 'Show Tool View' : 'Show Score View'; ?>" />
-                <button type="button">Show Transition Overlay</button>
+                <button type="button" id="transitionBtn">Show Transition Overlay</button>
             </form>
         </div>
         <!-- removed in production -->
 
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
-    <script src="scripts/lbplus.js" type="text/javascript"></script>
     <script src="vendors/ytiframe.js" type="text/javascript"></script>
+    <script src="scripts/lbplus.js" type="text/javascript"></script>
+
+    <!-- removed in production -->
+    <script type="text/javascript">
+        $( document ).ready( function() {
+
+            var clicked = 0;
+
+            $( '#transitionBtn' ).on( 'click', function() {
+
+                if ( clicked === 0) {
+
+                    $( '.lbplus_wrapper' ).showTransition( 'Something Completed', 'Calculating something. Please wait...forever.' );
+                    $( this ).html( 'Hide Transition Overlay' );
+
+                    clicked = 1;
+
+                } else {
+
+                    $( this ).hideTransition();
+                    $( this ).html( 'Show Transition Overlay' );
+
+                    clicked = 0;
+
+                }
+
+            } );
+
+        } );
+    </script>
+    <!-- removed in production -->
+
 </html>

@@ -13,6 +13,7 @@ $gutter: 16px;
 @import "compass/css3/opacity";
 @import "compass/css3/transition";
 @import "compass/css3/user-interface";
+@import "compass/css3/transform";
 @import "compass/utilities/general/clearfix";
 
 // button mixins
@@ -313,6 +314,7 @@ code {
 
 .lbplus_wrapper {
 
+    position: relative;
     width: rem( 940px );
     height: rem( 529px );
     margin: 0 auto;
@@ -338,20 +340,37 @@ code {
         // INTERACTION (MEDIA & ACTIONS)
         .lbplus_interaction_wrapper {
 
+            margin-bottom: 0;
+
             * {
 
             	@include user-select(none);
 
         	}
 
-            margin-bottom: 0;
-
             .lbplus_media {
 
+                position: relative;
                 width: rem( 640px );
                 height: rem( 360px );
                 background: $defaultFontColor;
                 float: left;
+
+                .overlay {
+
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+
+                }
+
+                iframe {
+
+                    width: 100%;
+                    height: 100%;
+
+                }
 
             }
 
@@ -872,6 +891,46 @@ code {
 
     }
 
+    // TRANSITION OVERLAY
+    .transition_overlay {
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        padding: rem( 140px ) rem( $gutter ) 0;
+        @include opacity( .90 );
+        @include box-sizing( 'border-box' );
+        z-index: 99;
+
+        .heading {
+
+            font-size: 400%;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 100;
+            line-height: normal;
+
+        }
+
+        .subheading {
+
+            text-align: center;
+            font-size: 120%;
+            font-weight: 200;
+            line-height: normal;
+
+        }
+
+        .loading {
+
+            @extend .heading;
+            margin-top: rem( $gutter );
+
+        }
+
+    }
+
 } // end lbplus_wrapper
 
 /* ANIMATIONS */
@@ -881,6 +940,19 @@ code {
     @include animation-properties( (animation-duration: 2s) );
     @include animation-properties( (animation-timing-function: ease-in-out) );
     @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+.spin {
+
+    display: inline-block;
+    width: rem( 64px );
+    height: rem( 64px );
+    @include animation-properties( (animation-name: spin) );
+    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-timing-function: linear) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+    @include transform-origin(center, center);
 
 }
 
@@ -901,6 +973,22 @@ code {
     100% {
 
         @include opacity( 1 );
+
+    }
+
+}
+
+@include keyframes( spin ) {
+
+    from {
+
+        @include rotate( 0deg );
+
+    }
+
+    to {
+
+        @include rotate( 360deg );
 
     }
 
