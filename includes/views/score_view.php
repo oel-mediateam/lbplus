@@ -69,9 +69,33 @@
 
 <nav class="lbplus_controls">
 
-    <div class="main_controls">
+    <div class="main_controls score_view">
 
-        <p>Retake | New | Next buttons here</p>
+        <div class="left">&nbsp;</div>
+
+        <div class="center">
+
+            <div class="btn new">
+                <span class="action_name">New</span>
+            </div>
+
+            <div class="btn retake">
+                <span class="action_name">Retake</span>
+            </div>
+
+        </div>
+
+        <div class="right">
+
+            <div class="btn previous">
+                <span class="action_name">Previous</span>
+            </div>
+
+            <div class="btn next">
+                <span class="action_name">Next</span>
+            </div>
+
+        </div>
 
     </div>
 

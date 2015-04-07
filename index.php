@@ -1,9 +1,9 @@
 <?php
 
     // DEV ONLY
-    if ( isset( $_POST['switch'] ) ) {
+    if ( isset( $_GET['switch'] ) ) {
 
-        $view = $_POST['view'];
+        $view = $_GET['view'];
 
     } else {
 
@@ -32,6 +32,7 @@
                 ?>
 
         </main>
+
         <!-- removed in production -->
         <div class="switch-view">
             <h2>
@@ -41,11 +42,14 @@
 
                 ?>
             </h2>
-            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <input type="hidden" name="view" value="<?php echo ( $view === 'score' ) ? 'tool' : 'score'; ?>" />
                 <input type="submit" name="switch" value="<?php echo ( $view === 'score' ) ? 'Show Tool View' : 'Show Score View'; ?>" />
+                <button type="button">Show Transition Overlay</button>
             </form>
         </div>
+        <!-- removed in production -->
+
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/lbplus.js" type="text/javascript"></script>
