@@ -44,14 +44,14 @@
 
                 ?>
             </p>
-            <h4>DEV/DEMO TOOLS</h4>
+            <h4 class="dev-heading">DEV/DEMO TOOLS</h4>
             <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <input type="hidden" name="view" value="<?php echo ( $view === 'score' ) ? 'tool' : 'score'; ?>" />
                 <input type="submit" name="switch" value="<?php echo ( $view === 'score' ) ? 'Show Tool View' : 'Show Score View'; ?>" />
-                <button type="button" id="transitionBtn">Show Transition Overlay</button>
+                <button type="button" id="transitionBtn">Toggle Transition Overlay</button>
                 <button type="button" id="stopVideoBtn" disabled>Pause Video</button>
             </form>
-            <h4>THE LOG :: LA BÛCHE :: EL REGISTRO :: DAS PROTOKOLL</h4>
+            <h4 class="dev-heading">THE LOG :: LA BÛCHE :: EL REGISTRO :: DAS PROTOKOLL</h4>
             <div class="dev-log"></div>
         </div>
         <!-- removed in production -->
@@ -65,24 +65,17 @@
     <script type="text/javascript">
         $( document ).ready( function() {
 
-            var changed = 0;
             var playerState = 0;
 
             $( '#transitionBtn' ).on( 'click', function() {
 
-                if ( changed === 0) {
+                if ( $( '.transition_overlay' ).is(':visible') ) {
 
-                    $( '.lbplus_wrapper' ).showTransition( 'Something Completed', 'Calculating something. Please wait...forever.' );
-                    $( this ).html( 'Hide Transition Overlay' );
-
-                    changed = 1;
+                    $( this ).hideTransition();
 
                 } else {
 
-                    $( this ).hideTransition();
-                    $( this ).html( 'Show Transition Overlay' );
-
-                    changed = 0;
+                    $( '.lbplus_wrapper' ).showTransition( 'Something Completed', 'Calculating something. Please wait...forever.' );
 
                 }
 

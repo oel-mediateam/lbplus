@@ -14,10 +14,24 @@
 
 }
 
+.dev-heading {
+
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 0;
+
+}
+
 .dev-log {
 
+    height: 150px;
     font-size: 12px;
     line-height: 14px;
     font-weight: 400;
+    overflow: auto;
+    border: 1px solid #ccc;
+    margin-top: 0;
+    padding: 10px;
+    font-family: monospace;
 
 }
