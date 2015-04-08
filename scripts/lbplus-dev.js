@@ -40,18 +40,14 @@ $( document ).ready( function() {
     // load the sound effects object
     $.fn.loadSoundEffects();
 
-    // get/set YouTube video ID
+    // dev purpose
+    $( '.dev-log' ).append( 'Button sounds loaded.<br />' );
+    // end dev purpose
+
+    // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).attr( 'data-videoId' );
 
-    // load YouTube video
     $.fn.loadYouTubeAPI();
-
-    // add clicked event listener to all action buttons
-    for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
-
-        $( '.btn[data-action]:eq('+i+')' ).clicked();
-
-    }
 
     // FOR DEV/DEMO PURPOSES
     $( '.progress_bar' ).progress();
@@ -107,6 +103,10 @@ $.fn.loadYouTubeAPI = function() {
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+    // dev purpose
+    $( '.dev-log' ).append( 'YouTube API loaded.<br />' );
+    // end dev purpose
+
 };
 
 /**
@@ -120,10 +120,13 @@ $.fn.loadYouTubeAPI = function() {
  */
 $.fn.clicked = function() {
 
+    // on click
     $( this ).on( 'click', function() {
 
+        // if not disabled
         if ( !$( this ).hasClass( 'disabled' ) ) {
 
+            // play sound base on class
             if ( $( this ).hasClass( 'odd' ) ) {
 
                 soundEffects.odd.play();
@@ -134,11 +137,11 @@ $.fn.clicked = function() {
 
             }
 
-            $( this ).cooldown();
-
             // dev purpose
-            $( '.dev-log' ).append( $(this).attr('data-action') + " @ " + ( video.player.getCurrentTime() * 1000 ) + ' <br />' );
+            $( '.dev-log' ).append( $(this).find('.action_name').html() + " @ " + ( moment( video.player.getCurrentTime() * 1000 ).format('mm:ss') ) + ' <br />' );
             // end dev purpose
+
+            $( this ).cooldown();
 
         }
 
@@ -164,6 +167,10 @@ $.fn.cooldown = function() {
     var cooldownBarElement = button.find( '.cooldown .progress' );
     var cooldownBar = $( cooldownBarElement.selector + ':eq(' + index + ')' );
 
+    // get the button limits
+    var limitElement = $( this ).find('.limits');
+    var limits = Number ( limitElement.html() );
+
     if ( cooldownBar.width() >= buttonWidth ) {
 
         cooldownBar.width( 0 );
@@ -171,15 +178,33 @@ $.fn.cooldown = function() {
 
     }
 
-    cooldownBar.animate( {
+    // minus one limit and update displayed number
+    limits--;
+    limitElement.html( limits );
 
-        'width': buttonWidth
+    // dev purpose
+    $( '.dev-log' ).append( 'Subtracting limit by one, cooling down... '+ limits +' remain<br />' );
+    // end dev purpose
 
-    }, cooldownTimeInSecond, function() {
+    // if no limit is 0
+    if ( limits <= 0 ) {
 
-        button.removeClass( 'disabled' );
+        // disable the button
+        $( this ).addClass( 'disabled' );
 
-    } );
+    } else {
+
+        cooldownBar.animate( {
+
+            'width': buttonWidth
+
+        }, cooldownTimeInSecond, function() {
+
+            button.removeClass( 'disabled' );
+
+        } );
+
+    }
 
 };
 
@@ -223,6 +248,10 @@ $.fn.progress = function() {
     $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
     $( '.transition_overlay' ).css('display','none').fadeIn();
 
+    // dev purpose
+    $( '.dev-log' ).append( 'Transition overlay toggled on.<br />' );
+    // end dev purpose
+
  };
 
  /**
@@ -240,6 +269,10 @@ $.fn.progress = function() {
     $( '.transition_overlay' ).fadeOut( function() {
         $( this ).remove();
     } );
+
+    // dev purpose
+    $( '.dev-log' ).append( 'Transition overlay toggled off.<br />' );
+    // end dev purpose
 
  };
 
@@ -282,32 +315,78 @@ function onPlayerReady() {
 
     $( '.progress_bar .time .duration' ).html( duration );
 
-    loadCustomYouTubeEvents();
+    loadStartBtnEvent();
+
+    // dev purpose
+    $( '.dev-log' ).append( 'YouTube player ready.<br />' );
+    // end dev purpose
 
 }
 
 function onPlayerStateChange( event ) {
 
+    var state = event.target.getPlayerState();
+
     // dev purposes
     var states = ['ended','playing','paused','buffering', ,'video cued'];
     var status = null;
 
-    if ( event.target.getPlayerState() === -1 ) {
+    if ( state === -1 ) {
 
         status = 'unstarted';
 
     } else {
 
-        status = states[event.target.getPlayerState()];
+        status = states[state];
 
     }
 
     $( '.dev-log' ).append( status + '<br />');
     // end dev
 
+    switch ( state ) {
+
+        case YT.PlayerState.ENDED:
+
+            $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
+            $( '.lbplus_media .overlay' ).html('<div id="videoPlayBtn">START</div>');
+            loadStartBtnEvent();
+
+            // disable all action buttons
+            for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
+
+                $( '.btn[data-action]:eq('+i+')' ).addClass('disabled');
+
+            }
+
+            // dev purpose
+            $( '#stopVideoBtn' ).attr('disabled','');
+            $( '.dev-log' ).append( 'Video ended. Transition overlay should be shown. Start button should be redisplayed. Action buttons should be disabled.<br />' );
+            // end dev
+
+        break;
+
+        case YT.PlayerState.PLAYING:
+
+            // dev purpose
+            $( '.dev-log' ).append( 'Video playing... allow buttons to be clickable.<br />' );
+            // end dev
+
+            // add clicked event listener to all action buttons
+            for ( var j = 0; j < $( '.btn[data-action]' ).length; j++ ) {
+
+                $( '.btn[data-action]:eq('+j+')' ).removeClass('disabled');
+                $( '.btn[data-action]:eq('+j+')' ).clicked();
+
+            }
+
+        break;
+
+    }
+
 }
 
-function loadCustomYouTubeEvents() {
+function loadStartBtnEvent() {
 
     $( '#videoPlayBtn' ).on( 'click', function() {
 
