@@ -60,12 +60,7 @@
 <nav class="lbplus_controls">
 
     <div class="progress_bar_holder">
-        <span class="tag" data-action="btnTwo" data-time="00:10" style="left:100px">Su</span>
-        <span class="tag" data-action="btnFive" data-time="00:15" style="left:350px"><span class="icon-power"></span></span>
-        <span class="tag" data-action="btnOne" data-time="00:20" style="left:400px"><span class="icon-heart"></span></span>
-        <span class="tag" data-action="btnOne" data-time="00:25" style="left:430px"><span class="icon-heart"></span></span>
-        <span class="tag" data-action="btnOne" data-time="00:25" style="left:460px"><span class="icon-heart"></span></span>
-        <span class="tag" data-action="btnOne" data-time="00:25" style="left:490px"><span class="icon-heart"></span></span>
+        <!-- Tags go here -->
         <div class="progress_bar">
             <span class="progressed"></span>
             <div class="time">

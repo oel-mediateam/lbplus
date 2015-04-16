@@ -55,7 +55,7 @@ $( document ).ready( function() {
 
 } );
 
-/****** HELPER / EVENT FUNCITONS *******/
+/****** HELPER / EVENT FUNCTIONS *******/
 
 /**
  * Load the sound effects object
@@ -125,6 +125,8 @@ $.fn.clicked = function() {
 
         // if not disabled
         if ( !$( this ).hasClass( 'disabled' ) ) {
+            // Add icon to DOM
+            addTag(this);
 
             // play sound base on class
             if ( $( this ).hasClass( 'odd' ) ) {
@@ -225,11 +227,11 @@ $.fn.progress = function() {
     var progressingBarElement = progressBar.find( '.progressed' );
     var progressingBar = $( progressingBarElement.selector );
 
-    progressingBar.animate( {
+    // progressingBar.animate( {
 
-        'width': progressBarWidth
+    //     'width': progressBarWidth
 
-    }, 30000);
+    // }, 30000);
 
 };
 
@@ -276,7 +278,7 @@ $.fn.progress = function() {
 
  };
 
-/****** YOUTUBE API FUNCITONS *******/
+/****** YOUTUBE API FUNCTIONS *******/
 
 function onYouTubeIframeAPIReady() {
 
@@ -316,6 +318,9 @@ function onPlayerReady() {
     $( '.progress_bar .time .duration' ).html( duration );
 
     loadStartBtnEvent();
+
+    // Begin updating progress bar
+    setInterval(updateProgress, 100);
 
     // dev purpose
     $( '.dev-log' ).append( 'YouTube player ready.<br />' );
@@ -392,15 +397,90 @@ function loadStartBtnEvent() {
 
         $( this ).remove();
 
+        // Start the refresh function.
+        // setInterval(function () {refreshBar()}, 1000);
+
         video.player.playVideo();
 
         // dev purposes
+        video.player.mute();
         $( '#stopVideoBtn' ).removeAttr('disabled');
         // end dev
 
     } );
 
 }
+
+/****** UTILITY FUNCTIONS *******/
+
+ /**
+  * Set the progress bar width and the elapsed time
+  * according to the current video progress.
+  * This is called continuously once the video starts.
+  * 
+  * @author Mike Kellum
+  * @since 0.0.2 (?)
+  *
+  * @param none
+  * @return void
+  *
+  */
+function updateProgress() {
+    var curTimeMs = video.player.getCurrentTime();
+    var newWidth = timeToProgressBarPx(curTimeMs);
+    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
+
+    $( '.progress_bar .progressed' ).css("width", newWidth + "px");
+    $( '.progress_bar .time .elapsed' ).html( formattedTime );
+}
+
+ /**
+  * Take any time (usually current pulled from player)
+  * and return the number of px the progress bar should
+  * be set to to match proportion of that time against
+  * duration.
+  * 
+  * @author Mike Kellum
+  * @since 0.0.2 (?)
+  *
+  * @param number, number
+  * @return number
+  *
+  */
+function timeToProgressBarPx(time) {
+    var duration = video.player.getDuration();
+    var progressBarWidth = $( '.progress_bar' ).width();
+    
+    return progressBarWidth * (time / duration);
+}
+
+ /**
+  * Add the tag in the argument to the DOM.
+  * Use the icon associated with the button and current time.
+  * 
+  * @author Mike Kellum
+  * @since 0.0.2 (?)
+  *
+  * @param jquery div (?)
+  * @return void
+  *
+  */
+function addTag(tag) {
+    var curTimeMs = video.player.getCurrentTime();
+    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
+    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
+    var span = "";
+
+    span += '<span class="tag" data-action="' + $( tag ).data("action") +
+            '" data-time="' + formattedTime +
+            '" style="left:' + barPx + 'px' +
+            '">' + 'Ph' + //+ $( tag ).children(".icon");
+            '</span></span>';
+
+    $( '.progress_bar_holder' ).prepend(span);
+}
+
+
 
 
 
