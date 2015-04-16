@@ -403,7 +403,6 @@ function loadStartBtnEvent() {
         video.player.playVideo();
 
         // dev purposes
-        video.player.mute();
         $( '#stopVideoBtn' ).removeAttr('disabled');
         // end dev
 
@@ -466,15 +465,20 @@ function timeToProgressBarPx(time) {
   *
   */
 function addTag(tag) {
+    // Get the current video time (to format later)
     var curTimeMs = video.player.getCurrentTime();
-    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
-    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
-    var span = "";
 
-    span += '<span class="tag" data-action="' + $( tag ).data("action") +
+    // Derive the elements of the new span from tag and time info
+    var actionName = $( tag ).data("action");
+    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
+    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
+    var icon = $( tag ).children('span.icon').html();
+    
+    // Build the span
+    var span = '<span class="tag" data-action="' + actionName +
             '" data-time="' + formattedTime +
             '" style="left:' + barPx + 'px' +
-            '">' + 'Ph' + //+ $( tag ).children(".icon");
+            '">' + icon +
             '</span></span>';
 
     $( '.progress_bar_holder' ).prepend(span);
