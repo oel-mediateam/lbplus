@@ -49,10 +49,6 @@ $( document ).ready( function() {
 
     $.fn.loadYouTubeAPI();
 
-    // FOR DEV/DEMO PURPOSES
-    $( '.progress_bar' ).progress();
-    // END FOR DEV/DEMO PURPOSES
-
 } );
 
 /****** HELPER / EVENT FUNCTIONS *******/
@@ -151,6 +147,37 @@ $.fn.clicked = function() {
 
 };
 
+ /**
+  * Add the tag in the argument to the DOM.
+  * Use the icon associated with the button and current time.
+  * 
+  * @author Mike Kellum
+  * @since 0.0.2 (?)
+  *
+  * @param jquery div (?)
+  * @return void
+  *
+  */
+function addTag(tag) {
+    // Get the current video time (to format later)
+    var curTimeMs = video.player.getCurrentTime();
+
+    // Derive the elements of the new span from tag and time info
+    var actionName = $( tag ).data("action");
+    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
+    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
+    var icon = $( tag ).children('span.icon').html();
+    
+    // Build the span
+    var span = '<span class="tag" data-action="' + actionName +
+               '" data-time="' + formattedTime +
+               '" style="left:' + barPx + 'px' +
+               '">' + icon +
+               '</span></span>';
+
+    $( '.progress_bar_holder' ).prepend(span);
+}
+
 /**
  * The cooldown event to execute when an action button triggered it
  * @author Ethan Lin
@@ -207,31 +234,6 @@ $.fn.cooldown = function() {
         } );
 
     }
-
-};
-
-/**
- * The animating of the video progress bar
- * and updating of the timecode as the video is progressing
- * @author Ethan Lin
- * @since 0.0.1
- *
- * @param none
- * @return void
- *
- */
-$.fn.progress = function() {
-
-    var progressBar = $( this );
-    var progressBarWidth = progressBar.width();
-    var progressingBarElement = progressBar.find( '.progressed' );
-    var progressingBar = $( progressingBarElement.selector );
-
-    // progressingBar.animate( {
-
-    //     'width': progressBarWidth
-
-    // }, 30000);
 
 };
 
@@ -453,36 +455,7 @@ function timeToProgressBarPx(time) {
     return progressBarWidth * (time / duration);
 }
 
- /**
-  * Add the tag in the argument to the DOM.
-  * Use the icon associated with the button and current time.
-  * 
-  * @author Mike Kellum
-  * @since 0.0.2 (?)
-  *
-  * @param jquery div (?)
-  * @return void
-  *
-  */
-function addTag(tag) {
-    // Get the current video time (to format later)
-    var curTimeMs = video.player.getCurrentTime();
 
-    // Derive the elements of the new span from tag and time info
-    var actionName = $( tag ).data("action");
-    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
-    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
-    var icon = $( tag ).children('span.icon').html();
-    
-    // Build the span
-    var span = '<span class="tag" data-action="' + actionName +
-            '" data-time="' + formattedTime +
-            '" style="left:' + barPx + 'px' +
-            '">' + icon +
-            '</span></span>';
-
-    $( '.progress_bar_holder' ).prepend(span);
-}
 
 
 
