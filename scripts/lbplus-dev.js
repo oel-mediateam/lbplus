@@ -35,6 +35,8 @@ var video = {
 // also use for the z-index
 var tagCount = 0;
 
+var updatePrgrsInterval;
+
 /****** CORE *******/
 
 // when the document is ready
@@ -357,9 +359,6 @@ function onPlayerReady() {
 
     loadStartBtnEvent();
 
-    // Begin updating progress bar
-    setInterval(updateProgress, 100);
-
     // dev purpose
     $( '.dev-log' ).append( 'YouTube player ready.<br />' );
     // end dev purpose
@@ -402,6 +401,9 @@ function onPlayerStateChange( event ) {
 
             }
 
+            // clear update progress bar interval
+            clearInterval( updatePrgrsInterval );
+
             // dev purpose
             $( '#stopVideoBtn' ).attr('disabled','');
             $( '.dev-log' ).append( 'Video ended. Transition overlay should be shown. Start button should be redisplayed. Action buttons should be disabled.<br />' );
@@ -423,6 +425,9 @@ function onPlayerStateChange( event ) {
 
             }
 
+            // Begin updating progress bar
+            updatePrgrsInterval = setInterval(updateProgress, 100);
+
             // start listening to tag events
             $.fn.tagHoverAction();
 
@@ -437,9 +442,6 @@ function loadStartBtnEvent() {
     $( '#videoPlayBtn' ).on( 'click', function() {
 
         $( this ).remove();
-
-        // Start the refresh function.
-        // setInterval(function () {refreshBar()}, 1000);
 
         video.player.playVideo();
 
