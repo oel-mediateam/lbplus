@@ -35,7 +35,7 @@ var video = {
 /****** CORE *******/
 
 // when the document is ready
-$( document ).ready( function() {
+$( function() {
 
     // load the sound effects object
     $.fn.loadSoundEffects();
@@ -121,8 +121,9 @@ $.fn.clicked = function() {
 
         // if not disabled
         if ( !$( this ).hasClass( 'disabled' ) ) {
-            // Add icon to DOM
-            addTag(this);
+
+            // Add icon to the progress bar
+            $( this ).addTag();
 
             // play sound base on class
             if ( $( this ).hasClass( 'odd' ) ) {
@@ -150,24 +151,25 @@ $.fn.clicked = function() {
  /**
   * Add the tag in the argument to the DOM.
   * Use the icon associated with the button and current time.
-  * 
-  * @author Mike Kellum
-  * @since 0.0.2 (?)
   *
-  * @param jquery div (?)
+  * @author Mike Kellum
+  * @since 0.0.1
+  *
+  * @param none
   * @return void
   *
   */
-function addTag(tag) {
+$.fn.addTag = function() {
+
     // Get the current video time (to format later)
     var curTimeMs = video.player.getCurrentTime();
 
     // Derive the elements of the new span from tag and time info
-    var actionName = $( tag ).data("action");
+    var actionName = $( this ).data("action");
     var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
     var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
-    var icon = $( tag ).children('span.icon').html();
-    
+    var icon = $( this ).children('span.icon').html();
+
     // Build the span
     var span = '<span class="tag" data-action="' + actionName +
                '" data-time="' + formattedTime +
@@ -176,7 +178,7 @@ function addTag(tag) {
                '</span></span>';
 
     $( '.progress_bar_holder' ).prepend(span);
-}
+};
 
 /**
  * The cooldown event to execute when an action button triggered it
@@ -286,7 +288,7 @@ function onYouTubeIframeAPIReady() {
 
     video.player = new YT.Player( video.selector, {
 
-        width: '649',
+        width: '640',
         height: '360',
         videoId: video.vId,
         playerVars: {
@@ -418,9 +420,9 @@ function loadStartBtnEvent() {
   * Set the progress bar width and the elapsed time
   * according to the current video progress.
   * This is called continuously once the video starts.
-  * 
+  *
   * @author Mike Kellum
-  * @since 0.0.2 (?)
+  * @since 0.0.1
   *
   * @param none
   * @return void
@@ -440,9 +442,9 @@ function updateProgress() {
   * and return the number of px the progress bar should
   * be set to to match proportion of that time against
   * duration.
-  * 
+  *
   * @author Mike Kellum
-  * @since 0.0.2 (?)
+  * @since 0.0.1
   *
   * @param number, number
   * @return number
@@ -451,7 +453,7 @@ function updateProgress() {
 function timeToProgressBarPx(time) {
     var duration = video.player.getDuration();
     var progressBarWidth = $( '.progress_bar' ).width();
-    
+
     return progressBarWidth * (time / duration);
 }
 
