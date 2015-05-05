@@ -31,7 +31,6 @@
 
             <div class="btn disabled" data-cooldown="8" data-action="btnThree">
                 <span class="limits" data-limit="1">1</span>
-                <span class="limits">3</span>
                 <span class="icon"><span class="icon-pacman"></span></span>
                 <span class="action_name">Pew! Pew!</span>
                 <span class="cooldown"><span class="progress"></span></span>

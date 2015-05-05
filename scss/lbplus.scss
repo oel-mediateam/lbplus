@@ -379,17 +379,19 @@ code {
                         position: absolute;
                         width: rem( 150px );
                         height: rem( 80px );
+                        color: #fff;
                         text-align: center;
                         font-size: 200%;
                         font-weight: bold;
                         line-height: normal;
-                        background: rgba( 255, 255, 255, .88 );
-                        padding: rem( 22px ) rem( $gutter ) 0;
+                        background: #5cc627;
+                        padding: rem( 21px ) rem( $gutter ) 0;
                         top: rem( 140px );
                         left: rem( 245px );
-                        @include box-sizing( 'border-box' );
                         cursor: pointer;
-                        @include box-shadow( 0 0 rem( 10px ) $darkerFontColor);
+                        @include box-sizing( 'border-box' );
+                        @include border-radius( rem( 3px ) );
+                        @include box-shadow( 0 0 rem( 6px ) $darkerFontColor);
 
                     }
 
@@ -609,7 +611,7 @@ code {
             .tag {
 
                 position: absolute;
-                width: rem( 30px );
+                width: rem( 29px );
                 height: rem( 22px );
                 top: rem( -15px );
                 left: 0;
@@ -618,9 +620,16 @@ code {
                 line-height: rem( 14px );
                 color: #fff;
                 background-color: #3fb33f;
-                padding: rem( 8px ) 0 0;
+                padding: rem( 8px ) 0 0 rem( 1px );
                 cursor: default;
+                @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
                 @include border-radius( 50% );
+
+            }
+
+            .tag:hover {
+
+                @include box-shadow( 0 0 rem( 6px ) #000 );
 
             }
 
@@ -632,7 +641,7 @@ code {
             	height: 0;
             	content: "";
             	bottom: rem( -10px );
-            	left: rem( 6.5px );
+            	left: rem( 7px );
             	border-left: 8px solid transparent;
             	border-right: 8px solid transparent;
             	border-top: 16px solid #3fb33f;

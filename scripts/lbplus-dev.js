@@ -31,6 +31,9 @@ var video = {
 
 };
 
+// hold the count of the tag
+// also use for the z-index
+var tagCount = 0;
 
 /****** CORE *******/
 
@@ -114,7 +117,7 @@ $.fn.loadYouTubeAPI = function() {
  * @return void
  *
  */
-$.fn.clicked = function() {
+$.fn.clickAction = function() {
 
     // on click
     $( this ).on( 'click', function() {
@@ -153,6 +156,7 @@ $.fn.clicked = function() {
   * Use the icon associated with the button and current time.
   *
   * @author Mike Kellum
+  * @contributor Ethan Lin
   * @since 0.0.1
   *
   * @param none
@@ -165,19 +169,49 @@ $.fn.addTag = function() {
     var curTimeMs = video.player.getCurrentTime();
 
     // Derive the elements of the new span from tag and time info
-    var actionName = $( this ).data("action");
-    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
-    var barPx = timeToProgressBarPx(curTimeMs) + 10; // TODO: why 10?
-    var icon = $( this ).children('span.icon').html();
+    var actionName = $( this ).data( 'action' );
+    var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
+    var barPx = $( '.progress_bar .progressed' ).width() + 10; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
+    var icon = $( this ).find( '.icon' ).html();
 
     // Build the span
     var span = '<span class="tag" data-action="' + actionName +
                '" data-time="' + formattedTime +
-               '" style="left:' + barPx + 'px' +
+               '" data-count="' + tagCount +
+               '" style="left:' + barPx + 'px;' +
+               'z-index:' + (tagCount++) +
                '">' + icon +
                '</span></span>';
 
-    $( '.progress_bar_holder' ).prepend(span);
+    $( '.progress_bar_holder' ).prepend( span );
+
+};
+
+/**
+  * Listen to the tag hover event
+  * Swapping the z-index
+  *
+  * @author Ethan Lin
+  * @since 0.0.1
+  *
+  * @param none
+  * @return void
+  *
+  */
+$.fn.tagHoverAction = function() {
+
+    $( '.progress_bar_holder' ).on( 'mouseover', '.tag', function() {
+
+        $( this ).css( 'z-index', 99 );
+
+    } );
+
+    $( '.progress_bar_holder' ).on( 'mouseout', '.tag', function() {
+
+        $( this ).css( 'z-index', $( this ).data( 'count' ) );
+
+    } );
+
 };
 
 /**
@@ -385,9 +419,12 @@ function onPlayerStateChange( event ) {
             for ( var j = 0; j < $( '.btn[data-action]' ).length; j++ ) {
 
                 $( '.btn[data-action]:eq('+j+')' ).removeClass('disabled');
-                $( '.btn[data-action]:eq('+j+')' ).clicked();
+                $( '.btn[data-action]:eq('+j+')' ).clickAction();
 
             }
+
+            // start listening to tag events
+            $.fn.tagHoverAction();
 
         break;
 
@@ -429,12 +466,14 @@ function loadStartBtnEvent() {
   *
   */
 function updateProgress() {
+
     var curTimeMs = video.player.getCurrentTime();
     var newWidth = timeToProgressBarPx(curTimeMs);
     var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
 
     $( '.progress_bar .progressed' ).css("width", newWidth + "px");
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
+
 }
 
  /**
@@ -451,10 +490,12 @@ function updateProgress() {
   *
   */
 function timeToProgressBarPx(time) {
+
     var duration = video.player.getDuration();
     var progressBarWidth = $( '.progress_bar' ).width();
 
     return progressBarWidth * (time / duration);
+
 }
 
 
