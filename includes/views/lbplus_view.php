@@ -8,7 +8,7 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-videoId="68CNzwinqlg"></div>
+            <div id="ytv" data-videoId="iBfIFgxf2sw"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -69,7 +69,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="main_controls">
 
