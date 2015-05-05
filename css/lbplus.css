@@ -354,6 +354,9 @@ code {
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
 }
+.lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn.disabled .cooldown .progress {
+  background: #2c2c2c;
+}
 .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn:nth-of-type(1) {
   margin-top: 0.625rem;
 }
@@ -448,7 +451,7 @@ code {
 }
 .lbplus_wrapper .lbplus_controls .progress_bar_holder .tag {
   position: absolute;
-  width: 1.8125rem;
+  width: 1.875rem;
   height: 1.375rem;
   top: -0.9375rem;
   left: 0;
@@ -457,7 +460,7 @@ code {
   line-height: 0.875rem;
   color: #fff;
   background-color: #3fb33f;
-  padding: 0.5rem 0 0 0.0625rem;
+  padding: 0.5rem 0 0;
   cursor: default;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -469,11 +472,11 @@ code {
   width: 0;
   height: 0;
   content: "";
-  bottom: -0.5625rem;
-  left: 0.4375rem;
+  bottom: -0.625rem;
+  left: 0.40625rem;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 15px solid #3fb33f;
+  border-top: 16px solid #3fb33f;
 }
 .lbplus_wrapper .lbplus_controls .progress_bar_holder .progress_bar {
   width: 40rem;
@@ -629,6 +632,9 @@ code {
   -o-transition: opacity 0.5s, background 0.5s;
   -webkit-transition: opacity 0.5s, background 0.5s;
   transition: opacity 0.5s, background 0.5s;
+}
+.lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .cooldown .progress {
+  background: #2c2c2c;
 }
 .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind.disabled .icon {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);

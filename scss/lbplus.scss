@@ -152,6 +152,16 @@ $gutter: 16px;
 
     }
 
+    .cooldown {
+
+        .progress {
+
+            background: #2c2c2c;
+
+        }
+
+    }
+
 }
 
 // functions
@@ -599,7 +609,7 @@ code {
             .tag {
 
                 position: absolute;
-                width: rem( 29px );
+                width: rem( 30px );
                 height: rem( 22px );
                 top: rem( -15px );
                 left: 0;
@@ -608,7 +618,7 @@ code {
                 line-height: rem( 14px );
                 color: #fff;
                 background-color: #3fb33f;
-                padding: rem( 8px ) 0 0 rem( 1px );
+                padding: rem( 8px ) 0 0;
                 cursor: default;
                 @include border-radius( 50% );
 
@@ -621,11 +631,11 @@ code {
                 width: 0;
             	height: 0;
             	content: "";
-            	bottom: rem( -9px );
-            	left: rem( 7px );
+            	bottom: rem( -10px );
+            	left: rem( 6.5px );
             	border-left: 8px solid transparent;
             	border-right: 8px solid transparent;
-            	border-top: 15px solid #3fb33f;
+            	border-top: 16px solid #3fb33f;
 
             }
 
