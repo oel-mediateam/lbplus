@@ -1,0 +1,55 @@
+{
+    "exercise": {
+
+        "id": 1234,
+        "actions": [
+
+            {
+
+                "name": "slap",
+                "icon": "hand",
+                "positions": [
+
+                    {
+                        "begin": "0:30",
+                        "end": "0:45"
+                    },
+
+                    {
+                        "begin": "2:30",
+                        "end": "2:50"
+                    }
+
+                ],
+                "cooldown": 3,
+                "limits": 5
+
+            },
+
+            {
+
+                "name": "punch",
+                "icon": "fist",
+                "positions": [
+
+                    {
+                        "begin": "1:00",
+                        "end": "1:30"
+                    },
+
+                    {
+                        "begin": "3:15",
+                        "end": "3:35"
+                    }
+
+                ],
+                "cooldown": 3,
+                "limits": 4
+
+            }
+
+        ]
+
+    }
+
+}

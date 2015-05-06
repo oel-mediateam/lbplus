@@ -1,6 +1,1034 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+$defaultFont: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$fontSize: 16px;
+$defaultFontColor: #2f2f2f;
+$darkerFontColor: #1e1e1e;
+$gutter: 16px;
 
+// imports
+/* RESET */
 @import "compass/reset";
+@import "compass/css3/animation";
+@import "compass/css3/box-sizing";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/opacity";
+@import "compass/css3/transition";
+@import "compass/css3/user-interface";
+@import "compass/css3/transform";
+@import "compass/utilities/general/clearfix";
+
+// button mixins
+@mixin smooth_fade() {
+
+    @include transition(opacity .5s, background .5s);
+
+}
+
+@mixin button() {
+
+    position: relative;
+    width: rem( 225px );
+    height: rem( 50px );
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin: rem( $gutter ) 0;
+
+}
+
+@mixin button_limits() {
+
+    position: absolute;
+    font-size: rem( 12px );
+    font-weight: normal;
+    line-height: normal;
+    padding: rem( 3px ) rem( 5px ) rem( 2px );
+    top: rem( -5px );
+    right: rem( -5px );
+    background-color: #ef3737;
+    @include border-radius( rem( 3px ) );
+    z-index: 10;
+
+
+}
+
+@mixin button_icon() {
+
+    display: block;
+    width: rem( 50px );
+    height: rem( 50px );
+    font-size: 115%;
+    text-align: center;
+    background: #425fdd;
+    padding-top: rem( 15px );
+    float: left;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+    [class^="icon-"], [class*=" icon-"] {
+
+        display: block;
+        margin-top: rem( 2px );
+
+    }
+
+}
+
+@mixin button_name() {
+
+    display: block;
+    width: rem( 175px );
+    height: rem( 50px );
+    padding: rem( $gutter ) rem( $gutter - 5 );
+    background: #354cb1;
+    float: left;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+}
+
+@mixin button_cooldown() {
+
+    display: block;
+    width: rem( 225px );
+    height: rem( 5px );
+    background: #ccc;
+    clear: both;
+
+    .progress {
+
+        display: block;
+        height: rem( 5px );
+        background: #132988;
+
+    }
+
+}
+
+@mixin button_active() {
+
+    .icon {
+
+        background: #1f3dc1;
+
+    }
+
+    .action_name {
+
+        background: #18309c;
+
+    }
+
+}
+
+@mixin button_disabled() {
+
+    color: #fafafa;
+    cursor: default;
+
+    .limits {
+
+        background: #2e2b2b;
+
+    }
+
+    .icon {
+
+        background: #515151;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
+
+    .action_name {
+
+        background: #424242;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
+
+    .cooldown {
+
+        .progress {
+
+            background: #2c2c2c;
+
+        }
+
+    }
+
+}
+
+// functions
+@function rem( $px, $base: $fontSize ) {
+
+    @return ( $px / $base ) * 1rem;
+
+}
+
+/******** GENERAL ********/
+
+html {
+
+    font-size: $fontSize;
+
+}
+
+body {
+
+    @extend html;
+    font-family: $defaultFont;
+    font-weight: 300;
+    color: $defaultFontColor;
+    line-height: rem( $gutter * 1.25 );
+
+}
+
+#{headings(all)} {
+
+    margin: rem( $gutter ) 0;
+    font-weight: 100;
+    color: $darkerFontColor;
+
+}
+
+h6 {
+
+    font-size: 120%;
+    line-height: rem( $gutter * 1.45 );
+
+}
+
+h5 {
+
+    font-size: 140%;
+    line-height: rem( $gutter * 1.65 );
+
+}
+
+h4 {
+
+    font-size: 160%;
+    line-height: rem( $gutter * 1.85 );
+
+}
+
+h3 {
+
+    font-size: 180%;
+    line-height: rem( $gutter * 2.05 );
+
+}
+
+h2 {
+
+    font-size: 200%;
+    line-height: rem( $gutter * 2.25 );
+
+}
+
+h1 {
+
+    font-size: 220%;
+    line-height: rem( $gutter * 2.45 );
+
+}
+
+p {
+
+    margin: rem( $gutter ) 0;
+
+}
+
+ul {
+
+    margin: rem( $gutter ) 0;
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: rem( $gutter );
+
+    li {
+
+        margin-left: rem( $gutter );
+
+    }
+
+}
+
+ol {
+
+    @extend ul;
+    list-style-type: decimal;
+
+}
+
+blockquote {
+
+    position: relative;
+    margin: rem( $gutter ) 0 rem( $gutter ) rem( $gutter * 2.25 );
+    @extend h5;
+
+}
+
+blockquote:before {
+    position: absolute;
+    content: "\201C";
+    font-family: Arial, "Lucida Grande", sans-serif;
+    font-size: 250%;
+    color: $defaultFontColor;
+    top: rem( 5px );
+    left: rem( -20px );
+}
+
+strong {
+
+    font-weight: bold;
+
+}
+
+em {
+
+    font-style: italic;
+
+}
+
+hr {
+
+    margin: rem( $gutter ) 0;
+    border-top: rem( 1px ) solid $defaultFontColor;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+
+}
+
+pre {
+
+    font-family: monospace;
+    margin: rem( $gutter ) 0;
+
+}
+
+code {
+
+    @extend pre;
+    margin: 0;
+
+}
+
+/******** LB PLUS ********/
+
+.lbplus_wrapper {
+
+    position: relative;
+    width: rem( 940px );
+    height: rem( 529px );
+    margin: 0 auto;
+
+    // CONTENT
+    .lbplus_view {
+
+        position: relative;
+        height: rem( 469px );
+        padding: rem( 25px ) rem( 25px ) 0 rem( 25px );
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: rem( 1px ) solid $darkerFontColor;
+        border-bottom: none;
+        @include box-sizing( "border-box" );
+
+        h1:nth-of-type(1) {
+
+            margin-top: 0;
+
+        }
+
+        // INTERACTION (MEDIA & ACTIONS)
+        .lbplus_interaction_wrapper {
+
+            margin-bottom: 0;
+
+            * {
+
+            	@include user-select(none);
+
+        	}
+
+            .lbplus_media {
+
+                position: relative;
+                width: rem( 640px );
+                height: rem( 360px );
+                background: #000;
+                float: left;
+
+                .overlay {
+
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+
+                    #videoPlayBtn {
+
+                        position: absolute;
+                        width: rem( 150px );
+                        height: rem( 80px );
+                        color: #fff;
+                        text-align: center;
+                        font-size: 200%;
+                        font-weight: bold;
+                        line-height: normal;
+                        background: #5cc627;
+                        padding: rem( 21px ) rem( $gutter ) 0;
+                        top: rem( 140px );
+                        left: rem( 245px );
+                        cursor: pointer;
+                        @include box-sizing( 'border-box' );
+                        @include border-radius( rem( 3px ) );
+                        @include box-shadow( 0 0 rem( 6px ) $darkerFontColor);
+
+                    }
+
+                }
+
+                iframe {
+
+                    width: 100%;
+                    height: 100%;
+
+                }
+
+            }
+
+            .lbplus_actions {
+
+                width: rem( 225px );
+                margin: 0 0 0 rem( 23px );
+                float: left;
+
+                h4 {
+
+                    text-align: center;
+                    line-height: rem( 20px );
+                    border-bottom: 1px dashed $defaultFontColor;
+                    padding-bottom: $gutter - 6;
+                    margin-top: 0;
+                    margin-bottom: 0;
+
+                }
+
+                .btn {
+
+                    @include button();
+                    position: relative;
+
+                    .limits {
+
+                        @include button_limits();
+
+                    }
+
+                    .icon {
+
+                        @include button_icon();
+
+                    }
+
+                    .action_name {
+
+                        @include button_name();
+
+                    }
+
+                    .action_name.long {
+
+                        font-size: 85%;
+                        padding-top: rem( 9px );
+                        line-height: rem( 16px );
+
+                    }
+
+                    .cooldown {
+
+                        @include button_cooldown();
+
+                    }
+
+                }
+
+                .btn:active {
+
+                    @include button_active();
+
+                }
+
+                .btn.disabled {
+
+                    @include button_disabled();
+
+                }
+
+                .btn:nth-of-type(1) {
+
+                    margin-top: rem( $gutter - 6 );
+
+                }
+
+                .btn:last-child {
+
+                    margin-bottom: 0;
+
+                }
+
+                // clear fix
+                .btn:after {
+
+                    @include clearfix();
+
+                }
+
+            }
+
+        } // end interaction wrapper
+
+        // clear fix
+        .lbplus_interaction_wrapper:after {
+
+            @include clearfix();
+
+        }
+
+        // score wrapper
+        .score_view {
+
+            margin-top: rem( $gutter * -1 );
+
+            .actions_results {
+
+                width: rem( 296px );
+                padding: 0 rem( 10px );
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                p:nth-of-type(odd) {
+
+                    font-size: rem( 18px );
+                    font-weight: 500;
+
+                }
+
+            }
+
+            .miss-hits {
+
+                width: rem( 296px );
+                padding: 0 rem( 10px );
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                p:first-child {
+
+                    margin: rem( $gutter ) 0;
+
+                }
+
+                p {
+
+                    margin: rem( $gutter / 2 ) 0;
+
+                }
+
+            }
+
+            .percentage {
+
+                width: rem( 296px );
+                padding: rem( 125px ) rem( 10px ) 0;
+                text-align: center;
+                @include box-sizing( 'border-box' );
+                float: left;
+
+                .percent {
+
+                    display: block;
+                    font-size: rem( 46px );
+                    line-height: rem( 46px );
+                    font-weight: bold;
+
+                }
+
+                .status {
+
+                    display: block;
+                    font-size: rem( 26px );
+                    line-height: rem( 26px );
+                    font-style: italic;
+                    margin-top: rem( $gutter );
+
+                }
+
+            }
+
+        } // end score_view
+
+    } // end content
+
+    .score_view:after {
+
+        @include clearfix();
+
+    }
+
+    // CONTROLS
+    .lbplus_controls {
+
+        height: rem( 60px );
+        background: $darkerFontColor;
+        @include box-sizing( "border-box" );
+
+        * {
+
+        	@include user-select(none);
+
+    	}
+
+        .progress_bar_holder {
+
+            position: relative;
+            background: $darkerFontColor;
+            padding: rem( 25px ) rem( 25px ) 0;
+            height: rem( 60px );
+            float: left;
+
+            @include box-sizing( "border-box" );
+
+            .tag {
+
+                position: absolute;
+                width: rem( 29px );
+                height: rem( 22px );
+                top: rem( -15px );
+                left: 0;
+                font-size: rem( 14px );
+                text-align: center;
+                line-height: rem( 14px );
+                color: #fff;
+                background-color: #3fb33f;
+                padding: rem( 8px ) 0 0 rem( 1px );
+                cursor: default;
+                @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
+                @include border-radius( 50% );
+
+            }
+
+            .tag:hover {
+
+                @include box-shadow( 0 0 rem( 6px ) #000 );
+
+            }
+
+            .tag:after {
+
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	bottom: rem( -10px );
+            	left: rem( 7px );
+            	border-left: 8px solid transparent;
+            	border-right: 8px solid transparent;
+            	border-top: 16px solid #3fb33f;
+
+            }
+
+            .progress_bar {
+
+                width: rem( 640px );
+                height: rem( 10px );
+                background: #888888;
+
+                .progressed {
+
+                    display: block;
+                    width: 0;
+                    height: rem( 10px );
+                    background: #686868;
+
+                }
+
+                .time {
+
+                    width: 100%;
+                    font-size: 70%;
+                    color: #fff;
+                    float: left;
+                    clear: both;
+
+                    .elapsed {
+
+                        display: block;
+                        width: 50%;
+                        float: left;
+
+                    }
+
+                    .duration {
+
+                        @extend .elapsed;
+                        text-align: right;
+
+                    }
+
+                }
+
+                .time:after {
+
+                    @include clearfix();
+
+                }
+
+            }
+
+        }  // end progress_bar_holder
+
+        .main_controls {
+
+            width: rem( 250px );
+            height: rem( 60px );
+            color: #fff;
+            float: left;
+
+            // rewind button
+             .btn.rewind {
+
+                @include button();
+                width: 100%;
+                margin-top: rem( -10px );
+
+                .limits {
+
+                    @include button_limits();
+                    top: rem( -5px );
+                    right: rem( 5px );
+
+                }
+
+                .icon {
+
+                    @include button_icon();
+                    width: 25%;
+                    height: rem( 65px );
+                    font-size: 130%;
+                    padding-top: rem( 20px );
+
+                }
+
+                .action_name {
+
+                    @include button_name();
+                    width: 75%;
+                    height: rem( 65px );
+                    font-size: 130%;
+                    padding: rem( 24px ) rem( $gutter );
+
+                }
+
+                .cooldown {
+
+                    @include button_cooldown();
+                    width: 100%;
+
+                }
+
+            }
+
+            .btn.rewind:active {
+
+                @include button_active();
+
+            }
+
+            .btn.rewind.disabled {
+
+                @include button_disabled();
+
+                .icon {
+
+                    @include opacity( 1 );
+
+                }
+
+                .action_name {
+
+                    @include opacity( 1 );
+
+                }
+
+            }
+
+            // rewind button clear fix
+            .btn.rewind:after {
+
+                @include clearfix();
+
+            }
+
+        } // end main controls for lb view
+
+        // score view main controls
+        .main_controls.score_view {
+
+            width: 100%;
+            height: rem( 60px );
+            color: #fff;
+
+            // left container
+            .left {
+
+                width: 33.3333%;
+                float: left;
+
+            }
+
+            // center container
+            .center {
+
+                @extend .left;
+
+            }
+
+            // right container
+            .right {
+
+                @extend .left;
+                text-align: right;
+
+            }
+
+            // general button
+            .btn {
+
+                @include button();
+                width: 50%;
+                height: rem( 60px );
+
+            }
+
+            // retake button
+            .btn.retake {
+
+                float: left;
+                margin: 0;
+                @include opacity( .5 );
+                @include smooth_fade();
+
+                .action_name {
+
+                    @include button_name();
+                    width: 100%;
+                    color: #b5b5b5;
+                    font-weight: 100;
+                    font-size: rem( 32px );
+                    line-height: rem( 32px );
+                    text-align: center;
+                    height: rem( 60px );
+                    padding-top: rem( 10px );
+                    background: none;
+                    border-top: rem( 5px ) solid #c77028;
+
+                }
+
+            }
+
+            .btn.retake:hover {
+
+                @include opacity( 1 );
+                @include smooth_fade();
+
+                .action_name {
+
+                    color: #fff;
+
+                }
+
+            }
+
+            .btn.retake:active {
+
+                @include button_active();
+
+            }
+
+            // new button
+            .btn.new {
+
+                @extend .btn.retake;
+
+                .action_name {
+
+                    border-top-color: #5cc627;
+
+                }
+
+            }
+
+            // previous button
+            .btn.previous {
+
+                @extend .btn.retake;
+
+                .action_name {
+
+                    border-top-color: #2888c7;
+
+                }
+
+            }
+
+            // next button
+            .btn.next {
+
+                @extend .btn.retake;
+                float: right;
+
+                .action_name {
+
+                    border-top-color: #c328c7;
+
+                }
+
+            }
+
+        } // end score view main controls
+
+    } // end controls
+
+    .lbplus_controls:after {
+
+        @include clearfix();
+
+    }
+
+    // STATUS MESSAGE
+    .lbplus_status_msg {
+
+        position: absolute;
+        width: 50%;
+        font-size: 80%;
+        text-align: right;
+        top: rem( 15px );
+        right: rem( 25px );
+        cursor: default;
+        @include user-select(none);
+
+    }
+
+    // TRANSITION OVERLAY
+    .transition_overlay {
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        padding: rem( 140px ) rem( $gutter ) 0;
+        @include opacity( .90 );
+        @include box-sizing( 'border-box' );
+        z-index: 99;
+
+        .heading {
+
+            font-size: 400%;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 100;
+            line-height: normal;
+
+        }
+
+        .subheading {
+
+            text-align: center;
+            font-size: 120%;
+            font-weight: 200;
+            line-height: normal;
+
+        }
+
+        .loading {
+
+            @extend .heading;
+            margin-top: rem( $gutter );
+
+        }
+
+    }
+
+} // end lbplus_wrapper
+
+/* ANIMATIONS */
+.blink {
+
+    @include animation-properties( (animation-name: blink) );
+    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+.spin {
+
+    display: inline-block;
+    width: rem( 64px );
+    height: rem( 64px );
+    @include animation-properties( (animation-name: spin) );
+    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-timing-function: linear) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+    @include transform-origin(center, center);
+
+}
+
+@include keyframes( blink ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( 0 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
+
+    }
+
+}
+
+@include keyframes( spin ) {
+
+    from {
+
+        @include rotate( 0deg );
+
+    }
+
+    to {
+
+        @include rotate( 360deg );
+
+    }
+
+}
