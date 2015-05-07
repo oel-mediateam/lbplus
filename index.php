@@ -1,5 +1,11 @@
 <?php
 
+    // TO DO: connect to database & related
+    require_once 'includes/db.php';
+
+    // TO DO: get user info from LTI
+    // TO DO: check current status to determine view
+
     // DEV ONLY
     if ( isset( $_GET['switch'] ) ) {
 
