@@ -6,8 +6,8 @@
 
             {
 
-                "name": "slap",
-                "icon": "hand",
+                "name": "OMG! OMG! OMG!",
+                "icon": "heart",
                 "positions": [
 
                     {
@@ -28,8 +28,8 @@
 
             {
 
-                "name": "punch",
-                "icon": "fist",
+                "name": "Shut up! ... and take my money!",
+                "icon": "",
                 "positions": [
 
                     {
@@ -45,6 +45,72 @@
                 ],
                 "cooldown": 3,
                 "limits": 4
+
+            },
+
+            {
+
+                "name": "Pew! Pew!",
+                "icon": "pacman",
+                "positions": [
+
+                    {
+                        "begin": "1:00",
+                        "end": "1:30"
+                    },
+
+                    {
+                        "begin": "3:15",
+                        "end": "3:35"
+                    }
+
+                ],
+                "cooldown": 6,
+                "limits": 1
+
+            },
+
+            {
+
+                "name": "Excited!",
+                "icon": "grin",
+                "positions": [
+
+                    {
+                        "begin": "1:00",
+                        "end": "1:30"
+                    },
+
+                    {
+                        "begin": "3:15",
+                        "end": "3:35"
+                    }
+
+                ],
+                "cooldown": 4,
+                "limits": 5
+
+            },
+
+            {
+
+                "name": "Power up!",
+                "icon": "power",
+                "positions": [
+
+                    {
+                        "begin": "1:00",
+                        "end": "1:30"
+                    },
+
+                    {
+                        "begin": "3:15",
+                        "end": "3:35"
+                    }
+
+                ],
+                "cooldown": 3,
+                "limits": 3
 
             }
 
