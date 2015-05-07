@@ -6,10 +6,6 @@
 
         private $path;
         private $id;
-        private $name;
-        private $icon;
-        private $cooldown;
-        private $limits;
 
         // constructor
         public function __construct( $filePath ) {
