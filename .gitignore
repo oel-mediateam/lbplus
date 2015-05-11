@@ -2,13 +2,17 @@
 config.codekit
 **/config.codekit
 
-# ingore bower components
+# ignore bower components
 bower_components/
 **/bower_components
 
-# ingore SASS cache hidden directory
+# ignore SASS cache hidden directory
 .sass-cache
 **/.sass-cache
 
 #ingore test file
 build/test.html
+
+#ignore config php file
+**/include/config.php
+config.php
