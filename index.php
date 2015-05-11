@@ -1,5 +1,10 @@
 <?php
 
+    define('ABSPATH','localhost');
+
+    include_once 'includes/config.php';
+    include_once 'includes/functions.php';
+
     // TO DO: connect to database & related
     require_once 'includes/db.php';
 
