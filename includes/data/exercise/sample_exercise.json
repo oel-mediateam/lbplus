@@ -2,6 +2,17 @@
     "exercise": {
 
         "id": 1234,
+        "rewind": {
+            "name": "Excuse me?",
+            "icon": "fire",
+            "length": 3,
+            "cooldown": 3,
+            "limits": 5,
+            "grade_value": 0,
+            "graded": false,
+            "enabled": true
+
+        },
         "actions": [
 
             {
