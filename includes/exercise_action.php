@@ -9,15 +9,10 @@
 
     class ExerciseAction {
 
-        private $name;
-        private $icon;
-        private $cooldown;
-        private $limits;
-
-        // constructor
-        public function __construct() {
-
-        }
+        protected $name;
+        protected $icon;
+        protected $cooldown;
+        protected $limits;
 
         // getter
         public function __get( $property ) {
