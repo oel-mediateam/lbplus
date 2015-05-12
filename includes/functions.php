@@ -7,4 +7,11 @@
 
     }
 
+    function initialism( $str ) {
+
+        $result =  preg_replace('~\b(\w)|.~', '$1', $str);
+        return $result[0] . $result[1];
+
+    }
+
 ?>
