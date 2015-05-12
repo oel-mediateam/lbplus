@@ -4,7 +4,8 @@
     require_once 'includes/exercise.php';
 
     $exercise = new Exercise( 'includes/data/exercise/sample_exercise.json' );
-    $actions = $exercise->readExercise();
+    $actions = $exercise->getActions();
+    $rewindAction = $exercise->getRewindAction();
 
 ?>
 
@@ -18,7 +19,7 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-videoId="iBfIFgxf2sw"></div>
+            <div id="ytv" data-video-id="iBfIFgxf2sw"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -27,9 +28,11 @@
 
             <?php
 
+                $count = 0;
+
                 foreach( $actions as $action ) {
 
-                    $button = '<div class="btn disabled" data-cooldown="' . $action->cooldown . '" data-action="btnOne">';
+                    $button = '<div class="btn disabled" data-cooldown="' . $action->cooldown . '" data-action-id="' . ++$count . '">';
                     $button .= '<span class="limits" data-limit="' . $action->limits . '">' . $action->limits . '</span>';
 
                     if ( strlen( trim( $action->icon ) ) ) {
@@ -38,7 +41,7 @@
 
                     } else {
 
-                        $button .= '<span class="icon">ts</span>';
+                        $button .= '<span class="icon">' . initialism( $action->name ) . '</span>';
 
                     }
 
@@ -81,12 +84,40 @@
 
     <div class="main_controls">
 
-        <div class="btn rewind disabled" data-cooldown="3" data-action="btnRewind">
-            <span class="limits" data-limit="3">3</span>
-            <span class="icon"><span class="icon-fire"></span></span>
-            <span class="action_name">More! More!</span>
-            <span class="cooldown"><span class="progress"></span></span>
-        </div>
+        <?php
+
+            if ( $rewindAction->enabled ) {
+
+                if ( $rewindAction->graded ) {
+
+                    $rewindButton = '<div class="btn rewind graded disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
+
+                } else {
+
+                    $rewindButton = '<div class="btn rewind disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
+
+                }
+
+               $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+
+                if ( strlen( trim( $rewindAction->icon ) ) ) {
+
+                    $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
+
+                } else {
+
+                    $rewindButton .= '<span class="icon"><span class="icon-spinner"></span></span>';
+
+                }
+
+               $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
+               $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
+
+               echo $rewindButton;
+
+            }
+
+        ?>
 
     </div>
 
