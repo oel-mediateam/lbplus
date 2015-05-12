@@ -50,7 +50,7 @@ $( function() {
     // end dev purpose
 
     // get/set/load YouTube video ID
-    video.vId = $( '#' + video.selector ).attr( 'data-videoId' );
+    video.vId = $( '#' + video.selector ).data( 'video-id' );
 
     $.fn.loadYouTubeAPI();
 
@@ -171,13 +171,13 @@ $.fn.addTag = function() {
     var curTimeMs = video.player.getCurrentTime();
 
     // Derive the elements of the new span from tag and time info
-    var actionName = $( this ).data( 'action' );
+    var actionName = $( this ).data( 'action-id' );
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
     var barPx = $( '.progress_bar .progressed' ).width() + 10; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
     var icon = $( this ).find( '.icon' ).html();
 
     // Build the span
-    var span = '<span class="tag" data-action="' + actionName +
+    var span = '<span class="tag" data-action-id="' + actionName +
                '" data-time="' + formattedTime +
                '" data-count="' + tagCount +
                '" style="left:' + barPx + 'px;' +
@@ -397,9 +397,11 @@ function onPlayerStateChange( event ) {
             // disable all action buttons
             for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
 
-                $( '.btn[data-action]:eq('+i+')' ).addClass('disabled');
+                $( '.btn[data-action-id]:eq('+i+')' ).addClass('disabled');
 
             }
+
+            $( '.btn.rewind' ).addClass('disabled');
 
             // clear update progress bar interval
             clearInterval( updatePrgrsInterval );
@@ -418,12 +420,15 @@ function onPlayerStateChange( event ) {
             // end dev
 
             // add clicked event listener to all action buttons
-            for ( var j = 0; j < $( '.btn[data-action]' ).length; j++ ) {
+            for ( var j = 0; j < $( '.btn[data-action-id]' ).length; j++ ) {
 
-                $( '.btn[data-action]:eq('+j+')' ).removeClass('disabled');
-                $( '.btn[data-action]:eq('+j+')' ).clickAction();
+                $( '.btn[data-action-id]:eq('+j+')' ).removeClass('disabled');
+                $( '.btn[data-action-id]:eq('+j+')' ).clickAction();
 
             }
+
+            $( '.btn.rewind' ).removeClass('disabled');
+            $( '.btn.rewind' ).clickAction();
 
             // Begin updating progress bar
             updatePrgrsInterval = setInterval(updateProgress, 100);
