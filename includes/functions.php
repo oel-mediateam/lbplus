@@ -14,4 +14,30 @@
 
     }
 
+    function getValue( $val, $default ) {
+
+        $result = trim( $val );
+
+        if ( is_bool( $val ) ) {
+
+            if ( (int)$val != "" ) {
+
+                $result = $default;
+
+            }
+
+        } else {
+
+            if ( strlen( $result ) <= 0 ) {
+
+                $result = $default;
+
+            }
+
+        }
+
+        return $result;
+
+    }
+
 ?>
