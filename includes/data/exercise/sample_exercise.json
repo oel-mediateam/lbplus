@@ -3,14 +3,14 @@
 
         "id": 1234,
         "rewind": {
-            "name": "Excuse me?",
+            "name": "Excuse me!",
             "icon": "fire",
             "length": 3,
             "cooldown": 3,
-            "limits": 5,
-            "grade_value": 0,
-            "graded": false,
-            "enabled": true
+            "limits": 3,
+            "grade_value": 0.5,
+            "graded": "",
+            "enabled": null
 
         },
         "actions": [
@@ -24,6 +24,7 @@
                     {
                         "begin": "0:30",
                         "end": "0:45"
+
                     },
 
                     {

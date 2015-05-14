@@ -88,32 +88,13 @@
 
             if ( $rewindAction->enabled ) {
 
-                if ( $rewindAction->graded ) {
+                $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
+                $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
+                $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
+                $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
 
-                    $rewindButton = '<div class="btn rewind graded disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
-
-                } else {
-
-                    $rewindButton = '<div class="btn rewind disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
-
-                }
-
-               $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
-
-                if ( strlen( trim( $rewindAction->icon ) ) ) {
-
-                    $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
-
-                } else {
-
-                    $rewindButton .= '<span class="icon"><span class="icon-spinner"></span></span>';
-
-                }
-
-               $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
-               $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
-
-               echo $rewindButton;
+                echo $rewindButton;
 
             }
 

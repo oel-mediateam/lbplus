@@ -92,14 +92,14 @@
             $context = $this->data['exercise']['rewind'];
 
             $rewind = new ExerciseReminderAction();
-            $rewind->name = $context['name'];
-            $rewind->icon = $context['icon'];
-            $rewind->limits = $context['limits'];
-            $rewind->cooldown = $context['cooldown'];
-            $rewind->graded = $context['graded'];
-            $rewind->enabled = $context['enabled'];
-            $rewind->grade_value = $context['grade_value'];
-            $rewind->length = $context['length'];
+            $rewind->name = getValue( $context['name'], "Rewind" );
+            $rewind->icon = getValue( $context['icon'], "spinner" );
+            $rewind->limits = getValue( $context['limits'], 5 );
+            $rewind->cooldown = getValue( $context['cooldown'], 6);
+            $rewind->length = getValue( $context['length'], 3 );
+            $rewind->grade_value = getValue( $context['grade_value'], .5 );
+            $rewind->graded = getValue( $context['graded'], true );
+            $rewind->enabled = getValue( $context['enabled'], true );
 
             $this->rewind_action = $rewind;
 
