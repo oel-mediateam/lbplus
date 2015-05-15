@@ -1,6 +1,13 @@
 <?php
 
 
+    if ( !defined( "ABSPATH" ) ) {
+
+        header( 'HTTP/1.0 404 File Not Found', 404 );
+        exit('Error 404 - Page Not Found');
+
+    }
+
     require_once 'includes/exercise.php';
 
     $exercise = new Exercise( 'includes/data/exercise/sample_exercise.json' );
@@ -19,7 +26,7 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-video-id="iBfIFgxf2sw"></div>
+            <div id="ytv" data-video-id="CRuJXdhC9DI"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -95,7 +102,7 @@
 
             if ( $rewindAction->enabled ) {
 
-                $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind">';
+                $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action="btnRewind" data-length="' . $rewindAction->length . '">';
                 $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
                 $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
                 $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
