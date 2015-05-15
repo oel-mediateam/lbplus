@@ -1,6 +1,9 @@
 <?php
 
     define('ABSPATH','localhost');
+    session_start();
+
+    $_SESSION['logged'] = true;
 
     include_once 'includes/config.php';
     include_once 'includes/functions.php';
