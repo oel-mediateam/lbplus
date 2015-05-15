@@ -13,15 +13,6 @@
 /* global YT */
 /* global moment */
 
-// sound effects (global object variable)
-var soundEffects = {
-
-    'click': 'click',
-    'powerUp': 'power_up',
-    'odd': 'no_mercy'
-
-};
-
 // video object
 var video = {
 
@@ -42,13 +33,6 @@ var updatePrgrsInterval;
 // when the document is ready
 $( function() {
 
-    // load the sound effects object
-    $.fn.loadSoundEffects();
-
-    // dev purpose
-    $( '.dev-log' ).append( 'Button sounds loaded.<br />' );
-    // end dev purpose
-
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
 
@@ -57,33 +41,6 @@ $( function() {
 } );
 
 /****** HELPER / EVENT FUNCTIONS *******/
-
-/**
- * Load the sound effects object
- * @author Ethan Lin
- * @since 0.0.1
- *
- * @param none
- * @return void
- *
- */
-$.fn.loadSoundEffects = function() {
-
-    // loop through each properity in the soundEffects object
-    $.each( soundEffects, function( sound, src ) {
-
-        // hold the source/value of the current properity temporary
-        var temp = src;
-
-        // create and assign an audio element to current properity
-        soundEffects[sound] = document.createElement( 'audio' );
-
-        // set the source of the audio to current properity
-        soundEffects[sound].setAttribute( 'src', 'sounds/' + temp + '.mp3' );
-
-    } );
-
-};
 
 /**
  * Load YouTube API and video
@@ -103,10 +60,6 @@ $.fn.loadYouTubeAPI = function() {
 
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // dev purpose
-    $( '.dev-log' ).append( 'YouTube API loaded.<br />' );
-    // end dev purpose
 
 };
 
@@ -128,23 +81,8 @@ $.fn.clickAction = function() {
         if ( !$( this ).hasClass( 'disabled' ) ) {
 
             // Add icon to the progress bar
+            // and start cooldown
             $( this ).addTag();
-
-            // play sound base on class
-            if ( $( this ).hasClass( 'odd' ) ) {
-
-                soundEffects.odd.play();
-
-            } else {
-
-                soundEffects.powerUp.play();
-
-            }
-
-            // dev purpose
-            $( '.dev-log' ).append( $(this).find('.action_name').html() + " @ " + ( moment( video.player.getCurrentTime() * 1000 ).format('mm:ss') ) + ' <br />' );
-            // end dev purpose
-
             $( this ).cooldown();
 
         }
@@ -249,10 +187,6 @@ $.fn.cooldown = function() {
     limits--;
     limitElement.html( limits );
 
-    // dev purpose
-    $( '.dev-log' ).append( 'Subtracting limit by one, cooling down... '+ limits +' remain<br />' );
-    // end dev purpose
-
     // if no limit is 0
     if ( limits <= 0 ) {
 
@@ -290,10 +224,6 @@ $.fn.cooldown = function() {
     $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
     $( '.transition_overlay' ).css('display','none').fadeIn();
 
-    // dev purpose
-    $( '.dev-log' ).append( 'Transition overlay toggled on.<br />' );
-    // end dev purpose
-
  };
 
  /**
@@ -309,12 +239,10 @@ $.fn.cooldown = function() {
  $.fn.hideTransition = function() {
 
     $( '.transition_overlay' ).fadeOut( function() {
-        $( this ).remove();
-    } );
 
-    // dev purpose
-    $( '.dev-log' ).append( 'Transition overlay toggled off.<br />' );
-    // end dev purpose
+        $( this ).remove();
+
+    } );
 
  };
 
@@ -352,6 +280,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady() {
 
     var duration = video.player.getDuration();
+
     duration = duration * 1000;
     duration = moment(duration).format('mm:ss');
 
@@ -359,32 +288,11 @@ function onPlayerReady() {
 
     loadStartBtnEvent();
 
-    // dev purpose
-    $( '.dev-log' ).append( 'YouTube player ready.<br />' );
-    // end dev purpose
-
 }
 
 function onPlayerStateChange( event ) {
 
     var state = event.target.getPlayerState();
-
-    // dev purposes
-    var states = ['ended','playing','paused','buffering', ,'video cued'];
-    var status = null;
-
-    if ( state === -1 ) {
-
-        status = 'unstarted';
-
-    } else {
-
-        status = states[state];
-
-    }
-
-    $( '.dev-log' ).append( status + '<br />');
-    // end dev
 
     switch ( state ) {
 
@@ -392,6 +300,7 @@ function onPlayerStateChange( event ) {
 
             $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
             $( '.lbplus_media .overlay' ).html('<div id="videoPlayBtn">START</div>');
+
             loadStartBtnEvent();
 
             // disable all action buttons
@@ -406,18 +315,9 @@ function onPlayerStateChange( event ) {
             // clear update progress bar interval
             clearInterval( updatePrgrsInterval );
 
-            // dev purpose
-            $( '#stopVideoBtn' ).attr('disabled','');
-            $( '.dev-log' ).append( 'Video ended. Transition overlay should be shown. Start button should be redisplayed. Action buttons should be disabled.<br />' );
-            // end dev
-
         break;
 
         case YT.PlayerState.PLAYING:
-
-            // dev purpose
-            $( '.dev-log' ).append( 'Video playing... allow buttons to be clickable.<br />' );
-            // end dev
 
             // add clicked event listener to all action buttons
             for ( var j = 0; j < $( '.btn[data-action-id]' ).length; j++ ) {
@@ -449,10 +349,6 @@ function loadStartBtnEvent() {
         $( this ).remove();
 
         video.player.playVideo();
-
-        // dev purposes
-        $( '#stopVideoBtn' ).removeAttr('disabled');
-        // end dev
 
     } );
 

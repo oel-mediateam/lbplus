@@ -72,7 +72,9 @@
 <nav class="lbplus_controls">
 
     <div class="progress_bar_holder">
+
         <!-- Tags go here -->
+
         <div class="progress_bar">
             <span class="progressed"></span>
             <div class="time">

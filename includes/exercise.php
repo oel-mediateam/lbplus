@@ -97,7 +97,7 @@
             $rewind->limits = getValue( $context['limits'], 5 );
             $rewind->cooldown = getValue( $context['cooldown'], 6);
             $rewind->length = getValue( $context['length'], 3 );
-            $rewind->grade_value = getValue( $context['grade_value'], .5 );
+            $rewind->grade_value = getValue( $context['grade_value'], 0 );
             $rewind->graded = getValue( $context['graded'], true );
             $rewind->enabled = getValue( $context['enabled'], true );
 
