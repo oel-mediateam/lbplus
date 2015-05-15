@@ -25,7 +25,6 @@ var video = {
 // hold the count of the tag
 // also use for the z-index
 var tagCount = 0;
-
 var updatePrgrsInterval;
 
 /****** CORE *******/
@@ -55,8 +54,8 @@ $( function() {
 $.fn.loadYouTubeAPI = function() {
 
     // insert YouTube API scripts to HTML head
-    var tag = document.createElement('script');
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    var tag = document.createElement( 'script' );
+    var firstScriptTag = document.getElementsByTagName( 'script' )[0];
 
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -173,7 +172,7 @@ $.fn.cooldown = function() {
     var cooldownBar = $( cooldownBarElement.selector + ':eq(' + index + ')' );
 
     // get the button limits
-    var limitElement = $( this ).find('.limits');
+    var limitElement = $( this ).find( '.limits' );
     var limits = Number ( limitElement.html() );
 
     if ( cooldownBar.width() >= buttonWidth ) {
@@ -222,7 +221,7 @@ $.fn.cooldown = function() {
  $.fn.showTransition = function( heading, subheading ) {
 
     $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
-    $( '.transition_overlay' ).css('display','none').fadeIn();
+    $( '.transition_overlay' ).css( 'display', 'none' ).fadeIn();
 
  };
 
@@ -282,7 +281,7 @@ function onPlayerReady() {
     var duration = video.player.getDuration();
 
     duration = duration * 1000;
-    duration = moment(duration).format('mm:ss');
+    duration = moment( duration ).format( 'mm:ss' );
 
     $( '.progress_bar .time .duration' ).html( duration );
 
@@ -299,18 +298,18 @@ function onPlayerStateChange( event ) {
         case YT.PlayerState.ENDED:
 
             $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
-            $( '.lbplus_media .overlay' ).html('<div id="videoPlayBtn">START</div>');
+            $( '.lbplus_media .overlay' ).html( '<div id="videoPlayBtn">START</div>' );
 
             loadStartBtnEvent();
 
             // disable all action buttons
             for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
 
-                $( '.btn[data-action-id]:eq('+i+')' ).addClass('disabled');
+                $( '.btn[data-action-id]:eq('+i+')' ).addClass( 'disabled' );
 
             }
 
-            $( '.btn.rewind' ).addClass('disabled');
+            $( '.btn.rewind' ).addClass( 'disabled' );
 
             // clear update progress bar interval
             clearInterval( updatePrgrsInterval );
@@ -322,16 +321,16 @@ function onPlayerStateChange( event ) {
             // add clicked event listener to all action buttons
             for ( var j = 0; j < $( '.btn[data-action-id]' ).length; j++ ) {
 
-                $( '.btn[data-action-id]:eq('+j+')' ).removeClass('disabled');
+                $( '.btn[data-action-id]:eq('+j+')' ).removeClass( 'disabled' );
                 $( '.btn[data-action-id]:eq('+j+')' ).clickAction();
 
             }
 
-            $( '.btn.rewind' ).removeClass('disabled');
+            $( '.btn.rewind' ).removeClass( 'disabled' );
             $( '.btn.rewind' ).clickAction();
 
             // Begin updating progress bar
-            updatePrgrsInterval = setInterval(updateProgress, 100);
+            updatePrgrsInterval = setInterval( updateProgress, 100 );
 
             // start listening to tag events
             $.fn.tagHoverAction();
@@ -371,10 +370,10 @@ function loadStartBtnEvent() {
 function updateProgress() {
 
     var curTimeMs = video.player.getCurrentTime();
-    var newWidth = timeToProgressBarPx(curTimeMs);
-    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
+    var newWidth = timeToProgressBarPx( curTimeMs );
+    var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
-    $( '.progress_bar .progressed' ).css("width", newWidth + "px");
+    $( '.progress_bar .progressed' ).css( "width", newWidth + "px" );
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
 
 }
@@ -392,12 +391,12 @@ function updateProgress() {
   * @return number
   *
   */
-function timeToProgressBarPx(time) {
+function timeToProgressBarPx( time ) {
 
     var duration = video.player.getDuration();
     var progressBarWidth = $( '.progress_bar' ).width();
 
-    return progressBarWidth * (time / duration);
+    return progressBarWidth * ( time / duration );
 
 }
 

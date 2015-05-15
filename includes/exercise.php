@@ -13,8 +13,11 @@
     class Exercise {
 
         private $path;
-        private $id;
         private $data;
+        private $id;
+        private $name;
+        private $actionHeading;
+        private $showVideoTimecode;
         private $actions = array();
         private $rewind_action;
 
@@ -58,7 +61,9 @@
                 $src = file_get_contents( $this->path );
 
                 $this->data = json_decode( $src, true );
-                $this->id = $this->data['exercise']['id'];
+                $this->name = getValue( $this->data['exercise']['name'], 'LiveButton+' );
+                $this->actionHeading = getValue( $this->data['exercise']['actionHeading'], 'Actions' );
+                $this->showVideoTimecode = getValue( $this->data['exercise']['showVideoTimecode'], true );
 
             } else {
 
@@ -79,6 +84,7 @@
                 $action->icon = $item['icon'];
                 $action->limits = $item['limits'];
                 $action->cooldown = $item['cooldown'];
+
                 array_push( $this->actions, $action );
 
             }
@@ -97,7 +103,6 @@
             $rewind->limits = getValue( $context['limits'], 5 );
             $rewind->cooldown = getValue( $context['cooldown'], 6);
             $rewind->length = getValue( $context['length'], 3 );
-            $rewind->grade_value = getValue( $context['grade_value'], 0 );
             $rewind->graded = getValue( $context['graded'], true );
             $rewind->enabled = getValue( $context['enabled'], true );
 

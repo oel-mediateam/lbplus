@@ -13,7 +13,7 @@
 
     <div class="lbplus_status_msg blink">Demonstrating...</div>
 
-    <h1>LiveButton+ Presents</h1>
+    <h1><?php echo $exercise->name; ?></h1>
 
     <div class="lbplus_interaction_wrapper">
 
@@ -24,7 +24,7 @@
 
         <div class="lbplus_actions">
 
-            <h4>Actions</h4>
+            <h4><?php echo $exercise->actionHeading; ?></h4>
 
             <?php
 
@@ -77,10 +77,15 @@
 
         <div class="progress_bar">
             <span class="progressed"></span>
-            <div class="time">
-                <span class="elapsed">--:--</span>
-                <span class="duration">--:--</span>
-            </div>
+            <?php
+
+                if ( $exercise->showVideoTimecode ) {
+
+                    echo '<div class="time"><span class="elapsed">--:--</span><span class="duration">--:--</span></div>';
+
+                }
+
+            ?>
         </div>
     </div>
 

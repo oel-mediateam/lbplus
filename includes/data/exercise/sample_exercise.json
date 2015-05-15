@@ -1,17 +1,19 @@
 {
     "exercise": {
 
-        "id": 1234,
+        "name": "",
+        "actionHeading": "",
+        "showVideoTimecode": null,
         "rewind": {
             "name": "Excuse me!",
             "icon": "fire",
             "length": 3,
             "cooldown": 3,
             "limits": 3,
-            "grade_value": 0.5,
-            "graded": "",
+            "graded": null,
+            "points": 1,
+            "minus": 0,
             "enabled": null
-
         },
         "actions": [
 
@@ -23,13 +25,17 @@
 
                     {
                         "begin": "0:30",
-                        "end": "0:45"
+                        "end": "0:45",
+                        "points": 5,
+                        "minus": null
 
                     },
 
                     {
                         "begin": "2:30",
-                        "end": "2:50"
+                        "end": "2:50",
+                        "points": 5,
+                        "minus": null
                     }
 
                 ],
@@ -46,12 +52,16 @@
 
                     {
                         "begin": "1:00",
-                        "end": "1:30"
+                        "end": "1:30",
+                        "points": 5,
+                        "minus": null
                     },
 
                     {
                         "begin": "3:15",
-                        "end": "3:35"
+                        "end": "3:35",
+                        "points": 5,
+                        "minus": null
                     }
 
                 ],
@@ -68,12 +78,16 @@
 
                     {
                         "begin": "1:00",
-                        "end": "1:30"
+                        "end": "1:30",
+                        "points": 5,
+                        "minus": null
                     },
 
                     {
                         "begin": "3:15",
-                        "end": "3:35"
+                        "end": "3:35",
+                        "points": 5,
+                        "minus": null
                     }
 
                 ],
@@ -90,12 +104,16 @@
 
                     {
                         "begin": "1:00",
-                        "end": "1:30"
+                        "end": "1:30",
+                        "points": 5,
+                        "minus": null
                     },
 
                     {
                         "begin": "3:15",
-                        "end": "3:35"
+                        "end": "3:35",
+                        "points": 5,
+                        "minus": null
                     }
 
                 ],
@@ -112,12 +130,16 @@
 
                     {
                         "begin": "1:00",
-                        "end": "1:30"
+                        "end": "1:30",
+                        "points": 5,
+                        "minus": null
                     },
 
                     {
                         "begin": "3:15",
-                        "end": "3:35"
+                        "end": "3:35",
+                        "points": 5,
+                        "minus": null
                     }
 
                 ],

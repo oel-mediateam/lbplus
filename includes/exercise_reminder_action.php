@@ -14,7 +14,6 @@
         private $graded;
         private $length;
         private $enabled;
-        private $grade_value;
 
         // getter
         public function __get( $property ) {
