@@ -168,6 +168,11 @@ code {
   height: 33.0625rem;
   margin: 0 auto;
 }
+.lbplus_wrapper .error h1 {
+  color: #f00;
+  font-weight: bold;
+  text-transform: capitalize;
+}
 .lbplus_wrapper .lbplus_view {
   position: relative;
   height: 29.3125rem;

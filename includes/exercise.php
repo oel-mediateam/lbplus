@@ -10,6 +10,7 @@
 
     require_once 'includes/exercise_action.php';
     require_once 'includes/exercise_reminder_action.php';
+    require_once 'includes/json_handler.php';
 
     class Exercise {
 
@@ -61,7 +62,17 @@
 
                 $src = file_get_contents( $this->path );
 
-                $this->data = json_decode( $src, true );
+                try {
+
+                    $this->data = JsonHandler::decode( $src, true );
+
+                } catch( RuntimeException $e ) {
+
+                    echo '<div class="error">' . $e->getMessage();
+                    exit();
+
+                }
+
                 $this->name = getValue( $this->data['exercise']['name'], 'LiveButton+' );
                 $this->actionHeading = getValue( $this->data['exercise']['actionHeading'], 'Actions' );
                 $this->showVideoTimecode = getValue( $this->data['exercise']['showVideoTimecode'], true );
@@ -81,6 +92,7 @@
             foreach( $availableActions as $item ) {
 
                 $action = new ExerciseAction();
+                $action->id = $item['id'];
                 $action->name = $item['name'];
                 $action->icon = $item['icon'];
                 $action->limits = $item['limits'];
@@ -99,6 +111,7 @@
             $context = $this->data['exercise']['rewind'];
 
             $rewind = new ExerciseReminderAction();
+            $rewind->id = getValue( $context['id'], "rwd" );
             $rewind->name = getValue( $context['name'], "Rewind" );
             $rewind->icon = getValue( $context['icon'], "spinner" );
             $rewind->limits = getValue( $context['limits'], 5 );

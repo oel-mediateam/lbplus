@@ -330,6 +330,19 @@ code {
     height: rem( 529px );
     margin: 0 auto;
 
+    // ERROR MSG
+    .error {
+
+        h1 {
+
+            color: #f00;
+            font-weight: bold;
+            text-transform: capitalize;
+
+        }
+
+    }
+
     // CONTENT
     .lbplus_view {
 
