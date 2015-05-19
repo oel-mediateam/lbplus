@@ -3,7 +3,7 @@
     if ( !defined( "ABSPATH" ) ) {
 
         header( 'HTTP/1.0 404 File Not Found', 404 );
-        include '404.php';
+        include 'views/404.php';
         exit();
 
     }
