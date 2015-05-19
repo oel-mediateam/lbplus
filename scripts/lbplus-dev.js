@@ -393,7 +393,7 @@ $.fn.cooldown = function() {
  */
  $.fn.writeToFile = function() {
 
-    $.post( 'includes/write_student_input.php', {student: studentResponses}, function( response ) {
+    $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
         $( 'body' ).prepend( response );
     } );
 
