@@ -10,13 +10,11 @@
 
         $inputs = $_POST['student'];
 
-/*
         foreach( $inputs as $data ) {
 
-            echo $data['name'] . '<br />';
+            echo $data['id'] . ' ' . $data['name'] . ' ' . $data['timestamped'] . '<br />';
 
         }
-*/
 
     }
 

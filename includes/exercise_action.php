@@ -10,6 +10,7 @@
 
     class ExerciseAction {
 
+        protected $id;
         protected $name;
         protected $icon;
         protected $cooldown;
