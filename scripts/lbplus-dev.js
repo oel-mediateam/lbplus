@@ -251,8 +251,7 @@ $.fn.addTag = function() {
 
         "id": actionId,
         "name": actionName,
-        "timestamped": formattedTime,
-        "points": 0
+        "timestamped": formattedTime
 
     };
 
