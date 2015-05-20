@@ -41,6 +41,8 @@ function onYouTubeIframeAPIReady() {
         height: '360',
         videoId: video.vId,
         playerVars: {
+            'start': video.startSeconds,
+            'end': video.endSeconds,
             'autoplay': 0,
             'controls': 0,
             'disablekb': 1,
@@ -58,7 +60,7 @@ function onYouTubeIframeAPIReady() {
 
         video.duration = video.player.getDuration();
 
-        $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+        $( '.progress_bar .time .duration' ).html( moment( (video.endSeconds - video.startSeconds) * 1000 ).format( 'mm:ss' ) );
 
         $( '#videoPlayBtn' ).on( 'click', function() {
 
@@ -93,7 +95,7 @@ function onYouTubeIframeAPIReady() {
                 clearInterval( updatePrgrsInterval );
 
                 $( '.progress_bar .progressed' ).css( "width", "100%" );
-                $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+                $( '.progress_bar .time .elapsed' ).html( moment( (video.endSeconds - video.startSeconds) * 1000 ).format( 'mm:ss' ) );
 
                 $.fn.writeToFile();
 
@@ -137,6 +139,11 @@ $( function() {
 
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
+
+    // TEMPORARY get start and end time for video
+    // Future: default to 0 and end of video respectively
+    video.startSeconds = $( '#' + video.selector ).data( 'start-seconds' );
+    video.endSeconds = $( '#' + video.selector ).data( 'end-seconds' );
 
     $.fn.loadYouTubeAPI();
 
@@ -415,8 +422,8 @@ $.fn.cooldown = function() {
 function updateProgress() {
 
     var curTimeMs = video.player.getCurrentTime();
-    var newWidth = Math.floor( ( 100 / video.duration) * curTimeMs );
-    var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
+    var newWidth = Math.floor( ( 100 / (video.endSeconds - video.startSeconds)) * (curTimeMs - video.startSeconds) );
+    var formattedTime = moment( (curTimeMs - video.startSeconds) * 1000 ).format( 'mm:ss' );
 
     $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
 

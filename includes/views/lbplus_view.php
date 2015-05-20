@@ -26,7 +26,8 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-video-id="CRuJXdhC9DI"></div>
+            <!-- Start/end seconds are temporary for dev. May or may not build out in future. -->
+            <div id="ytv" data-video-id="CRuJXdhC9DI" data-start-seconds="5" data-end-seconds="15"></div>
         </div>
 
         <div class="lbplus_actions">
