@@ -43,17 +43,24 @@ $( function() {
     video.vId = $( '#' + video.selector ).data( 'video-id' );
 
     // get/set video start and end seconds
-    video.start = moment.duration( $( '#' + video.selector ).data( 'start' ), 'mm:ss' ).asSeconds() / 60;
-    video.end = moment.duration( $( '#' + video.selector ).data( 'end' ), 'mm:ss' ).asSeconds() / 60;
+    var vStart = $( '#' + video.selector ).data( 'start' );
+    var vEnd = $( '#' + video.selector ).data( 'end' );
 
-    // if video start second is greater and equal to zero
-    if (  video.start >= 0 && video.start !== undefined  ) {
+    if ( vStart !== Number( '-1' ) ) {
 
-        // and if start second is less then end second
-        if ( video.start < video.end ) {
+        video.start = moment.duration( vStart, 'mm:ss' ).asSeconds() / 60;
+        video.end = moment.duration( vEnd, 'mm:ss' ).asSeconds() / 60;
 
-            // video is segmented
-            video.segmented = true;
+        // if video start second is greater and equal to zero
+        if (  video.start >= 0 && video.start !== undefined  ) {
+
+            // and if start second is less then end second
+            if ( video.start < video.end ) {
+
+                // video is segmented
+                video.segmented = true;
+
+            }
 
         }
 
@@ -465,7 +472,6 @@ function updateProgress() {
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
     $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
-
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
 
 }

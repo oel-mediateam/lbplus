@@ -78,7 +78,7 @@
                 $this->name = getValue( $this->data['exercise']['name'], 'LiveButton+' );
                 $this->actionHeading = getValue( $this->data['exercise']['actionHeading'], 'Actions' );
                 $this->showVideoTimecode = getValue( $this->data['exercise']['showVideoTimecode'], true );
-                $this->videoStart = getValue( $this->data['exercise']['videoStart'], false );
+                $this->videoStart = getValue( $this->data['exercise']['videoStart'], -1 );
                 $this->videoEnd = getValue( $this->data['exercise']['videoEnd'], "00:00" );
 
             } else {

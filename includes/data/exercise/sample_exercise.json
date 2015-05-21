@@ -3,16 +3,16 @@
 
         "name": "",
         "actionHeading": "",
-        "videoStart": "00:10",
-        "videoEnd": "00:20",
+        "videoStart": "00:00",
+        "videoEnd": "00:15",
         "showVideoTimecode": null,
         "rewind": {
             "id": "",
             "name": "Excuse me!",
-            "icon": "fire",
+            "icon": "",
             "length": 3,
-            "cooldown": 3,
-            "limits": 3,
+            "cooldown": 30,
+            "limits": 2,
             "graded": null,
             "points": 1,
             "minus": 0,
@@ -23,8 +23,8 @@
             {
 
                 "id":1,
-                "name": "OMG! OMG! OMG!",
-                "icon": "heart",
+                "name": "WHERE'S FFXIV!",
+                "icon": "fire",
                 "positions": [
 
                     {
@@ -51,7 +51,7 @@
             {
 
                 "id": 2,
-                "name": "Shut up! ... and take my money!",
+                "name": "Shut up! ... and FFXIV is better!",
                 "icon": "",
                 "positions": [
 
@@ -78,7 +78,7 @@
             {
 
                 "id": 3,
-                "name": "Pew! Pew!",
+                "name": "Boooo!",
                 "icon": "pacman",
                 "positions": [
 
@@ -105,7 +105,7 @@
             {
 
                 "id": 4,
-                "name": "Excited!",
+                "name": "Not excited!",
                 "icon": "grin",
                 "positions": [
 
@@ -132,7 +132,7 @@
             {
 
                 "id": 5,
-                "name": "Power up!",
+                "name": "Power down...",
                 "icon": "power",
                 "positions": [
 
