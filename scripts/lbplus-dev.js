@@ -20,6 +20,9 @@ var video = {
     'player': null,
     'selector': 'ytv',
     'vId': null,
+    'segmented': false,
+    'start': 0,
+    'end': 0,
     'duration': null,
     'rewinded': false
 
@@ -31,36 +34,82 @@ var tagCount = 0;
 var updatePrgrsInterval;
 var studentResponses = [];
 
+/****** CORE *******/
+
+// when the document is ready
+$( function() {
+
+    // get/set/load YouTube video ID
+    video.vId = $( '#' + video.selector ).data( 'video-id' );
+
+    // get/set video start and end seconds
+    video.start = Number( $( '#' + video.selector ).data( 'start' ) );
+    video.end = Number( $( '#' + video.selector ).data( 'end' ) );
+
+    // if video start second is greater and equal to zero
+    if (  video.start >= 0 && video.start !== undefined  ) {
+
+        // and if start second is less then end second
+        if ( video.start < video.end ) {
+
+            // video is segmented
+            video.segmented = true;
+
+        }
+
+    }
+
+    $.fn.loadYouTubeAPI();
+
+} );
+
 /****** YOUTUBE API FUNCTIONS *******/
 
 function onYouTubeIframeAPIReady() {
+
+    var config = {
+
+        'autoplay': 0,
+        'controls': 0,
+        'disablekb': 1,
+        'enablejsapi': 1,
+        'iv_load_policy': 3,
+        'loop': 0,
+        'modestbranding': 1,
+        'rel': 0,
+        'showinfo': 0
+
+    };
+
+    if ( video.segmented ) {
+
+        config.start = video.start;
+        config.end = video.end;
+
+    }
 
     video.player = new YT.Player( video.selector, {
 
         width: '640',
         height: '360',
         videoId: video.vId,
-        playerVars: {
-            'start': video.startSeconds,
-            'end': video.endSeconds,
-            'autoplay': 0,
-            'controls': 0,
-            'disablekb': 1,
-            'enablejsapi': 1,
-            'iv_load_policy': 3,
-            'loop': 0,
-            'modestbranding': 1,
-            'rel': 0,
-            'showinfo': 0
-        }
+        playerVars: config
 
     } );
 
     video.player.addEventListener( 'onReady', function() {
 
-        video.duration = video.player.getDuration();
+        if( video.segmented ) {
 
-        $( '.progress_bar .time .duration' ).html( moment( (video.endSeconds - video.startSeconds) * 1000 ).format( 'mm:ss' ) );
+            video.duration = video.end - video.start;
+
+        } else {
+
+            video.duration = video.player.getDuration();
+
+        }
+
+        $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
         $( '#videoPlayBtn' ).on( 'click', function() {
 
@@ -95,7 +144,7 @@ function onYouTubeIframeAPIReady() {
                 clearInterval( updatePrgrsInterval );
 
                 $( '.progress_bar .progressed' ).css( "width", "100%" );
-                $( '.progress_bar .time .elapsed' ).html( moment( (video.endSeconds - video.startSeconds) * 1000 ).format( 'mm:ss' ) );
+                $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
                 $.fn.writeToFile();
 
@@ -131,23 +180,6 @@ function onYouTubeIframeAPIReady() {
     } );
 
 }
-
-/****** CORE *******/
-
-// when the document is ready
-$( function() {
-
-    // get/set/load YouTube video ID
-    video.vId = $( '#' + video.selector ).data( 'video-id' );
-
-    // TEMPORARY get start and end time for video
-    // Future: default to 0 and end of video respectively
-    video.startSeconds = $( '#' + video.selector ).data( 'start-seconds' );
-    video.endSeconds = $( '#' + video.selector ).data( 'end-seconds' );
-
-    $.fn.loadYouTubeAPI();
-
-} );
 
 /****** HELPER / EVENT FUNCTIONS *******/
 
@@ -422,8 +454,15 @@ $.fn.cooldown = function() {
 function updateProgress() {
 
     var curTimeMs = video.player.getCurrentTime();
-    var newWidth = Math.floor( ( 100 / (video.endSeconds - video.startSeconds)) * (curTimeMs - video.startSeconds) );
-    var formattedTime = moment( (curTimeMs - video.startSeconds) * 1000 ).format( 'mm:ss' );
+
+    if ( video.segmented ) {
+
+        curTimeMs = video.player.getCurrentTime() - video.start;
+
+    }
+
+    var newWidth = Math.floor( ( 100 / video.duration ) * curTimeMs );
+    var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
     $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
 
