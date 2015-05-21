@@ -20,6 +20,8 @@
         private $name;
         private $actionHeading;
         private $showVideoTimecode;
+        private $videoStart;
+        private $videoEnd;
         private $actions = array();
         private $rewind_action;
 
@@ -76,6 +78,8 @@
                 $this->name = getValue( $this->data['exercise']['name'], 'LiveButton+' );
                 $this->actionHeading = getValue( $this->data['exercise']['actionHeading'], 'Actions' );
                 $this->showVideoTimecode = getValue( $this->data['exercise']['showVideoTimecode'], true );
+                $this->videoStart = getValue( $this->data['exercise']['videoStart'], false );
+                $this->videoEnd = getValue( $this->data['exercise']['videoEnd'], "00:00" );
 
             } else {
 

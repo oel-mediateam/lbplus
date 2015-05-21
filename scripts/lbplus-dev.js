@@ -43,8 +43,8 @@ $( function() {
     video.vId = $( '#' + video.selector ).data( 'video-id' );
 
     // get/set video start and end seconds
-    video.start = Number( $( '#' + video.selector ).data( 'start' ) );
-    video.end = Number( $( '#' + video.selector ).data( 'end' ) );
+    video.start = moment.duration( $( '#' + video.selector ).data( 'start' ), 'mm:ss' ).asSeconds() / 60;
+    video.end = moment.duration( $( '#' + video.selector ).data( 'end' ), 'mm:ss' ).asSeconds() / 60;
 
     // if video start second is greater and equal to zero
     if (  video.start >= 0 && video.start !== undefined  ) {

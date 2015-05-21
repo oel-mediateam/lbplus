@@ -3,6 +3,8 @@
 
         "name": "",
         "actionHeading": "",
+        "videoStart": "00:10",
+        "videoEnd": "00:20",
         "showVideoTimecode": null,
         "rewind": {
             "id": "",
