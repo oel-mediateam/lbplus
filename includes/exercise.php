@@ -67,6 +67,7 @@
                 try {
 
                     $this->data = JsonHandler::decode( $src, true );
+                    $_SESSION['exercise_data'] = $this->data;
 
                 } catch( RuntimeException $e ) {
 

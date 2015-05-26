@@ -1,21 +1,20 @@
 {
     "exercise": {
 
-        "name": "",
+        "name": "Demo",
         "actionHeading": "",
         "videoStart": "00:00",
-        "videoEnd": "00:15",
+        "videoEnd": "00:05",
         "showVideoTimecode": null,
         "rewind": {
-            "id": "",
+            "id": "rwd",
             "name": "Excuse me!",
             "icon": "",
             "length": 3,
-            "cooldown": 30,
+            "cooldown": 8,
             "limits": 2,
             "graded": null,
             "points": 1,
-            "minus": 0,
             "enabled": null
         },
         "actions": [
@@ -28,21 +27,22 @@
                 "positions": [
 
                     {
-                        "begin": "00:30",
-                        "end": "00:45",
-                        "points": 5,
-                        "minus": null
+
+                        "begin": "00:02",
+                        "end": "00:04"
 
                     },
 
                     {
-                        "begin": "2:30",
-                        "end": "2:50",
-                        "points": 5,
-                        "minus": null
+
+                        "begin": "01:30",
+                        "end": "02:00"
+
                     }
 
                 ],
+                "points": 5,
+                "miss": 5,
                 "cooldown": 3,
                 "limits": 5
 
@@ -56,22 +56,20 @@
                 "positions": [
 
                     {
-                        "begin": "1:00",
-                        "end": "1:30",
-                        "points": 5,
-                        "minus": null
+                        "begin": "00:01",
+                        "end": "00:05"
                     },
 
                     {
-                        "begin": "3:15",
-                        "end": "3:35",
-                        "points": 5,
-                        "minus": null
+                        "begin": "01:30",
+                        "end": "02:00"
                     }
 
                 ],
+                "points": 6,
+                "miss": 6,
                 "cooldown": 3,
-                "limits": 4
+                "limits": 5
 
             },
 
@@ -83,22 +81,20 @@
                 "positions": [
 
                     {
-                        "begin": "1:00",
-                        "end": "1:30",
-                        "points": 5,
-                        "minus": null
+                        "begin": "01:00",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "3:15",
-                        "end": "3:35",
-                        "points": 5,
-                        "minus": null
+                        "begin": "02:45",
+                        "end": "03:00"
                     }
 
                 ],
-                "cooldown": 6,
-                "limits": 1
+                "points": 7,
+                "miss": 7,
+                "cooldown": 1,
+                "limits": 99
 
             },
 
@@ -110,21 +106,19 @@
                 "positions": [
 
                     {
-                        "begin": "1:00",
-                        "end": "1:30",
-                        "points": 5,
-                        "minus": null
+                        "begin": "01:15",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "3:15",
-                        "end": "3:35",
-                        "points": 5,
-                        "minus": null
+                        "begin": "03:15",
+                        "end": "03:00"
                     }
 
                 ],
-                "cooldown": 4,
+                "points": 8,
+                "miss": 8,
+                "cooldown": 3,
                 "limits": 5
 
             },
@@ -137,22 +131,20 @@
                 "positions": [
 
                     {
-                        "begin": "1:00",
-                        "end": "1:30",
-                        "points": 5,
-                        "minus": null
+                        "begin": "01:00",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "3:15",
-                        "end": "3:35",
-                        "points": 5,
-                        "minus": null
+                        "begin": "2:30",
+                        "end": "2:45"
                     }
 
                 ],
-                "cooldown": 3,
-                "limits": 3
+                "points": 9,
+                "miss": 9,
+                "cooldown": 0,
+                "limits": 1
 
             }
 
