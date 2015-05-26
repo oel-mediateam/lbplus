@@ -1,4 +1,12 @@
 <?php
+if ( session_status() === 0 || session_status() === 1 ) {
+
+    header( 'HTTP/1.0 404 File Not Found', 404 );
+    include 'views/404.php';
+    exit();
+
+}
+
 class JsonHandler {
 
     protected static $_messages = array(

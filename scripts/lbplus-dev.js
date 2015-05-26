@@ -153,6 +153,7 @@ function onYouTubeIframeAPIReady() {
                 $( '.progress_bar .progressed' ).css( "width", "100%" );
                 $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
+                // write to file and calculate score
                 $.fn.writeToFile();
 
             break;
@@ -243,7 +244,7 @@ $.fn.clickAction = function() {
 
                 }
 
-                video.player.seekTo(rewindLength);
+                video.player.seekTo( rewindLength );
 
                 video.rewinded = true;
 
@@ -437,6 +438,12 @@ $.fn.cooldown = function() {
  *
  */
  $.fn.writeToFile = function() {
+
+    if ( studentResponses.length <= 0 ) {
+
+        studentResponses = -1;
+
+    }
 
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
         $( 'body' ).prepend( response );

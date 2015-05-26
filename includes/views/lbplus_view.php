@@ -26,7 +26,6 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <!-- Start/end seconds are temporary for dev. May or may not build out in future. -->
             <div id="ytv" data-video-id="j4q6lKFIk0g" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 

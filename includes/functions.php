@@ -1,6 +1,6 @@
 <?php
 
-    if ( !defined( "ABSPATH" ) ) {
+    if ( session_status() === 0 || session_status() === 1 ) {
 
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
@@ -38,6 +38,22 @@
         }
 
         return $result;
+
+    }
+
+    function toSeconds( $ms ) {
+
+        $ms = explode(":", $ms);
+
+        return $result = ( $ms[0] * 60 ) + $ms[1];
+
+    }
+
+    function writeToFileAsJson( $file, $content ) {
+
+        $fp = fopen( $file, 'w' );
+        fwrite( $fp, JsonHandler::encode( $content ) );
+        fclose( $fp );
 
     }
 
