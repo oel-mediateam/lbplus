@@ -4,7 +4,7 @@
         "name": "Demo",
         "actionHeading": "",
         "videoStart": "00:00",
-        "videoEnd": "00:05",
+        "videoEnd": "00:10",
         "showVideoTimecode": null,
         "rewind": {
             "id": "rwd",
@@ -35,8 +35,8 @@
 
                     {
 
-                        "begin": "01:30",
-                        "end": "02:00"
+                        "begin": "00:05",
+                        "end": "00:07"
 
                     }
 
@@ -61,8 +61,8 @@
                     },
 
                     {
-                        "begin": "01:30",
-                        "end": "02:00"
+                        "begin": "00:05",
+                        "end": "00:09"
                     }
 
                 ],

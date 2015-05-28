@@ -1,5 +1,5 @@
 <?php
-if ( session_status() === 0 || session_status() === 1 ) {
+if ( !defined( "LBPATH" ) ) {
 
     header( 'HTTP/1.0 404 File Not Found', 404 );
     include 'views/404.php';
@@ -18,18 +18,6 @@ class JsonHandler {
         JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded'
     );
 
-    public static function encode( $value, $options = 0 ) {
-
-        $result = json_encode( $value, $options );
-
-        if( $result )  {
-
-            return $result;
-
-        }
-
-        throw new RuntimeException( static::$_messages[json_last_error()] );
-    }
 
     public static function decode( $json, $assoc = false ) {
 

@@ -12,8 +12,13 @@
 
             session_start();
 
-            require_once 'functions.php';
-            require_once 'json_handler.php';
+            function toSeconds( $ms ) {
+
+                $ms = explode(":", $ms);
+
+                return $result = ( $ms[0] * 60 ) + $ms[1];
+
+            }
 
             $data = $_SESSION['exercise_data'];
             $exercise_actions = $data['exercise']['actions'];
@@ -80,7 +85,31 @@
 
             }
 
-            writeToFileAsJson( 'data/student/demo.json' , $student_action_arrays );
+            $_SESSION['student_data'] = $student_action_arrays;
+
+            $file = 'data/student/demo.json';
+            $content = json_encode( $student_action_arrays );
+            $fp = fopen( $file, 'wb' );
+
+            if ( $fp ) {
+
+                if ( fwrite( $fp, $content ) === false ) {
+
+                    unlink( $fp );
+                    exit( 'Error writing data to file.' );
+
+                } else {
+
+                    fclose( $fp );
+                    echo true;
+
+                }
+
+            } else {
+
+                exit( 'Error writing data to file.' );
+
+            }
 
 
 /*
