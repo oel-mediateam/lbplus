@@ -1,6 +1,6 @@
 <?php
 
-    if ( !defined( "ABSPATH" ) ) {
+    if ( !defined( "LBPATH" ) ) {
 
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';

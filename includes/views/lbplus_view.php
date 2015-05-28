@@ -1,6 +1,6 @@
 <?php
 
-    if ( !defined( "ABSPATH" ) ) {
+    if ( !defined( "LBPATH" ) ) {
 
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include '404.php';
@@ -18,7 +18,7 @@
 
 <section class="lbplus_view">
 
-    <div class="lbplus_status_msg blink">Demonstrating...</div>
+<!--     <div class="lbplus_status_msg blink">Demonstrating...</div> -->
 
     <h1><?php echo $exercise->name; ?></h1>
 

@@ -1,28 +1,13 @@
 <?php
 
-    define('ABSPATH','localhost');
+    define('LBPATH','localhost');
 
     session_start();
 
     include_once 'includes/config.php';
     include_once 'includes/functions.php';
 
-    // TO DO: connect to database & related
-    require_once 'includes/db.php';
-
-    // TO DO: get user info from LTI
-    // TO DO: check current status to determine view
-
-    // DEV ONLY
-    if ( isset( $_GET['switch'] ) ) {
-
-        $view = $_GET['view'];
-
-    } else {
-
-        $view = 'tool';
-
-    }
+    $view = 'includes/views/lbplus_view.php'
 
 ?>
 
@@ -39,11 +24,11 @@
 
         <main class="lbplus_wrapper" role="main">
 
-                <?php
+            <div class="lbplus_container">
 
-                    ( $view === 'score' ) ? include_once 'includes/views/score_view.php' : include_once 'includes/views/lbplus_view.php';
+                <?php include_once $view; ?>
 
-                ?>
+            </div>
 
         </main>
 
