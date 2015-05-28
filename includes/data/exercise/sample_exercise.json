@@ -1,13 +1,13 @@
 {
     "exercise": {
 
-        "name": "Demo",
+        "name": "",
         "actionHeading": "",
         "videoStart": "00:00",
         "videoEnd": "00:10",
         "showVideoTimecode": null,
         "rewind": {
-            "id": "rwd",
+            "id": "",
             "name": "Excuse me!",
             "icon": "",
             "length": 3,
@@ -17,13 +17,16 @@
             "points": 1,
             "enabled": null
         },
+        "scoreViewHeading": "",
+        "allowRetake": "",
+        "allowNew": "",
         "actions": [
 
             {
 
                 "id":1,
                 "name": "WHERE'S FFXIV!",
-                "icon": "fire",
+                "icon": "",
                 "positions": [
 
                     {
@@ -77,7 +80,7 @@
 
                 "id": 3,
                 "name": "Boooo!",
-                "icon": "pacman",
+                "icon": "",
                 "positions": [
 
                     {
@@ -102,7 +105,7 @@
 
                 "id": 4,
                 "name": "Not excited!",
-                "icon": "grin",
+                "icon": "",
                 "positions": [
 
                     {
@@ -127,7 +130,7 @@
 
                 "id": 5,
                 "name": "Power down...",
-                "icon": "power",
+                "icon": "",
                 "positions": [
 
                     {
