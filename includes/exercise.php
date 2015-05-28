@@ -82,6 +82,9 @@
                 $this->videoStart = getValue( $this->data['exercise']['videoStart'], -1 );
                 $this->videoEnd = getValue( $this->data['exercise']['videoEnd'], "00:00" );
 
+                $this->setActions();
+                $this->setRewindAction();
+
             } else {
 
                 exit( 'Exercise file is not found.' );
@@ -90,7 +93,7 @@
 
         }
 
-        public function getActions() {
+        private function setActions() {
 
             $availableActions = $this->data['exercise']['actions'];
 
@@ -107,18 +110,22 @@
 
             }
 
+        }
+
+        public function getActions() {
+
             return $this->actions;
 
         }
 
-        public function getRewindAction() {
+        private function setRewindAction() {
 
             $context = $this->data['exercise']['rewind'];
 
             $rewind = new ExerciseReminderAction();
             $rewind->id = getValue( $context['id'], "rwd" );
             $rewind->name = getValue( $context['name'], "Rewind" );
-            $rewind->icon = getValue( $context['icon'], "spinner" );
+            $rewind->icon = getValue( $context['icon'], "rewind" );
             $rewind->limits = getValue( $context['limits'], 5 );
             $rewind->cooldown = getValue( $context['cooldown'], 6);
             $rewind->length = getValue( $context['length'], 3 );
@@ -126,6 +133,10 @@
             $rewind->enabled = getValue( $context['enabled'], true );
 
             $this->rewind_action = $rewind;
+
+        }
+
+        public function getRewindAction() {
 
             return $this->rewind_action;
 

@@ -4,12 +4,19 @@
 
         session_start();
 
+        include_once '../functions.php';
+
         $exercise_data = $_SESSION['exercise_data']['exercise'];
         $student_data = $_SESSION['student_data'];
 
         unset( $_SESSION['exercise_data'] );
         unset( $_SESSION['student_data'] );
         session_destroy();
+
+/*
+        echo getValue( $exercise_data['allowRetake'], false );
+        echo getValue( $exercise_data['allowNew'], false );
+*/
 
         $exercise_actions = $exercise_data['actions'];
 
@@ -86,7 +93,7 @@
 
 <section class="lbplus_view">
 
-    <h1>Your Score</h1>
+    <h1><?php echo getValue( $exercise_data['scoreViewHeading'], 'Your Score' ); ?></h1>
 
     <div class="score_view">
 
@@ -113,56 +120,36 @@
 
                     }
 
-                    echo '<p>' . $earned . ' / ' . $value['totalPoint'] . ' points</p>';
+                    $numStars = round( ( $earned / $value['totalPoint'] ) * 5, 1 );
+                    $numStars = explode( '.', (string) $numStars );
+                    $numFullStars = $numStars[0];
+                    $numHalfStar = ( isset( $numStars[1] ) ) ? 1 : 0;
+                    $numEmptyStars = 5 - ( $numFullStars + $numHalfStar );
+                    $stars = '';
+
+                    for( $i = 0; $i < $numFullStars; $i++ ) {
+
+                        $stars .= '<span class="icon-star-full"></span> ';
+
+                    }
+
+                    for( $j = 0; $j < $numHalfStar; $j++ ) {
+
+                        $stars .= '<span class="icon-star-half"></span> ';
+
+                    }
+
+                    for( $k = 0; $k < $numEmptyStars; $k++ ) {
+
+                        $stars .= '<span class="icon-star-empty"></span> ';
+
+                    }
+
+                    echo '<p>' . $stars . '&nbsp;' . $earned . '/' . $value['totalPoint'] . ' points</p>';
 
                 }
 
             ?>
-
-<!--
-            <p>OMG! OMG! OMG!</p>
-            <p>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-half"></span>
-                 4.5/5
-            </p>
-            <p>Shut up! ... and take my money!</p>
-            <p>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                 4/5
-            </p>
-            <p>Pew! Pew!</p>
-            <p>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                 3/5
-            </p>
-            <p>Excited!</p>
-            <p>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                 5/5
-            </p>
-            <p>Power up!</p>
-            <p>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-full"></span>
-                <span class="icon-star-half"></span>
-                 4.5/5
-            </p>
--->
 
         </div>
 
