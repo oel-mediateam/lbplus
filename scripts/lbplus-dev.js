@@ -446,7 +446,18 @@ $.fn.cooldown = function() {
     }
 
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
-        $( 'body' ).prepend( response );
+
+        if ( response ) {
+
+            $.get('includes/views/score_view.php', function( res ) {
+
+                $.fn.hideTransition();
+                $( '.lbplus_wrapper .lbplus_container' ).html( res ).hide().fadeIn( 1000 );
+
+            } );
+
+        }
+
     } );
 
  };
