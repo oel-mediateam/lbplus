@@ -12,25 +12,13 @@
 
             session_start();
 
-            function toSeconds( $ms ) {
-
-                $ms = explode(":", $ms);
-
-                return $result = ( $ms[0] * 60 ) + $ms[1];
-
-            }
+            require_once 'functions.php';
 
             $data = $_SESSION['exercise_data'];
             $exercise_actions = $data['exercise']['actions'];
             array_push( $exercise_actions, $data['exercise']['rewind'] );
 
             $inputs = $_POST['student'];
-
-            if ( $inputs == -1 ) {
-
-                exit('No activities were detected.');
-
-            }
 
             $student_action_arrays = array();
 
@@ -44,7 +32,7 @@
 
                 foreach ( $exercise_actions as $action ) {
 
-                    if ( $student_action['id'] == $action['id'] ) {
+                    if ( $student_action['id'] == getValue( $action['id'], 'rwd' ) ) {
 
                         if ( isset( $action['positions'] ) ) {
 

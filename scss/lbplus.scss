@@ -545,15 +545,27 @@ code {
                 @include box-sizing( 'border-box' );
                 float: left;
 
-                p:first-child {
+                .heading {
 
                     margin: rem( $gutter ) 0;
+                    font-weight: bold;
+                    padding: 0 0 rem( 3px );
+                    border-bottom: rem( 2px ) solid $darkerFontColor;
 
                 }
 
                 p {
 
                     margin: rem( $gutter / 2 ) 0;
+
+                }
+
+                p.incorrect {
+
+                    margin: rem( $gutter / 3 ) 0;
+                    font-size: rem( 14px );
+                    line-height: rem( 16px );
+                    padding-left: rem( 16px );
 
                 }
 
@@ -831,6 +843,12 @@ code {
                 @include button();
                 width: 50%;
                 height: rem( 60px );
+
+            }
+
+            .btn.full {
+
+                width: 100%;
 
             }
 

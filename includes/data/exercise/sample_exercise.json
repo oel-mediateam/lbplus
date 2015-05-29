@@ -11,7 +11,7 @@
             "name": "Excuse me!",
             "icon": "",
             "length": 3,
-            "cooldown": 8,
+            "cooldown": 4,
             "limits": 2,
             "graded": null,
             "points": 1,

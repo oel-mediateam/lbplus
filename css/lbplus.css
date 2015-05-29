@@ -403,11 +403,20 @@ code {
   box-sizing: border-box;
   float: left;
 }
-.lbplus_wrapper .lbplus_view .score_view .miss-hits p:first-child {
+.lbplus_wrapper .lbplus_view .score_view .miss-hits .heading, .lbplus_wrapper .lbplus_view .score_view .miss-hits .transition_overlay .loading, .lbplus_wrapper .transition_overlay .lbplus_view .score_view .miss-hits .loading {
   margin: 1rem 0;
+  font-weight: bold;
+  padding: 0 0 0.1875rem;
+  border-bottom: 0.125rem solid #1e1e1e;
 }
 .lbplus_wrapper .lbplus_view .score_view .miss-hits p {
   margin: 0.5rem 0;
+}
+.lbplus_wrapper .lbplus_view .score_view .miss-hits p.incorrect {
+  margin: 0.33333rem 0;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  padding-left: 1rem;
 }
 .lbplus_wrapper .lbplus_view .score_view .percentage {
   width: 18.5rem;
@@ -687,6 +696,9 @@ code {
   margin: 1rem 0;
   width: 50%;
   height: 3.75rem;
+}
+.lbplus_wrapper .lbplus_controls .main_controls.score_view .btn.full {
+  width: 100%;
 }
 .lbplus_wrapper .lbplus_controls .main_controls.score_view .btn.retake, .lbplus_wrapper .lbplus_controls .main_controls.score_view .btn.new, .lbplus_wrapper .lbplus_controls .main_controls.score_view .btn.previous, .lbplus_wrapper .lbplus_controls .main_controls.score_view .btn.next {
   float: left;

@@ -4,7 +4,7 @@
 
         session_start();
 
-        include_once '../functions.php';
+        require_once '../functions.php';
 
         $exercise_data = $_SESSION['exercise_data']['exercise'];
         $student_data = $_SESSION['student_data'];
@@ -13,19 +13,23 @@
         unset( $_SESSION['student_data'] );
         session_destroy();
 
-/*
-        echo getValue( $exercise_data['allowRetake'], false );
-        echo getValue( $exercise_data['allowNew'], false );
-*/
-
         $exercise_actions = $exercise_data['actions'];
+        $allowNew = getValue( $exercise_data['allowNew'], false );
+        $allowRetake = getValue( $exercise_data['allowRetake'], false );
+
+        $bonusAllowed = getValue( $exercise_data['rewind']['graded'], true );
+        $bonusId = getValue( $exercise_data['rewind']['id'], 'rwd' );
 
         $positiveEarned = 0;
         $negativeEarned = 0;
+        $bonusPointsEarned = 0;
         $possilbePoints = 0;
         $percentage = 0;
 
+        $numIncorrects = 0;
+
         $action_array = array();
+        $neg_action_array = array();
 
         foreach ( $exercise_actions as $value ) {
 
@@ -41,23 +45,52 @@
 
         }
 
-        foreach ( $student_data as $value ) {
+        if ( $bonusAllowed ) {
 
-            if ( isset( $value['positive'] ) ) {
+            foreach ( $student_data as $value ) {
 
-                $positiveEarned += $value['positive'];
+                if ( $value['id'] == $bonusId ) {
 
+                    $bonusPointsEarned += $value['positive'];
+
+                } else {
+
+                    if ( isset( $value['positive'] ) ) {
+
+                        $positiveEarned += $value['positive'];
+
+                    }
+
+                }
             }
 
-            if ( isset( $value['negative'] ) ) {
+        } else {
 
-                $negativeEarned += $value['positive'];
+            foreach ( $student_data as $value ) {
+
+                if ( isset( $value['positive'] ) ) {
+
+                    $positiveEarned += $value['positive'];
+
+                }
 
             }
 
         }
 
-        $percentage = round( $positiveEarned / $possilbePoints, 1);
+        foreach ( $student_data as $value ) {
+
+            if ( isset( $value['negative'] ) ) {
+
+                $negativeEarned += $value['negative'];
+                $numIncorrects++;
+                array_push($neg_action_array, $value['id']);
+
+            }
+
+        }
+
+        $percentage = round( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints, 1);
 
         function scoreMessage( $score ) {
 
@@ -66,13 +99,13 @@
             switch ( true ) {
 
                 case $score < 30:
-                 $msg = 'Uh-oh!';
+                 $msg = 'Oh, my! ...';
                  break;
                 case $score < 50:
-                 $msg = 'No good!';
+                 $msg = 'Improvement is needed.';
                  break;
                 case $score < 70:
-                 $msg = 'Need more work!';
+                 $msg = 'Need a bit more work.';
                  break;
                 case $score < 90:
                  $msg = 'Good!';
@@ -145,7 +178,7 @@
 
                     }
 
-                    echo '<p>' . $stars . '&nbsp;' . $earned . '/' . $value['totalPoint'] . ' points</p>';
+                    echo '<p>' . $stars . '&nbsp;' . $earned . '/' . $value['totalPoint'] . ' pts</p>';
 
                 }
 
@@ -154,12 +187,46 @@
         </div>
 
         <div class="miss-hits">
-<!--
-            <p><strong>Number of incorrect tags:</strong></p>
-            <p>Power up! &times;5</p>
-            <p>OMG! OMG! OMG! &times;999</p>
-            <p>Shut up! ... and take my money! &times;123</p>
--->
+            <p class="heading">Analysis</p>
+
+
+            <p>Points earned: <strong><?php echo $positiveEarned; ?></strong></p>
+
+            <?php if ( $bonusAllowed  ) { ?>
+            <p>Bonus points earned: <strong><?php echo $bonusPointsEarned; ?></strong></p>
+            <? } ?>
+
+            <hr />
+
+            <p>Total points earned: <strong><?php echo $positiveEarned + $bonusPointsEarned; ?></strong></p>
+            <p>Total points possible: <strong><?php echo $possilbePoints; ?></strong></p>
+
+            <hr />
+
+            <p>You made <strong><?php echo $numIncorrects; ?></strong> incorrect <?php echo ( $numIncorrects > 1 ) ? 'tags' : 'tag'; ?>.</p>
+
+            <?php
+
+                $negs = array_count_values($neg_action_array);
+
+                foreach ( $exercise_actions as $act ) {
+
+                    foreach ( $negs as $key => $value ) {
+
+                        if ( $key == $act['id'] ) {
+
+                            echo '<p class="incorrect">' . $act['name'] . ' &times;' . $value . ' @ ' . $act['miss'] . 'pts. ea.</small></p>';
+
+                        }
+
+                    }
+
+                }
+
+            ?>
+
+            <p>Total incorrect points: <strong><?php echo $negativeEarned; ?></strong></p>
+
         </div>
 
         <div class="percentage">
@@ -179,13 +246,44 @@
 
         <div class="center">
 
-            <div class="btn new">
-                <span class="action_name">New</span>
-            </div>
+            <?php
 
-            <div class="btn retake">
-                <span class="action_name">Retake</span>
-            </div>
+                if ( $allowNew ) {
+
+                    if ( $allowRetake ) {
+
+                        echo '<div class="btn new"><span class="action_name"><span class="icon-new"></span> New</span></div>';
+
+                    } else {
+
+                        echo '<div class="btn new full"><span class="action_name"><span class="icon-new"></span> New</span></div>';
+
+                    }
+
+
+                }
+
+                if ( $allowRetake ) {
+
+                    if ( $allowNew ) {
+
+                        echo '<div class="btn retake"><span class="action_name"><span class="icon-retake"></span> Retake</span></div>';
+
+                    } else {
+
+                        echo '<div class="btn retake full"><span class="action_name"><span class="icon-retake"></span>  Retake</span></div>';
+
+                    }
+
+                }
+
+                if ( !$allowNew && !$allowRetake ) {
+
+                    echo '&nbsp;';
+
+                }
+
+            ?>
 
         </div>
 
@@ -193,11 +291,11 @@
 
 <!--
             <div class="btn previous">
-                <span class="action_name">Previous</span>
+                <span class="action_name"><span class="icon-previous"></span> Back</span>
             </div>
 
             <div class="btn next">
-                <span class="action_name">Next</span>
+                <span class="action_name">Next <span class="icon-next"></span></span>
             </div>
 -->
 

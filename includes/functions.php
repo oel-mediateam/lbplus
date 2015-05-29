@@ -28,9 +28,13 @@
 
         if ( is_bool( $val ) ) {
 
-            if ( (int)$val != "" ) {
+            if ( !isset($val) ) {
 
                 $result = $default;
+
+            } else {
+
+                $result = $val;
 
             }
 
@@ -45,6 +49,14 @@
         }
 
         return $result;
+
+    }
+
+    function toSeconds( $ms ) {
+
+        $ms = explode(":", $ms);
+
+        return $result = ( $ms[0] * 60 ) + $ms[1];
 
     }
 
