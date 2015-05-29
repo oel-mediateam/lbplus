@@ -3,9 +3,9 @@
     define('LBPATH','localhost');
 
     session_start();
+    $_SESSION['started'] = true;
 
     include_once 'includes/config.php';
-    include_once 'includes/functions.php';
 
     $view = 'includes/views/lbplus_view.php'
 

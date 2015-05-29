@@ -9,6 +9,7 @@
     }
 
     require_once 'includes/exercise.php';
+    require_once 'includes/functions.php';
 
     $exercise = new Exercise( 'includes/data/exercise/sample_exercise.json' );
     $actions = $exercise->getActions();
