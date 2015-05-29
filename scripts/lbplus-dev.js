@@ -249,10 +249,11 @@ $.fn.clickAction = function() {
                 }
 
                 video.player.pauseVideo();
+                video.player.seekTo( rewindLength );
+                updateProgress();
 
                 setTimeout( function() {
 
-                    video.player.seekTo( rewindLength );
                     video.player.playVideo();
 
                 } , 3000);
