@@ -14,5 +14,8 @@ bower_components/
 build/test.html
 
 #ignore config php file
-**/include/config.php
+**/includes/config.php
 config.php
+
+#ignore student json file
+**/includes/data/student/

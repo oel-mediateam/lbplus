@@ -4,15 +4,15 @@
         "name": "",
         "actionHeading": "",
         "videoStart": "00:00",
-        "videoEnd": "00:08",
+        "videoEnd": "00:10",
         "showVideoTimecode": null,
         "rewind": {
             "id": "",
-            "name": "Main Point",
+            "name": "Excuse me!",
             "icon": "",
             "length": 3,
             "cooldown": 4,
-            "limits": 6,
+            "limits": 2,
             "graded": null,
             "points": 1,
             "enabled": null
@@ -25,28 +25,21 @@
             {
 
                 "id":1,
-                "name": "Agreement",
+                "name": "WHERE'S FFXIV!",
                 "icon": "",
                 "positions": [
 
                     {
 
-                        "begin": "00:53",
-                        "end": "00:56"
+                        "begin": "00:02",
+                        "end": "00:04"
 
                     },
 
                     {
 
-                        "begin": "01:03",
-                        "end": "01:06"
-
-                    },
-
-					{
-
-                        "begin": "01:52",
-                        "end": "01:57"
+                        "begin": "00:05",
+                        "end": "00:07"
 
                     }
 
@@ -61,74 +54,68 @@
             {
 
                 "id": 2,
-                "name": "Disagreement",
+                "name": "Shut up! ... and FFXIV is better!",
                 "icon": "",
                 "positions": [
 
                     {
-                        "begin": "00:12",
-                        "end": "00:18"
+                        "begin": "00:01",
+                        "end": "00:05"
                     },
 
                     {
-                        "begin": "00:50",
-                        "end": "00:53"
+                        "begin": "00:05",
+                        "end": "00:09"
                     }
 
                 ],
                 "points": 6,
                 "miss": 6,
                 "cooldown": 3,
-                "limits": 4
+                "limits": 5
 
             },
 
             {
 
                 "id": 3,
-                "name": "Acknowledgment",
+                "name": "Boooo!",
                 "icon": "",
                 "positions": [
 
                     {
-                        "begin": "00:33",
-                        "end": "00:38"
+                        "begin": "01:00",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "00:43",
-                        "end": "00:53"
+                        "begin": "02:45",
+                        "end": "03:00"
                     }
 
                 ],
                 "points": 7,
                 "miss": 7,
                 "cooldown": 1,
-                "limits": 4
+                "limits": 99
 
             },
 
             {
 
                 "id": 4,
-                "name": "Evidence",
+                "name": "Not excited!",
                 "icon": "",
                 "positions": [
 
                     {
-                        "begin": "00:08",
-                        "end": "00:312"
+                        "begin": "01:15",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "00:57",
-                        "end": "01:03"
-                    },
-
-                    {
-                    	"begin": "01:07",
-                        "end": "01:18"
-
+                        "begin": "03:15",
+                        "end": "03:00"
                     }
 
                 ],
@@ -142,25 +129,25 @@
             {
 
                 "id": 5,
-                "name": "Interrupting",
+                "name": "Power down...",
                 "icon": "",
                 "positions": [
 
                     {
-                        "begin": "00:53",
-                        "end": "00:56"
+                        "begin": "01:00",
+                        "end": "01:30"
                     },
 
                     {
-                        "begin": "2:21",
-                        "end": "2:25"
+                        "begin": "2:30",
+                        "end": "2:45"
                     }
 
                 ],
                 "points": 9,
                 "miss": 9,
                 "cooldown": 0,
-                "limits": 5
+                "limits": 1
 
             }
 

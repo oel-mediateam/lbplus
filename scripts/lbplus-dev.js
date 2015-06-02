@@ -14,6 +14,10 @@
 /* global onYouTubeIframeAPIReady */
 /* global moment */
 
+// tester
+var tester;
+var demoArray = [];
+
 // video object
 var video = {
 
@@ -67,6 +71,25 @@ $( function() {
     }
 
     $.fn.loadYouTubeAPI();
+
+    // dev code
+    tester = prompt( 'Hey there! Thank you for helping us out. What\'s your name?', '' );
+    tester = tester.trim();
+    tester = tester.replace( ' ','' );
+    tester = tester + Date.now();
+
+    if ( tester !== null && tester !== '' ) {
+
+        tester = tester.toLowerCase();
+
+    } else {
+
+        tester = 'unknown';
+
+    }
+    demoArray.push( tester );
+
+    // end
 
 } );
 
@@ -458,7 +481,9 @@ $.fn.cooldown = function() {
 
     }
 
-    $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
+    demoArray.push(studentResponses);
+
+    $.post( 'includes/student_input.php', {student: demoArray}, function( response ) {
 
         if ( response ) {
 

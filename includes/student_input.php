@@ -18,7 +18,11 @@
             $exercise_actions = $data['exercise']['actions'];
             array_push( $exercise_actions, $data['exercise']['rewind'] );
 
-            $inputs = $_POST['student'];
+            //dev code
+            $tester = $_POST['student'][0];
+            // end code
+
+            $inputs = $_POST['student'][1];
 
             $student_action_arrays = array();
 
@@ -75,7 +79,7 @@
 
             $_SESSION['student_data'] = $student_action_arrays;
 
-            $file = 'data/student/demo.json';
+            $file = 'data/student/'.$tester.'.json';
             $content = json_encode( $student_action_arrays );
             $fp = fopen( $file, 'wb' );
 
@@ -98,46 +102,6 @@
                 exit( 'Error writing data to file.' );
 
             }
-
-
-/*
-            $total_positive_score = 0;
-            $total_negative_score = 0;
-            $point_possible = 0;
-
-            foreach ( $exercise_actions as $action ) {
-
-                if (  $action['id'] != "rwd" ) {
-
-                    $point_possible += $action['points'];
-
-                }
-
-                foreach ( $student_action_arrays as $student_action) {
-
-                    if ( $student_action['id'] == $action['id'] ) {
-
-                        if ( $student_action['positive'] > 0) {
-
-                            $total_positive_score += $student_action['positive'];
-
-                        } else {
-
-                            $total_negative_score +=$student_action['negative'];
-
-                        }
-
-                        break;
-
-                    }
-
-                }
-
-            }
-
-            $total_score = $total_positive_score - $total_negative_score;
-            $percentage = round( $total_score / $point_possible, 1 );
-*/
 
         } else {
 
