@@ -90,7 +90,7 @@
 
         }
 
-        $percentage = round( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints, 1);
+        $percentage = round( ( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints * 100 ), 1);
 
         function scoreMessage( $score ) {
 
