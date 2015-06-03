@@ -41,8 +41,10 @@ var studentResponses = [];
 /****** CORE *******/
 
 // when the document is ready
-$( function() {
-
+$( function () {
+    
+    'use strict';
+    
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
 
@@ -72,25 +74,6 @@ $( function() {
 
     $.fn.loadYouTubeAPI();
 
-    // dev code
-    tester = prompt( 'Hey there! Thank you for helping us out. What\'s your name?', '' );
-    tester = tester.trim();
-    tester = tester.replace( ' ','' );
-    tester = tester + Date.now();
-
-    if ( tester !== null && tester !== '' ) {
-
-        tester = tester.toLowerCase();
-
-    } else {
-
-        tester = 'unknown';
-
-    }
-    demoArray.push( tester );
-
-    // end
-
 } );
 
 /****** YOUTUBE API FUNCTIONS *******/
@@ -101,8 +84,8 @@ function onYouTubeIframeAPIReady() {
 
         'autoplay': 0,
         'controls': 0,
-        'disablekb': 1,
-        'enablejsapi': 1,
+        'disablekb': 0,
+        'enablejsapi': 0,
         'iv_load_policy': 3,
         'loop': 0,
         'modestbranding': 1,
@@ -129,7 +112,7 @@ function onYouTubeIframeAPIReady() {
 
     video.player.addEventListener( 'onReady', function() {
 
-        if( video.segmented ) {
+        if ( video.segmented ) {
 
             video.duration = video.end - video.start;
 
@@ -213,6 +196,26 @@ function onYouTubeIframeAPIReady() {
         }
 
     } );
+    
+    // dev code
+    tester = prompt( 'Hey there! Thank you for helping us out. What\'s your name?', '' );
+    tester = tester.trim();
+    tester = tester.replace( ' ','' );
+    tester = tester + Date.now();
+
+    if ( tester !== null && tester !== '' ) {
+
+        tester = tester.toLowerCase();
+
+    } else {
+
+        tester = 'unknown';
+
+    }
+    
+    demoArray.push( tester );
+
+    // end
 
 }
 
@@ -531,15 +534,3 @@ function updateProgress() {
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
