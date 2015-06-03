@@ -162,7 +162,7 @@
 
 <section class="lbplus_view">
 
-    <h1><?php echo scoreHeading; //output the heading ?></h1>
+    <h1><?php echo $scoreHeading; //output the heading ?></h1>
 
     <div class="score_view">
 
