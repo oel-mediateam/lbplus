@@ -84,7 +84,7 @@
             case $score < 70:
                 $msg = 'Need a bit more work.';
             break;
-            case $score < 90:
+            case $score < 80:
                 $msg = 'Good!';
             break;
             default:
