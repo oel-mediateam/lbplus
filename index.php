@@ -1,12 +1,19 @@
 <?php
-
+    
+    // define a constant for checking
+    // file access
     define('LBPATH','localhost');
-
+    
+    // start the session
     session_start();
+
+    // session variable holding
+    // a conditional flag for file access
     $_SESSION['started'] = true;
 
-    include_once 'includes/config.php';
-
+    // TODO: include_once 'includes/config.php';
+    
+    // variable holding the view to include
     $view = 'includes/views/lbplus_view.php'
 
 ?>
@@ -26,7 +33,7 @@
 
             <div class="lbplus_container">
 
-                <?php include_once $view; ?>
+                <?php include_once $view; // include the view ?>
 
             </div>
 
@@ -35,5 +42,5 @@
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="vendors/moment.min.js" type="text/javascript"></script>
-    <script src="scripts/lbplus.js" type="text/javascript"></script>
+    <script src="scripts/lbplus-dev.js" type="text/javascript"></script>
 </html>
