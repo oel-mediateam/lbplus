@@ -19,10 +19,13 @@
             array_push( $exercise_actions, $data['exercise']['rewind'] );
 
             //dev code
+/*
             $tester = $_POST['student'][0];
+            $inputs = $_POST['student'][1];
+*/
             // end code
 
-            $inputs = $_POST['student'][1];
+            $inputs = $_POST['student'];
 
             $student_action_arrays = array();
 
@@ -79,7 +82,8 @@
 
             $_SESSION['student_data'] = $student_action_arrays;
 
-            $file = 'data/student/'.$tester.'.json';
+            //$file = 'data/student/'.$tester.'.json';
+            $file = 'data/student/demo.json';
             $content = json_encode( $student_action_arrays );
             $fp = fopen( $file, 'wb' );
 
