@@ -1,18 +1,22 @@
 <?php
+    
+    // define a constant for checking
+    // file access
+    define('LBPATH','localhost');
+    
+    // start the session
+    session_start();
 
-    // DEV ONLY
-    if ( isset( $_GET['switch'] ) ) {
+    // session variable holding
+    // a conditional flag for file access
+    $_SESSION['started'] = true;
 
-        $view = $_GET['view'];
-
-    } else {
-
-        $view = 'tool';
-
-    }
+    // TODO: include_once 'includes/config.php';
+    
+    // variable holding the view to include
+    $view = 'includes/views/lbplus_view.php'
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,82 +31,16 @@
 
         <main class="lbplus_wrapper" role="main">
 
-                <?php
+            <div class="lbplus_container">
 
-                    ( $view === 'score' ) ? include_once 'includes/views/score_view.php' : include_once 'includes/views/lbplus_view.php';
+                <?php include_once $view; // include the view ?>
 
-                ?>
+            </div>
 
         </main>
-
-        <!-- removed in production -->
-        <div class="switch-view">
-            <p>
-                <?php
-
-                    echo ( $view === 'score' ) ? 'Score Interface View' : '"Tool" Interface View';
-
-                ?>
-            </p>
-            <h4 class="dev-heading">DEV/DEMO TOOLS</h4>
-            <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <input type="hidden" name="view" value="<?php echo ( $view === 'score' ) ? 'tool' : 'score'; ?>" />
-                <input type="submit" name="switch" value="<?php echo ( $view === 'score' ) ? 'Show Tool View' : 'Show Score View'; ?>" />
-                <button type="button" id="transitionBtn">Toggle Transition Overlay</button>
-                <button type="button" id="stopVideoBtn" disabled>Pause Video</button>
-            </form>
-            <h4 class="dev-heading">THE LOG :: LA BÛCHE :: EL REGISTRO :: DAS PROTOKOLL</h4>
-            <div class="dev-log"></div>
-        </div>
-        <!-- removed in production -->
 
     </body>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="vendors/moment.min.js" type="text/javascript"></script>
-    <script src="scripts/lbplus.js" type="text/javascript"></script>
-
-    <!-- removed in production -->
-    <script type="text/javascript">
-        $( document ).ready( function() {
-
-            var playerState = 0;
-
-            $( '#transitionBtn' ).on( 'click', function() {
-
-                if ( $( '.transition_overlay' ).is(':visible') ) {
-
-                    $( this ).hideTransition();
-
-                } else {
-
-                    $( '.lbplus_wrapper' ).showTransition( 'Something Completed', 'Calculating something. Please wait...forever.' );
-
-                }
-
-            } );
-
-            $( '#stopVideoBtn' ).on( 'click', function() {
-
-                playerState = video.player.getPlayerState();
-
-                if ( playerState === 1 ) {
-
-                    video.player.pauseVideo();
-
-                    $( this ).html( 'Play Video' );
-
-                } else if ( playerState === 2 ) {
-
-                    video.player.playVideo();
-
-                    $( this ).html( 'Pause Video' );
-
-                }
-
-            } );
-
-        } );
-    </script>
-    <!-- removed in production -->
-
+    <script src="scripts/lbplus-dev.js" type="text/javascript"></script>
 </html>

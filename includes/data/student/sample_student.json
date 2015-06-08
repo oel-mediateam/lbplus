@@ -2,13 +2,15 @@
     "student":  {
 
         "id": 5678,
+        "exerciseId": 1234
+        "exerciseName": "",
         "actions": [
 
             {
 
                 "name": "hit",
                 "timestamped": "0:55",
-                "annotation": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                "pointRecieved": 0
 
 
             },
@@ -17,7 +19,7 @@
 
                 "name": "punch",
                 "timestamped": "1:15",
-                "annotation": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                "pointReceived": 0
 
             }
 

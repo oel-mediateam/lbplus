@@ -1,0 +1,158 @@
+{
+    "exercise": {
+
+        "name": "",
+        "actionHeading": "",
+        "videoStart": "00:00",
+        "videoEnd": "00:10",
+        "showVideoTimecode": null,
+        "rewind": {
+            "id": "",
+            "name": "Excuse me!",
+            "icon": "",
+            "length": 3,
+            "cooldown": 4,
+            "limits": 2,
+            "graded": null,
+            "points": 1,
+            "enabled": null
+        },
+        "scoreViewHeading": "",
+        "allowRetake": "",
+        "allowNew": "",
+        "actions": [
+
+            {
+
+                "id":1,
+                "name": "WHERE'S FFXIV!",
+                "icon": "",
+                "positions": [
+
+                    {
+
+                        "begin": "00:02",
+                        "end": "00:04"
+
+                    },
+
+                    {
+
+                        "begin": "00:05",
+                        "end": "00:07"
+
+                    }
+
+                ],
+                "points": 5,
+                "miss": 5,
+                "cooldown": 3,
+                "limits": 5
+
+            },
+
+            {
+
+                "id": 2,
+                "name": "Shut up! ... and FFXIV is better!",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:01",
+                        "end": "00:05"
+                    },
+
+                    {
+                        "begin": "00:05",
+                        "end": "00:09"
+                    }
+
+                ],
+                "points": 6,
+                "miss": 6,
+                "cooldown": 3,
+                "limits": 5
+
+            },
+
+            {
+
+                "id": 3,
+                "name": "Boooo!",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "01:00",
+                        "end": "01:30"
+                    },
+
+                    {
+                        "begin": "02:45",
+                        "end": "03:00"
+                    }
+
+                ],
+                "points": 7,
+                "miss": 7,
+                "cooldown": 1,
+                "limits": 99
+
+            },
+
+            {
+
+                "id": 4,
+                "name": "Not excited!",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "01:15",
+                        "end": "01:30"
+                    },
+
+                    {
+                        "begin": "03:15",
+                        "end": "03:00"
+                    }
+
+                ],
+                "points": 8,
+                "miss": 8,
+                "cooldown": 3,
+                "limits": 5
+
+            },
+
+            {
+
+                "id": 5,
+                "name": "Power down...",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "01:00",
+                        "end": "01:30"
+                    },
+
+                    {
+                        "begin": "2:30",
+                        "end": "2:45"
+                    }
+
+                ],
+                "points": 9,
+                "miss": 9,
+                "cooldown": 0,
+                "limits": 1
+
+            }
+
+        ]
+
+    }
+
+}

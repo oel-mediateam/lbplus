@@ -11,79 +11,217 @@
 */
 
 /* global YT */
+/* global onYouTubeIframeAPIReady */
 /* global moment */
 
-// sound effects (global object variable)
-var soundEffects = {
-
-    'click': 'click',
-    'powerUp': 'power_up',
-    'odd': 'no_mercy'
-
-};
+// tester
+// var tester;
+// var demoArray = [];
 
 // video object
 var video = {
 
     'player': null,
     'selector': 'ytv',
-    'vId': null
+    'vId': null,
+    'segmented': false,
+    'start': 0,
+    'end': 0,
+    'duration': null,
+    'rewinded': false
 
 };
 
 // hold the count of the tag
 // also use for the z-index
 var tagCount = 0;
-
 var updatePrgrsInterval;
+var studentResponses = [];
 
 /****** CORE *******/
 
 // when the document is ready
-$( function() {
-
-    // load the sound effects object
-    $.fn.loadSoundEffects();
-
-    // dev purpose
-    $( '.dev-log' ).append( 'Button sounds loaded.<br />' );
-    // end dev purpose
-
+$( function () {
+    
+    'use strict';
+    
     // get/set/load YouTube video ID
-    video.vId = $( '#' + video.selector ).attr( 'data-videoId' );
+    video.vId = $( '#' + video.selector ).data( 'video-id' );
+
+    // get/set video start and end seconds
+    var vStart = $( '#' + video.selector ).data( 'start' );
+    var vEnd = $( '#' + video.selector ).data( 'end' );
+
+    if ( vStart !== Number( '-1' ) ) {
+
+        video.start = moment.duration( vStart, 'mm:ss' ).asSeconds() / 60;
+        video.end = moment.duration( vEnd, 'mm:ss' ).asSeconds() / 60;
+
+        // if video start second is greater and equal to zero
+        if (  video.start >= 0 && video.start !== undefined  ) {
+
+            // and if start second is less then end second
+            if ( video.start < video.end ) {
+
+                // video is segmented
+                video.segmented = true;
+
+            }
+
+        }
+
+    }
 
     $.fn.loadYouTubeAPI();
 
 } );
 
-/****** HELPER / EVENT FUNCTIONS *******/
+/****** YOUTUBE API FUNCTIONS *******/
 
-/**
- * Load the sound effects object
- * @author Ethan Lin
- * @since 0.0.1
- *
- * @param none
- * @return void
- *
- */
-$.fn.loadSoundEffects = function() {
+function onYouTubeIframeAPIReady() {
 
-    // loop through each properity in the soundEffects object
-    $.each( soundEffects, function( sound, src ) {
+    var config = {
 
-        // hold the source/value of the current properity temporary
-        var temp = src;
+        'autoplay': 0,
+        'controls': 0,
+        'disablekb': 0,
+        'enablejsapi': 0,
+        'iv_load_policy': 3,
+        'loop': 0,
+        'modestbranding': 1,
+        'rel': 0,
+        'showinfo': 0
 
-        // create and assign an audio element to current properity
-        soundEffects[sound] = document.createElement( 'audio' );
+    };
 
-        // set the source of the audio to current properity
-        soundEffects[sound].setAttribute( 'src', 'sounds/' + temp + '.mp3' );
+    if ( video.segmented ) {
+
+        config.start = video.start;
+        config.end = video.end;
+
+    }
+
+    video.player = new YT.Player( video.selector, {
+
+        width: '640',
+        height: '360',
+        videoId: video.vId,
+        playerVars: config
 
     } );
 
-};
+    video.player.addEventListener( 'onReady', function() {
+
+        if ( video.segmented ) {
+
+            video.duration = video.end - video.start;
+
+        } else {
+
+            video.duration = video.player.getDuration();
+
+        }
+
+        $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+
+        $( '#videoPlayBtn' ).on( 'click', function() {
+
+            $( this ).remove();
+
+            video.player.playVideo();
+
+        } );
+
+    } );
+
+    video.player.addEventListener( 'onStateChange', function( event ) {
+
+        var state = event.target.getPlayerState();
+
+        switch ( state ) {
+
+            case YT.PlayerState.ENDED:
+
+                $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
+                $( '.lbplus_media .overlay' ).html( '<div id="videoPlayBtn">ENDED</div>' );
+
+                for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
+
+                    $( '.btn[data-action-id]:eq('+i+')' ).addClass( 'disabled' );
+
+                }
+
+                $( '.btn.rewind' ).addClass( 'disabled' );
+
+                // clear update progress bar interval
+                clearInterval( updatePrgrsInterval );
+
+                $( '.progress_bar .progressed' ).css( "width", "100%" );
+                $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+
+                setTimeout( function() {
+
+                    // write to file and calculate score
+                    $.fn.writeToFile();
+
+                }, 3000 );
+
+            break;
+
+            case YT.PlayerState.PLAYING:
+
+                if ( !video.rewinded ) {
+
+                    // add clicked event listener to all action buttons
+                    for ( var j = 0; j < $( '.btn[data-action-id]' ).length; j++ ) {
+
+                        $( '.btn[data-action-id]:eq('+j+')' ).removeClass( 'disabled' );
+                        $( '.btn[data-action-id]:eq('+j+')' ).clickAction();
+
+                    }
+
+                    $( '.btn.rewind' ).removeClass( 'disabled' );
+                    $( '.btn.rewind' ).clickAction();
+
+                    // Begin updating progress bar
+                    updatePrgrsInterval = setInterval( updateProgress, 100 );
+
+                    // start listening to tag events
+                    $.fn.tagHoverAction();
+
+                }
+
+            break;
+
+        }
+
+    } );
+    
+    // dev code
+/*
+    tester = prompt( 'Hey there! Thank you for helping us out. What\'s your name?', '' );
+    tester = tester.trim();
+    tester = tester.replace( ' ','' );
+    tester = tester + Date.now();
+
+    if ( tester !== null && tester !== '' ) {
+
+        tester = tester.toLowerCase();
+
+    } else {
+
+        tester = 'unknown';
+
+    }
+    
+    demoArray.push( tester );
+*/
+
+    // end
+
+}
+
+/****** HELPER / EVENT FUNCTIONS *******/
 
 /**
  * Load YouTube API and video
@@ -98,15 +236,11 @@ $.fn.loadSoundEffects = function() {
 $.fn.loadYouTubeAPI = function() {
 
     // insert YouTube API scripts to HTML head
-    var tag = document.createElement('script');
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    var tag = document.createElement( 'script' );
+    var firstScriptTag = document.getElementsByTagName( 'script' )[0];
 
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // dev purpose
-    $( '.dev-log' ).append( 'YouTube API loaded.<br />' );
-    // end dev purpose
 
 };
 
@@ -127,24 +261,39 @@ $.fn.clickAction = function() {
         // if not disabled
         if ( !$( this ).hasClass( 'disabled' ) ) {
 
-            // Add icon to the progress bar
-            $( this ).addTag();
+            if ( $( this ).hasClass( 'rewind' ) ) {
 
-            // play sound base on class
-            if ( $( this ).hasClass( 'odd' ) ) {
+                var rewindLength = Number( $( this ).data( 'length' ) );
+                var currentVideoTime = video.player.getCurrentTime();
 
-                soundEffects.odd.play();
+                if ( currentVideoTime <= rewindLength ) {
 
-            } else {
+                    rewindLength = 0;
 
-                soundEffects.powerUp.play();
+                } else {
+
+                    rewindLength = currentVideoTime - rewindLength;
+
+                }
+
+                video.player.pauseVideo();
+                video.player.seekTo( rewindLength );
+                updateProgress();
+
+                setTimeout( function() {
+
+                    video.player.playVideo();
+
+                } , 3000);
+
+
+                video.rewinded = true;
 
             }
 
-            // dev purpose
-            $( '.dev-log' ).append( $(this).find('.action_name').html() + " @ " + ( moment( video.player.getCurrentTime() * 1000 ).format('mm:ss') ) + ' <br />' );
-            // end dev purpose
-
+            // Add icon to the progress bar
+            // and start cooldown
+            $( this ).addTag();
             $( this ).cooldown();
 
         }
@@ -171,19 +320,30 @@ $.fn.addTag = function() {
     var curTimeMs = video.player.getCurrentTime();
 
     // Derive the elements of the new span from tag and time info
-    var actionName = $( this ).data( 'action' );
+    var actionId = $( this ).data( 'action-id' );
+    var actionName = $( this ).find( '.action_name' ).html();
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
     var barPx = $( '.progress_bar .progressed' ).width() + 10; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
     var icon = $( this ).find( '.icon' ).html();
 
     // Build the span
-    var span = '<span class="tag" data-action="' + actionName +
+    var span = '<span class="tag" data-action-id="' + actionId +
                '" data-time="' + formattedTime +
                '" data-count="' + tagCount +
                '" style="left:' + barPx + 'px;' +
                'z-index:' + (tagCount++) +
                '">' + icon +
                '</span></span>';
+
+    var studentTag = {
+
+        "id": actionId,
+        "name": actionName,
+        "timestamped": formattedTime
+
+    };
+
+    studentResponses.push( studentTag );
 
     $( '.progress_bar_holder' ).prepend( span );
 
@@ -235,7 +395,7 @@ $.fn.cooldown = function() {
     var cooldownBar = $( cooldownBarElement.selector + ':eq(' + index + ')' );
 
     // get the button limits
-    var limitElement = $( this ).find('.limits');
+    var limitElement = $( this ).find( '.limits' );
     var limits = Number ( limitElement.html() );
 
     if ( cooldownBar.width() >= buttonWidth ) {
@@ -248,10 +408,6 @@ $.fn.cooldown = function() {
     // minus one limit and update displayed number
     limits--;
     limitElement.html( limits );
-
-    // dev purpose
-    $( '.dev-log' ).append( 'Subtracting limit by one, cooling down... '+ limits +' remain<br />' );
-    // end dev purpose
 
     // if no limit is 0
     if ( limits <= 0 ) {
@@ -288,11 +444,7 @@ $.fn.cooldown = function() {
  $.fn.showTransition = function( heading, subheading ) {
 
     $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
-    $( '.transition_overlay' ).css('display','none').fadeIn();
-
-    // dev purpose
-    $( '.dev-log' ).append( 'Transition overlay toggled on.<br />' );
-    // end dev purpose
+    $( '.transition_overlay' ).css( 'display', 'none' ).fadeIn();
 
  };
 
@@ -309,149 +461,49 @@ $.fn.cooldown = function() {
  $.fn.hideTransition = function() {
 
     $( '.transition_overlay' ).fadeOut( function() {
-        $( this ).remove();
-    } );
 
-    // dev purpose
-    $( '.dev-log' ).append( 'Transition overlay toggled off.<br />' );
-    // end dev purpose
+        $( this ).remove();
+
+    } );
 
  };
 
-/****** YOUTUBE API FUNCTIONS *******/
+ /**
+ * Write user inputs to file
+ *
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
+ $.fn.writeToFile = function() {
 
-function onYouTubeIframeAPIReady() {
+    if ( studentResponses.length <= 0 ) {
 
-    video.player = new YT.Player( video.selector, {
+        studentResponses = -1;
 
-        width: '640',
-        height: '360',
-        videoId: video.vId,
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'disablekb': 1,
-            'enablejsapi': 1,
-            'iv_load_policy': 3,
-            'loop': 0,
-            'modestbranding': 1,
-            'rel': 0,
-            'showinfo': 0
-        },
-        events: {
+    }
 
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+//     demoArray.push(studentResponses);
+
+    $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
+
+        if ( response ) {
+
+            $.get('includes/views/score_view.php', function( res ) {
+
+                $.fn.hideTransition();
+                $( '.lbplus_wrapper .lbplus_container' ).html( res ).hide().fadeIn( 1000 );
+
+            } );
 
         }
 
     } );
 
-}
-
-function onPlayerReady() {
-
-    var duration = video.player.getDuration();
-    duration = duration * 1000;
-    duration = moment(duration).format('mm:ss');
-
-    $( '.progress_bar .time .duration' ).html( duration );
-
-    loadStartBtnEvent();
-
-    // dev purpose
-    $( '.dev-log' ).append( 'YouTube player ready.<br />' );
-    // end dev purpose
-
-}
-
-function onPlayerStateChange( event ) {
-
-    var state = event.target.getPlayerState();
-
-    // dev purposes
-    var states = ['ended','playing','paused','buffering', ,'video cued'];
-    var status = null;
-
-    if ( state === -1 ) {
-
-        status = 'unstarted';
-
-    } else {
-
-        status = states[state];
-
-    }
-
-    $( '.dev-log' ).append( status + '<br />');
-    // end dev
-
-    switch ( state ) {
-
-        case YT.PlayerState.ENDED:
-
-            $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
-            $( '.lbplus_media .overlay' ).html('<div id="videoPlayBtn">START</div>');
-            loadStartBtnEvent();
-
-            // disable all action buttons
-            for ( var i = 0; i < $( '.btn[data-action]' ).length; i++ ) {
-
-                $( '.btn[data-action]:eq('+i+')' ).addClass('disabled');
-
-            }
-
-            // clear update progress bar interval
-            clearInterval( updatePrgrsInterval );
-
-            // dev purpose
-            $( '#stopVideoBtn' ).attr('disabled','');
-            $( '.dev-log' ).append( 'Video ended. Transition overlay should be shown. Start button should be redisplayed. Action buttons should be disabled.<br />' );
-            // end dev
-
-        break;
-
-        case YT.PlayerState.PLAYING:
-
-            // dev purpose
-            $( '.dev-log' ).append( 'Video playing... allow buttons to be clickable.<br />' );
-            // end dev
-
-            // add clicked event listener to all action buttons
-            for ( var j = 0; j < $( '.btn[data-action]' ).length; j++ ) {
-
-                $( '.btn[data-action]:eq('+j+')' ).removeClass('disabled');
-                $( '.btn[data-action]:eq('+j+')' ).clickAction();
-
-            }
-
-            // Begin updating progress bar
-            updatePrgrsInterval = setInterval(updateProgress, 100);
-
-            // start listening to tag events
-            $.fn.tagHoverAction();
-
-        break;
-
-    }
-
-}
-
-function loadStartBtnEvent() {
-
-    $( '#videoPlayBtn' ).on( 'click', function() {
-
-        $( this ).remove();
-
-        video.player.playVideo();
-
-        // dev purposes
-        $( '#stopVideoBtn' ).removeAttr('disabled');
-        // end dev
-
-    } );
-
-}
+ };
 
 /****** UTILITY FUNCTIONS *******/
 
@@ -470,44 +522,17 @@ function loadStartBtnEvent() {
 function updateProgress() {
 
     var curTimeMs = video.player.getCurrentTime();
-    var newWidth = timeToProgressBarPx(curTimeMs);
-    var formattedTime = moment(curTimeMs * 1000).format('mm:ss');
 
-    $( '.progress_bar .progressed' ).css("width", newWidth + "px");
+    if ( video.segmented ) {
+
+        curTimeMs = video.player.getCurrentTime() - video.start;
+
+    }
+
+    var newWidth = Math.floor( ( 100 / video.duration ) * curTimeMs );
+    var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
+
+    $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
 
 }
-
- /**
-  * Take any time (usually current pulled from player)
-  * and return the number of px the progress bar should
-  * be set to to match proportion of that time against
-  * duration.
-  *
-  * @author Mike Kellum
-  * @since 0.0.1
-  *
-  * @param number, number
-  * @return number
-  *
-  */
-function timeToProgressBarPx(time) {
-
-    var duration = video.player.getDuration();
-    var progressBarWidth = $( '.progress_bar' ).width();
-
-    return progressBarWidth * (time / duration);
-
-}
-
-
-
-
-
-
-
-
-
-
-
-

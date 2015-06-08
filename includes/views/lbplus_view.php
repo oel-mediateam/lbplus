@@ -1,54 +1,74 @@
+<?php
+
+    if ( !defined( "LBPATH" ) ) {
+
+        header( 'HTTP/1.0 404 File Not Found', 404 );
+        include '404.php';
+        exit();
+
+    }
+
+    require_once 'includes/exercise.php';
+    require_once 'includes/functions.php';
+
+    $exercise = new Exercise( 'includes/data/exercise/sample_exercise.json' );
+    $actions = $exercise->getActions();
+    $rewindAction = $exercise->getRewindAction();
+
+?>
+
 <section class="lbplus_view">
 
-    <div class="lbplus_status_msg blink">Demonstrating...</div>
+<!--     <div class="lbplus_status_msg blink">Demonstrating...</div> -->
 
-    <h1>LiveButton+ Presents</h1>
+    <h1><?php echo $exercise->name; ?></h1>
 
     <div class="lbplus_interaction_wrapper">
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-videoId="iBfIFgxf2sw"></div>
+            <div id="ytv" data-video-id="j4q6lKFIk0g" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 
         <div class="lbplus_actions">
 
-            <h4>Actions</h4>
+            <h4><?php echo $exercise->actionHeading; ?></h4>
 
-            <div class="btn disabled" data-cooldown="3" data-action="btnOne">
-                <span class="limits" data-limit="3">3</span>
-                <span class="icon"><span class="icon-heart"></span></span>
-                <span class="action_name">OMG! OMG! OMG!</span>
-                <span class="cooldown"><span class="progress"></span></span>
-            </div>
+            <?php
 
-            <div class="btn disabled" data-cooldown="6" data-action="btnTwo">
-                <span class="limits" data-limit="3">3</span>
-                <span class="icon">Su</span>
-                <span class="action_name long">Shut up! ... and take my money!</span>
-                <span class="cooldown"><span class="progress"></span></span>
-            </div>
 
-            <div class="btn disabled" data-cooldown="8" data-action="btnThree">
-                <span class="limits" data-limit="1">1</span>
-                <span class="icon"><span class="icon-pacman"></span></span>
-                <span class="action_name">Pew! Pew!</span>
-                <span class="cooldown"><span class="progress"></span></span>
-            </div>
+                foreach( $actions as $action ) {
 
-            <div class="btn disabled" data-cooldown="4" data-action="btnFour">
-                <span class="limits" data-limit="5">5</span>
-                <span class="icon"><span class="icon-grin"></span></span>
-                <span class="action_name">Excited!</span>
-                <span class="cooldown"><span class="progress"></span></span>
-            </div>
+                    $button = '<div class="btn disabled" data-cooldown="' . $action->cooldown . '" data-action-id="' . $action->id . '">';
+                    $button .= '<span class="limits" data-limit="' . $action->limits . '">' . $action->limits . '</span>';
 
-            <div class="btn disabled" data-cooldown="7" data-action="btnFive">
-                <span class="limits" data-limit="3">3</span>
-                <span class="icon"><span class="icon-power"></span></span>
-                <span class="action_name">Power up!</span>
-                <span class="cooldown"><span class="progress"></span></span>
-            </div>
+                    if ( strlen( trim( $action->icon ) ) ) {
+
+                        $button .= '<span class="icon"><span class="icon-' . $action->icon . '"></span></span>';
+
+                    } else {
+
+                        $button .= '<span class="icon">' . initialism( $action->name ) . '</span>';
+
+                    }
+
+                    if ( strlen( $action->name ) > 20 ) {
+
+                        $button .= '<span class="action_name long">' . $action->name . '</span>';
+
+                    } else {
+
+                        $button .= '<span class="action_name">' . $action->name . '</span>';
+
+                    }
+
+                    $button .= '<span class="cooldown"><span class="progress"></span></span></div>';
+
+                    echo $button;
+
+                }
+
+            ?>
 
         </div>
 
@@ -59,24 +79,40 @@
 <nav class="lbplus_controls">
 
     <div class="progress_bar_holder">
+
         <!-- Tags go here -->
+
         <div class="progress_bar">
             <span class="progressed"></span>
-            <div class="time">
-                <span class="elapsed">--:--</span>
-                <span class="duration">--:--</span>
-            </div>
+            <?php
+
+                if ( $exercise->showVideoTimecode ) {
+
+                    echo '<div class="time"><span class="elapsed">--:--</span><span class="duration">--:--</span></div>';
+
+                }
+
+            ?>
         </div>
     </div>
 
     <div class="main_controls">
 
-        <div class="btn rewind disabled" data-cooldown="3" data-action="btnRewind">
-            <span class="limits" data-limit="3">3</span>
-            <span class="icon"><span class="icon-fire"></span></span>
-            <span class="action_name">More! More!</span>
-            <span class="cooldown"><span class="progress"></span></span>
-        </div>
+        <?php
+
+            if ( $rewindAction->enabled ) {
+
+                $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action-id="' . $rewindAction->id . '" data-length="' . $rewindAction->length . '">';
+                $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
+                $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
+                $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
+
+                echo $rewindButton;
+
+            }
+
+        ?>
 
     </div>
 
