@@ -8,12 +8,24 @@
 
     }
 
-class DB {
+	class DB {
+	
+	    private static function getDB() {
+		    
+		    $db = unserialize( DB );
+		    
+		    try {
+			    
+			    return new PDO( 'mysql:host=' . $db['db_host'] . ';dbname=' . $db['db_name'] , $db['db_user'], $db['db_pwd'] );
+			    
+		    } catch ( PDOException $e ) {
+			    
+			    exit( 'Connection to database failed.' );
+			    
+		    }
+	
+	    }
+	
+	}
 
-    private static function getDB() {
-
-        return new PDO( 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME , DB_USER, DB_PWD );
-
-    }
-
-}
+?>

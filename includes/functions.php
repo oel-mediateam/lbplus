@@ -1,7 +1,7 @@
 <?php
     
     // if started session data is not true
-    if ( $_SESSION['started'] != true ) {
+    if ( !isset( $_SESSION ) ) {
         
         // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );

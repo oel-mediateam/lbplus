@@ -4,17 +4,19 @@
     // file access
     define('LBPATH','localhost');
     
+    include_once 'includes/config.php';
+    include_once 'includes/db.php';
+    
     // start the session
     session_start();
-
+    
     // session variable holding
     // a conditional flag for file access
     $_SESSION['started'] = true;
-
-    // TODO: include_once 'includes/config.php';
     
     // variable holding the view to include
-    $view = 'includes/views/lbplus_view.php'
+    $view = 'includes/views/lbplus_view.php';
+    
 
 ?>
 
