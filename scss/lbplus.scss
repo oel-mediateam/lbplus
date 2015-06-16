@@ -201,6 +201,7 @@ h6 {
 
     font-size: 120%;
     line-height: rem( $gutter * 1.45 );
+    font-weight: 400;
 
 }
 
@@ -208,6 +209,7 @@ h5 {
 
     font-size: 140%;
     line-height: rem( $gutter * 1.65 );
+    font-weight: 400;
 
 }
 
@@ -215,6 +217,7 @@ h4 {
 
     font-size: 160%;
     line-height: rem( $gutter * 1.85 );
+    font-weight: 400;
 
 }
 
@@ -222,6 +225,7 @@ h3 {
 
     font-size: 180%;
     line-height: rem( $gutter * 2.05 );
+    font-weight: 400;
 
 }
 
@@ -243,6 +247,13 @@ p {
 
     margin: rem( $gutter ) 0;
 
+}
+
+small {
+    
+    font-size: 80%;
+    line-height: rem( $gutter * 1.1 );
+    
 }
 
 ul {
@@ -319,6 +330,131 @@ code {
     @extend pre;
     margin: 0;
 
+}
+
+form {
+    
+    * {
+        
+        outline: none;
+        
+    }
+    
+    $select-color: #2f2f2f;
+    $select-background: #f2f2f2;
+    $select-height: 40px; 
+    
+    .select-hidden {
+        
+        display: none;
+        visibility: hidden;
+        padding-right: rem( 10px );
+        
+    }
+    
+    .select {
+        
+        cursor: pointer;
+        display: block;
+        position: relative;
+        font-size: 16px;
+        color: $select-color;
+        width: 100%;
+        height: $select-height;
+    
+    }
+    
+    .select-styled {
+        
+        position: absolute; 
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: $select-background;
+        padding: rem( 8px ) rem( 15px );
+        @include transition( all 0.2s ease-in );
+        
+        &:after {
+            
+            position: absolute;
+            content:"";
+            width: 0;
+            height: 0;
+            border: rem( 7px ) solid transparent;
+            border-color: $select-color transparent transparent transparent;
+            top: rem( 16px );
+            right: rem( 10px );
+    
+        }
+        
+        &:hover {
+            
+            background-color: darken($select-background, 2);
+            
+        }
+        
+        &:active, &.active {
+            
+            background-color: darken($select-background, 5);
+        
+            &:after {
+                
+              top: rem( 9px );
+              border-color: transparent transparent $select-color transparent;
+            }
+            
+        }
+        
+    }
+        
+    .select-options {
+        
+        display: none; 
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: darken($select-background, 5);
+        z-index: 999;
+        
+        li {
+            
+            margin: 0;
+            padding: rem( 12px ) 0;
+            text-indent: rem( 15px );
+            border-top: rem( 1px ) solid darken($select-background, 10);
+            @include transition( all 0.15s ease-in );
+            
+            &:hover {
+                
+              color: $select-background;
+              background: $select-color;
+              
+            }
+            
+            &[rel="hide"] {
+                
+              display: none;
+              
+            }
+            
+        }
+        
+    }
+    
+    button {
+        
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        
+    }
+    
 }
 
 /******** LB PLUS ********/
