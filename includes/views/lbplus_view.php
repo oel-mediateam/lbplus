@@ -13,7 +13,7 @@
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
 
-    $exercise = new Exercise( 'includes/data/exercise/sample_exercise.json' );
+    $exercise = new Exercise( $_SESSION['json'] );
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();
 
@@ -29,7 +29,7 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-video-id="j4q6lKFIk0g" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
+            <div id="ytv" data-video-id="<?php echo $_SESSION['video']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -119,3 +119,5 @@
     </div>
 
 </nav>
+
+<?php unset( $_SESSION['video'], $_SESSION['json'] ); ?>
