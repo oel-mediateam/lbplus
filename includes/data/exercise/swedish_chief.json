@@ -1,0 +1,124 @@
+{
+    "exercise": {
+
+        "name": "",
+        "actionHeading": "",
+        "videoStart": "",
+        "videoEnd": "",
+        "showVideoTimecode": null,
+        "rewind": {
+            "id": "",
+            "name": "",
+            "icon": "",
+            "length": 5,
+            "cooldown": 4,
+            "limits": "",
+            "graded": false,
+            "points": "",
+            "enabled": null
+        },
+        "scoreViewHeading": "",
+        "allowRetake": "",
+        "allowNew": "",
+        "actions": [
+
+            {
+
+                "id":1,
+                "name": "Flying Object",
+                "icon": "",
+                "positions": [
+
+                    {
+
+                        "begin": "00:09",
+                        "end": "00:12"
+
+                    },
+
+                    {
+
+                        "begin": "00:24",
+                        "end": "00:27"
+
+                    },
+
+					{
+
+                        "begin": "00:30",
+                        "end": "00:33"
+
+                    },
+                    
+                    {
+
+                        "begin": "00:39",
+                        "end": "00:42"
+
+                    },
+                    
+                    {
+
+                        "begin": "00:42",
+                        "end": "00:45"
+
+                    }
+
+                ],
+                "points": 1,
+                "miss": "",
+                "cooldown": 2,
+                "limits": 5
+
+            },
+
+            {
+
+                "id": 2,
+                "name": "Meatball",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:14",
+                        "end": "00:17"
+                    },
+					
+					{
+                        "begin": "00:18",
+                        "end": "00:20"
+                    }
+
+                ],
+                "points": 1,
+                "miss": "",
+                "cooldown": 2,
+                "limits": 3
+
+            },
+
+            {
+
+                "id": 3,
+                "name": "Burger Burger",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:33",
+                        "end": "00:37"
+                    }
+
+                ],
+                "points": 1,
+                "miss": "",
+                "cooldown": 2,
+                "limits": 3
+
+            }
+
+        ]
+
+    }
+
+}
