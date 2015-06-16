@@ -1,23 +1,14 @@
 <?php
     
-    // define a constant for checking
-    // file access
-    define('LBPATH','localhost');
+    // start the session
+    session_start();
     
     include_once 'includes/config.php';
     include_once 'includes/db.php';
     
-    // start the session
-    session_start();
-    
-    // session variable holding
-    // a conditional flag for file access
-    $_SESSION['started'] = true;
-    
     // variable holding the view to include
     $view = 'includes/views/lbplus_view.php';
     
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +26,7 @@
 
             <div class="lbplus_container">
 
-                <?php include_once $view; // include the view ?>
+                <?php include_once $view; ?>
 
             </div>
 
