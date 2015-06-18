@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Error 404</title>
-        <link href="../css/lbplus.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/lbplus/css/lbplus.css'; ?>" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
 
