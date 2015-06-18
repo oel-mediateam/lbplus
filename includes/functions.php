@@ -96,5 +96,66 @@
         return $msg;
 
     }
+    
+    // get views
+    function getView( $request ) {
+        
+        // assessment/exercise view
+        if ( isset( $request['start'] ) ) {
+        
+            $view = 'includes/views/' . $request['view'] . '.php';
+            $scripts = '<script src="scripts/moment.min.js" type="text/javascript"></script><script src="scripts/lbplus.js" type="text/javascript"></script>';
+            
+            // check user id
+            if ( isset( $request['user'] ) && $request['user'] != 'hide' ) {
+                
+                $user = DB::getUser( $request['user'] );
+                $_SESSION['user_id'] = $user['user_id'];
+                
+                // check exercise id
+                if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
+                
+                    $exercise = DB::getExercise( $request['exercise'] );
+                    $_SESSION['video'] = $exercise['video_src'];
+                    $_SESSION['json'] = $exercise['markup_src'];
+                    
+                    return array( 'view' => $view, 'scripts' => $scripts );
+                    
+                } else {
+                    
+                    $_SESSION['error'] = "Please select an user and an exercise.";
+                    header( 'Location: ./' );
+                    exit();
+                    
+                }
+                
+            } else {
+                
+                $_SESSION['error'] = "Please select an user and an exercise.";
+                header( 'Location: ./' );
+                exit();
+                
+            }
+            
+            
+        }
+        
+        // login view
+        if ( isset( $request['login'] ) && $request['login'] == 1 ) {
+                
+            $view = 'includes/views/sign_in.php';
+            $scripts = '';
+            
+            return array( 'view' => $view, 'scripts' => $scripts );
+            
+        }
+        
+        // default view
+        $view = 'includes/views/selection.php';
+        $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
+        
+        return array( 'view' => $view, 'scripts' => $scripts );
+        
+    }
 
 ?>

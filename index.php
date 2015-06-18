@@ -5,34 +5,21 @@
     
     include_once 'includes/config.php';
     include_once 'includes/db.php';
+    include_once 'includes/functions.php';
+    require_once 'includes/signin.php';
     
-    if ( isset( $_POST['start'] ) ) {
-        
-        $view = 'includes/views/' . $_POST['view'] . '.php';
-        $scripts = '<script src="vendors/moment.min.js" type="text/javascript"></script><script src="scripts/lbplus.js" type="text/javascript"></script>';
-        
-        if ( isset( $_REQUEST['exercise'] ) ) {
-            
-            $exercise = DB::getExercise( $_REQUEST['exercise'] );
-            $_SESSION['video'] = $exercise['video_src'];
-            $_SESSION['json'] = $exercise['markup_src'];
-            
-        }
-        
-    } else {
-        
-        $view = 'includes/views/select_user.php';
-        $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
-        
-    }
+    global $scripts;
+    
+    $page = array();
+    $page = getView( $_REQUEST );
+    $scripts = $page['scripts'];
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>LB+</title>
+        <title>Professional Training Development</title>
         <link href="css/lbplus.css" rel="stylesheet" type="text/css" media="all" />
         <link href="fonts/icomoon.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/demo.css" rel="stylesheet" type="text/css" media="all" /> <!-- demo css; remove for live -->
@@ -42,9 +29,9 @@
         <main class="lbplus_wrapper" role="main">
 
             <div class="lbplus_container">
-
-                <?php include_once $view; ?>
-
+                
+                <?php include_once $page['view']; ?>
+                
             </div>
 
         </main>
@@ -55,3 +42,4 @@
     <?php echo $scripts; ?>
     
 </html>
+                
