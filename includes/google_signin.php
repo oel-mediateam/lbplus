@@ -1,5 +1,15 @@
 <?php
     
+    // if started session data is not true
+    if ( !isset( $_SESSION ) ) {
+        
+        // redirect to 404 page
+        header( 'HTTP/1.0 404 File Not Found', 404 );
+        include 'views/404.php';
+        exit();
+
+    }
+    
     require_once 'admin/google_api/autoload.php';
     require_once 'admin/google_api/Client.php';
     require_once 'admin/google_api/Service/Oauth2.php';
