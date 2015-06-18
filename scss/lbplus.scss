@@ -407,6 +407,11 @@ form {
         }
         
     }
+    
+    .select-styled.error {
+        
+        border: rem( 1px ) solid #f00;        
+    }
         
     .select-options {
         
@@ -465,19 +470,6 @@ form {
     width: rem( 940px );
     height: rem( 529px );
     margin: 0 auto;
-
-    // ERROR MSG
-    .error {
-
-        h1 {
-
-            color: #f00;
-            font-weight: bold;
-            text-transform: capitalize;
-
-        }
-
-    }
 
     // CONTENT
     .lbplus_view {
@@ -737,6 +729,143 @@ form {
             }
 
         } // end score_view
+        
+        .selection_view {
+            
+            padding-top: rem( 30px );
+            
+        }
+        
+        .callout {
+            
+            margin: rem( $gutter ) 0;
+            border-left: rem( 3px ) solid #ccc;
+            padding: rem( 10px );
+            @include box-shadow( 0 0 rem( 4px ) #ccc );
+            
+        }
+        
+        .danger {
+            
+            color: #ff005a;
+            border-left-color: #ff005a;
+            
+        }
+        
+        .info {
+            
+            border-left-color: #00aeff;
+            
+        }
+        
+        .success {
+            
+            border-left-color: #00ff74;
+            
+        }
+        
+        .admin_bar {
+            
+            position: absolute;
+            width: 100%;
+            height: rem( 39px );
+            top: 0;
+            left: 0;
+            background-color: #f9f9f9;
+            border-bottom: rem( 1px ) solid #ccc;
+            
+            h1 {
+                
+                width: 50%;
+                font-size: 110%;
+                line-height: normal;
+                font-weight: bold;
+                margin: 0;
+                padding: rem( 9px ) rem( 10px ) 0;
+                float: left;
+                @include box-sizing( border-box );
+                
+            }
+            
+            ul {
+                
+                width: 50%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                text-align: right;
+                float: left;
+                
+                li {
+                    
+                    display: block;
+                    margin: 0;
+                    padding: 0;
+                    float: right;
+                    
+                    .profile {
+                        
+                        float: left;
+                        clear: both;
+                        color: #fff;
+                        background-color: #9a9a9a;
+                        
+                        img {
+                            
+                            display: block;
+                            float: left;
+                            
+                        }
+                        
+                        .name {
+                            
+                            display: block;
+                            padding: rem( 10px ) rem( 10px ) 0;
+                            float: left;
+                            
+                        }
+                        
+                    }
+                    
+                    a {
+                        
+                        display: block;
+                        width: 100%;
+                        height: rem( 40px );
+                        text-decoration: none;
+                        padding: rem( 10px ) rem( 10px );
+                        border-left: rem( 1px ) solid #ccc;
+                        @include box-sizing( border-box );
+                        
+                    }
+                    
+                    a.dashboard {
+                        
+                        color: #fff;
+                        background-color: #5d5dff;
+                        
+                    }
+                    
+                    a.signin {
+                        
+                        color: #fff;
+                        background-color: #2fc600;
+                        
+                    }
+                    
+                    a.signout {
+                        
+                        color: #fff;
+                        background-color: #d50000;
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
 
     } // end content
 
