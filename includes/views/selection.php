@@ -1,6 +1,14 @@
 <?php
     
-    $users = DB::getUsers();
+    if ( !isset( $_SESSION['access_token'] ) ) {
+        
+        // redirect to 404 page
+        header( 'HTTP/1.0 404 File Not Found', 404 );
+        include '404.php';
+        exit();
+        
+    }
+    
     $exercises = DB::getExercises();
     
 ?>
@@ -15,11 +23,7 @@
              <ul>
                  <?php
                      
-                    if ( isset( $authUrl ) ) {
-                        
-                        echo '<li><a class="signin" href="' . $authUrl . '">Sign In</a></li>';
-                        
-                    } else {
+                    if ( !isset( $authUrl ) ) {
                         
                         echo '<li><a class="signout" href="?logout">Sign Out</a></li>';
                         
@@ -37,7 +41,7 @@
              </ul>
         </nav>
         
-        <h1>Welcome!</h1>
+        <h1>Exercises</h1>
         
         <?php
             
@@ -49,20 +53,8 @@
             
         ?>
         
-        <h6>Who will doing the exercise?</h6>
-        <select name="user" <?php echo ( isset( $_SESSION['error'] ) ) ? 'class="error"' : ''; ?> >
-            <option value="hide">--- please select ---</option>
-            <?php
-              
-                foreach ( $users as $user ) {
-                
-                    echo '<option value="' . $user['user_id'] . '">' . $user['first_name'] . ' ' . $user['last_name'] . '</option>';
-                
-                }
-                
-            ?>
-        </select>
-        <h6>Which exercise would you like?</h6>
+        <p>Please select the exercise that you would like to attempt. When you are ready, click the <strong>START</strong> button below to begin.</p>
+        
         <select name="exercise" <?php echo ( isset( $_SESSION['error'] ) ) ? 'class="error"' : ''; ?>>
             <option value="hide">--- please select ---</option>
             <?php
@@ -76,7 +68,7 @@
             ?>
         </select>
         
-        <p><small>When you are ready, click the <strong>START</strong> button below to begin.</small></p>
+        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. Please make sure you are fully prepared and comfortable before you begin.</div>
     
     </div>
  </section>

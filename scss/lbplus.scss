@@ -462,6 +462,18 @@ form {
     
 }
 
+a, a:link {
+    
+    text-decoration: none;
+    
+}
+
+a:hover {
+    
+    text-decoration: underline;
+    
+}
+
 /******** LB PLUS ********/
 
 .lbplus_wrapper {
@@ -736,8 +748,78 @@ form {
             
         }
         
+        .signin_view {
+            
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+            padding: rem( 16px );
+            
+            .btn {
+            
+                display: inline-block;
+                margin: 0;
+                font-size: rem( 14px );
+                font-weight: bold;
+                color: #6f6f6f;
+                text-decoration: none;
+                padding: rem( 10px );
+                border: rem( 1px ) solid #6f6f6f;
+                @include border-radius( rem( 3px ) );
+                
+            }
+            
+            .btn:hover {
+                
+                color: #2f2f2f;
+                border-color: #2f2f2f;
+                
+            }
+            
+            .signin {
+                
+                display: block;
+                width: 50%;
+                margin: rem( $gutter ) auto;
+                font-size: rem( 18px );
+                padding: rem( 15px ) rem( 10px );
+                color: #fff;
+                background-color: #2888c7;
+                border-color: #0f75b9;
+                
+            }
+            
+            .signin:hover {
+                
+                color: #fff;
+                background-color: #0f75b9;
+                border-color: #0f75b9;
+                
+            }
+            
+            .profile_img {
+                
+                width: rem( 150px );
+                margin: rem( $gutter ) auto;
+                overflow: hidden;
+                border: rem( 3px ) solid #0f75b9;
+                @include border-radius( 50% );
+                
+                img {
+                    
+                    width: rem( 150px );
+                    height: rem( 150px );
+                    
+                }
+                
+            }
+            
+        }
+        
         .callout {
             
+            font-size: 80%;
+            line-height: rem( $gutter * 1.1 );
             margin: rem( $gutter ) 0;
             border-left: rem( 3px ) solid #ccc;
             padding: rem( 10px );

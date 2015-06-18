@@ -106,54 +106,42 @@
             $view = 'includes/views/' . $request['view'] . '.php';
             $scripts = '<script src="scripts/moment.min.js" type="text/javascript"></script><script src="scripts/lbplus.js" type="text/javascript"></script>';
             
-            // check user id
-            if ( isset( $request['user'] ) && $request['user'] != 'hide' ) {
+            // check exercise id
+            if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
+            
+                $exercise = DB::getExercise( $request['exercise'] );
+                $_SESSION['video'] = $exercise['video_src'];
+                $_SESSION['json'] = $exercise['markup_src'];
                 
-                $user = DB::userExists( $request['user'] );
-                
-                // check exercise id
-                if ( $user != 0 && isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
-                
-                    $exercise = DB::getExercise( $request['exercise'] );
-                    $_SESSION['video'] = $exercise['video_src'];
-                    $_SESSION['json'] = $exercise['markup_src'];
-                    
-                    return array( 'view' => $view, 'scripts' => $scripts );
-                    
-                } else {
-                    
-                    $_SESSION['error'] = "Please select an user and an exercise.";
-                    header( 'Location: ./' );
-                    exit();
-                    
-                }
+                return array( 'view' => $view, 'scripts' => $scripts );
                 
             } else {
                 
-                $_SESSION['error'] = "Please select an user and an exercise.";
-                header( 'Location: ./' );
+                $_SESSION['error'] = "Please select an exercise.";
+                header( 'Location: ./?page=selection' );
                 exit();
                 
             }
             
-            
         }
         
-        // login view
-        if ( isset( $request['login'] ) && $request['login'] == 1 ) {
-                
-            $view = 'includes/views/sign_in.php';
-            $scripts = '';
+        if ( isset( $request['page'] ) ) {
             
-            return array( 'view' => $view, 'scripts' => $scripts );
+            if ( $request['page'] == 'selection' ) {
+                
+                // exercise selection page
+                $view = 'includes/views/selection.php';
+                $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
+                return array( 'view' => $view, 'scripts' => $scripts );
+                
+            }
             
         }
         
         // default view
-        $view = 'includes/views/selection.php';
-        $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
+        $view = 'includes/views/signin.php';
         
-        return array( 'view' => $view, 'scripts' => $scripts );
+        return array( 'view' => $view, 'scripts' => '' );
         
     }
     

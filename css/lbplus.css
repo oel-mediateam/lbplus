@@ -215,6 +215,12 @@ form button {
   background-color: transparent;
   border: none; }
 
+a, a:link {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
 /******** LB PLUS ********/
 .lbplus_wrapper {
   position: relative;
@@ -451,7 +457,53 @@ form button {
           margin-top: 1rem; }
     .lbplus_wrapper .lbplus_view .selection_view {
       padding-top: 1.875rem; }
+    .lbplus_wrapper .lbplus_view .signin_view {
+      width: 50%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 1rem; }
+      .lbplus_wrapper .lbplus_view .signin_view .btn {
+        display: inline-block;
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: #6f6f6f;
+        text-decoration: none;
+        padding: 0.625rem;
+        border: 0.0625rem solid #6f6f6f;
+        -moz-border-radius: 0.1875rem;
+        -webkit-border-radius: 0.1875rem;
+        border-radius: 0.1875rem; }
+      .lbplus_wrapper .lbplus_view .signin_view .btn:hover {
+        color: #2f2f2f;
+        border-color: #2f2f2f; }
+      .lbplus_wrapper .lbplus_view .signin_view .signin {
+        display: block;
+        width: 50%;
+        margin: 1rem auto;
+        font-size: 1.125rem;
+        padding: 0.9375rem 0.625rem;
+        color: #fff;
+        background-color: #2888c7;
+        border-color: #0f75b9; }
+      .lbplus_wrapper .lbplus_view .signin_view .signin:hover {
+        color: #fff;
+        background-color: #0f75b9;
+        border-color: #0f75b9; }
+      .lbplus_wrapper .lbplus_view .signin_view .profile_img {
+        width: 9.375rem;
+        margin: 1rem auto;
+        overflow: hidden;
+        border: 0.1875rem solid #0f75b9;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%; }
+        .lbplus_wrapper .lbplus_view .signin_view .profile_img img {
+          width: 9.375rem;
+          height: 9.375rem; }
     .lbplus_wrapper .lbplus_view .callout {
+      font-size: 80%;
+      line-height: 1.1rem;
       margin: 1rem 0;
       border-left: 0.1875rem solid #ccc;
       padding: 0.625rem;
