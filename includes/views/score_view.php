@@ -1,7 +1,15 @@
 <?php
-    
 // if session is not set
     if ( !isset($_SESSION) ) {
+        
+        if ( !isset( $_SESSION['access_token'] ) ) {
+        
+            // redirect to 404 page
+            header( 'HTTP/1.0 404 File Not Found', 404 );
+            include '404.php';
+            exit();
+            
+        }
         
         // start/resume the session if not already
         session_start();
