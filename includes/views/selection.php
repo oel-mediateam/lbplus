@@ -22,7 +22,13 @@
                     } else {
                         
                         echo '<li><a class="signout" href="?logout">Sign Out</a></li>';
-                        echo '<li><a class="dashboard" href="#">Dashboard</a></li>';
+                        
+                        if ( isPermitted( $_SESSION['signed_in_user_id'], 2 ) ) {
+                            
+                            echo '<li><a class="dashboard" href="#">Dashboard</a></li>';
+                            
+                        }
+                        
                         echo '<li><div class="profile"><img src="' . $userData["picture"] . '" width="40" height="40" /><span class="name">' . $userData["name"] . '</span></div></li>';
                         
                     }

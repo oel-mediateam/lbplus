@@ -49,14 +49,21 @@
       
       if( !empty( $userData ) ) {
     	
-/*
-    	echo '<pre>';
-    	var_dump( $userData );
-    	echo '</pre>';
-*/
-    	
+    	if ( DB::googleUserExists( $userData['id'] ) == 0 ) {
+        	
+        	$newUser = DB::addUser( $userData['email'], $userData['givenName'], $userData['familyName'], $userData['id'] );
+        	
+        	if ( $newUser == 0 ) {
+            	
+            	exit( 'Error adding new user.' );
+            	
+        	}
+        	
+    	}
+        
       }
       
+      $_SESSION['signed_in_user_id'] = DB::getID( $userData['id'] );
       $_SESSION['access_token'] = $client->getAccessToken();
       
     } else {

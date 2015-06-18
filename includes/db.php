@@ -28,6 +28,94 @@
 	
 	    }
 	    
+	    public static function googleUserExists( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT COUNT(*) FROM user WHERE google_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                
+                if ( $query->fetchColumn() == 1 ) {
+                    
+                    $db = null;
+                    return 1;
+                    
+                }
+                
+                $db = null;
+                return 0;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function userExists( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT COUNT(*) FROM user WHERE user_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                
+                if ( $query->fetchColumn() == 1 ) {
+                    
+                    $db = null;
+                    return 1;
+                    
+                }
+                
+                $db = null;
+                return 0;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function addUser( $email, $first_name, $last_name, $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'INSERT INTO user(email, first_name, last_name, google_id) VALUES( '
+                . ':email, :first_name, :last_name, :id )';
+                
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':email'=>$email,
+                                        ':first_name'=>$first_name,
+                                        ':last_name'=>$last_name,
+                                        ':id'=>$id ) );
+                
+                $id = $db->lastInsertId();
+                
+                $db = null;
+                
+                return $id;
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function getUsers() {
     	    
     	    $db = DB::getDB();
@@ -37,7 +125,6 @@
         	    $sql = 'SELECT user_id, first_name, last_name FROM user';
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
-                $query->setFetchMode( PDO::FETCH_ASSOC );
                 
                 $users = array();
             
@@ -53,6 +140,7 @@
         	    
     	    } catch( PDOException $e ) {
         	    
+        	    $db = null;
         	    exit( 'Connection to database failed.' );
         	    
     	    }
@@ -83,6 +171,7 @@
         	    
     	    } catch( PDOException $e ) {
         	    
+        	    $db = null;
         	    exit( 'Connection to database failed.' );
         	    
     	    }
@@ -114,6 +203,7 @@
         	    
     	    } catch( PDOException $e ) {
         	    
+        	    $db = null;
         	    exit( 'Connection to database failed.' );
         	    
     	    }
@@ -144,11 +234,72 @@
         	    
     	    } catch( PDOException $e ) {
         	    
+        	    $db = null;
         	    exit( 'Connection to database failed.' );
         	    
     	    }
     	    
 	    }
+	    
+	    public static function getID( $google_id ) {
+    	
+        	$db = DB::getDB();
+        	    
+    	    try {
+        	    
+        	    $sql = 'SELECT user_id FROM user WHERE google_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $google_id ) );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result['user_id'];
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+        	
+    	}
+	    
+	    public static function getRole( $id ) {
+    	
+        	$db = DB::getDB();
+        	    
+    	    try {
+        	    
+        	    $sql = 'SELECT role_id FROM user WHERE user_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result['role_id'];
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+        	
+    	}
 	
 	}
 

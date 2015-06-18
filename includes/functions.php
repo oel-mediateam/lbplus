@@ -109,11 +109,10 @@
             // check user id
             if ( isset( $request['user'] ) && $request['user'] != 'hide' ) {
                 
-                $user = DB::getUser( $request['user'] );
-                $_SESSION['user_id'] = $user['user_id'];
+                $user = DB::userExists( $request['user'] );
                 
                 // check exercise id
-                if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
+                if ( $user != 0 && isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
                 
                     $exercise = DB::getExercise( $request['exercise'] );
                     $_SESSION['video'] = $exercise['video_src'];
@@ -155,6 +154,24 @@
         $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
         
         return array( 'view' => $view, 'scripts' => $scripts );
+        
+    }
+    
+    function isPermitted( $id, $role ) {
+        
+        if ( isset( $id ) ) {
+            
+            $userRole = DB::getRole( $id );
+            
+            if ( $userRole >= $role ) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
         
     }
 
