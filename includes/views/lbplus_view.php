@@ -16,6 +16,7 @@
     $exercise = new Exercise( $_SESSION['json'] );
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();
+    
 
 ?>
 

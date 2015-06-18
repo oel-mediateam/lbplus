@@ -59,6 +59,36 @@
     	    
 	    }
 	    
+	    public static function getUser( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT user_id FROM user WHERE user_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result;
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function getExercises() {
     	    
     	    $db = DB::getDB();
