@@ -216,7 +216,7 @@
     	    
     	    try {
         	    
-        	    $sql = 'SELECT video_src, markup_src FROM exercise WHERE exercise_id = :id';
+        	    $sql = 'SELECT * FROM exercise WHERE exercise_id = :id';
                 $query = $db->prepare( $sql );
                 $query->execute( array( ':id' => $id ) );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
