@@ -21,6 +21,7 @@
     $client->setClientSecret( $google['client_secret'] );
     $client->setRedirectUri( $google['redirect_uri'] );
     $client->setDeveloperKey( $google['api_key'] );
+    $client->setAccessType('offline');
     $client->addScope( "https://www.googleapis.com/auth/userinfo.email" );
     
     $objOAuthService = new Google_Service_Oauth2( $client );
@@ -40,15 +41,28 @@
         
       $client->authenticate( $_GET['code'] );
       $_SESSION['access_token'] = $client->getAccessToken();
+      $_SESSION['refresh_token'] = $_GET['code'];
       header( 'Location: ' . filter_var( $google['redirect_uri'], FILTER_SANITIZE_URL ) );
       
     }
-    
+        
     //Set Access Token to make Request
     if ( isset( $_SESSION['access_token'] ) && $_SESSION['access_token'] ) {
         
       $client->setAccessToken( $_SESSION['access_token'] );
       
+    }
+    
+    //Refresh Access Token to make Request
+    if ( $client->isAccessTokenExpired() ) {
+        
+        if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
+        
+          $client->refreshToken( $_SESSION['refresh_token'] );
+          $_SESSION['refresh_token'] = $client->getRefreshToken();
+          
+        }
+        
     }
     
     //Get User Data from Google Plus
