@@ -129,6 +129,12 @@
             
             if ( $request['page'] == 'selection' ) {
                 
+                if ( !isset( $_SESSION['access_token'] ) ) {
+        
+                    header( 'Location: ./' );
+                    
+                }
+                
                 // exercise selection page
                 $view = 'includes/views/selection.php';
                 $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';

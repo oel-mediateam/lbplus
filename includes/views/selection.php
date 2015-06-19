@@ -1,17 +1,4 @@
-<?php
-    
-    if ( !isset( $_SESSION['access_token'] ) ) {
-        
-        // redirect to 404 page
-        header( 'HTTP/1.0 404 File Not Found', 404 );
-        include '404.php';
-        exit();
-        
-    }
-    
-    $exercises = DB::getExercises();
-    
-?>
+<?php $exercises = DB::getExercises(); ?>
 <form method="post" action="index.php">
  <input type="hidden" name="view" value="lbplus_view" />
  <section class="lbplus_view">
@@ -68,7 +55,7 @@
             ?>
         </select>
         
-        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. <strong>If you navigate away in the middle of an exercise (i.e., use the back button, close the page, fiddle with URL, etc.), it will count as an attempt taken.</strong> Please make sure you are fully prepared and comfortable before you begin.</div>
+        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. <strong>If you navigate away in the middle of the exercise (i.e., use the back button, close the page, fiddle with URL, etc.), it will count as an attempt taken.</strong> Please make sure you are fully prepared and comfortable before you begin.</div>
     
     </div>
  </section>
@@ -79,4 +66,4 @@
  </nav>
 </form>
 
-<?php unset( $_SESSION['error'] ); ?>
+<?php unset( $_SESSION['error'], $exercises ); ?>
