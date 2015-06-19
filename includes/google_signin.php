@@ -30,6 +30,7 @@
     if ( isset( $_REQUEST['logout'] ) ) {
         
       unset( $_SESSION['access_token'] );
+      unset( $_SESSION['refresh_token'] );
       $client->revokeToken();
       header( 'Location: ' . filter_var( $google['redirect_uri'], FILTER_SANITIZE_URL ) );
       
