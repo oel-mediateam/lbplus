@@ -68,7 +68,7 @@
             ?>
         </select>
         
-        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. Please make sure you are fully prepared and comfortable before you begin.</div>
+        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. <strong>If you navigate away in the middle of an exercise (i.e., use the back button, close the page, fiddle with URL, etc.), it will count as an attempt taken.</strong> Please make sure you are fully prepared and comfortable before you begin.</div>
     
     </div>
  </section>

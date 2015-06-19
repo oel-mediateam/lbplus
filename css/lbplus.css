@@ -150,6 +150,7 @@ form .select {
   cursor: pointer;
   display: block;
   position: relative;
+  margin: 1rem 0 0;
   font-size: 16px;
   color: #2f2f2f;
   width: 100%;
@@ -162,6 +163,7 @@ form .select-styled {
   left: 0;
   background-color: #f2f2f2;
   padding: 0.5rem 0.9375rem;
+  font-weight: bold;
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
@@ -457,6 +459,15 @@ a:hover {
           margin-top: 1rem; }
     .lbplus_wrapper .lbplus_view .selection_view {
       padding-top: 1.875rem; }
+      .lbplus_wrapper .lbplus_view .selection_view .exercise_info {
+        margin: 0 0 1rem;
+        padding: 1rem; }
+        .lbplus_wrapper .lbplus_view .selection_view .exercise_info .description_box p:first-child {
+          margin-top: 0;
+          font-size: 0.875rem;
+          line-height: normal; }
+        .lbplus_wrapper .lbplus_view .selection_view .exercise_info .meta {
+          margin-bottom: 0; }
     .lbplus_wrapper .lbplus_view .signin_view {
       width: 50%;
       margin: 0 auto;

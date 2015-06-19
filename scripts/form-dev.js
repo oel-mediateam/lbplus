@@ -62,10 +62,30 @@ $( function() {
         listItems.click( function( e ) {
             
             e.stopPropagation();
+            
+            var selectValue = $( this ).attr( 'rel' );
+            
             styledSelect.text( $( this ).text() ).removeClass( 'active' );
-            $this.val( $( this ).attr( 'rel' ) );
+            $this.val( selectValue );
             list.hide();
             opened = false;
+            
+            $( '.exercise_info' ).remove();
+            
+            $.post( 'includes/exercise_info.php', { id: selectValue }, function(response) {
+                
+                if ( response ) {
+                    
+                    var result = JSON.parse(response);
+                    
+                    $( '.select' ).after( '<div class="exercise_info"><div class="description_box"><p><strong>Description:</strong></p><div class="description"></div></div><p class="meta"></p></div>' );
+                    $( '.exercise_info .description_box .description' ).html( result.description );
+                    $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
+                    $( '.exercise_info .meta' ).append( ( result.time_limit > 0 ) ? ' | Time limit: <strong>' + result.time_limit + '</strong>' : '' );
+                    
+                }
+                
+            } );
             
         } );
       

@@ -357,6 +357,7 @@ form {
         cursor: pointer;
         display: block;
         position: relative;
+        margin: rem( $gutter ) 0 0;
         font-size: 16px;
         color: $select-color;
         width: 100%;
@@ -373,6 +374,7 @@ form {
         left: 0;
         background-color: $select-background;
         padding: rem( 8px ) rem( 15px );
+        font-weight: bold;
         @include transition( all 0.2s ease-in );
         
         &:after {
@@ -745,6 +747,38 @@ a:hover {
         .selection_view {
             
             padding-top: rem( 30px );
+            
+            .exercise_info {
+                
+                margin: 0 0 rem( $gutter );
+                padding: rem( $gutter );
+                
+                .description_box {
+                    
+                    p:first-child {
+                        
+                        margin-top: 0;
+                        font-size: rem( 14px );
+                        line-height: normal;
+                        
+                    }
+                    
+                    .description {
+                    
+                        
+                        
+                    }
+                    
+                }
+                
+                
+                .meta {
+                    
+                    margin-bottom: 0;
+                    
+                }
+                
+            }
             
         }
         
