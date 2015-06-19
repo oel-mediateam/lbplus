@@ -108,8 +108,8 @@
             
             // check exercise id
             if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
-            
-                $exercise = DB::getExercise( $request['exercise'] );
+                
+                $exercise = unserialize( $_SESSION['exercise_info'] );
                 $_SESSION['video'] = $exercise['video_src'];
                 $_SESSION['json'] = $exercise['markup_src'];
                 
