@@ -23,7 +23,8 @@
     $client->setRedirectUri( $google['redirect_uri'] );
     $client->setDeveloperKey( $google['api_key'] );
     $client->setAccessType('offline');
-    $client->addScope( "https://www.googleapis.com/auth/userinfo.email" );
+    $client->addScope( array( "https://www.googleapis.com/auth/userinfo.email",
+                              "https://www.googleapis.com/auth/userinfo.profile" ) );
     
     $objOAuthService = new Google_Service_Oauth2( $client );
     
@@ -60,7 +61,7 @@
         
         if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
         
-          $client->refreshToken( $_SESSION['refresh_token'] );
+            $client->refreshToken( $_SESSION['refresh_token'] );
           
         }
         
@@ -90,7 +91,6 @@
       
       $_SESSION['signed_in_user_id'] = DB::getID( $userData['id'] );
       $_SESSION['access_token'] = $client->getAccessToken();
-      $_SESSION['refresh_token'] = $client->getRefreshToken();
       
     } else {
         
