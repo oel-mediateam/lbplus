@@ -17,6 +17,7 @@
     $google = unserialize( GOOGLE );
     
     $client = new Google_Client();
+    $client->setApplicationName( $google['application_name'] );
     $client->setClientId( $google['client_id'] );
     $client->setClientSecret( $google['client_secret'] );
     $client->setRedirectUri( $google['redirect_uri'] );
@@ -42,7 +43,7 @@
         
       $client->authenticate( $_GET['code'] );
       $_SESSION['access_token'] = $client->getAccessToken();
-      $_SESSION['refresh_token'] = $_GET['code'];
+      $_SESSION['refresh_token'] = $client->getRefreshToken();
       header( 'Location: ' . filter_var( $google['redirect_uri'], FILTER_SANITIZE_URL ) );
       
     }
@@ -60,7 +61,6 @@
         if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
         
           $client->refreshToken( $_SESSION['refresh_token'] );
-          $_SESSION['refresh_token'] = $client->getRefreshToken();
           
         }
         
@@ -90,6 +90,7 @@
       
       $_SESSION['signed_in_user_id'] = DB::getID( $userData['id'] );
       $_SESSION['access_token'] = $client->getAccessToken();
+      $_SESSION['refresh_token'] = $client->getRefreshToken();
       
     } else {
         
