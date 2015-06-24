@@ -31,8 +31,7 @@
     //Logout
     if ( isset( $_REQUEST['logout'] ) ) {
         
-      unset( $_SESSION['access_token'] );
-      unset( $_SESSION['refresh_token'] );
+      unset( $_SESSION['access_token'], $_SESSION['signed_in_user_id'] );
       $client->revokeToken();
       header( 'Location: ' . filter_var( $google['redirect_uri'], FILTER_SANITIZE_URL ) );
       
@@ -59,10 +58,20 @@
     //Refresh Access Token to make Request
     if ( $client->isAccessTokenExpired() ) {
         
-        if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
+        if ( isset( $_SESSION['signed_in_user_id'] ) && $_SESSION['signed_in_user_id'] ) {
+            
+            $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_id'] );
         
-            $client->refreshToken( $_SESSION['refresh_token'] );
-          
+            if ( $refreshToken ) {
+                
+                $client->refreshToken( $refreshToken['google_refresh_token'] );
+                
+            } else {
+                
+                exit('Refresh token error!');
+                
+            }
+            
         }
         
     }
@@ -77,7 +86,8 @@
     	
     	if ( DB::googleUserExists( $userData['id'] ) == 0 ) {
         	
-        	$newUser = DB::addUser( $userData['email'], $userData['givenName'], $userData['familyName'], $userData['id'] );
+        	$newUser = DB::addGoogleUser( $userData['email'], $userData['givenName'],
+        	                              $userData['familyName'], $userData['id'], $_SESSION['refresh_token'] );
         	
         	if ( $newUser == 0 ) {
             	
@@ -89,7 +99,7 @@
         
       }
       
-      $_SESSION['signed_in_user_id'] = DB::getID( $userData['id'] );
+      $_SESSION['signed_in_user_id'] = DB::getIDByGoogle( $userData['id'] );
       $_SESSION['access_token'] = $client->getAccessToken();
       
     } else {
@@ -97,5 +107,7 @@
       $authUrl = $client->createAuthUrl();
       
     }
+    
+    unset( $_SESSION['refresh_token'] );
     
 ?>

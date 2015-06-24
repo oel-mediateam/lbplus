@@ -86,26 +86,59 @@
     	    
 	    }
 	    
-	    public static function addUser( $email, $first_name, $last_name, $id ) {
+	    public static function addGoogleUser( $email, $first_name, $last_name, $id, $token ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'INSERT INTO user(email, first_name, last_name, google_id) VALUES( '
-                . ':email, :first_name, :last_name, :id )';
+        	    $sql = 'INSERT INTO user(email, first_name, last_name, google_id, google_refresh_token) VALUES( '
+                . ':email, :first_name, :last_name, :id, :token )';
                 
                 $query = $db->prepare( $sql );
                 $query->execute( array( ':email'=>$email,
                                         ':first_name'=>$first_name,
                                         ':last_name'=>$last_name,
-                                        ':id'=>$id ) );
+                                        ':id'=>$id,
+                                        ':token'=>$token ) );
                 
                 $id = $db->lastInsertId();
                 
                 $db = null;
                 
                 return $id;
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function getGoogleRefreshToken( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT google_refresh_token FROM user WHERE user_id = :id';
+                
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id'=>$id ) );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result;
+                    
+                }
+                
+                return null;
         	    
     	    } catch ( PDOException $e ) {
         	    
@@ -241,7 +274,7 @@
     	    
 	    }
 	    
-	    public static function getID( $google_id ) {
+	    public static function getIDByGoogle( $google_id ) {
     	
         	$db = DB::getDB();
         	    
