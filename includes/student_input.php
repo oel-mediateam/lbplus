@@ -12,6 +12,8 @@
 
             session_start();
 
+            require_once 'config.php';
+            require_once 'db.php';
             require_once 'functions.php';
 
             $data = $_SESSION['exercise_data'];
@@ -75,7 +77,7 @@
 
             $_SESSION['student_data'] = $student_action_arrays;
 
-            $file = 'data/student/demo.json';
+            $file = 'data/student/'.$_SESSION['user_exercise_id'].'_'.time().'.json';
             $content = json_encode( $student_action_arrays );
             $fp = fopen( $file, 'wb' );
 
@@ -89,6 +91,9 @@
                 } else {
 
                     fclose( $fp );
+                    if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $file ) == 0) {
+                        exit('update failed');
+                    };
                     echo true;
 
                 }

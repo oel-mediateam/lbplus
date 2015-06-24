@@ -17,6 +17,17 @@
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();
     
+    $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $_SESSION['exercise_id'] );
+    
+    if ( $attempt >= $_SESSION['exercise_attempts'] ) {
+        
+        exit( "You already attempt this exercise!" );
+        
+    } else {
+        
+        $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $_SESSION['exercise_id'], ( $attempt + 1 ) );
+        
+    }
 
 ?>
 

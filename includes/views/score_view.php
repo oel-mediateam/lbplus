@@ -5,7 +5,7 @@
         // start/resume the session if not already
         session_start();
         
-        if ( !isset( $_SESSION['signed_in_user_id'] ) ) {
+        if ( !isset( $_SESSION['signed_in_user_id'] ) && !isset( $_SESSION['user_exercise_id'] ) ) {
         
             // redirect to 404 page
             header( 'HTTP/1.0 404 File Not Found', 404 );
@@ -16,6 +16,8 @@
         
         // requires the functions.php file for
         // common functions
+        require_once '../config.php';
+        require_once '../db.php';
         require_once '../functions.php';
         
         // get and set data from session to variables
@@ -161,8 +163,13 @@
         $negs = array_count_values($neg_action_array);
         
         // calculate the percentage and set it to the
-        // percentage varible
-        $percentage = round( ( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints * 100 ), 1);
+        // percentage varible and to the database
+        $fraction = ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints;
+        $gradeId = DB::addScore( $fraction );
+        if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
+            exit("Update score error.");
+        }
+        $percentage = round( $fraction * 100, 1);
 
     }
 
@@ -403,6 +410,7 @@
 unset( $_SESSION['exercise_data'],
        $_SESSION['student_data'],
        $_SESSION['started'],
+       $_SESSION['user_exercise_id'],
        $exercise_data,
        $student_data,
        $action_array,

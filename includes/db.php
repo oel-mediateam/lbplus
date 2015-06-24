@@ -274,6 +274,127 @@
     	    
 	    }
 	    
+	    public static function setUserExercise( $user_id, $exercise_id, $attempt ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'INSERT INTO user_exercise(user_id, exercise_id, num_attempted) VALUES( '
+                . ':user, :exercise, :attempted )';
+                
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':user'=>$user_id,
+                                        ':exercise'=>$exercise_id,
+                                        ':attempted'=>$attempt ) );
+                
+                $id = $db->lastInsertId();
+                
+                $db = null;
+                
+                return $id;
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function getAttempted( $user_id, $exercise_id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT COUNT(*) FROM user_exercise WHERE user_id = :user AND exercise_id = :exercise';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':user' => $user_id, ':exercise' => $exercise_id ) );
+                $result = $query->fetch( PDO::FETCH_NUM );
+                    
+                $db = null;
+                return (int)$result[0];
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function updateStuSrc( $id, $src ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'UPDATE user_exercise SET stu_src = :src WHERE stu_exrs_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':src' => $src, ':id' => $id ) );
+                
+                $db = null;
+                return $query->rowCount();
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function updateScore( $id, $score ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'UPDATE user_exercise SET grade_id = :score WHERE stu_exrs_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':score' => $score, ':id' => $id ) );
+                
+                $db = null;
+                return $query->rowCount();
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function addScore( $score ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'INSERT INTO grade( score ) VALUES( :score )';
+                
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':score'=>$score ) );
+                
+                $id = $db->lastInsertId();
+                $db = null;
+                
+                return $id;
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function getIDByGoogle( $google_id ) {
     	
         	$db = DB::getDB();

@@ -110,6 +110,8 @@
             if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
                 
                 $exercise = unserialize( $_SESSION['exercise_info'] );
+                $_SESSION['exercise_id'] = $exercise['exercise_id'];
+                $_SESSION['exercise_attempts'] = $exercise['attempts'];
                 $_SESSION['video'] = $exercise['video_src'];
                 $_SESSION['json'] = $exercise['markup_src'];
                 
