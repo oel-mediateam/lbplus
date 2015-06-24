@@ -2,7 +2,10 @@
 // if session is not set
     if ( !isset($_SESSION) ) {
         
-        if ( !isset( $_SESSION['access_token'] ) ) {
+        // start/resume the session if not already
+        session_start();
+        
+        if ( !isset( $_SESSION['signed_in_user_id'] ) ) {
         
             // redirect to 404 page
             header( 'HTTP/1.0 404 File Not Found', 404 );
@@ -10,9 +13,6 @@
             exit();
             
         }
-        
-        // start/resume the session if not already
-        session_start();
         
         // requires the functions.php file for
         // common functions
@@ -409,7 +409,5 @@ unset( $_SESSION['exercise_data'],
        $neg_action_array,
        $negs
      );
-
-session_destroy();
 
 ?>
