@@ -5,7 +5,7 @@
         // start/resume the session if not already
         session_start();
         
-        if ( !isset( $_SESSION['signed_in_user_id'] ) && !isset( $_SESSION['user_exercise_id'] ) ) {
+        if ( !isset( $_SESSION['user_exercise_id'] ) ) {
         
             // redirect to 404 page
             header( 'HTTP/1.0 404 File Not Found', 404 );
