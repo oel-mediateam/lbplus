@@ -64,7 +64,7 @@
         
             if ( $refreshToken ) {
                 
-                $client->refreshToken( $refreshToken['google_refresh_token'] );
+                $client->refreshToken( $refreshToken );
                 
             } else {
                 
@@ -92,6 +92,14 @@
         	if ( $newUser == 0 ) {
             	
             	exit( 'Error adding new user.' );
+            	
+        	}
+        	
+    	} else {
+        	
+        	if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
+            	
+            	DB::updateGoogleRefreshToken( $userData['id'], $_SESSION['refresh_token'] );
             	
         	}
         	

@@ -134,11 +134,33 @@
                 if ( $query->rowCount() == 1 ) {
                     
                     $result = $query->fetch();
-                    return $result;
+                    return $result['google_refresh_token'];
                     
                 }
                 
                 return null;
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function updateGoogleRefreshToken( $id, $token ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'UPDATE user SET google_refresh_token = :token WHERE google_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':token' => $token, ':id' => $id ) );
+                
+                $db = null;
+                return $query->rowCount();
         	    
     	    } catch ( PDOException $e ) {
         	    

@@ -104,7 +104,6 @@
         if ( isset( $request['start'] ) ) {
         
             $view = 'includes/views/' . $request['view'] . '.php';
-            $scripts = '<script src="scripts/moment.min.js" type="text/javascript"></script><script src="scripts/lbplus.js" type="text/javascript"></script>';
             
             // check exercise id
             if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
@@ -115,7 +114,7 @@
                 $_SESSION['video'] = $exercise['video_src'];
                 $_SESSION['json'] = $exercise['markup_src'];
                 
-                return array( 'view' => $view, 'scripts' => $scripts );
+                return $view;
                 
             } else {
                 
@@ -139,8 +138,7 @@
                 
                 // exercise selection page
                 $view = 'includes/views/selection.php';
-                $scripts = '<script src="scripts/form.js" type="text/javascript"></script>';
-                return array( 'view' => $view, 'scripts' => $scripts );
+                return $view;
                 
             }
             
@@ -149,7 +147,7 @@
         // default view
         $view = 'includes/views/signin.php';
         
-        return array( 'view' => $view, 'scripts' => '' );
+        return $view;
         
     }
     

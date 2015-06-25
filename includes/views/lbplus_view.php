@@ -21,7 +21,7 @@
     
     if ( $attempt >= $_SESSION['exercise_attempts'] ) {
         
-        exit( "You already attempt this exercise!" );
+        exit( "You already attempted this exercise! (In the future you will see the score view of the latest attempt.)" );
         
     } else {
         

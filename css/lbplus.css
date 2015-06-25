@@ -512,6 +512,13 @@ a:hover {
         .lbplus_wrapper .lbplus_view .signin_view .profile_img img {
           width: 9.375rem;
           height: 9.375rem; }
+      .lbplus_wrapper .lbplus_view .signin_view #google_revoke_connection {
+        color: #c1c1c1;
+        outline: none; }
+      .lbplus_wrapper .lbplus_view .signin_view #google_revoke_connection:hover {
+        color: #f00; }
+      .lbplus_wrapper .lbplus_view .signin_view #disconnect-confirm {
+        display: none; }
     .lbplus_wrapper .lbplus_view .callout {
       font-size: 80%;
       line-height: 1.1rem;
@@ -994,3 +1001,44 @@ a:hover {
     -ms-transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+.ui-dialog {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  background-color: #f9f9f9;
+  border: 0.0625rem solid #1e1e1e; }
+  .ui-dialog .ui-dialog-title {
+    font-weight: bold;
+    font-size: 1.125rem;
+    margin: 0; }
+  .ui-dialog .ui-dialog-content p:first-child {
+    margin-top: 0; }
+  .ui-dialog .ui-dialog-content p:last-child {
+    margin-bottom: 0; }
+  .ui-dialog .ui-dialog-buttonpane {
+    margin: 0; }
+    .ui-dialog .ui-dialog-buttonpane .ui-button {
+      font-size: 0.875rem;
+      font-weight: bold;
+      color: #6f6f6f;
+      text-decoration: none;
+      border: 0.0625rem solid #6f6f6f;
+      line-height: 0;
+      background-color: transparent;
+      -moz-border-radius: 0.1875rem;
+      -webkit-border-radius: 0.1875rem;
+      border-radius: 0.1875rem;
+      -moz-user-select: -moz-none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none; }
+    .ui-dialog .ui-dialog-buttonpane .ui-button:hover {
+      color: #2f2f2f;
+      border-color: #2f2f2f; }
+
+.ui-dialog.no-close .ui-dialog-titlebar-close {
+  display: none; }
+.ui-dialog.no-close .ui-dialog-title {
+  width: 100%; }
+
+.ui-widget-overlay {
+  background: rgba(255, 255, 255, 0.85); }

@@ -848,6 +848,25 @@ a:hover {
                 
             }
             
+            #google_revoke_connection {
+                
+                color: #c1c1c1;
+                outline: none;
+                
+            }
+            
+            #google_revoke_connection:hover {
+                
+                color: #f00;
+                
+            }
+            
+            #disconnect-confirm {
+                
+                display: none;
+                
+            }
+            
         }
         
         .callout {
@@ -1442,5 +1461,87 @@ a:hover {
         @include rotate( 360deg );
 
     }
+
+}
+//jquery-ui
+.ui-dialog {
+    
+    font-family: $defaultFont;
+    background-color: #f9f9f9;
+    border: rem( 1px ) solid $darkerFontColor;
+    
+    .ui-dialog-title {
+        
+        font-weight: bold;
+        font-size: rem( 18px );
+        margin: 0;
+        
+    }
+    
+    .ui-dialog-content {
+        
+        p:first-child {
+            
+            margin-top: 0;
+            
+        }
+        
+        p:last-child {
+            
+            margin-bottom: 0;
+            
+        }
+        
+    }
+    
+    .ui-dialog-buttonpane {
+        
+        margin: 0;
+        
+        .ui-button {
+            
+            font-size: rem( 14px );
+            font-weight: bold;
+            color: #6f6f6f;
+            text-decoration: none;
+            border: rem( 1px ) solid #6f6f6f;
+            line-height: 0;
+            background-color: transparent;
+            @include border-radius( rem( 3px ) );
+            @include user-select(none);
+            outline: none;
+            
+        }
+        
+        .ui-button:hover {
+            
+            color: #2f2f2f;
+            border-color: #2f2f2f;
+            
+        }
+        
+    }
+    
+}
+
+.ui-dialog.no-close {
+        
+    .ui-dialog-titlebar-close {
+      
+      display: none;
+      
+    }
+    
+    .ui-dialog-title {
+        
+        width: 100%;
+        
+    }
+      
+}
+
+.ui-widget-overlay {
+    
+    background: rgba( 255, 255, 255, .85);
 
 }

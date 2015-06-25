@@ -39,11 +39,15 @@
                 
                 echo '<p><a class="btn" href="?page=selection">Select Exercise</a> '.$dashboardBtn.'</p>';
                 echo '<p><small><a href="?logout">Sign Out</a></small></p>';
-                
+                echo '<p><small><a id="google_revoke_connection" href="#">disconnect this application from accessing your Google Account</a></small></p>';
                 
             }
             
         ?>
+        
+        <div id="disconnect-confirm" title="Disconnect Google Account">
+            <p>All user and exercise data will be permanently deleted and cannot be recovered. Are you sure?</p>
+        </div>
     
     </div>
  </section>
