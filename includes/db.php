@@ -392,16 +392,16 @@
     	    
 	    }
 	    
-	    public static function addScore( $score ) {
+	    public static function addScore( $id, $score ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'INSERT INTO grade( score ) VALUES( :score )';
+        	    $sql = 'INSERT INTO grade( stu_exrs_id, score ) VALUES( :id, :score )';
                 
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':score'=>$score ) );
+                $query->execute( array( ':id'=>$id, ':score'=>$score ) );
                 
                 $id = $db->lastInsertId();
                 $db = null;

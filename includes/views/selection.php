@@ -12,11 +12,11 @@
                      
                     if ( !isset( $authUrl ) ) {
                         
-                        echo '<li><a class="signout" href="?logout">Sign Out</a></li>';
+                        echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
                         
                         if ( isPermitted( $_SESSION['signed_in_user_id'], 2 ) ) {
                             
-                            echo '<li><a class="dashboard" href="#">Dashboard</a></li>';
+                            echo '<li><a title="Dashboard" class="dashboard" href="#"><span class="icon-dashboard"></span></a></li>';
                             
                         }
                         
@@ -40,7 +40,7 @@
             
         ?>
         
-        <p>Please select the exercise that you would like to attempt. When you are ready, click the <strong>START</strong> button below to begin.</p>
+        <p>Please select the exercise that you would like to attempt. When you are ready, click the <strong><span class="icon-start"></span> START</strong> button below to begin.</p>
         
         <select name="exercise" <?php echo ( isset( $_SESSION['error'] ) ) ? 'class="error"' : ''; ?>>
             <option value="hide">--- please select ---</option>
@@ -61,7 +61,7 @@
  </section>
  <nav class="lbplus_controls">
      <div class="main_controls score_view">
-        <button type="submit" class="btn new full" name="start"><span class="action_name">START</span></button>
+        <button type="submit" class="btn new full" name="start"><span class="action_name"><span class="icon-start"></span> START</span></button>
      </div>
  </nav>
 </form>

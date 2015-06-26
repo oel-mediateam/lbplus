@@ -52,11 +52,12 @@ $( function () {
             $( '#disconnect-confirm' ).dialog( {
                 
                 dialogClass: "no-close",
+                title: 'Disconnect Google Account',
                 position: { my: "center", at: "center", of: $( '.signin_view' ) },
                 resizable: false,
                 draggable: false,
                 width: 300,
-                height: 180,
+                height: 215,
                 modal: true,
                 buttons: {
                     OK: function() {
@@ -208,7 +209,17 @@ $( function () {
                         
                         $( '.select' ).after( '<div class="exercise_info"><div class="description_box"><p><strong>Description:</strong></p><div class="description"></div></div><p class="meta"></p></div>' );
                         $( '.exercise_info .description_box .description' ).html( result.description );
-                        $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
+                        
+                        if ( Number( result.allow_retake ) ) {
+                            
+                            $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>unlimited</strong>' );
+                            
+                        } else {
+                            
+                            $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
+                            
+                        }
+                        
                         $( '.exercise_info .meta' ).append( ( result.time_limit > 0 ) ? ' | Time limit: <strong>' + result.time_limit + '</strong>' : '' );
                         
                     }

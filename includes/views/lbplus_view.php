@@ -12,22 +12,24 @@
 
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
-
-    $exercise = new Exercise( $_SESSION['json'] );
+    
+    $exercise_info = unserialize( $_SESSION['exercise_info'] );
+    $exercise = new Exercise( $exercise_info['markup_src'] );
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();
+    $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
     
-    $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $_SESSION['exercise_id'] );
-    
-    if ( $attempt >= $_SESSION['exercise_attempts'] ) {
+    if ( !$exercise_info['allow_retake'] ) {
         
-        exit( "You already attempted this exercise! (In the future you will see the score view of the latest attempt.)" );
+        if ( $attempt >= $exercise_info['attempts'] ) {
         
-    } else {
-        
-        $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $_SESSION['exercise_id'], ( $attempt + 1 ) );
+            exit( "You already attempted this exercise! Dev notes: in the future, coming soon&trade;, you will see the score of the latest attempt instead of this message. <a href='?page=exercises'>Back to Exercises</a>" );
+            
+        } 
         
     }
+    
+    $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
 
 ?>
 
@@ -41,7 +43,7 @@
 
         <div class="lbplus_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
-            <div id="ytv" data-video-id="<?php echo $_SESSION['video']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
+            <div id="ytv" data-video-id="<?php echo $exercise_info['video_src']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 
         <div class="lbplus_actions">
@@ -131,5 +133,3 @@
     </div>
 
 </nav>
-
-<?php unset( $_SESSION['video'], $_SESSION['json'] ); ?>

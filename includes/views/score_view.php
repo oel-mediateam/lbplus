@@ -20,6 +20,8 @@
         require_once '../db.php';
         require_once '../functions.php';
         
+        $exercise_info = unserialize( $_SESSION['exercise_info'] );
+        
         // get and set data from session to variables
         $exercise_data = $_SESSION['exercise_data']['exercise'];
         $student_data = $_SESSION['student_data'];
@@ -165,7 +167,7 @@
         // calculate the percentage and set it to the
         // percentage varible and to the database
         $fraction = ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints;
-        $gradeId = DB::addScore( $fraction );
+        $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
         if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
             exit("Update score error.");
         }
@@ -339,10 +341,10 @@
                 
                 // display the new button
                 // if new exercise is allowed
-                if ( $allowNew ) {
+                if ( $exercise_info['allow_new'] ) {
                     
                     // if retake exercise is allowed
-                    if ( $allowRetake ) {
+                    if ( $exercise_info['allow_retake'] ) {
                         
                         // output the half width button
                         echo '<div class="btn new"><span class="action_name"><span class="icon-new"></span> New</span></div>';
@@ -358,25 +360,25 @@
 
                 // display the retake button
                 // if retake is allowed
-                if ( $allowRetake ) {
+                if ( $exercise_info['allow_retake'] ) {
                     
                     // if new exercise is allowed
-                    if ( $allowNew ) {
+                    if ( $exercise_info['allow_new'] ) {
                         
                         // output the half width button
-                        echo '<div class="btn retake"><span class="action_name"><span class="icon-retake"></span> Retake</span></div>';
+                        echo '<a class="btn retake" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span> Retake</span></a>';
 
                     } else {
                         
                         // otherwise output the full width button
-                        echo '<div class="btn retake full"><span class="action_name"><span class="icon-retake"></span>  Retake</span></div>';
+                        echo '<a class="btn retake full" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span>  Retake</span></a>';
 
                     }
 
                 }
                 
                 // if new and retake are not allowed
-                if ( !$allowNew && !$allowRetake ) {
+                if ( !$exercise_info['allow_new'] && !$exercise_info['allow_retake'] ) {
                     
                     // output a none break space character
                     echo '&nbsp;';
@@ -389,15 +391,8 @@
 
         <div class="right">
 
-<!--
-            <div class="btn previous">
-                <span class="action_name"><span class="icon-previous"></span> Back</span>
-            </div>
-
-            <div class="btn next">
-                <span class="action_name">Next <span class="icon-next"></span></span>
-            </div>
--->
+            <a class="btn previous full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>
+<!--             <a class="btn next" href="./"><span class="action_name">Home <span class="icon-next"></span></span></a> -->
 
         </div>
 
@@ -410,7 +405,6 @@
 unset( $_SESSION['exercise_data'],
        $_SESSION['student_data'],
        $_SESSION['started'],
-       $_SESSION['user_exercise_id'],
        $exercise_data,
        $student_data,
        $action_array,
