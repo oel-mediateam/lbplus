@@ -512,6 +512,8 @@ a:hover {
         .lbplus_wrapper .lbplus_view .signin_view .profile_img img {
           width: 9.375rem;
           height: 9.375rem; }
+      .lbplus_wrapper .lbplus_view .signin_view .bigicon {
+        font-size: 800%; }
       .lbplus_wrapper .lbplus_view .signin_view #google_revoke_connection {
         color: #c1c1c1;
         outline: none; }

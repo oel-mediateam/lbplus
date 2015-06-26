@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('icomoon.eot?-uu5ntr');
-	src:url('icomoon.eot?#iefix-uu5ntr') format('embedded-opentype'),
-		url('icomoon.ttf?-uu5ntr') format('truetype'),
-		url('icomoon.woff?-uu5ntr') format('woff'),
-		url('icomoon.svg?-uu5ntr#icomoon') format('svg');
+	src:url('icomoon.eot?-ym5gkb');
+	src:url('icomoon.eot?#iefix-ym5gkb') format('embedded-opentype'),
+		url('icomoon.ttf?-ym5gkb') format('truetype'),
+		url('icomoon.woff?-ym5gkb') format('woff'),
+		url('icomoon.svg?-ym5gkb#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -52,4 +52,28 @@
 }
 .icon-star-full:before {
 	content: "\ece2";
+}
+.icon-user:before {
+	content: "\eaf4";
+}
+.icon-user-cancel:before {
+	content: "\eaf8";
+}
+.icon-trash:before {
+	content: "\ebfa";
+}
+.icon-start:before {
+	content: "\ec48";
+}
+.icon-selection:before {
+	content: "\ec69";
+}
+.icon-signin:before {
+	content: "\ed77";
+}
+.icon-signout:before {
+	content: "\ed78";
+}
+.icon-dashboard:before {
+	content: "\ee80";
 }
