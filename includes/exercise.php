@@ -22,6 +22,7 @@
         private $name;
         private $actionHeading;
         private $showVideoTimecode;
+        private $displayLimits;
         private $videoStart;
         private $videoEnd;
         private $actions = array();
@@ -83,6 +84,7 @@
                 $this->showVideoTimecode = getValue( $this->data['exercise']['showVideoTimecode'], true );
                 $this->videoStart = getValue( $this->data['exercise']['videoStart'], -1 );
                 $this->videoEnd = getValue( $this->data['exercise']['videoEnd'], "00:00" );
+                $this->displayLimits = getValue( $this->data['exercise']['displayLimits'], true );
 
                 $this->setActions();
                 $this->setRewindAction();

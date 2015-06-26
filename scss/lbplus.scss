@@ -588,6 +588,12 @@ a:hover {
                         @include button_limits();
 
                     }
+                    
+                    .limits.hide {
+                        
+                        display: none
+                        
+                    }
 
                     .icon {
 
@@ -1149,6 +1155,12 @@ a:hover {
                     top: rem( -5px );
                     right: rem( 5px );
 
+                }
+                
+                .limits.hide {
+                    
+                    display: none;
+                    
                 }
 
                 .icon {

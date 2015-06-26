@@ -34,11 +34,6 @@
         // score view
         $scoreHeading = getValue( $exercise_data['scoreViewHeading'], 'Your Score' );
         
-        // variables holding the conditional flags for
-        // allowing new or retake exercise
-        $allowNew = getValue( $exercise_data['allowNew'], false );
-        $allowRetake = getValue( $exercise_data['allowRetake'], false );
-        
         // variables holding the conditional flag for
         // allowing bonus (grading rewind) and
         // set the id for the rewind button

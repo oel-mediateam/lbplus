@@ -319,6 +319,8 @@ a:hover {
             -webkit-border-radius: 0.1875rem;
             border-radius: 0.1875rem;
             z-index: 10; }
+          .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .limits.hide {
+            display: none; }
           .lbplus_wrapper .lbplus_view .lbplus_interaction_wrapper .lbplus_actions .btn .icon {
             display: block;
             width: 3.125rem;
@@ -711,6 +713,8 @@ a:hover {
           z-index: 10;
           top: -0.3125rem;
           right: 0.3125rem; }
+        .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .limits.hide {
+          display: none; }
         .lbplus_wrapper .lbplus_controls .main_controls .btn.rewind .icon {
           display: block;
           width: 3.125rem;

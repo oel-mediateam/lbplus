@@ -18,6 +18,7 @@
             "enabled": null
         },
         "scoreViewHeading": "",
+        "displayLimits": null,
         "actions": [
 
             {

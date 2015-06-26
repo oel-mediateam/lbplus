@@ -56,7 +56,16 @@
                 foreach( $actions as $action ) {
 
                     $button = '<div class="btn disabled" data-cooldown="' . $action->cooldown . '" data-action-id="' . $action->id . '">';
-                    $button .= '<span class="limits" data-limit="' . $action->limits . '">' . $action->limits . '</span>';
+                    
+                    if ( $exercise->displayLimits ) {
+                        
+                        $button .= '<span class="limits" data-limit="' . $action->limits . '">' . $action->limits . '</span>';
+                        
+                    } else {
+                        
+                        $button .= '<span class="limits hide" data-limit="' . $action->limits . '">' . $action->limits . '</span>';
+                        
+                    }
 
                     if ( strlen( trim( $action->icon ) ) ) {
 
@@ -119,7 +128,17 @@
             if ( $rewindAction->enabled ) {
 
                 $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action-id="' . $rewindAction->id . '" data-length="' . $rewindAction->length . '">';
-                $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                
+                if ( $exercise->displayLimits ) {
+                    
+                    $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                    
+                } else {
+                    
+                    $rewindButton .= '<span class="limits hide" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                    
+                }
+                
                 $rewindButton .= '<span class="icon"><span class="icon-' . $rewindAction->icon . '"></span></span>';
                 $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
                 $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
