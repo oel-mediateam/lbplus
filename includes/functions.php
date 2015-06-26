@@ -1,7 +1,7 @@
 <?php
     
     // if started session data is not true
-    if ( $_SESSION['started'] != true ) {
+    if ( !isset( $_SESSION ) ) {
         
         // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
@@ -95,6 +95,97 @@
 
         return $msg;
 
+    }
+    
+    // get views
+    function getView( $request ) {
+        
+        // if request is exercise
+        if ( isset( $request['start'] ) ) {
+        
+            $view = 'includes/views/' . $request['view'] . '.php';
+            
+            // check exercise id
+            if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
+                
+                unset( $request['start'], $request['view'], $request['exercise'] );
+                return $view;
+                
+            } else {
+                
+                $_SESSION['error'] = "Please select an exercise.";
+                header( 'Location: ./?page=exercises' );
+                exit();
+                
+            }
+            
+        }
+        
+        // if request is retake
+        if ( isset( $request['retake'] ) ) {
+            
+            $exercise_info = unserialize( $_SESSION['exercise_info'] );
+            
+            if ( $request['retake'] == $exercise_info['exercise_id'] ) {
+                
+                $view = 'includes/views/lbplus_view.php';
+                unset( $request['retake'] );
+                return $view;
+                
+            } else {
+                
+                $_SESSION['error'] = "Retake error. Please manually select the exercise below.";
+                header( 'Location: ./?page=exercises' );
+                exit();
+                
+            }
+            
+        }
+        
+        // if request is page
+        if ( isset( $request['page'] ) ) {
+            
+            if ( $request['page'] == 'exercises' ) {
+                
+                if ( !isset( $_SESSION['access_token'] ) ) {
+                    
+                    header( 'Location: ./' );
+                    
+                }
+                
+                // exercise selection page
+                unset( $request['page'] );
+                $view = 'includes/views/selection.php';
+                
+                return $view;
+                
+            }
+            
+        }
+        
+        // default view
+        $view = 'includes/views/signin.php';
+        
+        return $view;
+        
+    }
+    
+    function isPermitted( $id, $role ) {
+        
+        if ( isset( $id ) ) {
+            
+            $userRole = DB::getRole( $id );
+            
+            if ( $userRole >= $role ) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+        
     }
 
 ?>

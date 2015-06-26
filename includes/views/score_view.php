@@ -1,14 +1,26 @@
 <?php
-    
 // if session is not set
     if ( !isset($_SESSION) ) {
         
         // start/resume the session if not already
         session_start();
         
+        if ( !isset( $_SESSION['user_exercise_id'] ) ) {
+        
+            // redirect to 404 page
+            header( 'HTTP/1.0 404 File Not Found', 404 );
+            include '404.php';
+            exit();
+            
+        }
+        
         // requires the functions.php file for
         // common functions
+        require_once '../config.php';
+        require_once '../db.php';
         require_once '../functions.php';
+        
+        $exercise_info = unserialize( $_SESSION['exercise_info'] );
         
         // get and set data from session to variables
         $exercise_data = $_SESSION['exercise_data']['exercise'];
@@ -153,8 +165,13 @@
         $negs = array_count_values($neg_action_array);
         
         // calculate the percentage and set it to the
-        // percentage varible
-        $percentage = round( ( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints * 100 ), 1);
+        // percentage varible and to the database
+        $fraction = ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints;
+        $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
+        if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
+            exit("Update score error.");
+        }
+        $percentage = round( $fraction * 100, 1);
 
     }
 
@@ -324,10 +341,10 @@
                 
                 // display the new button
                 // if new exercise is allowed
-                if ( $allowNew ) {
+                if ( $exercise_info['allow_new'] ) {
                     
                     // if retake exercise is allowed
-                    if ( $allowRetake ) {
+                    if ( $exercise_info['allow_retake'] ) {
                         
                         // output the half width button
                         echo '<div class="btn new"><span class="action_name"><span class="icon-new"></span> New</span></div>';
@@ -343,25 +360,25 @@
 
                 // display the retake button
                 // if retake is allowed
-                if ( $allowRetake ) {
+                if ( $exercise_info['allow_retake'] ) {
                     
                     // if new exercise is allowed
-                    if ( $allowNew ) {
+                    if ( $exercise_info['allow_new'] ) {
                         
                         // output the half width button
-                        echo '<div class="btn retake"><span class="action_name"><span class="icon-retake"></span> Retake</span></div>';
+                        echo '<a class="btn retake" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span> Retake</span></a>';
 
                     } else {
                         
                         // otherwise output the full width button
-                        echo '<div class="btn retake full"><span class="action_name"><span class="icon-retake"></span>  Retake</span></div>';
+                        echo '<a class="btn retake full" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span>  Retake</span></a>';
 
                     }
 
                 }
                 
                 // if new and retake are not allowed
-                if ( !$allowNew && !$allowRetake ) {
+                if ( !$exercise_info['allow_new'] && !$exercise_info['allow_retake'] ) {
                     
                     // output a none break space character
                     echo '&nbsp;';
@@ -374,15 +391,8 @@
 
         <div class="right">
 
-<!--
-            <div class="btn previous">
-                <span class="action_name"><span class="icon-previous"></span> Back</span>
-            </div>
-
-            <div class="btn next">
-                <span class="action_name">Next <span class="icon-next"></span></span>
-            </div>
--->
+            <a class="btn previous full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>
+<!--             <a class="btn next" href="./"><span class="action_name">Home <span class="icon-next"></span></span></a> -->
 
         </div>
 
@@ -401,7 +411,5 @@ unset( $_SESSION['exercise_data'],
        $neg_action_array,
        $negs
      );
-
-session_destroy();
 
 ?>

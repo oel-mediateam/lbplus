@@ -1,0 +1,149 @@
+{
+    "exercise": {
+
+        "name": "Effective Active Listening",
+        "actionHeading": "",
+        "videoStart": "",
+        "videoEnd": "",
+        "showVideoTimecode": null,
+        "rewind": {
+            "id": "",
+            "name": "",
+            "icon": "",
+            "length": 5,
+            "cooldown": 3,
+            "limits": 10,
+            "graded": false,
+            "points": "",
+            "enabled": null
+        },
+        "scoreViewHeading": "",
+        "allowRetake": "",
+        "allowNew": "",
+        "actions": [
+
+            {
+
+                "id":1,
+                "name": "Confirm Understanding",
+                "icon": "",
+                "positions": [
+
+                    {
+
+                        "begin": "00:57",
+                        "end": "01:00"
+
+                    },
+
+					{
+
+                        "begin": "02:16",
+                        "end": "02:21"
+
+                    }
+
+                ],
+                "points": 10,
+                "miss": 2,
+                "cooldown": 3,
+                "limits": 7
+
+            },
+
+            {
+
+                "id": 2,
+                "name": "Providing Information",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "02:27",
+                        "end": "02:38"
+                    },
+					
+					{
+                        "begin": "02:41",
+                        "end": "02:58"
+                    },
+                    
+                    {
+                        "begin": "03:01",
+                        "end": "03:04"
+                    }
+
+                ],
+                "points": 10,
+                "miss": 2,
+                "cooldown": 2,
+                "limits": 7
+
+            },
+
+            {
+
+                "id": 3,
+                "name": "Relevant Questions",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:17",
+                        "end": "00:19"
+                    },
+					
+					{
+                        "begin": "01:03",
+                        "end": "01:14"
+                    }
+
+                ],
+                "points": 10,
+                "miss": 2,
+                "cooldown": 3,
+                "limits": 7
+
+            },
+
+            {
+
+                "id": 4,
+                "name": "Showing Empathy",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "01:15",
+                        "end": "01:17"
+                    },
+
+                    {
+                        "begin": "01:39",
+                        "end": "01:42"
+                    },
+                    
+                    {
+                        "begin": "01:59",
+                        "end": "02:00"
+                    },
+                    
+                    {
+                    	"begin": "02:13",
+                        "end": "02:16"
+                    
+                    }
+
+                ],
+                "points": 6,
+                "miss": 2,
+                "cooldown": 3,
+                "limits": 7
+
+            }
+
+        ]
+
+    }
+
+}

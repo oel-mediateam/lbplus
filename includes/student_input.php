@@ -8,22 +8,17 @@
 
     } else {
 
-        if ( !isset($_SESSION) ) {
+        if ( !isset( $_SESSION ) ) {
 
             session_start();
 
+            require_once 'config.php';
+            require_once 'db.php';
             require_once 'functions.php';
 
             $data = $_SESSION['exercise_data'];
             $exercise_actions = $data['exercise']['actions'];
             array_push( $exercise_actions, $data['exercise']['rewind'] );
-
-            //dev code
-/*
-            $tester = $_POST['student'][0];
-            $inputs = $_POST['student'][1];
-*/
-            // end code
 
             $inputs = $_POST['student'];
 
@@ -81,9 +76,8 @@
             }
 
             $_SESSION['student_data'] = $student_action_arrays;
-
-            //$file = 'data/student/'.$tester.'.json';
-            $file = 'data/student/demo.json';
+            $fileName = $_SESSION['user_exercise_id'].'_'.time();
+            $file = 'data/student/'. $fileName .'.json';
             $content = json_encode( $student_action_arrays );
             $fp = fopen( $file, 'wb' );
 
@@ -97,6 +91,9 @@
                 } else {
 
                     fclose( $fp );
+                    if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $fileName ) == 0) {
+                        exit('update failed');
+                    };
                     echo true;
 
                 }

@@ -1,7 +1,9 @@
 <?php
 
-    if ( !defined( "LBPATH" ) ) {
-
+    // if started session data is not true
+    if ( !isset( $_SESSION ) ) {
+        
+        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
         exit();

@@ -3,11 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>Error 404</title>
+        <link href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/lbplus/css/lbplus.css'; ?>" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
 
-        <h1>Sorry, the page you requested was not found.</h1>
-        <p>The page you are looking for might have been removed, had its name changed, is temporarily unavailable, or have unmet needs.</p>
+        <main class="lbplus_wrapper" role="main">
+
+            <div class="lbplus_container">
+
+                <h1>Sorry, the page you requested was not found.</h1>
+                <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+
+            </div>
+
+        </main>
 
     </body>
 </html>
