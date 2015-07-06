@@ -1,32 +1,24 @@
-<?php $exercises = DB::getExercises(); ?>
+<?php 
+    
+    if ( !isset( $_SESSION ) ) {
+        
+        // redirect to 404 page
+        header( 'HTTP/1.0 404 File Not Found', 404 );
+        include '404.php';
+        exit();
+        
+    }
+
+    $exercises = DB::getExercises();
+    
+?>
 <form method="post" action="index.php">
  <input type="hidden" name="view" value="lbplus_view" />
  <section class="lbplus_view">
      
      <div class="selection_view">
          
-         <nav class="admin_bar">
-             <h1>Professional Training Development</h1>
-             <ul>
-                 <?php
-                     
-                    if ( !isset( $authUrl ) ) {
-                        
-                        echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
-                        
-                        if ( isPermitted( $_SESSION['signed_in_user_id'], 2 ) ) {
-                            
-                            echo '<li><a title="Dashboard" class="dashboard" href="#"><span class="icon-dashboard"></span></a></li>';
-                            
-                        }
-                        
-                        echo '<li><div class="profile"><img src="' . $userData["picture"] . '" width="40" height="40" /><span class="name">' . $userData["name"] . '</span></div></li>';
-                        
-                    }
-                     
-                ?>
-             </ul>
-        </nav>
+        <?php require_once 'includes/admin/admin_bar.php'; ?>
         
         <h1>Exercises</h1>
         
