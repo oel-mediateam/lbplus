@@ -145,7 +145,10 @@
         // if request is page
         if ( isset( $request['page'] ) ) {
             
+            // exercises page
             if ( $request['page'] == 'exercises' ) {
+                
+                unset( $request['page'] );
                 
                 if ( !isset( $_SESSION['access_token'] ) ) {
                     
@@ -153,9 +156,52 @@
                     
                 }
                 
-                // exercise selection page
-                unset( $request['page'] );
                 $view = 'includes/views/selection.php';
+                
+                return $view;
+                
+            }
+            
+            // admin dashboard page
+            if ( $request['page'] == 'dashboard' ) {
+                
+                unset( $request['page'] );
+                
+                if ( !isAdmin() ) {
+                
+                    header( 'Location: ./' );
+                            
+                }
+                
+                if ( !isset( $_SESSION['access_token'] ) ) {
+                    
+                    header( 'Location: ./' );
+                    
+                }
+                
+                if ( isset( $request['action'] ) ) {
+                    
+                    switch( $request['action'] ) {
+                        
+                        case 'new':
+                            $view = 'includes/views/add_new_exercise.php';
+                        break;
+                        
+                        case 'viewedit':
+                            $view = 'includes/views/view_edit_exercises.php';
+                        break;
+                        
+                        case 'manageusers':
+                            $view = 'includes/views/manage_users.php';
+                        break;
+                        
+                    }
+                    
+                } else {
+                    
+                    $view = 'includes/views/dashboard.php';
+                    
+                }
                 
                 return $view;
                 
@@ -170,13 +216,13 @@
         
     }
     
-    function isPermitted( $id, $role ) {
+    function isAdmin() {
         
-        if ( isset( $id ) ) {
+        if ( isset( $_SESSION['signed_in_user_id'] ) ) {
             
-            $userRole = DB::getRole( $id );
+            $userRole = DB::getRole( $_SESSION['signed_in_user_id'] );
             
-            if ( $userRole >= $role ) {
+            if ( $userRole >= 3 ) {
                 
                 return true;
                 

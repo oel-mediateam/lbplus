@@ -32,9 +32,9 @@
                 echo '<p class="profile_img"><img src="' . $userData['picture'] . '" /></p>';
                 echo '<p><strong>' . $userData['email'] . '</strong></p>';
                 
-                if ( isPermitted( $_SESSION['signed_in_user_id'], 2 ) ) {
+                if ( isAdmin() ) {
                             
-                    $dashboardBtn = '<a class="btn" href="#"><span class="icon-dashboard"></span> Dashboard</a>';
+                    $dashboardBtn = '<a class="btn" href="?page=dashboard"><span class="icon-dashboard"></span> Dashboard</a>';
                     
                 }
                 

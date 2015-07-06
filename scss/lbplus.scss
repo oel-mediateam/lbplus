@@ -777,12 +777,67 @@ a:hover {
                     
                 }
                 
-                
                 .meta {
                     
                     margin-bottom: 0;
                     
                 }
+                
+            }
+            
+        }
+        
+        .dashboard_view {
+            
+            @extend .selection_view;
+            
+            .icon_menu {
+                
+                width: 100%;
+                padding: 0;
+                list-style: none;
+                margin: 0 0 rem( $gutter ) 0;
+                float: left;
+                clear: both;
+                
+                li {
+                    
+                    width: rem( 148px );
+                    height: rem( 148px );
+                    padding: rem( 6px );
+                    margin: 0;
+                    float: left;
+                    @include box-sizing( border-box );
+                    
+                    a {
+                        
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        padding: rem( 6px );
+                        background-color: #e8e8e8;
+                        font-size: rem( 14px );
+                        text-align: center;
+                        text-decoration: none;
+                        color: #888;
+                        @include box-sizing( border-box );
+                        
+                    }
+                    
+                    a:hover {
+                        
+                        color: #888;
+                        background-color: #ccc;
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            .icon_menu:after {
+                
+                @include clearfix();
                 
             }
             
