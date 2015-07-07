@@ -406,6 +406,7 @@ $.fn.clickAction = function() {
 
                 var rewindLength = Number( $( this ).data( 'length' ) );
                 var currentVideoTime = video.player.getCurrentTime();
+                var clickedBtns = null;
 
                 if ( currentVideoTime <= rewindLength ) {
 
@@ -415,6 +416,19 @@ $.fn.clickAction = function() {
 
                     rewindLength = currentVideoTime - rewindLength;
 
+                }
+                
+                if ( $( '.btn.disabled' ).length ) {
+                    
+                    clickedBtns = $( '.btn.disabled' );
+                    
+                    clickedBtns.each( function(){
+                    
+                        $( this ).find( 'span.progress' ).stop()
+                        .animate( { 'width': 0 }, 1000 );
+                        
+                    } );
+                    
                 }
                 
                 video.player.pauseVideo();
@@ -431,6 +445,12 @@ $.fn.clickAction = function() {
                     $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
                     $( '.lbplus_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
                     video.player.playVideo();
+                    
+                    if ( clickedBtns !== null ) {
+                        
+                        clickedBtns.extendedCooldown();
+                        
+                    }
 
                 } , 3000);
 
@@ -576,6 +596,39 @@ $.fn.cooldown = function() {
         } );
 
     }
+
+};
+
+/**
+ * The extended cooldown event to execute when rewind button used
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
+$.fn.extendedCooldown = function() {
+    
+    $(this).each( function() {
+        
+        var button = $( this );
+        var buttonWidth = button.width();
+        var cooldownTimeInSecond = Number( button.attr( 'data-cooldown' ) ) * 1000;
+        var extendedCooldown = cooldownTimeInSecond * 5;
+        var cooldownBarElement = button.find( '.cooldown .progress' );
+    
+        cooldownBarElement.animate( {
+
+            'width': buttonWidth
+
+        }, extendedCooldown, function() {
+
+            button.removeClass( 'disabled' );
+
+        } );
+    
+    } );
 
 };
 
