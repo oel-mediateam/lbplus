@@ -18,9 +18,9 @@
         
         <h1>Dashboard</h1>
         <ul class="icon_menu">
-            <li><a href="?page=dashboard&action=new">Add New Exercise</a></li>
-            <li><a href="?page=dashboard&action=viewedit">View / Edit Exercise</a></li>
-            <li><a href="?page=dashboard&action=manageusers">Manage Users</a></li>
+            <li><a href="?page=dashboard&action=new"><span class="icon-upload"></span><br />Add New Exercise</a></li>
+            <li><a href="?page=dashboard&action=viewedit"><span class="icon-edit"></span><br />View / Edit Exercise</a></li>
+            <li><a href="?page=dashboard&action=manageusers"><span class="icon-users"></span><br />Manage Users</a></li>
         </ul>
     
     </div>

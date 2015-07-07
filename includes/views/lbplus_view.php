@@ -29,7 +29,7 @@
         
     }
     
-    //$_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
+    $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
 
 ?>
 

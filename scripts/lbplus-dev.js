@@ -195,32 +195,37 @@ $( function () {
                 list.hide();
                 opened = false;
                 
-                $( '.exercise_info' ).remove();
-                
-                $.post( 'includes/exercise_info.php', { id: selectValue }, function(response) {
+                // if it is on the exercise selection view
+                if ( $( '.selection_view' ).length ) {
                     
-                    if ( response ) {
+                    $( '.exercise_info' ).remove();
+                
+                    $.post( 'includes/exercise_info.php', { id: selectValue }, function(response) {
                         
-                        var result = JSON.parse(response);
-                        
-                        $( '.select' ).after( '<div class="exercise_info"><div class="description_box"><p><strong>Description:</strong></p><div class="description"></div></div><p class="meta"></p></div>' );
-                        $( '.exercise_info .description_box .description' ).html( result.description );
-                        
-                        if ( Number( result.allow_retake ) ) {
+                        if ( response ) {
                             
-                            $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>unlimited</strong>' );
+                            var result = JSON.parse(response);
                             
-                        } else {
+                            $( '.select' ).after( '<div class="exercise_info"><div class="description_box"><p><strong>Description:</strong></p><div class="description"></div></div><p class="meta"></p></div>' );
+                            $( '.exercise_info .description_box .description' ).html( result.description );
                             
-                            $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
+                            if ( Number( result.allow_retake ) ) {
+                                
+                                $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>unlimited</strong>' );
+                                
+                            } else {
+                                
+                                $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
+                                
+                            }
+                            
+                            $( '.exercise_info .meta' ).append( ( result.time_limit > 0 ) ? ' | Time limit: <strong>' + result.time_limit + '</strong>' : '' );
                             
                         }
                         
-                        $( '.exercise_info .meta' ).append( ( result.time_limit > 0 ) ? ' | Time limit: <strong>' + result.time_limit + '</strong>' : '' );
-                        
-                    }
+                    } );
                     
-                } );
+                }
                 
             } );
           
@@ -687,7 +692,6 @@ $.fn.extendedCooldown = function() {
 
     }
 
-/*
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
 
         if ( response ) {
@@ -702,7 +706,6 @@ $.fn.extendedCooldown = function() {
         }
 
     } );
-*/
 
  };
 

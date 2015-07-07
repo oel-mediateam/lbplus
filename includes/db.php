@@ -265,6 +265,38 @@
     	    
 	    }
 	    
+	    public static function getActiveExercises() {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT exercise_id, name FROM exercise WHERE status_id = 1';
+                $query = $db->prepare( $sql );
+                $query = $db->query( $sql );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $exercises = array();
+            
+                while ( $row = $query->fetch() ) {
+                    
+                    array_push( $exercises, $row );
+                    
+                }
+                
+                $db = null;
+                
+                return $exercises;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function getExercise( $id ) {
     	    
     	    $db = DB::getDB();

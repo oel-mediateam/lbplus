@@ -9,7 +9,7 @@
         
     }
 
-    $exercises = DB::getExercises();
+    $exercises = DB::getActiveExercises();
     
 ?>
 <form method="post" action="index.php">

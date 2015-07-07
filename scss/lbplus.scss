@@ -334,15 +334,82 @@ code {
 
 form {
     
-    * {
+    $select-color: #2f2f2f;
+    $select-background: #f2f2f2;
+    $select-height: rem( 37px );
+    
+    label {
         
-        outline: none;
+        display: block;
+        margin: rem( $gutter / 2 ) 0 0;
         
     }
     
-    $select-color: #2f2f2f;
-    $select-background: #f2f2f2;
-    $select-height: 40px; 
+    input {
+        
+        font-size: 16px;
+        border: rem( 1px ) solid #cdcdcd;
+        padding: rem( 8px );
+        @include box-sizing( border-box );
+        
+    }
+    
+    input[type="text"], input[type="number"], input[type="file"] {
+        
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        margin: rem( $gutter / 2 ) 0 0;
+        
+    }
+    
+    input[type="file"] {
+        
+        padding: rem( 8px ) 0;
+        border: none;
+        
+    }
+    
+    textarea {
+        
+        @extend input[type="text"];
+        width: 100%;
+        height: rem( 109px );
+        border: rem( 1px ) solid #cdcdcd;
+        padding: rem( 8px );
+        font-size: 16px;
+        font-weight: bold;
+        @include box-sizing( border-box );
+        resize: none;
+        
+    } 
+    
+    .half {
+        
+        width: 49.5%;
+        float: left;
+        
+    }
+    
+    .half:nth-child(odd) {
+        
+        margin-right: 1%;
+        
+    }
+    
+    .quarter {
+        
+        width: 33%;
+        margin-right: .44%;
+        float: left;
+        
+    }
+    
+    .quarter:nth-child(3n+3) {
+        
+        margin-right: 0;
+        
+    }
     
     .select-hidden {
         
@@ -353,7 +420,7 @@ form {
     }
     
     .select {
-        
+    
         cursor: pointer;
         display: block;
         position: relative;
@@ -362,6 +429,7 @@ form {
         color: $select-color;
         width: 100%;
         height: $select-height;
+        outline: none;
     
     }
     
@@ -373,9 +441,10 @@ form {
         bottom: 0;
         left: 0;
         background-color: $select-background;
-        padding: rem( 8px ) rem( 15px );
+        padding: rem( 8px ) rem( 15px ) 0;
         font-weight: bold;
         @include transition( all 0.2s ease-in );
+        outline: none;
         
         &:after {
             
@@ -453,14 +522,17 @@ form {
         
     }
     
-    button {
-        
-        margin: 0;
-        padding: 0;
-        background-color: transparent;
-        border: none;
-        
-    }
+}
+
+button {
+    
+    font-family: $defaultFont;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-weight: normal;
+    outline: none;
     
 }
 
@@ -480,6 +552,12 @@ a:hover {
     
     display: none;
     
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /******** LB PLUS ********/
@@ -813,6 +891,16 @@ a:hover {
             
             @extend .selection_view;
             
+            form {
+                
+                .select {
+                    
+                    margin: rem( $gutter / 2 ) 0 0;
+                    
+                }
+                
+            }
+            
             .icon_menu {
                 
                 width: 100%;
@@ -836,7 +924,7 @@ a:hover {
                         display: block;
                         width: 100%;
                         height: 100%;
-                        padding: rem( 6px );
+                        padding: rem( 18px ) rem( 6px ) 0;
                         background-color: #e8e8e8;
                         font-size: rem( 14px );
                         text-align: center;
@@ -844,11 +932,19 @@ a:hover {
                         color: #888;
                         @include box-sizing( border-box );
                         
+                        [class^="icon-"], [class*=" icon-"] {
+                            
+                            display: inline-block;
+                            margin-bottom: rem( 10px );
+                            font-size: 500%;
+                            
+                        }
+                        
                     }
                     
                     a:hover {
                         
-                        color: #888;
+                        color: #333;
                         background-color: #ccc;
                         
                     }
