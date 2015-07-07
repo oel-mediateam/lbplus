@@ -476,6 +476,12 @@ a:hover {
     
 }
 
+.hide {
+    
+    display: none;
+    
+}
+
 /******** LB PLUS ********/
 
 .lbplus_wrapper {
@@ -547,6 +553,22 @@ a:hover {
                         @include box-sizing( 'border-box' );
                         @include border-radius( rem( 3px ) );
                         @include box-shadow( 0 0 rem( 6px ) $darkerFontColor);
+
+                    }
+                    
+                    #videoPlayBtn.paused {
+
+                        
+                        padding-top: rem( 14px );
+                        line-height: .4;
+                        background: #c7284d;
+                        cursor: default;
+                        
+                        small {
+                            
+                            font-size: 60%;
+                            
+                        }
 
                     }
 
@@ -1480,7 +1502,7 @@ a:hover {
 .blink {
 
     @include animation-properties( (animation-name: blink) );
-    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-duration: 3s) );
     @include animation-properties( (animation-timing-function: ease-in-out) );
     @include animation-properties( (animation-iteration-count: infinite) );
 
@@ -1509,7 +1531,7 @@ a:hover {
 
     50% {
 
-        @include opacity( 0 );
+        @include opacity( .5 );
 
     }
 

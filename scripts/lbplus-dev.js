@@ -14,10 +14,6 @@
 /* global onYouTubeIframeAPIReady */
 /* global moment */
 
-// tester
-// var tester;
-// var demoArray = [];
-
 // video object
 var video = {
 
@@ -292,7 +288,7 @@ function onYouTubeIframeAPIReady() {
 
         $( '#videoPlayBtn' ).on( 'click', function() {
 
-            $( this ).remove();
+            $( this ).hide();
 
             video.player.playVideo();
 
@@ -309,7 +305,8 @@ function onYouTubeIframeAPIReady() {
             case YT.PlayerState.ENDED:
 
                 $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
-                $( '.lbplus_media .overlay' ).html( '<div id="videoPlayBtn">ENDED</div>' );
+                //$( '.lbplus_media .overlay' ).html( '<div id="videoPlayBtn">ENDED</div>' );
+                $( '#videoPlayBtn' ).html( 'ENDED' ).show();
 
                 for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
 
@@ -419,13 +416,20 @@ $.fn.clickAction = function() {
                     rewindLength = currentVideoTime - rewindLength;
 
                 }
-
+                
                 video.player.pauseVideo();
                 video.player.seekTo( rewindLength );
                 updateProgress();
+                
+                $( '#videoPlayBtn' ).html( '<span class="icon-paused"></span><br /><small>PAUSED</small>' )
+                                    .addClass( 'paused' ).show();
+                $( '.lbplus_status_msg' ).html( 'Video paused ... will resume shortly.' )
+                                         .removeClass( 'hide' ).addClass( 'blink' );
 
                 setTimeout( function() {
-
+                    
+                    $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
+                    $( '.lbplus_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
                     video.player.playVideo();
 
                 } , 3000);
@@ -630,8 +634,7 @@ $.fn.cooldown = function() {
 
     }
 
-//     demoArray.push(studentResponses);
-
+/*
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
 
         if ( response ) {
@@ -646,6 +649,7 @@ $.fn.cooldown = function() {
         }
 
     } );
+*/
 
  };
 

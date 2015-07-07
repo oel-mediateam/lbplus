@@ -29,13 +29,13 @@
         
     }
     
-    $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
+    //$_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
 
 ?>
 
 <section class="lbplus_view">
 
-<!--     <div class="lbplus_status_msg blink">Demonstrating...</div> -->
+    <div class="lbplus_status_msg hide"></div>
 
     <h1><?php echo $exercise->name; ?></h1>
 
