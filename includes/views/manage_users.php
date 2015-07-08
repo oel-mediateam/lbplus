@@ -9,6 +9,8 @@
         
     }
     
+    $users = DB::getUsers();
+    
 ?>
  <section class="lbplus_view">
      
@@ -17,6 +19,27 @@
         <?php require_once 'includes/admin/admin_bar.php'; ?>
         
         <h1>Manage Users</h1>
+        
+        <ul class="users_list">
+            
+            <?php
+                
+                foreach( $users as $user ) {
+                    
+                    if ( $user['user_id'] != $_SESSION['signed_in_user_id'] ) {
+                        
+                        $formatted_user = ucfirst( $user['first_name'] ) . ' ' . ucfirst( $user['last_name'] );
+                        $isAdmin = ( !isAdmin( $user['user_id'] ) ) ? '<div class="action"><a href="includes/make_admin.php?u=' . $user['user_id'] . '">Make Admin</a></div>' : '';
+                        
+                        echo '<li><div class="user">' . $formatted_user . '<span class="email">' . $user['email'] . '</span></div>' . $isAdmin . '</li>';
+                        
+                    }
+                    
+                }
+                
+            ?>
+            
+        </ul>
     
     </div>
     

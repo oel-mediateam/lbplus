@@ -177,7 +177,7 @@
     	    
     	    try {
         	    
-        	    $sql = 'SELECT user_id, first_name, last_name FROM user';
+        	    $sql = 'SELECT user_id, first_name, last_name, email FROM user ORDER BY last_name ASC';
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
                 

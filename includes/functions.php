@@ -216,20 +216,22 @@
         
     }
     
-    function isAdmin() {
+    function isAdmin( $id = null ) {
         
-        if ( isset( $_SESSION['signed_in_user_id'] ) ) {
+        if ( !isset( $id ) ) {
             
-            $userRole = DB::getRole( $_SESSION['signed_in_user_id'] );
-            
-            if ( $userRole >= 3 ) {
-                
-                return true;
-                
-            }
+            $id = $_SESSION['signed_in_user_id'];
             
         }
+            
+        $userRole = DB::getRole( $id );
         
+        if ( $userRole >= 3 ) {
+            
+            return true;
+            
+        }
+            
         return false;
         
     }
