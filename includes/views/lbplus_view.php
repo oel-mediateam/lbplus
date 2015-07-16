@@ -17,19 +17,6 @@
     $exercise = new Exercise( $exercise_info['markup_src'] );
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();
-    $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
-    
-    if ( !$exercise_info['allow_retake'] ) {
-        
-        if ( $attempt >= $exercise_info['attempts'] ) {
-        
-            exit( "You already attempted this exercise! Dev notes: in the future, coming soon&trade;, you will see the score of the latest attempt instead of this message. <a href='?page=exercises'>Back to Exercises</a>" );
-            
-        } 
-        
-    }
-    
-    $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'], ( $attempt + 1 ) );
 
 ?>
 

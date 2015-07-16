@@ -292,10 +292,13 @@ function onYouTubeIframeAPIReady() {
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
         $( '#videoPlayBtn' ).on( 'click', function() {
+            
+            $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
 
-            $( this ).hide();
-
-            video.player.playVideo();
+                $( '#videoPlayBtn' ).hide();
+                video.player.playVideo();
+        
+            } );
 
         } );
 
@@ -310,7 +313,6 @@ function onYouTubeIframeAPIReady() {
             case YT.PlayerState.ENDED:
 
                 $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
-                //$( '.lbplus_media .overlay' ).html( '<div id="videoPlayBtn">ENDED</div>' );
                 $( '#videoPlayBtn' ).html( 'ENDED' ).show();
 
                 for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
