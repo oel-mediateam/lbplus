@@ -575,15 +575,16 @@ a:hover {
         *zoom: 1; }
       .lbplus_wrapper .lbplus_view .dashboard_view .users_list {
         width: 100%;
+        height: 21.375rem;
         padding: 0;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0;
         list-style: none;
+        overflow: auto;
         float: left;
         clear: both; }
         .lbplus_wrapper .lbplus_view .dashboard_view .users_list li {
           width: 100%;
-          height: 100%;
+          height: 2.625rem;
           margin-left: 0;
           margin-right: 0;
           border: 0.0625rem solid #dcdcdc;
@@ -596,6 +597,8 @@ a:hover {
           .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .user {
             width: 90%;
             height: 100%;
+            font-size: 0.875rem;
+            line-height: 1rem;
             padding: 0.3125rem 0.4375rem;
             color: #2f2f2f;
             float: left;
@@ -605,23 +608,33 @@ a:hover {
             .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .user .email {
               display: block;
               font-size: 75%; }
+            .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .user [class*="icon-"], .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .user [class^=" icon-"] {
+              color: #ffd000; }
           .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .action {
             width: 10%;
-            height: 3.125rem;
+            height: 2.625rem;
             float: left;
             background-color: #f2f2f2; }
-            .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .action a {
+            .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .action a, .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .action a:visited {
               display: block;
               width: 100%;
               height: 100%;
               font-size: 80%;
-              padding: 0.9375rem 0.3125rem 0;
+              color: #0000ee;
+              padding: 0.75rem 0 0;
               text-align: center;
               -moz-box-sizing: border-box;
               -webkit-box-sizing: border-box;
               box-sizing: border-box; }
+            .lbplus_wrapper .lbplus_view .dashboard_view .users_list li .action .disabled {
+              color: #1e1e1e;
+              pointer-events: none;
+              cursor: default;
+              font-style: italic; }
         .lbplus_wrapper .lbplus_view .dashboard_view .users_list li:last-child {
           border-bottom: 0.0625rem solid #dcdcdc; }
+          .lbplus_wrapper .lbplus_view .dashboard_view .users_list li:last-child .action {
+            height: 2.5rem; }
       .lbplus_wrapper .lbplus_view .dashboard_view .users_list:after {
         overflow: hidden;
         *zoom: 1; }

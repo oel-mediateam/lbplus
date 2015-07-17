@@ -20,18 +20,41 @@
         
         <h1>Manage Users</h1>
         
+        <?php
+            
+            if ( isset( $_SESSION['makeAdminError'] ) ) {
+                
+                unset( $_SESSION['makeAdminError'] );
+                echo '<div class="callout danger">Error in making an user an admin.</div>';
+                
+            }
+            
+            if ( isset( $_SESSION['alreadyAdmin'] ) ) {
+                
+                unset( $_SESSION['alreadyAdmin'] );
+                echo '<div class="callout danger">User is already an admin.</div>';
+                
+            }
+            
+        ?>
+        
         <ul class="users_list">
             
             <?php
                 
                 foreach( $users as $user ) {
                     
-                    if ( $user['user_id'] != $_SESSION['signed_in_user_id'] ) {
+                    $current_user = ( $user['user_id'] == $_SESSION['signed_in_user_id'] ) ? true : false;
+                    $formatted_user = ucfirst( $user['first_name'] ) . ' ' . ucfirst( $user['last_name'] );
+                    $isAdmin = ( !isAdmin( $user['user_id'] ) ) ? '<a href="?page=dashboard&action=makeadmin&u=' . $user['user_id'] . '">Make Admin</a>' : '<a class="disabled" href="#">Admin</a>';
+                    
+                    if ( $current_user ) {
                         
-                        $formatted_user = ucfirst( $user['first_name'] ) . ' ' . ucfirst( $user['last_name'] );
-                        $isAdmin = ( !isAdmin( $user['user_id'] ) ) ? '<div class="action"><a href="includes/make_admin.php?u=' . $user['user_id'] . '">Make Admin</a></div>' : '';
+                        echo '<li><div class="user">' . $formatted_user . ' <span class="icon-star-full"></span><span class="email">' . $user['email'] . '</span></div><div class="action">' . $isAdmin . '</div></li>';
                         
-                        echo '<li><div class="user">' . $formatted_user . '<span class="email">' . $user['email'] . '</span></div>' . $isAdmin . '</li>';
+                    } else {
+                        
+                        echo '<li><div class="user">' . $formatted_user . '<span class="email">' . $user['email'] . '</span></div><div class="action">' . $isAdmin . '</div></li>';
                         
                     }
                     

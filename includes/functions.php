@@ -195,10 +195,34 @@
                             $view = 'includes/views/manage_users.php';
                         break;
                         
+                        case 'makeadmin':
+                        
+                            if ( isset( $_REQUEST['u'] ) && !empty( $_REQUEST['u'] ) ) {
+                                
+                                if ( !isAdmin( $_REQUEST['u'] ) )  {
+                                    
+                                    DB::makeAdmin( $_REQUEST['u'] );
+                                    
+                                } else {
+                                    
+                                    $_SESSION['alreadyAdmin'] = true;
+                                    
+                                }
+                                
+                            } else {
+                                
+                                $_SESSION['makeAdminError'] = true;
+                                
+                            }
+                            
+                            header( 'Location: ./?page=dashboard&action=manageusers' );
+                            
+                        break;
+                        
                     }
                     
                 } else {
-                    
+    
                     $view = 'includes/views/dashboard.php';
                     
                 }

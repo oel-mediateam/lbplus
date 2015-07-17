@@ -965,17 +965,18 @@ a:hover {
             .users_list {
                 
                 width: 100%;
+                height: rem( 342px );
                 padding: 0;
-                margin-left: 0;
-                margin-right: 0;
+                margin: 0;
                 list-style: none;
+                overflow: auto;
                 float: left;
                 clear: both;
                 
                 li {
                     
                     width: 100%;
-                    height: 100%;
+                    height: rem( 42px );
                     margin-left: 0;
                     margin-right: 0;
                     border: rem( 1px ) solid #dcdcdc;
@@ -988,6 +989,8 @@ a:hover {
                         
                         width: 90%;
                         height: 100%;
+                        font-size: rem( 14px );
+                        line-height: rem( 16px );
                         padding: rem( 5px ) rem( 7px );
                         color: $defaultFontColor;
                         float: left;
@@ -999,6 +1002,12 @@ a:hover {
                             font-size: 75%;
                             
                         }
+                        
+                        [class*="icon-"], [class^=" icon-"] {
+                            
+                            color: #ffd000;
+                            
+                        }
 
                         
                     }
@@ -1006,19 +1015,29 @@ a:hover {
                     .action {
                         
                         width: 10%;
-                        height: rem( 50px );
+                        height: rem( 42px );
                         float: left;
                         background-color: #f2f2f2;
                         
-                        a {
+                        a, a:visited {
                             
                             display: block;
                             width: 100%;
                             height: 100%;
                             font-size: 80%;
-                            padding: rem( 15px ) rem( 5px ) 0;
+                            color: rgb(0, 0, 238);
+                            padding: rem( 12px ) 0 0;
                             text-align: center;
                             @include box-sizing( border-box );
+                            
+                        }
+                        
+                        .disabled {
+                            
+                            color: $darkerFontColor;
+                            pointer-events: none;
+                            cursor: default;
+                            font-style: italic;
                             
                         }
                         
@@ -1029,6 +1048,12 @@ a:hover {
                 li:last-child {
                     
                     border-bottom: rem( 1px ) solid #dcdcdc;
+                    
+                    .action {
+                        
+                        height: rem( 40px );
+                        
+                    }
                     
                 }
                 

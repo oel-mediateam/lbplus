@@ -233,6 +233,28 @@
     	    
 	    }
 	    
+	    public static function makeAdmin( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'UPDATE user SET role_id = 3 WHERE user_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                
+                $db = null;
+                return $query->rowCount();
+        	    
+    	    } catch ( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Connection to database failed.' );
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function getExercises() {
     	    
     	    $db = DB::getDB();
