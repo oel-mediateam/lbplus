@@ -32,7 +32,7 @@
             
         ?>
         
-        <p>Please select the exercise that you would like to attempt. When you are ready, click the <strong><span class="icon-start"></span> START</strong> button below to begin.</p>
+        <p>Please select the exercise that you would like to attempt. When you are ready, click the <strong><span class="icon-start"></span> GO</strong> button below to begin.</p>
         
         <select name="exercise" <?php echo ( isset( $_SESSION['error'] ) ) ? 'class="error"' : ''; ?>>
             <option value="hide">--- please select ---</option>
@@ -47,13 +47,13 @@
             ?>
         </select>
         
-        <div class="callout info"><strong>Important</strong>: once you started an exercise, you will not be able to come back to this page until the exercise is completed. <strong>If you navigated away in the middle of the exercise (i.e., use the back button, close the page, fiddle with the URL, etc.), it will count as an attempt taken.</strong> Please make sure you are fully prepared and comfortable before you begin.</div>
+        <div class="callout info"><strong>Important</strong>: once you started an exercise (after clicking the green <strong>START</strong> button), you will not be able to come back to this page until the exercise is completed. <strong>If you navigated away in the middle of the exercise (i.e., use the back button, close the page, fiddle with the URL, etc.), it will count as an attempt taken.</strong> Please make sure you are fully prepared and comfortable before you begin.</div>
     
     </div>
  </section>
  <nav class="lbplus_controls">
      <div class="main_controls score_view">
-        <button type="submit" class="btn new full" name="start"><span class="action_name"><span class="icon-start"></span> START</span></button>
+        <button type="submit" class="btn new full" name="go"><span class="action_name"><span class="icon-start"></span> GO</span></button>
      </div>
  </nav>
 </form>

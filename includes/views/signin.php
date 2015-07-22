@@ -9,6 +9,12 @@
         
     }
     
+    if ( isset( $_REQUEST['eid'] ) ) {
+        
+        $_SESSION['embed'] = $_REQUEST['eid'];
+        
+    }
+    
 ?>
  <section class="lbplus_view">
      
