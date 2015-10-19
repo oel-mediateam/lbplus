@@ -149,7 +149,7 @@
     	    
 	    }
 	    
-	    public static function updateGoogleRefreshToken( $id, $token ) {
+	    public static function setGoogleRefreshToken( $id, $token ) {
     	    
     	    $db = DB::getDB();
     	    

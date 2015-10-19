@@ -99,7 +99,7 @@
         	
         	if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
             	
-            	DB::updateGoogleRefreshToken( $userData['id'], $_SESSION['refresh_token'] );
+            	DB::setGoogleRefreshToken( $userData['id'], $_SESSION['refresh_token'] );
             	
         	}
         	
