@@ -8,11 +8,13 @@
     require_once 'includes/functions.php';
     require_once 'includes/google_signin.php';
     
+/*
     if ( isset( $_SESSION['access_token'] ) && !empty( $_SESSION['embed'] ) ) {
         
         header( 'Location: ./?embed='.$_SESSION['embed'] );
         
     }
+*/
     
     $page = getView( $_REQUEST );
 

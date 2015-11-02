@@ -122,6 +122,7 @@
         }
         
         // if request is an embed
+/*
         if ( isset( $request['embed'] ) ) {
             
             $exercise_id = $request['embed'];
@@ -159,6 +160,7 @@
             }
             
         }
+*/
         
         // if request is retake
         if ( isset( $request['retake'] ) ) {
