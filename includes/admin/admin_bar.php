@@ -16,7 +16,7 @@
      <ul>
          <?php
              
-            if ( !isset( $authUrl ) ) {
+            if ( !isset( $authUrl ) && !isLTIUser() ) {
                 
                 echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
                 

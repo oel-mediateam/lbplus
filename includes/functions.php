@@ -227,6 +227,15 @@
             
         }
         
+        // if LTI
+        if ( isset( $request['lti_message_type'] ) ) {
+            
+            $view = 'includes/views/selection.php';
+            
+            return $view;
+            
+        }
+        
         // default view
         $view = 'includes/views/signin.php';
         
@@ -251,6 +260,33 @@
         }
             
         return false;
+        
+    }
+    
+    function isLTIUser( $lti = null ) {
+        
+        if ( !isset( $lti ) ) {
+            
+            if ( isset( $_SESSION['lti'] ) ) {
+                
+                $lti = unserialize($_SESSION['lti']);
+                
+            } else {
+                
+                return false;
+                
+            }
+            
+        }
+        
+        if ( isset( $lti['user_id'] ) ) {
+            
+            return true;
+            
+        }
+        
+        return false;
+        
         
     }
 

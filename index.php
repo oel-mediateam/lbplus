@@ -7,17 +7,17 @@
     require_once 'includes/db.php';
     require_once 'includes/functions.php';
     
-    if ( isset( $_SESSION['lti_user'] )  ) {
+    if ( !isset( $_REQUEST['lti_message_type'] ) ) {
         
-        echo 'user:' . $_SESSION['lti_user'];
-        $page= 'includes/views/selection.php';
+        require_once 'includes/google_signin.php';
         
     } else {
         
-        require_once 'includes/google_signin.php';
-        $page = getView( $_REQUEST );
+        $_SESSION['lti'] = serialize( $_REQUEST );
         
     }
+    
+    $page = getView( $_REQUEST );
     
 ?>
 <!DOCTYPE html>
