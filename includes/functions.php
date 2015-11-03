@@ -121,47 +121,6 @@
             
         }
         
-        // if request is an embed
-/*
-        if ( isset( $request['embed'] ) ) {
-            
-            $exercise_id = $request['embed'];
-            
-            if ( !isset( $_SESSION['access_token'] ) ) {
-                
-                header( 'Location: ./?eid='.$exercise_id );
-                
-            }
-            
-            if ( !empty( $exercise_id ) ) {
-                
-                if ( $exercise = DB::getExercise( $exercise_id ) ) {
-                    
-                    $_SESSION['exercise_info'] = serialize( $exercise );
-                    $view = 'includes/views/lbplus_view.php';
-                    
-                    unset( $request['embed'], $_SESSION['embed'], $exercise_id );
-                    return $view;
-                    
-                } else {
-                    
-                    $_SESSION['error'] = "The requested exercise cannot be found or does not exist. Please select an exercise below.";
-                    header( 'Location: ./?page=exercises' );
-                    exit();
-                    
-                }
-                
-            } else {
-            
-                $_SESSION['error'] = "The requested exercise cannot be found or does not exist. Please select an exercise below.";
-                header( 'Location: ./?page=exercises' );
-                exit();
-            
-            }
-            
-        }
-*/
-        
         // if request is retake
         if ( isset( $request['retake'] ) ) {
             

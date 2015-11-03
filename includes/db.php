@@ -51,7 +51,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Fail to get Google User.' );
         	    
     	    }
     	    
@@ -80,7 +80,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get user.' );
         	    
     	    }
     	    
@@ -111,7 +111,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to add Google User.' );
         	    
     	    }
     	    
@@ -143,7 +143,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get Goole refresh token.' );
         	    
     	    }
     	    
@@ -165,7 +165,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to set Goole refresh token.' );
         	    
     	    }
     	    
@@ -196,7 +196,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get users.' );
         	    
     	    }
     	    
@@ -227,7 +227,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get user.' );
         	    
     	    }
     	    
@@ -249,7 +249,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to make admin.' );
         	    
     	    }
     	    
@@ -281,7 +281,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get exercises.' );
         	    
     	    }
     	    
@@ -313,7 +313,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get active exercises.' );
         	    
     	    }
     	    
@@ -344,7 +344,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get exercise.' );
         	    
     	    }
     	    
@@ -373,7 +373,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to set user exercise.' );
         	    
     	    }
     	    
@@ -396,7 +396,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get attempts.' );
         	    
     	    }
     	    
@@ -418,7 +418,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to update StuSrc.' );
         	    
     	    }
     	    
@@ -440,7 +440,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to update score.' );
         	    
     	    }
     	    
@@ -465,7 +465,7 @@
     	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to add score.' );
         	    
     	    }
     	    
@@ -495,7 +495,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get ID by Google.' );
         	    
     	    }
         	
@@ -525,7 +525,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Connection to database failed.' );
+        	    exit( 'Failed to get role.' );
         	    
     	    }
         	

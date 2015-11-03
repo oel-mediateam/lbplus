@@ -6,18 +6,19 @@
     require_once 'includes/config.php';
     require_once 'includes/db.php';
     require_once 'includes/functions.php';
-    require_once 'includes/google_signin.php';
     
-/*
-    if ( isset( $_SESSION['access_token'] ) && !empty( $_SESSION['embed'] ) ) {
+    if ( isset( $_SESSION['lti_user'] )  ) {
         
-        header( 'Location: ./?embed='.$_SESSION['embed'] );
+        echo 'user:' . $_SESSION['lti_user'];
+        $page= 'includes/views/selection.php';
+        
+    } else {
+        
+        require_once 'includes/google_signin.php';
+        $page = getView( $_REQUEST );
         
     }
-*/
     
-    $page = getView( $_REQUEST );
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
