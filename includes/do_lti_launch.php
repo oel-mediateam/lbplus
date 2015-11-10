@@ -28,12 +28,6 @@
             // and resource_link properties of the $tool_provider parameter
             // to access the current user and resource link.
             
-/*
-            echo '<pre>';
-            print_r($this);
-            echo '</pre>';
-*/
-            
             return $lti['return_url'];
         
         }
@@ -60,7 +54,6 @@
         
             // Insert code here to handle incoming content-item requests - use the user
             // property of the $tool_provider parameter to access the current user.
-            $_SESSION['lti'] = serialize($this);
         
         }
         

@@ -241,7 +241,7 @@ form .select-options {
     margin: 0;
     padding: 0.75rem 0;
     text-indent: 0.9375rem;
-    border-top: 0.0625rem solid #d8d8d8;
+    border-top: 0.0625rem solid #d9d9d9;
     -moz-transition: all 0.15s ease-in;
     -o-transition: all 0.15s ease-in;
     -webkit-transition: all 0.15s ease-in;
@@ -279,7 +279,6 @@ a:hover {
 .lbplus_wrapper {
   position: relative;
   width: 58.75rem;
-  height: 33.0625rem;
   margin: 0 auto; }
   .lbplus_wrapper .lbplus_view {
     position: relative;

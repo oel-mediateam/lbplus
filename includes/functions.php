@@ -232,6 +232,22 @@
             
             $view = 'includes/views/selection.php';
             
+            // if embed
+            
+            if ( isset( $request['ext_content_intended_use'] ) ) {
+                
+                $view = 'includes/views/oembed.php';
+                
+            }
+            
+            //if exercise
+            if ( isset( $request['exercise'] ) ) {
+                
+                $view = 'includes/views/lbplus_view.php';
+                //unset( $request['exercise'] );
+                
+            }
+            
             return $view;
             
         }

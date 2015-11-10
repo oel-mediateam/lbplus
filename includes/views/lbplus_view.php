@@ -13,7 +13,16 @@
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
-    $exercise_info = unserialize( $_SESSION['exercise_info'] );
+    if ( isset( $_REQUEST['exercise'] ) ) {
+        
+        $exercise_info = DB::getExercise( $_REQUEST['exercise'] );
+        
+    } else {
+        
+        $exercise_info = unserialize( $_SESSION['exercise_info'] );
+        
+    }
+    
     $exercise = new Exercise( $exercise_info['markup_src'] );
     $actions = $exercise->getActions();
     $rewindAction = $exercise->getRewindAction();

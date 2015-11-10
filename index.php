@@ -28,7 +28,7 @@
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/lbplus.css" rel="stylesheet" type="text/css" media="all" />
         <link href="fonts/icomoon.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="css/demo.css" rel="stylesheet" type="text/css" media="all" /> <!-- demo css; remove for live -->
+<!--         <link href="css/demo.css" rel="stylesheet" type="text/css" media="all" /> --> <!-- demo css; remove for live -->
     </head>
     <body>
 
