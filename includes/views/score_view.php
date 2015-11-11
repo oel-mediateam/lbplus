@@ -172,7 +172,7 @@
 
 ?>
 
-<section class="lbplus_view">
+<section class="sherlock_view">
 
     <h1><?php echo $scoreHeading; //output the heading ?></h1>
 
@@ -324,7 +324,7 @@
 
 </section>
 
-<nav class="lbplus_controls">
+<nav class="sherlock_controls">
 
     <div class="main_controls score_view">
 

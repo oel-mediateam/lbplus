@@ -171,37 +171,6 @@
     	    
 	    }
 	    
-	    public static function getUsers() {
-    	    
-    	    $db = DB::getDB();
-    	    
-    	    try {
-        	    
-        	    $sql = 'SELECT user_id, first_name, last_name, email FROM user ORDER BY last_name ASC';
-                $query = $db->prepare( $sql );
-                $query = $db->query( $sql );
-                
-                $users = array();
-            
-                while ( $row = $query->fetch() ) {
-                    
-                    array_push( $users, $row );
-                    
-                }
-                
-                $db = null;
-                
-                return $users;
-        	    
-    	    } catch( PDOException $e ) {
-        	    
-        	    $db = null;
-        	    exit( 'Failed to get users.' );
-        	    
-    	    }
-    	    
-	    }
-	    
 	    public static function getUser( $id ) {
     	    
     	    $db = DB::getDB();
@@ -228,28 +197,6 @@
         	    
         	    $db = null;
         	    exit( 'Failed to get user.' );
-        	    
-    	    }
-    	    
-	    }
-	    
-	    public static function makeAdmin( $id ) {
-    	    
-    	    $db = DB::getDB();
-    	    
-    	    try {
-        	    
-        	    $sql = 'UPDATE user SET role_id = 3 WHERE user_id = :id';
-                $query = $db->prepare( $sql );
-                $query->execute( array( ':id' => $id ) );
-                
-                $db = null;
-                return $query->rowCount();
-        	    
-    	    } catch ( PDOException $e ) {
-        	    
-        	    $db = null;
-        	    exit( 'Failed to make admin.' );
         	    
     	    }
     	    

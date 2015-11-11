@@ -13,8 +13,8 @@
     
 ?>
 <form method="post" action="index.php">
- <input type="hidden" name="view" value="lbplus_view" />
- <section class="lbplus_view">
+ <input type="hidden" name="view" value="sherlock_view" />
+ <section class="sherlock_view">
      
      <div class="selection_view">
          
@@ -51,7 +51,7 @@
     
     </div>
  </section>
- <nav class="lbplus_controls">
+ <nav class="sherlock_controls">
      <div class="main_controls score_view">
         <button type="submit" class="btn new full" name="go"><span class="action_name"><span class="icon-start"></span> GO</span></button>
      </div>

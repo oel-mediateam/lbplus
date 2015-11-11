@@ -12,20 +12,13 @@
 ?>
 
 <nav class="admin_bar">
-     <h1>Professional Training Development</h1>
+     <h1>Sherlock</h1>
      <ul>
          <?php
              
             if ( !isset( $authUrl ) && !isLTIUser() ) {
                 
                 echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
-                
-                if ( isAdmin() ) {
-                    
-                    echo '<li><a title="Dashboard" class="dashboard" href="?page=dashboard"><span class="icon-dashboard"></span></a></li>';
-                    
-                }
-                
                 echo '<li><div class="profile"><img src="' . $userData["picture"] . '" width="40" height="40" /><span class="name">' . $userData["name"] . '</span></div></li>';
                 
             }

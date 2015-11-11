@@ -29,20 +29,20 @@
 
 ?>
 
-<section class="lbplus_view">
+<section class="sherlock_view">
 
-    <div class="lbplus_status_msg hide"></div>
+    <div class="sherlock_status_msg hide"></div>
 
     <h1><?php echo $exercise->name; ?></h1>
 
-    <div class="lbplus_interaction_wrapper">
+    <div class="sherlock_interaction_wrapper">
 
-        <div class="lbplus_media">
+        <div class="sherlock_media">
             <div class="overlay"><div id="videoPlayBtn">START</div></div>
             <div id="ytv" data-video-id="<?php echo $exercise_info['video_src']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 
-        <div class="lbplus_actions">
+        <div class="sherlock_actions">
 
             <h4><?php echo $exercise->actionHeading; ?></h4>
 
@@ -97,7 +97,7 @@
 
 </section>
 
-<nav class="lbplus_controls">
+<nav class="sherlock_controls">
 
     <div class="progress_bar_holder">
 

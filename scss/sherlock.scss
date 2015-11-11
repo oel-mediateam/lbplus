@@ -562,7 +562,7 @@ a:hover {
 
 /******** LB PLUS ********/
 
-.lbplus_wrapper {
+.sherlock_wrapper {
 
     position: relative;
     width: rem( 940px );
@@ -570,7 +570,7 @@ a:hover {
     margin: 0 auto;
 
     // CONTENT
-    .lbplus_view {
+    .sherlock_view {
 
         position: relative;
         height: rem( 469px );
@@ -588,7 +588,7 @@ a:hover {
         }
 
         // INTERACTION (MEDIA & ACTIONS)
-        .lbplus_interaction_wrapper {
+        .sherlock_interaction_wrapper {
 
             margin-bottom: 0;
 
@@ -598,7 +598,7 @@ a:hover {
 
         	}
 
-            .lbplus_media {
+            .sherlock_media {
 
                 position: relative;
                 width: rem( 640px );
@@ -661,7 +661,7 @@ a:hover {
 
             }
 
-            .lbplus_actions {
+            .sherlock_actions {
 
                 width: rem( 225px );
                 margin: 0 0 0 rem( 23px );
@@ -759,7 +759,7 @@ a:hover {
         } // end interaction wrapper
 
         // clear fix
-        .lbplus_interaction_wrapper:after {
+        .sherlock_interaction_wrapper:after {
 
             @include clearfix();
 
@@ -1302,7 +1302,7 @@ a:hover {
     }
 
     // CONTROLS
-    .lbplus_controls {
+    .sherlock_controls {
 
         height: rem( 60px );
         background: $darkerFontColor;
@@ -1638,14 +1638,14 @@ a:hover {
 
     } // end controls
 
-    .lbplus_controls:after {
+    .sherlock_controls:after {
 
         @include clearfix();
 
     }
 
     // STATUS MESSAGE
-    .lbplus_status_msg {
+    .sherlock_status_msg {
 
         position: absolute;
         width: 50%;
@@ -1698,7 +1698,7 @@ a:hover {
 
     }
 
-} // end lbplus_wrapper
+} // end sherlock_wrapper
 
 /* ANIMATIONS */
 .blink {

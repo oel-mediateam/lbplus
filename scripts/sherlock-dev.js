@@ -1,7 +1,7 @@
 /*
  * LiveButtons+
  * @author: Ethan Lin, Mike Kellum
- * @uri: https://github.com/oel-mediateam/lbplus
+ * @uri: https://github.com/oel-mediateam/sherlock
  * @version: 0.0.1 (alpha)
  * @license: The Artistic License 2.0
  *
@@ -60,7 +60,7 @@ $( function () {
                         
                         $( this ).dialog( "close" );
                         
-                        $( '.lbplus_wrapper' ).showTransition( 'Revoke Access', 'Disconnecting Google account. Please wait...' );
+                        $( '.sherlock_wrapper' ).showTransition( 'Revoke Access', 'Disconnecting Google account. Please wait...' );
                         
                         setTimeout( function() {
                             
@@ -312,7 +312,7 @@ function onYouTubeIframeAPIReady() {
 
             case YT.PlayerState.ENDED:
 
-                $( '.lbplus_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
+                $( '.sherlock_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
                 $( '#videoPlayBtn' ).html( 'ENDED' ).show();
 
                 for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
@@ -444,13 +444,13 @@ $.fn.clickAction = function() {
                 
                 $( '#videoPlayBtn' ).html( '<span class="icon-paused"></span><br /><small>PAUSED</small>' )
                                     .addClass( 'paused' ).show();
-                $( '.lbplus_status_msg' ).html( 'Video paused ... will resume shortly.' )
+                $( '.sherlock_status_msg' ).html( 'Video paused ... will resume shortly.' )
                                          .removeClass( 'hide' ).addClass( 'blink' );
 
                 setTimeout( function() {
                     
                     $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
-                    $( '.lbplus_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
+                    $( '.sherlock_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
                     video.player.playVideo();
                     
                     if ( clickedBtns !== null ) {
@@ -701,7 +701,7 @@ $.fn.extendedCooldown = function() {
             $.get('includes/views/score_view.php', function( res ) {
 
                 $.fn.hideTransition();
-                $( '.lbplus_wrapper .lbplus_container' ).html( res ).hide().fadeIn( 1000 );
+                $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 1000 );
 
             } );
 

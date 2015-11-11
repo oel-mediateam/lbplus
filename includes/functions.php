@@ -128,7 +128,7 @@
             
             if ( $request['retake'] == $exercise_info['exercise_id'] ) {
                 
-                $view = 'includes/views/lbplus_view.php';
+                $view = 'includes/views/sherlock_view.php';
                 unset( $request['retake'] );
                 return $view;
                 
@@ -243,7 +243,7 @@
             //if exercise
             if ( isset( $request['exercise'] ) ) {
                 
-                $view = 'includes/views/lbplus_view.php';
+                $view = 'includes/views/sherlock_view.php';
                 //unset( $request['exercise'] );
                 
             }

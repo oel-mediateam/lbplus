@@ -10,7 +10,7 @@
     }
     
 ?>
- <section class="lbplus_view">
+ <section class="sherlock_view">
      
      <div class="dashboard_view">
          
@@ -90,7 +90,7 @@
     
  </section>
  
- <nav class="lbplus_controls">
+ <nav class="sherlock_controls">
      <div class="main_controls score_view">
         
         <div class="left">&nbsp;</div>
