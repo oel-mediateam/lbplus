@@ -1,1 +1,2 @@
 # Sherlock
+Sherlock is a set of web-based tools for online learning currently in development that require learners to review, recognize, tag, and annotate elements in different types of media. The current version of Sherlock includes the first tool - an interactive video tagging application for assessment. Learners watch a streaming video and click buttons to apply pre-set tags to moments in the video. Learners' scores are determined by comparing their tags against a set of expert tags.
