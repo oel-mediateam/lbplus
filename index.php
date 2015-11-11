@@ -13,9 +13,6 @@
         
     } else {
         
-        echo'<pre>';
-        print_r($_REQUEST);
-        echo'</pre>';
         $_SESSION['lti'] = serialize( $_REQUEST );
         
     }

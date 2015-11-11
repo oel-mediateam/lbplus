@@ -10,12 +10,11 @@ bower_components/
 .sass-cache
 **/.sass-cache
 
-#ingore test file
-build/test.html
-
 #ignore config php file
 **/includes/config.php
-config.php
+
+#ignore LTI XML file
+**/includes/lti_config.xml
 
 #ignore student json file
 **/includes/data/student/
