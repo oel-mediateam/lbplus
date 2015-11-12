@@ -7,13 +7,13 @@
     require_once 'includes/db.php';
     require_once 'includes/functions.php';
     
-    if ( !isset( $_REQUEST['lti_message_type'] ) ) {
+    if ( !isset( $_REQUEST['oauth_consumer_key'] ) ) {
         
         require_once 'includes/google_signin.php';
         
     } else {
         
-        $_SESSION['lti'] = serialize( $_REQUEST );
+        saveLTIData( $_REQUEST );
         
     }
     

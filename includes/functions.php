@@ -207,47 +207,81 @@
         
     }
     
-    function isLTIUser( $lti = null ) {
+    // LTI RELATED FUNCTIONS
+    
+    function saveLTIData( $data ) {
         
-        if ( !isset( $lti ) ) {
+        if ( $data !== null ) {
             
-            if ( isset( $_SESSION['lti'] ) ) {
+            $_SESSION['lti'] = serialize( $data );
+            
+        }
+        
+    }
+    
+    function getLTIData( $query ) {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            if ( isset( $lti[$query] ) ) {
                 
-                $lti = unserialize( $_SESSION['lti'] );
+                return $lti[$query];
                 
             } else {
                 
-                return false;
+                return 0;
                 
             }
             
         }
         
-        if ( isset( $lti['user_id'] ) ) {
+        return 0;
+        
+    }
+    
+    function isLTIUser() {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
             
-            return true;
+            $lti = unserialize( $_SESSION['lti'] );
             
+            if ( isset( $lti['user_id'] ) ) {
+                
+                return true;
+                
+            }
+        
         }
         
         return false;
         
     }
     
-    // get LTI course number
-    function getLTICourseID( $lti ) {
+    // get LTI course id
+    function getLTICourseID() {
             
-        switch( $lti['tool_consumer_info_product_family_code'] ) {
+        if ( isset( $_SESSION['lti'] ) ) {
             
-            case 'canvas':
+            $lti = unserialize( $_SESSION['lti'] );
             
-                return $lti['custom_canvas_course_id'];
-                break;
+            switch( $lti['tool_consumer_info_product_family_code'] ) {
             
-            default:
-            
-                return 0;
+                case 'canvas':
+                
+                    return $lti['custom_canvas_course_id'];
+                    break;
+                
+                default:
+                
+                    return 0;
+                
+            }
             
         }
+        
+        return 0;
         
     }
 

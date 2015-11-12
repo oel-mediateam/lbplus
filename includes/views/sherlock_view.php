@@ -13,10 +13,12 @@
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
-    // if the request is an exercise with a LTI outcome URL
-    if ( isset( $_REQUEST['exercise'] ) && isset( $_REQUEST['ext_ims_lis_basic_outcome_url'] ) ) {
-        if ( $exercise_info = DB::getLTIExercise( $_REQUEST['exercise'], getLTICourseID( $_REQUEST ),
-                                                  $_REQUEST['tool_consumer_info_product_family_code'] ) ) {
+    if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {
+        
+        saveLTIData( $_REQUEST );
+        lti = unserialize( $_SESSION['lti'] );
+        
+        if ( $exercise_info = DB::getLTIExercise( lti['exercise'], getLTICourseID(), lti['tool_consumer_info_product_family_code'] ) ) {
             
             $exercise_exists = true;
             
@@ -26,11 +28,18 @@
             
         }
         
-    // exercise currently stored in session
     } else {
         
-        $exercise_info = unserialize( $_SESSION['exercise_info'] );
-        $exercise_exists = true;
+        if ( isset( $_SESSION['exercise_info'] ) ) {
+            
+            $exercise_info = unserialize( $_SESSION['exercise_info'] );
+            $exercise_exists = true;
+            
+        } else {
+            
+            $exercise_exists = false;
+            
+        }
         
     }
     
