@@ -8,7 +8,21 @@
         exit();
         
     }
-
+    
+    if ( isset( $_SESSION['signed_in_user_id'] ) ) {
+        
+        if ( DB::getRole( $_SESSION['signed_in_user_id'] ) < 0 ) {
+            
+            if ( !isset( $_REQUEST['oauth_consumer_key'] ) ) {
+                
+                header('Location: ./');
+                
+            }
+            
+        }
+        
+    }
+    
     $exercises = DB::getActiveExercises();
     
 ?>

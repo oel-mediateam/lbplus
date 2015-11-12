@@ -562,13 +562,20 @@ a:hover {
 
 /******** LB PLUS ********/
 
+// WRAPPER
 .sherlock_wrapper {
 
     position: relative;
     width: rem( 940px );
-    //height: rem( 529px );
+    height: rem( 529px );
     margin: 0 auto;
-
+    
+    .sherlock_container {
+        
+        margin: rem( $gutter ) 0;
+        
+    }
+    
     // CONTENT
     .sherlock_view {
 
@@ -882,186 +889,6 @@ a:hover {
                     margin-bottom: 0;
                     
                 }
-                
-            }
-            
-        }
-        
-        .dashboard_view {
-            
-            @extend .selection_view;
-            
-            height: rem( 400px );
-            overflow: auto;
-            
-            form {
-                
-                .select {
-                    
-                    margin: rem( $gutter / 2 ) 0 0;
-                    
-                }
-                
-            }
-            
-            .icon_menu {
-                
-                width: 100%;
-                padding: 0;
-                list-style: none;
-                margin: 0 0 rem( $gutter ) 0;
-                float: left;
-                clear: both;
-                
-                li {
-                    
-                    width: rem( 148px );
-                    height: rem( 148px );
-                    padding: rem( 6px );
-                    margin: 0;
-                    float: left;
-                    @include box-sizing( border-box );
-                    
-                    a {
-                        
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        padding: rem( 18px ) rem( 6px ) 0;
-                        background-color: #e8e8e8;
-                        font-size: rem( 14px );
-                        text-align: center;
-                        text-decoration: none;
-                        color: #888;
-                        @include box-sizing( border-box );
-                        
-                        [class^="icon-"], [class*=" icon-"] {
-                            
-                            display: inline-block;
-                            margin-bottom: rem( 10px );
-                            font-size: 500%;
-                            
-                        }
-                        
-                    }
-                    
-                    a:hover {
-                        
-                        color: #333;
-                        background-color: #ccc;
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            .icon_menu:after {
-                
-                @include clearfix();
-                
-            }
-            
-            .users_list {
-                
-                width: 100%;
-                height: rem( 342px );
-                padding: 0;
-                margin: 0;
-                list-style: none;
-                overflow: auto;
-                float: left;
-                clear: both;
-                
-                li {
-                    
-                    width: 100%;
-                    height: rem( 42px );
-                    margin-left: 0;
-                    margin-right: 0;
-                    border: rem( 1px ) solid #dcdcdc;
-                    border-bottom: none;
-                    float: left;
-                    clear: both;
-                    @include box-sizing( border-box );
-                    
-                    .user {
-                        
-                        width: 90%;
-                        height: 100%;
-                        font-size: rem( 14px );
-                        line-height: rem( 16px );
-                        padding: rem( 5px ) rem( 7px );
-                        color: $defaultFontColor;
-                        float: left;
-                        @include box-sizing( border-box );
-                        
-                        .email {
-                        
-                            display: block;
-                            font-size: 75%;
-                            
-                        }
-                        
-                        [class*="icon-"], [class^=" icon-"] {
-                            
-                            color: #ffd000;
-                            
-                        }
-
-                        
-                    }
-                    
-                    .action {
-                        
-                        width: 10%;
-                        height: rem( 42px );
-                        float: left;
-                        background-color: #f2f2f2;
-                        
-                        a, a:visited {
-                            
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-                            font-size: 80%;
-                            color: rgb(0, 0, 238);
-                            padding: rem( 12px ) 0 0;
-                            text-align: center;
-                            @include box-sizing( border-box );
-                            
-                        }
-                        
-                        .disabled {
-                            
-                            color: $darkerFontColor;
-                            pointer-events: none;
-                            cursor: default;
-                            font-style: italic;
-                            
-                        }
-                        
-                    }
-                                        
-                }
-                
-                li:last-child {
-                    
-                    border-bottom: rem( 1px ) solid #dcdcdc;
-                    
-                    .action {
-                        
-                        height: rem( 40px );
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            .users_list:after {
-                    
-                @include clearfix();
                 
             }
             
@@ -1686,6 +1513,12 @@ a:hover {
             font-size: 120%;
             font-weight: 200;
             line-height: normal;
+            
+            a, a:visited {
+                
+                color: #f00;
+                
+            }
 
         }
 

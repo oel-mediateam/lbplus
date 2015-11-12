@@ -297,6 +297,49 @@
     	    
 	    }
 	    
+	    public static function getLTIExercise( $id, $course, $code ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT e.exercise_id, e.video_src, e.markup_src, e.name, e.description, e.attempts, e.allow_retake, e.allow_new, e.status_id, e.exrs_type_id, e.category_id, lti_course.created_on ';
+        	    $sql .='FROM exercise e, (SELECT * FROM lti_consumer JOIN lti_consumer_course_exercise USING(consumer_id)) AS lti_course ';
+        	    $sql .= 'WHERE e.exercise_id = :id ';
+        	    $sql .= 'AND lti_course.course_id = :course ';
+        	    $sql .= 'AND lti_course.family_code = :code ';
+        	    $sql .= 'AND e.status_id = 1';
+        	    
+                $query = $db->prepare( $sql );
+                $query->execute( array( 
+                    
+                    ':id' => $id,
+                    ':course' => $course,
+                    ':code' => $code
+                
+                ) );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result;
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    return null;
+        	    
+    	    }
+    	    
+	    }
+	    
 	    public static function setUserExercise( $user_id, $exercise_id, $attempt ) {
     	    
     	    $db = DB::getDB();

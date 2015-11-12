@@ -9,14 +9,6 @@
         
     }
     
-/*
-    if ( isset( $_REQUEST['eid'] ) ) {
-        
-        $_SESSION['embed'] = $_REQUEST['eid'];
-        
-    }
-*/
-    
 ?>
  <section class="sherlock_view">
      
@@ -38,7 +30,16 @@
                 echo '<p class="profile_img"><img src="' . $userData['picture'] . '" /></p>';
                 echo '<p><strong>' . $userData['email'] . '</strong></p>';
                 
-                echo '<p><a class="btn" href="?page=exercises"><span class="icon-selection"></span> Exercises</a></p>';
+                if ( DB::getRole( $_SESSION['signed_in_user_id'] ) >= 0 ) {
+                    
+                    echo '<p><a class="btn" href="?page=exercises"><span class="icon-selection"></span> Exercises</a></p>';
+                    
+                } else {
+                    
+                    echo '<p><em>You have no permission to see available exercises.</em></p>';
+                    
+                }
+                
                 echo '<p><small><a href="?logout"><span class="icon-signout"></span> Sign Out</a></small></p>';
                 echo '<p><small><a id="google_revoke_connection" href="#"><span class="icon-user-cancel"></span> disconnect this app from your Google Account</a></small></p>';
                 

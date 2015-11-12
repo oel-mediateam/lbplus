@@ -13,22 +13,38 @@
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
-    if ( isset( $_REQUEST['exercise'] ) ) {
+    // if the request is an exercise with a LTI outcome URL
+    if ( isset( $_REQUEST['exercise'] ) && isset( $_REQUEST['ext_ims_lis_basic_outcome_url'] ) ) {
+        if ( $exercise_info = DB::getLTIExercise( $_REQUEST['exercise'], getLTICourseID( $_REQUEST ),
+                                                  $_REQUEST['tool_consumer_info_product_family_code'] ) ) {
+            
+            $exercise_exists = true;
+            
+        } else {
+            
+            $exercise_exists = false;
+            
+        }
         
-        $exercise_info = DB::getExercise( $_REQUEST['exercise'] );
-        
+    // exercise currently stored in session
     } else {
         
         $exercise_info = unserialize( $_SESSION['exercise_info'] );
+        $exercise_exists = true;
         
     }
     
-    $exercise = new Exercise( $exercise_info['markup_src'] );
-    $actions = $exercise->getActions();
-    $rewindAction = $exercise->getRewindAction();
+    if ( $exercise_exists ) {
+        
+        $exercise = new Exercise( $exercise_info['markup_src'] );
+        $actions = $exercise->getActions();
+        $rewindAction = $exercise->getRewindAction();
+        
+    }
 
 ?>
 
+<?php if ( $exercise_exists ) { ?>
 <section class="sherlock_view">
 
     <div class="sherlock_status_msg hide"></div>
@@ -148,3 +164,12 @@
     </div>
 
 </nav>
+<?php } else { ?>
+
+    <script>
+        $( function() { 
+            $( '.sherlock_wrapper' ).showTransition( 'Exercise Not Found!', 'The exercise that you requested cannot be found or may not be available yet.<br /><a href="javascript:window.close();">&times; close</a>', true );
+        });
+    </script>
+
+<?php } ?>

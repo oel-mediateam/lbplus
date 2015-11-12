@@ -100,7 +100,7 @@
     // get views
     function getView( $request ) {
         
-        // if request is exercise
+        // if request is an exercise
         if ( isset( $request['go'] ) ) {
         
             $view = 'includes/views/' . $request['view'] . '.php';
@@ -142,7 +142,7 @@
             
         }
         
-        // if request is page
+        // if request is a page
         if ( isset( $request['page'] ) ) {
             
             if ( !isset( $_SESSION['access_token'] ) ) {
@@ -162,69 +162,6 @@
                 
             }
             
-            // admin dashboard page
-            if ( $request['page'] == 'dashboard' ) {
-                
-                unset( $request['page'] );
-                
-                if ( !isAdmin() ) {
-                
-                    header( 'Location: ./' );
-                            
-                }
-                
-                if ( isset( $request['action'] ) ) {
-                    
-                    switch( $request['action'] ) {
-                        
-                        case 'new':
-                            $view = 'includes/views/add_new_exercise.php';
-                        break;
-                        
-                        case 'viewedit':
-                            $view = 'includes/views/view_edit_exercises.php';
-                        break;
-                        
-                        case 'manageusers':
-                            $view = 'includes/views/manage_users.php';
-                        break;
-                        
-                        case 'makeadmin':
-                        
-                            if ( isset( $_REQUEST['u'] ) && !empty( $_REQUEST['u'] ) ) {
-                                
-                                if ( !isAdmin( $_REQUEST['u'] ) )  {
-                                    
-                                    DB::makeAdmin( $_REQUEST['u'] );
-                                    
-                                } else {
-                                    
-                                    $_SESSION['alreadyAdmin'] = true;
-                                    
-                                }
-                                
-                            } else {
-                                
-                                $_SESSION['makeAdminError'] = true;
-                                
-                            }
-                            
-                            header( 'Location: ./?page=dashboard&action=manageusers' );
-                            
-                        break;
-                        
-                    }
-                    
-                } else {
-    
-                    $view = 'includes/views/dashboard.php';
-                    
-                }
-                
-                return $view;
-                
-            }
-            
         }
         
         // if LTI
@@ -236,7 +173,6 @@
             if ( isset( $request['exercise'] ) ) {
                 
                 $view = 'includes/views/sherlock_view.php';
-                //unset( $request['exercise'] );
                 
             }
             
@@ -277,7 +213,7 @@
             
             if ( isset( $_SESSION['lti'] ) ) {
                 
-                $lti = unserialize($_SESSION['lti']);
+                $lti = unserialize( $_SESSION['lti'] );
                 
             } else {
                 
@@ -295,6 +231,23 @@
         
         return false;
         
+    }
+    
+    // get LTI course number
+    function getLTICourseID( $lti ) {
+            
+        switch( $lti['tool_consumer_info_product_family_code'] ) {
+            
+            case 'canvas':
+            
+                return $lti['custom_canvas_course_id'];
+                break;
+            
+            default:
+            
+                return 0;
+            
+        }
         
     }
 

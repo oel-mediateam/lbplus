@@ -649,9 +649,20 @@ $.fn.extendedCooldown = function() {
  * @return void
  *
  */
- $.fn.showTransition = function( heading, subheading ) {
-
-    $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
+ $.fn.showTransition = function( heading, subheading, hideSpinner ) {
+    
+    hideSpinner = typeof hideSpinner !== 'undefined' ? hideSpinner : false;
+    
+    if ( hideSpinner === false ) {
+        
+        $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
+        
+    } else {
+        
+        $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
+        
+    }
+    
     $( '.transition_overlay' ).css( 'display', 'none' ).fadeIn();
 
  };
