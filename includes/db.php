@@ -303,12 +303,12 @@
     	    
     	    try {
         	    
-        	    $sql = 'SELECT e.exercise_id, e.video_src, e.markup_src, e.name, e.description, e.attempts, e.allow_retake, e.allow_new, e.status_id, e.exrs_type_id, e.category_id, lti_course.created_on ';
-        	    $sql .='FROM exercise e, (SELECT * FROM lti_consumer JOIN lti_consumer_course_exercise USING(consumer_id)) AS lti_course ';
-        	    $sql .= 'WHERE e.exercise_id = :id ';
-        	    $sql .= 'AND lti_course.course_id = :course ';
-        	    $sql .= 'AND lti_course.family_code = :code ';
-        	    $sql .= 'AND e.status_id = 1';
+        	    $sql = 'SELECT e.exercise_id, e.video_src, e.markup_src, e.name, e.description, e.attempts, e.allow_retake, e.allow_new, ce.status status_id, e.exrs_type_id, e.category_id, ce.created_on ';
+        	    $sql .='FROM exercise e JOIN lti_consumer_course_exercise ce USING(exercise_id) JOIN lti_consumer c USING(consumer_id) ';
+        	    $sql .= 'WHERE exercise_id = :id ';
+        	    $sql .= 'AND course_id = :course ';
+        	    $sql .= 'AND family_code = :code ';
+        	    $sql .= 'AND status = 1';
         	    
                 $query = $db->prepare( $sql );
                 $query->execute( array( 
@@ -335,6 +335,48 @@
         	    
         	    $db = null;
         	    return null;
+        	    
+    	    }
+    	    
+	    }
+	    
+	    public static function getActiveLTIExercises( $course, $code ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT e.exercise_id, e.name ';
+        	    $sql .= 'FROM exercise e JOIN lti_consumer_course_exercise ce USING(exercise_id) JOIN lti_consumer c USING(consumer_id) ';
+        	    $sql .= 'WHERE course_id = :course ';
+        	    $sql .= 'AND family_code = :code ';
+        	    $sql .= 'AND status = 1';
+                $query = $db->prepare( $sql );
+                $query->execute( array( 
+                    
+                    ':course' => $course,
+                    ':code' => $code
+                
+                ) );
+                //$query = $db->query( $sql );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $exercises = array();
+            
+                while ( $row = $query->fetch() ) {
+                    
+                    array_push( $exercises, $row );
+                    
+                }
+                
+                $db = null;
+                
+                return $exercises;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get active exercises.' );
         	    
     	    }
     	    

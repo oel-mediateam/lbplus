@@ -23,7 +23,16 @@
         
     }
     
-    $exercises = DB::getActiveExercises();
+    if ( getLTIData( 'oauth_consumer_key' ) !== null ) {
+        
+        $exercises = DB::getActiveLTIExercises( getLTICourseID(), getLTIData( 'tool_consumer_info_product_family_code' ) );
+        
+    } else {
+        
+        $exercises = DB::getActiveExercises();
+        
+    }
+    
     
 ?>
 <form method="post" action="index.php">
