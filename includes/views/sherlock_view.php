@@ -1,5 +1,5 @@
 <?php
-
+    
     // if started session data is not true
     if ( !isset( $_SESSION ) ) {
         
@@ -16,9 +16,9 @@
     if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {
         
         saveLTIData( $_REQUEST );
-        lti = unserialize( $_SESSION['lti'] );
+        $lti = unserialize( $_SESSION['lti'] );
         
-        if ( $exercise_info = DB::getLTIExercise( lti['exercise'], getLTICourseID(), lti['tool_consumer_info_product_family_code'] ) ) {
+        if ( $exercise_info = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), $lti['tool_consumer_info_product_family_code'] ) ) {
             
             $exercise_exists = true;
             

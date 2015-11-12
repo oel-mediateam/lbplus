@@ -241,6 +241,16 @@
         
     }
     
+    function unsetLTIData() {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            unset( $_SESSION['lti'] );
+            
+        }
+        
+    }
+    
     function isLTIUser() {
         
         if ( isset( $_SESSION['lti'] ) ) {
@@ -275,13 +285,13 @@
                 
                 default:
                 
-                    return 0;
+                    return null;
                 
             }
             
         }
         
-        return 0;
+        return null;
         
     }
 

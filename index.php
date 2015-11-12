@@ -10,6 +10,7 @@
     if ( !isset( $_REQUEST['oauth_consumer_key'] ) ) {
         
         require_once 'includes/google_signin.php';
+        unsetLTIData();
         
     } else {
         

@@ -15,7 +15,7 @@
      <h1>Sherlock</h1>
      <ul>
          <?php
-             
+            
             if ( !isset( $authUrl ) && !isLTIUser() ) {
                 
                 echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
