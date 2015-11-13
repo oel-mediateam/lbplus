@@ -240,6 +240,34 @@ $( function () {
         } );
         
     } // end selection element if/else
+    
+    $( '#lti_selection' ).click( function() {
+        
+        var url = $( 'input[name="return_url"]' ).val();
+        var exrs_id = $( 'option:selected' ).val();
+        var link_type = $( 'input[name="type"]' ).val();
+        
+        $.ajax({
+            url: "includes/get_lti_link.php",
+            type: 'POST',
+            data: {
+              return_url: url,
+              id: exrs_id,
+              type: link_type
+            },
+            success: function(data) {
+                
+                console.log(data);
+                
+              window.location.href = data;
+              
+            }
+            
+          });
+          
+          return false;
+          
+    } );
 
 } );
 

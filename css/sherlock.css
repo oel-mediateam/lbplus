@@ -283,7 +283,7 @@ a:hover {
   margin: 0 auto; }
   .sherlock_wrapper .sherlock_container {
     margin: 1rem 0; }
-  .sherlock_wrapper .sherlock_view {
+  .sherlock_wrapper .sherlock_view, .sherlock_wrapper .lti_sherlock_view {
     position: relative;
     height: 29.3125rem;
     padding: 1.5625rem 1.5625rem 0 1.5625rem;
@@ -294,27 +294,27 @@ a:hover {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
-    .sherlock_wrapper .sherlock_view h1:nth-of-type(1) {
+    .sherlock_wrapper .sherlock_view h1:nth-of-type(1), .sherlock_wrapper .lti_sherlock_view h1:nth-of-type(1) {
       margin-top: 0; }
-    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper {
+    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper {
       margin-bottom: 0; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper * {
+      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper *, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper * {
         -moz-user-select: -moz-none;
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media {
+      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media {
         position: relative;
         width: 40rem;
         height: 22.5rem;
         background: #000;
         float: left; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay {
           position: absolute;
           width: 100%;
           height: 100%;
           z-index: 10; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn {
             position: absolute;
             width: 9.375rem;
             height: 5rem;
@@ -337,28 +337,28 @@ a:hover {
             -moz-box-shadow: 0 0 0.375rem #1e1e1e;
             -webkit-box-shadow: 0 0 0.375rem #1e1e1e;
             box-shadow: 0 0 0.375rem #1e1e1e; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused {
             padding-top: 0.875rem;
             line-height: .4;
             background: #c7284d;
             cursor: default; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small {
+            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small {
               font-size: 60%; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe {
           width: 100%;
           height: 100%; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions {
+      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions {
         width: 14.0625rem;
         margin: 0 0 0 1.4375rem;
         float: left; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions h4 {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions h4, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions h4 {
           text-align: center;
           line-height: 1.25rem;
           border-bottom: 1px dashed #2f2f2f;
           padding-bottom: 10px;
           margin-top: 0;
           margin-bottom: 0; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn {
           position: relative;
           width: 14.0625rem;
           height: 3.125rem;
@@ -367,7 +367,7 @@ a:hover {
           cursor: pointer;
           margin: 1rem 0;
           position: relative; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits {
             position: absolute;
             font-size: 0.75rem;
             font-weight: normal;
@@ -380,9 +380,9 @@ a:hover {
             -webkit-border-radius: 0.1875rem;
             border-radius: 0.1875rem;
             z-index: 10; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits.hide {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits.hide, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits.hide {
             display: none; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon {
             display: block;
             width: 3.125rem;
             height: 3.125rem;
@@ -400,10 +400,10 @@ a:hover {
             -o-transition: opacity 0.5s, background 0.5s;
             -webkit-transition: opacity 0.5s, background 0.5s;
             transition: opacity 0.5s, background 0.5s; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class^="icon-"], .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class*=" icon-"] {
+            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class^="icon-"], .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class^="icon-"], .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class*=" icon-"], .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class*=" icon-"] {
               display: block;
               margin-top: 0.125rem; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name {
             display: block;
             width: 10.9375rem;
             height: 3.125rem;
@@ -419,30 +419,30 @@ a:hover {
             -o-transition: opacity 0.5s, background 0.5s;
             -webkit-transition: opacity 0.5s, background 0.5s;
             transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name.long {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name.long, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name.long {
             font-size: 85%;
             padding-top: 0.5625rem;
             line-height: 1rem; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown {
             display: block;
             width: 14.0625rem;
             height: 0.3125rem;
             background: #ccc;
             clear: both; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown .progress {
+            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown .progress, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown .progress {
               display: block;
               height: 0.3125rem;
               background: #132988; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .icon {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .icon {
           background: #1f3dc1; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .action_name {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .action_name {
           background: #18309c; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled {
           color: #fafafa;
           cursor: default; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .limits {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .limits, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .limits {
             background: #2e2b2b; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .icon {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .icon {
             background: #515151;
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
             opacity: 0.75;
@@ -450,7 +450,7 @@ a:hover {
             -o-transition: opacity 0.5s, background 0.5s;
             -webkit-transition: opacity 0.5s, background 0.5s;
             transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .action_name {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .action_name {
             background: #424242;
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
             opacity: 0.75;
@@ -458,50 +458,50 @@ a:hover {
             -o-transition: opacity 0.5s, background 0.5s;
             -webkit-transition: opacity 0.5s, background 0.5s;
             transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .cooldown .progress {
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .cooldown .progress, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .cooldown .progress {
             background: #2c2c2c; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:nth-of-type(1) {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:nth-of-type(1), .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:nth-of-type(1) {
           margin-top: 0.625rem; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:last-child {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:last-child, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:last-child {
           margin-bottom: 0; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:after {
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:after, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:after {
           overflow: hidden;
           *zoom: 1; }
-    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper:after {
+    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper:after, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper:after {
       overflow: hidden;
       *zoom: 1; }
-    .sherlock_wrapper .sherlock_view .score_view {
+    .sherlock_wrapper .sherlock_view .score_view, .sherlock_wrapper .lti_sherlock_view .score_view {
       margin-top: -1rem; }
-      .sherlock_wrapper .sherlock_view .score_view .actions_results {
+      .sherlock_wrapper .sherlock_view .score_view .actions_results, .sherlock_wrapper .lti_sherlock_view .score_view .actions_results {
         width: 18.5rem;
         padding: 0 0.625rem;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .actions_results p:nth-of-type(odd) {
+        .sherlock_wrapper .sherlock_view .score_view .actions_results p:nth-of-type(odd), .sherlock_wrapper .lti_sherlock_view .score_view .actions_results p:nth-of-type(odd) {
           font-size: 1.125rem;
           font-weight: 500; }
-      .sherlock_wrapper .sherlock_view .score_view .miss-hits {
+      .sherlock_wrapper .sherlock_view .score_view .miss-hits, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits {
         width: 18.5rem;
         padding: 0 0.625rem;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits .heading, .sherlock_wrapper .sherlock_view .score_view .miss-hits .transition_overlay .loading, .sherlock_wrapper .transition_overlay .sherlock_view .score_view .miss-hits .loading {
+        .sherlock_wrapper .sherlock_view .score_view .miss-hits .heading, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits .heading, .sherlock_wrapper .sherlock_view .score_view .miss-hits .transition_overlay .loading, .sherlock_wrapper .transition_overlay .sherlock_view .score_view .miss-hits .loading, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits .transition_overlay .loading, .sherlock_wrapper .transition_overlay .lti_sherlock_view .score_view .miss-hits .loading {
           margin: 1rem 0;
           font-weight: bold;
           padding: 0 0 0.1875rem;
           border-bottom: 0.125rem solid #1e1e1e; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits p {
+        .sherlock_wrapper .sherlock_view .score_view .miss-hits p, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits p {
           margin: 0.5rem 0; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits p.incorrect {
+        .sherlock_wrapper .sherlock_view .score_view .miss-hits p.incorrect, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits p.incorrect {
           margin: 0.33333rem 0;
           font-size: 0.875rem;
           line-height: 1rem;
           padding-left: 1rem; }
-      .sherlock_wrapper .sherlock_view .score_view .percentage {
+      .sherlock_wrapper .sherlock_view .score_view .percentage, .sherlock_wrapper .lti_sherlock_view .score_view .percentage {
         width: 18.5rem;
         padding: 7.8125rem 0.625rem 0;
         text-align: center;
@@ -509,34 +509,34 @@ a:hover {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .percentage .percent {
+        .sherlock_wrapper .sherlock_view .score_view .percentage .percent, .sherlock_wrapper .lti_sherlock_view .score_view .percentage .percent {
           display: block;
           font-size: 2.875rem;
           line-height: 2.875rem;
           font-weight: bold; }
-        .sherlock_wrapper .sherlock_view .score_view .percentage .status {
+        .sherlock_wrapper .sherlock_view .score_view .percentage .status, .sherlock_wrapper .lti_sherlock_view .score_view .percentage .status {
           display: block;
           font-size: 1.625rem;
           line-height: 1.625rem;
           font-style: italic;
           margin-top: 1rem; }
-    .sherlock_wrapper .sherlock_view .selection_view {
+    .sherlock_wrapper .sherlock_view .selection_view, .sherlock_wrapper .lti_sherlock_view .selection_view {
       padding-top: 1.875rem; }
-      .sherlock_wrapper .sherlock_view .selection_view .exercise_info {
+      .sherlock_wrapper .sherlock_view .selection_view .exercise_info, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info {
         margin: 0 0 1rem;
         padding: 1rem; }
-        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .description_box p:first-child {
+        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .description_box p:first-child, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info .description_box p:first-child {
           margin-top: 0;
           font-size: 0.875rem;
           line-height: normal; }
-        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .meta {
+        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .meta, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info .meta {
           margin-bottom: 0; }
-    .sherlock_wrapper .sherlock_view .signin_view {
+    .sherlock_wrapper .sherlock_view .signin_view, .sherlock_wrapper .lti_sherlock_view .signin_view {
       width: 50%;
       margin: 0 auto;
       text-align: center;
       padding: 1rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .btn {
+      .sherlock_wrapper .sherlock_view .signin_view .btn, .sherlock_wrapper .lti_sherlock_view .signin_view .btn {
         display: inline-block;
         margin: 0;
         font-size: 0.875rem;
@@ -548,10 +548,10 @@ a:hover {
         -moz-border-radius: 0.1875rem;
         -webkit-border-radius: 0.1875rem;
         border-radius: 0.1875rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .btn:hover {
+      .sherlock_wrapper .sherlock_view .signin_view .btn:hover, .sherlock_wrapper .lti_sherlock_view .signin_view .btn:hover {
         color: #2f2f2f;
         border-color: #2f2f2f; }
-      .sherlock_wrapper .sherlock_view .signin_view .signin {
+      .sherlock_wrapper .sherlock_view .signin_view .signin, .sherlock_wrapper .lti_sherlock_view .signin_view .signin {
         display: block;
         width: 50%;
         margin: 1rem auto;
@@ -560,11 +560,11 @@ a:hover {
         color: #fff;
         background-color: #2888c7;
         border-color: #0f75b9; }
-      .sherlock_wrapper .sherlock_view .signin_view .signin:hover {
+      .sherlock_wrapper .sherlock_view .signin_view .signin:hover, .sherlock_wrapper .lti_sherlock_view .signin_view .signin:hover {
         color: #fff;
         background-color: #0f75b9;
         border-color: #0f75b9; }
-      .sherlock_wrapper .sherlock_view .signin_view .profile_img {
+      .sherlock_wrapper .sherlock_view .signin_view .profile_img, .sherlock_wrapper .lti_sherlock_view .signin_view .profile_img {
         width: 9.375rem;
         margin: 1rem auto;
         overflow: hidden;
@@ -572,19 +572,19 @@ a:hover {
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
         border-radius: 50%; }
-        .sherlock_wrapper .sherlock_view .signin_view .profile_img img {
+        .sherlock_wrapper .sherlock_view .signin_view .profile_img img, .sherlock_wrapper .lti_sherlock_view .signin_view .profile_img img {
           width: 9.375rem;
           height: 9.375rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .bigicon {
+      .sherlock_wrapper .sherlock_view .signin_view .bigicon, .sherlock_wrapper .lti_sherlock_view .signin_view .bigicon {
         font-size: 800%; }
-      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection {
+      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection, .sherlock_wrapper .lti_sherlock_view .signin_view #google_revoke_connection {
         color: #c1c1c1;
         outline: none; }
-      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection:hover {
+      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection:hover, .sherlock_wrapper .lti_sherlock_view .signin_view #google_revoke_connection:hover {
         color: #f00; }
-      .sherlock_wrapper .sherlock_view .signin_view #disconnect-confirm {
+      .sherlock_wrapper .sherlock_view .signin_view #disconnect-confirm, .sherlock_wrapper .lti_sherlock_view .signin_view #disconnect-confirm {
         display: none; }
-    .sherlock_wrapper .sherlock_view .callout {
+    .sherlock_wrapper .sherlock_view .callout, .sherlock_wrapper .lti_sherlock_view .callout {
       font-size: 80%;
       line-height: 1.1rem;
       margin: 1rem 0;
@@ -593,14 +593,14 @@ a:hover {
       -moz-box-shadow: 0 0 0.25rem #ccc;
       -webkit-box-shadow: 0 0 0.25rem #ccc;
       box-shadow: 0 0 0.25rem #ccc; }
-    .sherlock_wrapper .sherlock_view .danger {
+    .sherlock_wrapper .sherlock_view .danger, .sherlock_wrapper .lti_sherlock_view .danger {
       color: #ff005a;
       border-left-color: #ff005a; }
-    .sherlock_wrapper .sherlock_view .info {
+    .sherlock_wrapper .sherlock_view .info, .sherlock_wrapper .lti_sherlock_view .info {
       border-left-color: #00aeff; }
-    .sherlock_wrapper .sherlock_view .success {
+    .sherlock_wrapper .sherlock_view .success, .sherlock_wrapper .lti_sherlock_view .success {
       border-left-color: #00ff74; }
-    .sherlock_wrapper .sherlock_view .admin_bar {
+    .sherlock_wrapper .sherlock_view .admin_bar, .sherlock_wrapper .lti_sherlock_view .admin_bar {
       position: absolute;
       width: 100%;
       height: 2.4375rem;
@@ -608,7 +608,7 @@ a:hover {
       left: 0;
       background-color: #f9f9f9;
       border-bottom: 0.0625rem solid #ccc; }
-      .sherlock_wrapper .sherlock_view .admin_bar h1 {
+      .sherlock_wrapper .sherlock_view .admin_bar h1, .sherlock_wrapper .lti_sherlock_view .admin_bar h1 {
         width: 50%;
         font-size: 110%;
         line-height: normal;
@@ -619,7 +619,7 @@ a:hover {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box; }
-      .sherlock_wrapper .sherlock_view .admin_bar ul, .sherlock_wrapper .sherlock_view .admin_bar ol {
+      .sherlock_wrapper .sherlock_view .admin_bar ul, .sherlock_wrapper .lti_sherlock_view .admin_bar ul, .sherlock_wrapper .sherlock_view .admin_bar ol, .sherlock_wrapper .lti_sherlock_view .admin_bar ol {
         width: 50%;
         height: 100%;
         padding: 0;
@@ -627,24 +627,24 @@ a:hover {
         list-style: none;
         text-align: right;
         float: left; }
-        .sherlock_wrapper .sherlock_view .admin_bar ul li, .sherlock_wrapper .sherlock_view .admin_bar ol li {
+        .sherlock_wrapper .sherlock_view .admin_bar ul li, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li, .sherlock_wrapper .sherlock_view .admin_bar ol li, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li {
           display: block;
           margin: 0;
           padding: 0;
           float: right; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li .profile, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile {
+          .sherlock_wrapper .sherlock_view .admin_bar ul li .profile, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile {
             float: left;
             clear: both;
             color: #fff;
             background-color: #9a9a9a; }
-            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile img, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile img {
+            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile img, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile img, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile img, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile img {
               display: block;
               float: left; }
-            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile .name, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile .name {
+            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile .name, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile .name, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile .name, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile .name {
               display: block;
               padding: 0.625rem 0.625rem 0;
               float: left; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a, .sherlock_wrapper .sherlock_view .admin_bar ol li a {
+          .sherlock_wrapper .sherlock_view .admin_bar ul li a, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a, .sherlock_wrapper .sherlock_view .admin_bar ol li a, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a {
             display: block;
             width: 100%;
             height: 2.5rem;
@@ -654,15 +654,19 @@ a:hover {
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.dashboard, .sherlock_wrapper .sherlock_view .admin_bar ol li a.dashboard {
+          .sherlock_wrapper .sherlock_view .admin_bar ul li a.dashboard, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.dashboard, .sherlock_wrapper .sherlock_view .admin_bar ol li a.dashboard, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.dashboard {
             color: #fff;
             background-color: #5d5dff; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signin, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signin {
+          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signin, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.signin, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signin, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.signin {
             color: #fff;
             background-color: #2fc600; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signout, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signout {
+          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signout, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.signout, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signout, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.signout {
             color: #fff;
             background-color: #d50000; }
+  .sherlock_wrapper .lti_sherlock_view {
+    height: 24rem; }
+    .sherlock_wrapper .lti_sherlock_view .selection_view {
+      padding: 0; }
   .sherlock_wrapper .score_view:after {
     overflow: hidden;
     *zoom: 1; }

@@ -1121,6 +1121,20 @@ a:hover {
         }
 
     } // end content
+    
+    .lti_sherlock_view {
+        
+        @extend .sherlock_view;
+        
+        height: rem( 384px );
+        
+        .selection_view {
+            
+            padding: 0;
+            
+        }
+        
+    }
 
     .score_view:after {
 

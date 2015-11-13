@@ -165,9 +165,9 @@
         }
         
         // if LTI
-        if ( isset( $request['lti_message_type'] ) ) {
+        if ( isset( $request['oauth_consumer_key'] ) ) {
             
-            $view = 'includes/views/selection.php';
+            $view = 'includes/views/lti_selection.php';
             
             //if exercise
             if ( isset( $request['exercise'] ) ) {

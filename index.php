@@ -13,7 +13,11 @@
         unsetLTIData();
         
     } else {
-        
+/*
+        echo '<pre>';
+        print_r($_REQUEST);
+        echo '</pre>';
+*/
         saveLTIData( $_REQUEST );
         
     }
