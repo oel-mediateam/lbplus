@@ -13,27 +13,40 @@
 
             session_start();
             
-            require_once 'config.php';
-            require_once 'db.php';
             require_once 'functions.php';
             
-            $exercise_info = unserialize( $_SESSION['exercise_info'] );
-            
-            $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
-            
-            if ( !$exercise_info['allow_retake'] ) {
+            if ( !isLTIUser() ) {
                 
-                if ( $attempt >= $exercise_info['attempts'] ) {
-                
-                    exit( "You already attempted this exercise! Dev notes: in the future, coming soon&trade;, you will see the score of the latest attempt instead of this message. <a href='?page=exercises'>Back to Exercises</a>" );
-                    
-                } 
+                require_once 'config.php';
+                require_once 'db.php';
                 
             }
             
-            $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'],
-                                            $exercise_info['exercise_id'], ( $attempt + 1 ) );
+            $exercise_info = unserialize( $_SESSION['exercise_info'] );
             
+            if ( isLTIUser() ) {
+                
+                //$_SESSION['lti_attempted'] = 1;
+                
+            } else {
+                
+                $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
+                
+                if ( !$exercise_info['allow_retake'] ) {
+                    
+                    if ( $attempt >= $exercise_info['attempts'] ) {
+                    
+                        exit( "You already attempted this exercise! Dev notes: in the future, coming soon&trade;, you will see the score of the latest attempt instead of this message. <a href='?page=exercises'>Back to Exercises</a>" );
+                        
+                    } 
+                    
+                }
+                
+                $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'],
+                                                $exercise_info['exercise_id'], ( $attempt + 1 ) );
+                
+            }
+                                              
         }
         
     }

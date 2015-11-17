@@ -320,7 +320,7 @@ function onYouTubeIframeAPIReady() {
         $( '#videoPlayBtn' ).on( 'click', function() {
             
             $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
-
+                
                 $( '#videoPlayBtn' ).hide();
                 video.player.playVideo();
         
@@ -734,7 +734,7 @@ $.fn.extendedCooldown = function() {
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
 
         if ( response ) {
-
+            
             $.get('includes/views/score_view.php', function( res ) {
 
                 $.fn.hideTransition();

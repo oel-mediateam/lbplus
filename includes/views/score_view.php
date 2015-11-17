@@ -5,7 +5,7 @@
         // start/resume the session if not already
         session_start();
         
-        if ( !isset( $_SESSION['user_exercise_id'] ) ) {
+        if ( !isset( $_SESSION['user_exercise_id'] ) && !isset( $_SESSION['lti'] ) ) {
         
             // redirect to 404 page
             header( 'HTTP/1.0 404 File Not Found', 404 );
@@ -16,9 +16,15 @@
         
         // requires the functions.php file for
         // common functions
-        require_once '../config.php';
-        require_once '../db.php';
+        
         require_once '../functions.php';
+        
+        if ( !isLTIUser() ) {
+            
+            require_once '../config.php';
+            require_once '../db.php';
+            
+        }
         
         $exercise_info = unserialize( $_SESSION['exercise_info'] );
         
@@ -162,10 +168,18 @@
         // calculate the percentage and set it to the
         // percentage varible and to the database
         $fraction = ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints;
-        $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
-        if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
-            exit("Update score error.");
+        
+        
+        if ( !isLTIUser() ) {
+            
+            $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
+        
+            if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
+                exit("Update score error.");
+            }
+            
         }
+        
         $percentage = round( $fraction * 100, 1);
 
     }
@@ -386,8 +400,15 @@
 
         <div class="right">
 
-            <a class="btn previous full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>
-<!--             <a class="btn next" href="./"><span class="action_name">Home <span class="icon-next"></span></span></a> -->
+            <?php
+                
+                if ( !isLTIUser() ) {
+                
+                    echo '<a class="btn previous full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>';
+                
+                }
+                
+            ?>
 
         </div>
 

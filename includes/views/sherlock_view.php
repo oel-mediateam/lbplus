@@ -9,7 +9,17 @@
         exit();
 
     }
-
+    
+/*
+    if ( isset( $_SESSION['lti_attempted'] ) ) {
+        
+        echo '<script> $( function() { $( ".sherlock_wrapper" ).showTransition( "Sorry!", "You already made an attempt on this exercise.<br /><a href=\"javascript:window.close();\">&times; close</a>", true ); </script>';
+        
+        exit();
+        
+    }
+*/
+    
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
@@ -20,6 +30,7 @@
         
         if ( $exercise_info = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), $lti['tool_consumer_info_product_family_code'] ) ) {
             
+            $_SESSION['exercise_info'] = serialize( $exercise_info );
             $exercise_exists = true;
             
         } else {

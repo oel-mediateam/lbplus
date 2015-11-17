@@ -269,6 +269,25 @@
         
     }
     
+    // get consumer family code
+    function getLTILMS() {
+            
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            if ( isset( $lti['tool_consumer_info_product_family_code'] ) ) {
+                
+                return $lti['tool_consumer_info_product_family_code'];
+                
+            }
+            
+        }
+        
+        return null;
+        
+    }
+    
     // get LTI course id
     function getLTICourseID() {
             
@@ -276,11 +295,37 @@
             
             $lti = unserialize( $_SESSION['lti'] );
             
-            switch( $lti['tool_consumer_info_product_family_code'] ) {
+            switch( getLTILMS() ) {
             
                 case 'canvas':
                 
                     return $lti['custom_canvas_course_id'];
+                    break;
+                
+                default:
+                
+                    return null;
+                
+            }
+            
+        }
+        
+        return null;
+        
+    }
+    
+    // get LTI assignment id
+    function getLTIAssignmentID() {
+            
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            switch( getLTILMS() ) {
+            
+                case 'canvas':
+                
+                    return $lti['custom_canvas_assignment_id'];
                     break;
                 
                 default:
