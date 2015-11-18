@@ -88,7 +88,7 @@
                 
                 if ( getLTIData( 'lis_result_sourcedid' ) ) {
                     
-                    $fileName = getLTICourseID() . '_' . getLTIAssignmentID() . '_' . getLTIData( 'lis_result_sourcedid' ) . '_' . time();
+                    $fileName = getLTIData( 'lis_result_sourcedid' ) . '_' . time();
                     
                 } else {
                     
