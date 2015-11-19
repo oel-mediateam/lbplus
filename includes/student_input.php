@@ -85,6 +85,7 @@
             if ( isLTIUser() ) {
                 
                 $directory = 'data/student/' . getLTILMS();
+                $subdirectory = $directory . '/' . date('n-j-Y');
                 
                 if ( getLTIData( 'lis_result_sourcedid' ) ) {
                     
@@ -102,7 +103,13 @@
                     
                 }
                 
-                $file = $directory . '/' . $fileName . '.json';
+                if ( !file_exists( $subdirectory ) ) {
+                    
+                    mkdir( $subdirectory, 0777, true );
+                    
+                }
+                
+                $file = $subdirectory . '/' . $fileName . '.json';
                 
             } else {
                 

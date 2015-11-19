@@ -16,6 +16,7 @@
         
         // requires the functions.php file for
         // common functions
+        
         require_once '../config.php';
         require_once '../functions.php';
         
@@ -25,7 +26,7 @@
             
         } else {
             
-            require_once '../admin/OAuth.php';
+            require_once '../admin/lti/LTI_Tool_Provider.php';
             
         }
         
@@ -184,71 +185,31 @@
         } else {
             
              // pass score to LTI
-            if ( getLTIData('lis_result_sourcedid') ) {
+            if ( $sourcedid = getLTIData('lis_result_sourcedid') ) {
                 
-                $lit = unserialize(LTI);
-                $url = getLTIData('lis_outcome_service_url');
-                $sourcedid = htmlentities( getLTIData('lis_result_sourcedid') );
-                $xml = '<?xml version = "1.0" encoding = "UTF-8"?>
-                        <imsx_POXEnvelopeRequest xmlns = "http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0">
-                          <imsx_POXHeader>
-                            <imsx_POXRequestHeaderInfo>
-                              <imsx_version>V1.0</imsx_version>
-                              <imsx_messageIdentifier>'.uniqid().'</imsx_messageIdentifier>
-                            </imsx_POXRequestHeaderInfo>
-                          </imsx_POXHeader>
-                          <imsx_POXBody>
-                            <replaceResultRequest>
-                                <resultRecord>
-                                        <sourcedGUID>
-                                          <sourcedId>'.$sourcedid.'</sourcedId>
-                                        </sourcedGUID>
-                                        <result>
-                                          <resultScore>
-                                            <language>en-us</language>
-                                            <textString>'.$fraction.'</textString>
-                                          </resultScore>
-                                          <resultData>
-                                            <text>hello world!</text>
-                                          </resultData>
-                                        </result>
-                                      </resultRecord>
-                                      </replaceResultRequest>
-                          </imsx_POXBody>
-                        </imsx_POXEnvelopeRequest>';
-                        
-                $hash = base64_encode(sha1($xml, TRUE));
-                $params = array('oauth_body_hash' => $hash);
+                $lti = unserialize( LTI );
                 
-                $consumer = new OAuthConsumer( $LTI['key'], $LTI['secret'], NULL );
-                $request = OAuthRequest::from_consumer_and_token( $consumer, NULL, 'POST', $url, $params );
-                $request->sign_request(new OAuthSignatureMethod_HMAC_SHA1(), $consumer, NULL);
+                $score = round( $fraction, 2 );
                 
-                $params = $request->get_parameters();
+                $db_connector = LTI_Data_Connector::getDataConnector( '', 'none' );
                 
-                if (is_array($params)) {
-                  $req = http_build_query($params);
-                } else {
-                  $req = $params;
-                }
-
-                $header = $request->to_header();
-                $header .= "\nContent-Type: application/xml";
-                $headers = explode("\n", $header);
+                $consumer = new LTI_Tool_Consumer($lti['key'], $db_connector);
+                $consumer->name = $lti['name'];
+                $consumer->secret = $lti['secret'];
+                $consumer->enabled = TRUE;
+                $consumer->lti_version = LTI_Tool_Provider::LTI_VERSION1;
                 
-                $ch = curl_init();
+                $resource_link = new LTI_Resource_Link( $consumer, getLTIData('resource_link_id') );
+                $resource_link->setSetting('lis_outcome_service_url', getLTIData('lis_outcome_service_url'));
+                $resource_link->setSetting('context_id', getLTIData('context_id'));
+                $resource_link->setSetting('ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url'));
                 
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_POST, TRUE);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                $outcome = new LTI_Outcome( $sourcedid );
+                $outcome->setValue($score);
+                $ok = $resource_link->doOutcomesService(LTI_Resource_Link::EXT_WRITE, $outcome);
                 
-                $ch_resp = curl_exec($ch);
-                
-                curl_close($ch);
-                
-                echo $ch_resp;
+                echo "Result = {$ok}<br /><br />";
+                echo $resource_link->ext_response;
                 
             }
             
