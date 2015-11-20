@@ -1466,27 +1466,27 @@ class LTI_Resource_Link {
 /**
  * @var LTI_Tool_Consumer Tool Consumer for this resource link.
  */
-  private $consumer = NULL;
+  protected $consumer = NULL;
 /**
  * @var string ID for this resource link.
  */
-  private $id = NULL;
+  protected $id = NULL;
 /**
  * @var string Previous ID for this resource link.
  */
-  private $previous_id = NULL;
+  protected $previous_id = NULL;
 /**
  * @var boolean Whether the settings value have changed since last saved.
  */
-  private $settings_changed = FALSE;
+  protected $settings_changed = FALSE;
 /**
  * @var string XML document for the last extension service request.
  */
-  private $ext_doc = NULL;
+  protected $ext_doc = NULL;
 /**
  * @var array XML node array for the last extension service request.
  */
-  private $ext_nodes = NULL;
+  protected $ext_nodes = NULL;
 
 /**
  * Class constructor.
@@ -2077,7 +2077,7 @@ EOF;
  *
  * @return boolean True if the type/value are valid and supported
  */
-  private function checkValueType($lti_outcome, $supported_types = NULL) {
+  protected function checkValueType($lti_outcome, $supported_types = NULL) {
 
     if (empty($supported_types)) {
       $supported_types = explode(',', str_replace(' ', '', strtolower($this->getSetting('ext_ims_lis_resultvalue_sourcedids', self::EXT_TYPE_DECIMAL))));
@@ -2155,7 +2155,7 @@ EOF;
  *
  * @return boolean True if the request successfully obtained a response
  */
-  private function doService($type, $url, $params) {
+  protected function doService($type, $url, $params) {
 
     $ok = FALSE;
     $this->ext_request = NULL;
@@ -2197,7 +2197,7 @@ EOF;
  *
  * @return boolean True if the request successfully obtained a response
  */
-  private function doLTI11Service($type, $url, $xml) {
+  protected function doLTI11Service($type, $url, $xml) {
 
     $ok = FALSE;
     $this->ext_request = NULL;

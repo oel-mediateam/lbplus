@@ -26,7 +26,7 @@
             
         } else {
             
-            require_once '../admin/lti/LTI_Tool_Provider.php';
+            require_once '../admin/lti/LTI_Sherlock.php';
             
         }
         
@@ -171,7 +171,7 @@
         
         // calculate the percentage and set it to the
         // percentage varible and to the database
-        $fraction = ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints;
+        $fraction = round( ( $positiveEarned + $bonusPointsEarned ) / $possilbePoints, 2 );
         
         
         if ( !isLTIUser() ) {
@@ -189,33 +189,32 @@
                 
                 $lti = unserialize( LTI );
                 
-                $score = round( $fraction, 2 );
-                
-                $db_connector = LTI_Data_Connector::getDataConnector( '', 'none' );
-                
-                $consumer = new LTI_Tool_Consumer($lti['key'], $db_connector);
+                $consumer = new LTI_Tool_Consumer( $lti['key'], LTI_Data_Connector::getDataConnector( '', 'none' ) );
                 $consumer->name = $lti['name'];
                 $consumer->secret = $lti['secret'];
                 $consumer->enabled = TRUE;
                 $consumer->lti_version = LTI_Tool_Provider::LTI_VERSION1;
                 
-                $resource_link = new LTI_Resource_Link( $consumer, getLTIData('resource_link_id') );
-                $resource_link->setSetting('lis_outcome_service_url', getLTIData('lis_outcome_service_url'));
-                $resource_link->setSetting('context_id', getLTIData('context_id'));
-                $resource_link->setSetting('ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url'));
+                $resource_link = new LTI_Sherlock_Resource_Link( $consumer, getLTIData('resource_link_id') );
+                $resource_link->setSetting( 'lis_outcome_service_url', getLTIData('lis_outcome_service_url') );
+                $resource_link->setSetting( 'context_id', getLTIData('context_id') );
+                $resource_link->setSetting( 'ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url') );
                 
-                $outcome = new LTI_Outcome( $sourcedid );
-                $outcome->setValue($score);
-                $ok = $resource_link->doOutcomesService(LTI_Resource_Link::EXT_WRITE, $outcome);
+                $outcome = new LTI_Sherlock_Outcome( $sourcedid, $fraction, '' );
+                $ok = $resource_link->doOutcomesService( LTI_Resource_Link::EXT_WRITE, $outcome );
                 
-                echo "Result = {$ok}<br /><br />";
-                echo $resource_link->ext_response;
+                if ( !$ok ) {
+                    
+                    echo $resource_link->ext_response;
+                    exit('Something went wrong when trying to pass back grade. Please contact your instructor.');
+                    
+                }
                 
             }
             
         }
         
-        $percentage = round( $fraction * 100, 1);
+        $percentage = $fraction * 100;
 
     }
 
@@ -383,42 +382,54 @@
 
             <?php
                 
-                // display the new button
-                // if new exercise is allowed
-                if ( $exercise_info['allow_new'] ) {
+                
+                
+                if ( !isLTIUser() ) {
                     
-                    // if retake exercise is allowed
-                    if ( $exercise_info['allow_retake'] ) {
-                        
-                        // output the half width button
-                        echo '<div class="btn new"><span class="action_name"><span class="icon-new"></span> New</span></div>';
-
-                    } else {
-                        
-                        // otherwise output the full width button
-                        echo '<div class="btn new full"><span class="action_name"><span class="icon-new"></span> New</span></div>';
-
-                    }
-
-                }
-
-                // display the retake button
-                // if retake is allowed
-                if ( $exercise_info['allow_retake'] ) {
-                    
+                    // display the new button
                     // if new exercise is allowed
                     if ( $exercise_info['allow_new'] ) {
                         
-                        // output the half width button
-                        echo '<a class="btn retake" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span> Retake</span></a>';
-
-                    } else {
-                        
-                        // otherwise output the full width button
-                        echo '<a class="btn retake full" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span>  Retake</span></a>';
-
+                        // if retake exercise is allowed
+                        if ( $exercise_info['allow_retake'] ) {
+                            
+                            // output the half width button
+                            echo '<div class="btn new"><span class="action_name"><span class="icon-new"></span> New</span></div>';
+    
+                        } else {
+                            
+                            // otherwise output the full width button
+                            echo '<div class="btn new full"><span class="action_name"><span class="icon-new"></span> New</span></div>';
+    
+                        }
+    
                     }
-
+    
+                    // display the retake button
+                    // if retake is allowed
+                    if ( $exercise_info['allow_retake'] ) {
+                        
+                        $url = '?retake='.$exercise_info['exercise_id'];
+                        
+                        // if new exercise is allowed
+                        if ( $exercise_info['allow_new'] ) {
+                            
+                            // output the half width button
+                            echo '<a class="btn retake" href="'.$url.'"><span class="action_name"><span class="icon-retake"></span> Retake</span></a>';
+                            
+                        } else {
+                            
+                            // otherwise output the full width button
+                            echo '<a class="btn retake full" href="?retake='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-retake"></span>  Retake</span></a>';
+    
+                        }
+    
+                    }
+                    
+                } else {
+                    
+                    echo '<a class="btn retake full" href="javascript:window.close();"><span class="action_name">&times;  CLOSE</span></a>';
+                    
                 }
                 
                 // if new and retake are not allowed

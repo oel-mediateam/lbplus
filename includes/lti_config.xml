@@ -13,22 +13,23 @@
     <blti:icon>https://media.uwex.edu/app/sherlock/sherlock_icon.png</blti:icon>
     <blti:launch_url>https://media.uwex.edu/app/sherlock/</blti:launch_url>
     <blti:extensions platform="canvas.instructure.com">
-      <lticm:property name="tool_id">uwex_sherlock</lticm:property>
+      <lticm:property name="tool_id">uwexsherlock</lticm:property>
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:property name="domain">https://media.uwex.edu</lticm:property>
+      <lticm:options name="editor_button">
+        <lticm:property name="url">https://media.uwex.edu/app/sherlock/</lticm:property>
+        <lticm:property name="icon_url">https://media.uwex.edu/app/sherlock/sherlock_icon.png</lticm:property>
+        <lticm:property name="text">Sherlock Exercise Link</lticm:property>
+        <lticm:property name="selection_width">940</lticm:property>
+        <lticm:property name="selection_height">561</lticm:property>
+        <lticm:property name="enabled">true</lticm:property>
+      </lticm:options>
       <lticm:options name="resource_selection">
         <lticm:property name="url">https://media.uwex.edu/app/sherlock/</lticm:property>
         <lticm:property name="icon_url">https://media.uwex.edu/app/sherlock/sherlock_icon.png</lticm:property>
         <lticm:property name="text">Sherlock Exercises</lticm:property>
         <lticm:property name="selection_width">940</lticm:property>
         <lticm:property name="selection_height">561</lticm:property>
-        <lticm:property name="enabled">true</lticm:property>
-      </lticm:options>
-      <lticm:options name="course_navigation">
-        <lticm:property name="url">https://media.uwex.edu/app/sherlock/</lticm:property>
-        <lticm:property name="text">Sherlock</lticm:property>
-        <lticm:property name="visibility">admins</lticm:property>
-        <lticm:property name="default">enabled</lticm:property>
         <lticm:property name="enabled">true</lticm:property>
       </lticm:options>
     </blti:extensions>

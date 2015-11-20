@@ -247,7 +247,9 @@ $( function () {
         var exrs_id = $( 'option:selected' ).val();
         var link_type = $( 'input[name="type"]' ).val();
         
-        $.ajax({
+        if ( exrs_id !== 'hide' ) {
+            
+            $.ajax({
             url: "includes/get_lti_link.php",
             type: 'POST',
             data: {
@@ -262,6 +264,14 @@ $( function () {
             }
             
           });
+            
+        } else {
+            
+            $( 'h1' ).after('<div class="callout danger">No exercise was selected. Please select an exercise.</div>' );
+            
+        }
+        
+        
           
           return false;
           

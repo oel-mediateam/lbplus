@@ -23,9 +23,10 @@
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
-    if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {
+    if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {           
         
         saveLTIData( $_REQUEST );
+        
         $lti = unserialize( $_SESSION['lti'] );
         
         if ( $exercise_info = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), $lti['tool_consumer_info_product_family_code'] ) ) {
