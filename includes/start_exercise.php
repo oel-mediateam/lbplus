@@ -24,11 +24,7 @@
             
             $exercise_info = unserialize( $_SESSION['exercise_info'] );
             
-            if ( isLTIUser() ) {
-                
-                //$_SESSION['lti_attempted'] = 1;
-                
-            } else {
+            if ( !isLTIUser() ) {
                 
                 $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
                 

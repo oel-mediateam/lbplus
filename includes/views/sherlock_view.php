@@ -10,26 +10,50 @@
 
     }
     
-/*
-    if ( isset( $_SESSION['lti_attempted'] ) ) {
-        
-        echo '<script> $( function() { $( ".sherlock_wrapper" ).showTransition( "Sorry!", "You already made an attempt on this exercise.<br /><a href=\"javascript:window.close();\">&times; close</a>", true ); </script>';
-        
-        exit();
-        
-    }
-*/
-    
     require_once 'includes/exercise.php';
     require_once 'includes/functions.php';
     
     if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {           
         
+        require_once 'includes/config.php';
+        require_once 'includes/admin/lti/LTI_Sherlock.php';
+        
+        if ( $sourcedid = getLTIData('lis_result_sourcedid') ) {
+            
+            $lti = unserialize( LTI );
+                
+            $consumer = new LTI_Tool_Consumer( $lti['key'], LTI_Data_Connector::getDataConnector( '', 'none' ) );
+            $consumer->name = $lti['name'];
+            $consumer->secret = $lti['secret'];
+            $consumer->enabled = TRUE;
+            $consumer->lti_version = LTI_Tool_Provider::LTI_VERSION1;
+            
+            $resource_link = new LTI_Sherlock_Resource_Link( $consumer, getLTIData('resource_link_id') );
+            $resource_link->setSetting( 'lis_outcome_service_url', getLTIData('lis_outcome_service_url') );
+            $resource_link->setSetting( 'context_id', getLTIData('context_id') );
+            $resource_link->setSetting( 'ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url') );
+            
+            $outcome = new LTI_Sherlock_Outcome( $sourcedid );
+            
+            if ( $resource_link->doOutcomesService( LTI_Resource_Link::EXT_READ, $outcome ) ) {
+                
+                $score = $outcome->getValue();
+                
+                if ( $score !== '' ) {
+                    
+                    exit('Sorry! You already made an attempt on this exercise.');
+                    
+                }
+                
+            }
+            
+        }
+        
         saveLTIData( $_REQUEST );
         
         $lti = unserialize( $_SESSION['lti'] );
         
-        if ( $exercise_info = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), $lti['tool_consumer_info_product_family_code'] ) ) {
+        if ( $exercise_info = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), getLTIData('tool_consumer_info_product_family_code') ) ) {
             
             $_SESSION['exercise_info'] = serialize( $exercise_info );
             $exercise_exists = true;

@@ -17,21 +17,11 @@
     }
     
     $exercises = DB::getActiveLTIExercises( getLTICourseID(), getLTIData( 'tool_consumer_info_product_family_code' ) );
-    
-    if ( getLTIData( 'ext_content_intended_use' ) == 'embed' ) {
-        
-        $embed_selection = true;
-        
-    }
 
 ?>
 
 <form>
-    <?php if ( $embed_selection ) { ?>
     <input type="hidden" name="return_url" value="<?php echo getLTIData( 'launch_presentation_return_url' ); ?>" />
-    <?php } else { ?>
-    <input type="hidden" name="return_url" value="<?php echo getLTIData( 'ext_content_return_url' ); ?>" />
-    <?php } ?>
     <input type="hidden" name="type" value="<?php echo getLTIData( 'ext_content_intended_use' ); ?>" />
  
  <section class="lti_sherlock_view">
