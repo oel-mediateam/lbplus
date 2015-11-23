@@ -35,7 +35,6 @@
                 $student_action['id'] = $student_input['id'];
                 $student_action['name'] = $student_input['name'];
                 $student_action['timestamped'] = $student_input['timestamped'];
-                $student_action['positive'] = 0;
 
                 foreach ( $exercise_actions as $action ) {
 
@@ -60,13 +59,9 @@
 
                             if ( $student_action['positive'] <= 0 ) {
 
-                                $student_action['negative'] = $action['miss'];
+                                $student_action['negative'] = getValue( $action['miss'], 0 );
 
                             }
-
-                        } else {
-
-                            $student_action['positive'] = $action['points'];
 
                         }
 
@@ -149,7 +144,7 @@
 
             } else {
 
-                exit( 'Error opening file: ' .  $file );
+                exit( 'Error opening file.' );
 
             }
 

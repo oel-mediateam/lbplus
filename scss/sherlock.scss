@@ -774,85 +774,148 @@ a:hover {
 
         // score wrapper
         .score_view {
-
-            margin-top: rem( $gutter * -1 );
-
-            .actions_results {
-
-                width: rem( 296px );
-                padding: 0 rem( 10px );
-                @include box-sizing( 'border-box' );
+        
+            width: 100%;
+            
+            .overview {
+                
+                width: 100%;
                 float: left;
+                clear: both;
+                
+                .percentage {
 
-                p:nth-of-type(odd) {
-
-                    font-size: rem( 18px );
-                    font-weight: 500;
-
+                    width: 20%;
+                    padding: 0 rem( 10px );
+                    text-align: center;
+                    @include box-sizing( 'border-box' );
+                    float: left;
+    
+                    .percent {
+    
+                        display: block;
+                        font-size: rem( 46px );
+                        line-height: rem( 46px );
+                        font-weight: bold;
+    
+                    }
+    
+                    .status {
+    
+                        display: block;
+                        font-size: rem( 22px );
+                        line-height: rem( 22px );
+                        margin-top: rem( $gutter / 2 );
+                        font-style: italic;
+    
+                    }
+    
                 }
+                
+                .actions_stars {
 
+                    width: 80%;
+                    padding: 0 0 0 rem( 10px );
+                    @include box-sizing( 'border-box' );
+                    float: left;
+                    
+                    .star_earned {
+                        
+                        width: 20%;
+                        padding: 0 0 0 rem( 5px );
+                        @include box-sizing( 'border-box' );
+                        float: left;
+                        
+                        p {
+                            
+                            margin-top: 0;
+                            margin-bottom: rem( $gutter / 2 );
+                            font-size: rem( 16px );
+                            font-weight: 500;
+                            text-align: center;
+                            
+                        }
+                        
+                        .stars {
+                            
+                            font-size: 160%;
+                            font-weight: normal;
+                            
+                            small {
+                                
+                                font-size: 60%;
+                                
+                            }
+                            
+                        }
+                        
+                    }
+    
+                }
+                
             }
-
-            .miss-hits {
-
-                width: rem( 296px );
-                padding: 0 rem( 10px );
-                @include box-sizing( 'border-box' );
-                float: left;
-
-                .heading {
-
-                    margin: rem( $gutter ) 0;
-                    font-weight: bold;
-                    padding: 0 0 rem( 3px );
-                    border-bottom: rem( 2px ) solid $darkerFontColor;
-
+            
+            .analysis {
+                    
+                margin-top: rem( $gutter );
+                    
+                table {
+                    
+                    width: 100%;
+                    
+                    th {
+                        
+                        white-space: nowrap;
+                        font-weight: bold;
+                        text-align: center;
+                        padding: rem( 5px );
+                        
+                        small {
+                            
+                            font-family: 80%;
+                            font-weight: normal;
+                            
+                        }
+                        
+                    }
+                    
+                    td {
+                        
+                        @extend th;
+                        
+                        font-weight: normal;
+                        line-height: normal;
+                        
+                    }
+                    
+                    tbody {
+                        
+                        tr {
+                        
+                            td:first-child {
+                                
+                                text-align: right;
+                                
+                            }
+                            
+                        }
+                        
+                        tr:nth-child(odd) {
+                            
+                            background-color: #e8e8e8;
+                            
+                        }
+                        
+                    }
+                    
                 }
-
-                p {
-
-                    margin: rem( $gutter / 2 ) 0;
-
+                
+                .totalScore {
+                    text-align: right;
+                    font-size: 150%;
+                    
                 }
-
-                p.incorrect {
-
-                    margin: rem( $gutter / 3 ) 0;
-                    font-size: rem( 14px );
-                    line-height: rem( 16px );
-                    padding-left: rem( 16px );
-
-                }
-
-            }
-
-            .percentage {
-
-                width: rem( 296px );
-                padding: rem( 125px ) rem( 10px ) 0;
-                text-align: center;
-                @include box-sizing( 'border-box' );
-                float: left;
-
-                .percent {
-
-                    display: block;
-                    font-size: rem( 46px );
-                    line-height: rem( 46px );
-                    font-weight: bold;
-
-                }
-
-                .status {
-
-                    display: block;
-                    font-size: rem( 26px );
-                    line-height: rem( 26px );
-                    font-style: italic;
-                    margin-top: rem( $gutter );
-
-                }
-
+                
             }
 
         } // end score_view
@@ -1134,12 +1197,6 @@ a:hover {
             
         }
         
-    }
-
-    .score_view:after {
-
-        @include clearfix();
-
     }
 
     // CONTROLS

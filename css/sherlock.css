@@ -7,7 +7,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, ol, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+table, caption, tbody, tfoot, thead, tr, th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
@@ -29,7 +29,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-caption, th, td {
+caption, th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }
@@ -471,55 +471,77 @@ a:hover {
       overflow: hidden;
       *zoom: 1; }
     .sherlock_wrapper .sherlock_view .score_view, .sherlock_wrapper .lti_sherlock_view .score_view {
-      margin-top: -1rem; }
-      .sherlock_wrapper .sherlock_view .score_view .actions_results, .sherlock_wrapper .lti_sherlock_view .score_view .actions_results {
-        width: 18.5rem;
-        padding: 0 0.625rem;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .actions_results p:nth-of-type(odd), .sherlock_wrapper .lti_sherlock_view .score_view .actions_results p:nth-of-type(odd) {
-          font-size: 1.125rem;
-          font-weight: 500; }
-      .sherlock_wrapper .sherlock_view .score_view .miss-hits, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits {
-        width: 18.5rem;
-        padding: 0 0.625rem;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits .heading, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits .heading, .sherlock_wrapper .sherlock_view .score_view .miss-hits .transition_overlay .loading, .sherlock_wrapper .transition_overlay .sherlock_view .score_view .miss-hits .loading, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits .transition_overlay .loading, .sherlock_wrapper .transition_overlay .lti_sherlock_view .score_view .miss-hits .loading {
-          margin: 1rem 0;
-          font-weight: bold;
-          padding: 0 0 0.1875rem;
-          border-bottom: 0.125rem solid #1e1e1e; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits p, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits p {
-          margin: 0.5rem 0; }
-        .sherlock_wrapper .sherlock_view .score_view .miss-hits p.incorrect, .sherlock_wrapper .lti_sherlock_view .score_view .miss-hits p.incorrect {
-          margin: 0.33333rem 0;
-          font-size: 0.875rem;
-          line-height: 1rem;
-          padding-left: 1rem; }
-      .sherlock_wrapper .sherlock_view .score_view .percentage, .sherlock_wrapper .lti_sherlock_view .score_view .percentage {
-        width: 18.5rem;
-        padding: 7.8125rem 0.625rem 0;
-        text-align: center;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .score_view .percentage .percent, .sherlock_wrapper .lti_sherlock_view .score_view .percentage .percent {
-          display: block;
-          font-size: 2.875rem;
-          line-height: 2.875rem;
-          font-weight: bold; }
-        .sherlock_wrapper .sherlock_view .score_view .percentage .status, .sherlock_wrapper .lti_sherlock_view .score_view .percentage .status {
-          display: block;
-          font-size: 1.625rem;
-          line-height: 1.625rem;
-          font-style: italic;
-          margin-top: 1rem; }
+      width: 100%; }
+      .sherlock_wrapper .sherlock_view .score_view .overview, .sherlock_wrapper .lti_sherlock_view .score_view .overview {
+        width: 100%;
+        float: left;
+        clear: both; }
+        .sherlock_wrapper .sherlock_view .score_view .overview .percentage, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage {
+          width: 20%;
+          padding: 0 0.625rem;
+          text-align: center;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          float: left; }
+          .sherlock_wrapper .sherlock_view .score_view .overview .percentage .percent, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage .percent {
+            display: block;
+            font-size: 2.875rem;
+            line-height: 2.875rem;
+            font-weight: bold; }
+          .sherlock_wrapper .sherlock_view .score_view .overview .percentage .status, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage .status {
+            display: block;
+            font-size: 1.375rem;
+            line-height: 1.375rem;
+            margin-top: 0.5rem;
+            font-style: italic; }
+        .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars {
+          width: 80%;
+          padding: 0 0 0 0.625rem;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          float: left; }
+          .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned {
+            width: 20%;
+            padding: 0 0 0 0.3125rem;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            float: left; }
+            .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned p, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned p {
+              margin-top: 0;
+              margin-bottom: 0.5rem;
+              font-size: 1rem;
+              font-weight: 500;
+              text-align: center; }
+            .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned .stars, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned .stars {
+              font-size: 160%;
+              font-weight: normal; }
+              .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned .stars small, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned .stars small {
+                font-size: 60%; }
+      .sherlock_wrapper .sherlock_view .score_view .analysis, .sherlock_wrapper .lti_sherlock_view .score_view .analysis {
+        margin-top: 1rem; }
+        .sherlock_wrapper .sherlock_view .score_view .analysis table, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table {
+          width: 100%; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table th, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td {
+            white-space: nowrap;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.3125rem; }
+            .sherlock_wrapper .sherlock_view .score_view .analysis table th small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table th small, .sherlock_wrapper .sherlock_view .score_view .analysis table td small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td small {
+              font-family: 80%;
+              font-weight: normal; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td {
+            font-weight: normal;
+            line-height: normal; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr td:first-child, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr td:first-child {
+            text-align: right; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr:nth-child(odd), .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr:nth-child(odd) {
+            background-color: #e8e8e8; }
+        .sherlock_wrapper .sherlock_view .score_view .analysis .totalScore, .sherlock_wrapper .lti_sherlock_view .score_view .analysis .totalScore {
+          text-align: right;
+          font-size: 150%; }
     .sherlock_wrapper .sherlock_view .selection_view, .sherlock_wrapper .lti_sherlock_view .selection_view {
       padding-top: 1.875rem; }
       .sherlock_wrapper .sherlock_view .selection_view .exercise_info, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info {
@@ -667,9 +689,6 @@ a:hover {
     height: 24rem; }
     .sherlock_wrapper .lti_sherlock_view .selection_view {
       padding: 0; }
-  .sherlock_wrapper .score_view:after {
-    overflow: hidden;
-    *zoom: 1; }
   .sherlock_wrapper .sherlock_controls {
     height: 3.75rem;
     background: #1e1e1e;
