@@ -530,7 +530,7 @@ a:hover {
             text-align: center;
             padding: 0.3125rem; }
             .sherlock_wrapper .sherlock_view .score_view .analysis table th small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table th small, .sherlock_wrapper .sherlock_view .score_view .analysis table td small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td small {
-              font-family: 80%;
+              font-family: 60%;
               font-weight: normal; }
           .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td {
             font-weight: normal;
@@ -539,6 +539,12 @@ a:hover {
             text-align: right; }
           .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr:nth-child(odd), .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr:nth-child(odd) {
             background-color: #e8e8e8; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr:last-child, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr:last-child {
+            background-color: transparent; }
+          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody .topBorder, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody .topBorder {
+            border-top: 0.125rem solid #2f2f2f; }
+        .sherlock_wrapper .sherlock_view .score_view .analysis .leftBorder, .sherlock_wrapper .lti_sherlock_view .score_view .analysis .leftBorder {
+          border-left: 0.125rem solid #2f2f2f; }
         .sherlock_wrapper .sherlock_view .score_view .analysis .totalScore, .sherlock_wrapper .lti_sherlock_view .score_view .analysis .totalScore {
           text-align: right;
           font-size: 150%; }

@@ -872,7 +872,7 @@ a:hover {
                         
                         small {
                             
-                            font-family: 80%;
+                            font-family: 60%;
                             font-weight: normal;
                             
                         }
@@ -906,7 +906,25 @@ a:hover {
                             
                         }
                         
+                        tr:last-child {
+                            
+                            background-color: transparent;
+                            
+                        }
+                        
+                        .topBorder {
+                            
+                            border-top: rem( 2px ) solid #2f2f2f;
+                            
+                        }
+                        
                     }
+                    
+                }
+                
+                .leftBorder {
+                            
+                    border-left: rem( 2px ) solid #2f2f2f;
                     
                 }
                 

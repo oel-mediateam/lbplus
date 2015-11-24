@@ -210,7 +210,8 @@
         
         // calculate the percentage and set it to the
         // percentage varible and to the database
-        $fraction = round( ( $positiveEarned + $rewindPointsEarned - $negativeEarned ) / $possilbePoints, 2 );
+        $totalEarned = $positiveEarned + $rewindPointsEarned - $negativeEarned;
+        $fraction = round( $totalEarned / $possilbePoints, 2 );
         
         $percentage = $fraction * 100;
         
@@ -292,6 +293,7 @@
                         <th>Total Incorrect <br /><small>(# of incorrect &times; value)</small></th>
                         <th>=</th>
                         <th>Total</th>
+                        <th class="leftBorder">Possible<br />Points</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -300,15 +302,22 @@
                         
                         foreach ( $result_array as $r ) {
                             
+                            $totalCorrect = $r['points'] * $r['numCorrect'];
+                            $totalIncorrect = $r['missPoint'] * $r['numIncorrect'];
+                            $total = ( $r['points'] * $r['numCorrect'] ) - ( $r['missPoint'] * $r['numIncorrect'] );
+                            
                             echo '<tr>';
                             echo '<td>' . $r['name'] . '</td>';
-                            echo '<td>' . $r['points'] * $r['numCorrect'] . ' <small>(' .$r['numCorrect'] . ' &times; ' . $r['points'] . ')</small></td>';
+                            echo '<td>' . $totalCorrect . ' <small>(' .$r['numCorrect'] . ' &times; ' . $r['points'] . ')</small></td>';
                             echo '<td>&nbsp;</td>';
-                            echo '<td>' . $r['missPoint'] * $r['numIncorrect'] . ' <small>(' . $r['numIncorrect'] . ' &times; ' . $r['missPoint'] . ')</small></td>';
+                            echo '<td>' . $totalIncorrect . ' <small>(' . $r['numIncorrect'] . ' &times; ' . $r['missPoint'] . ')</small></td>';
                             echo '<td>&nbsp;</td>';
-                            echo '<td>' . ( ( $r['points'] * $r['numCorrect'] ) - ( $r['missPoint'] * $r['numIncorrect'] ) ). '</td>';
+                            echo '<td>' . $total . '</td>';
+                            echo '<td class="leftBorder">' . $r['possiblePoint'] . '</td></tr>';
                             
                         }
+                        
+                        echo '<tr><td colspan="5">&nbsp;</td><td class="topBorder"><strong>' . $totalEarned . '</strong></td><td class="topBorder"><strong>'. $possilbePoints .'</strong></td></tr>';
                         
                     ?>
                     
@@ -319,7 +328,7 @@
             <p>Bonus points earned: <strong><?php echo $rewindPointsEarned; ?></strong></p>
             <? } ?>
 
-            <p class="totalScore">Total: <strong><?php echo $positiveEarned + $rewindPointsEarned - $negativeEarned; ?> / <?php echo $possilbePoints; ?> </strong></p>
+            <p class="totalScore">Score: <strong><?php echo $totalEarned; ?> / <?php echo $possilbePoints; ?> = <?php echo $fraction; ?> (<?php echo $percentage; ?>%)</strong></p>
 
         </div>
 
