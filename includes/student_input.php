@@ -75,77 +75,88 @@
 
             }
             
-            $_SESSION['student_data'] = $student_action_arrays; // save to session for score view
+            // save to session for score view
+            $_SESSION['student_data'] = $student_action_arrays; 
+            
+            // set json encoded student input data for file writing
+            $content = json_encode( $student_action_arrays );
+            
+            $doWrite = false;
             
             if ( isLTIUser() ) {
                 
-                $directory = 'data/student/' . getLTILMS();
-                $subdirectory = $directory . '/' . date('n-j-Y');
-                
                 if ( getLTIData( 'lis_result_sourcedid' ) ) {
+                
+                    $directory = 'data/student/' . getLTILMS();
+                    $subdirectory = $directory . '/' . date('n-j-Y');
+                    
+                    if ( !file_exists( $directory ) ) {
+                    
+                        mkdir( $directory, 0777, true );
+                        
+                    }
+                    
+                    if ( !file_exists( $subdirectory ) ) {
+                        
+                        mkdir( $subdirectory, 0777, true );
+                        
+                    }
                     
                     $fileName = getLTIData( 'lis_result_sourcedid' ) . '_' . time();
+                    $file = $subdirectory . '/' . $fileName . '.json';
                     
-                } else {
-                    
-                    $fileName = getLTICourseID() . '_' . getLTIAssignmentID() . '_' . time();
-                    
-                }
-                
-                if ( !file_exists( $directory ) ) {
-                    
-                    mkdir( $directory, 0777, true );
+                    $doWrite = true;
                     
                 }
-                
-                if ( !file_exists( $subdirectory ) ) {
-                    
-                    mkdir( $subdirectory, 0777, true );
-                    
-                }
-                
-                $file = $subdirectory . '/' . $fileName . '.json';
                 
             } else {
                 
                 $fileName = $_SESSION['user_exercise_id'] . '_' . time();
                 $file = 'data/student/' . $fileName . '.json';
                 
+                $doWrite = true;
+                
             }
             
-            $content = json_encode( $student_action_arrays );
-            
-            $fp = fopen( $file, 'wb' );
+            if ( doWrite ) {
+                
+                $fp = fopen( $file, 'wb' );
 
-            if ( $fp ) {
-
-                if ( fwrite( $fp, $content ) === false ) {
-
-                    unlink( $fp );
-                    exit( 'Error writing data to file.' );
-
-                } else {
-
-                    fclose( $fp );
-                    
-                    if ( !isLTIUser() ) {
+                if ( $fp ) {
+    
+                    if ( fwrite( $fp, $content ) === false ) {
+    
+                        unlink( $fp );
+                        exit( 'Error writing data to file.' );
+    
+                    } else {
+    
+                        fclose( $fp );
                         
-                        if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $fileName ) == 0 ) {
-
-                            exit('update failed');
+                        if ( !isLTIUser() ) {
                             
-                        };
+                            if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $fileName ) == 0 ) {
+    
+                                exit('update failed');
+                                
+                            };
+                            
+                        }
                         
+                        echo true;
+    
                     }
-                    
-                    echo true;
-
+    
+                } else {
+    
+                    exit( 'Error opening file.' );
+    
                 }
-
+                
             } else {
-
-                exit( 'Error opening file.' );
-
+                
+                echo true;
+                
             }
 
         } else {
