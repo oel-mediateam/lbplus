@@ -6,42 +6,49 @@
         include 'views/404.php';
         exit();
 
-    } else {
-        
-        if ( !isset( $_SESSION ) ) {
+    }
+    
+    // ↓↓↓↓↓ for revoking Google users only (called with AJAX) ↓↓↓↓↓
+    
+    if ( !isset( $_SESSION ) ) {
 
-            session_start();
+        session_start();
+        
+        require_once 'config.php';
+        require_once 'db.php';
+        require_once 'google_signin.php';
+        
+        // get the refresh token from the database
+        $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_id'] );
+        
+        // signout the user
+        $client->revokeToken();
+        unset( $_SESSION['access_token'], $_SESSION['signed_in_user_id'] );
+        
+        // use cURL session to request Google to revoke the refresh token
+        $curl = curl_init();
+        
+        curl_setopt_array( $curl, array(
             
-            require_once 'config.php';
-            require_once 'db.php';
-            require_once 'google_signin.php';
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://accounts.google.com/o/oauth2/revoke?token='.$refreshToken
             
-            $client->revokeToken();
-            $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_id'] );
-            unset( $_SESSION['access_token'], $_SESSION['signed_in_user_id'] );
+        ) );
+        
+        $result = curl_exec( $curl );
+        
+        // if unsuccessful, die with error
+        if ( !$result ) {
             
-            $curl = curl_init();
-            
-            curl_setopt_array( $curl, array(
-                
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => 'https://accounts.google.com/o/oauth2/revoke?token='.$refreshToken
-                
-            ) );
-            
-            $result = curl_exec( $curl );
-            
-            if ( !$result ) {
-                
-                die('Error: "' . curl_error($curl) . '" - Code: ' . curl_errno($curl));
-                
-            }
-            
-            curl_close($curl);
-            
-            echo $result;
+            die('Error: "' . curl_error($curl) . '" - Code: ' . curl_errno($curl));
             
         }
+        
+        // close cURL session
+        curl_close($curl);
+        
+        // "return" the result
+        echo $result;
         
     }
     

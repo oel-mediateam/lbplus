@@ -1,13 +1,11 @@
 <?php
-// if session is not set
+
     if ( !isset($_SESSION) ) {
         
-        // start/resume the session if not already
         session_start();
         
         if ( !isset( $_SESSION['user_exercise_id'] ) && !isset( $_SESSION['lti'] ) ) {
         
-            // redirect to 404 page
             header( 'HTTP/1.0 404 File Not Found', 404 );
             include '404.php';
             exit();
@@ -261,15 +259,15 @@
 
 <section class="sherlock_view">
 
-    <h1><?php echo $scoreHeading; //output the heading ?></h1>
+    <h1><?php echo $scoreHeading; ?></h1>
 
     <div class="score_view">
         
         <div class="overview">
         
         <div class="percentage">
-            <span class="percent"><?php echo $percentage; // out the percentage ?>%</span>
-            <span class="status"><?php echo scoreMessage( $percentage ); // output the message determined by the percentage ?></span>
+            <span class="percent"><?php echo $percentage; ?>%</span>
+            <span class="status"><?php echo scoreMessage( $percentage ); ?></span>
         </div>
         
         <div class="actions_stars">
@@ -432,8 +430,7 @@ unset( $_SESSION['exercise_data'],
        $exercise_data,
        $student_data,
        $action_array,
-       $neg_action_array,
-       $negs
+       $result_array
      );
 
 ?>

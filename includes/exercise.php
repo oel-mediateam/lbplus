@@ -1,9 +1,7 @@
 <?php
 
-    // if started session data is not true
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
         exit();
@@ -11,9 +9,11 @@
     }
 
     require_once 'includes/exercise_action.php';
-    require_once 'includes/exercise_reminder_action.php';
     require_once 'includes/json_handler.php';
-
+    
+    /**
+     * A class to manage a exercise.
+     */
     class Exercise {
 
         private $path;
@@ -28,7 +28,11 @@
         private $actions = array();
         private $rewind_action;
 
-        // constructor
+        /**
+         * Class constructor to set and read the exercise.
+         * @param string $filePath The file path to the exercise JSON file
+         * @return void
+         */
         public function __construct( $filePath ) {
 
             $this->path = $filePath;
@@ -36,7 +40,11 @@
 
         }
 
-        // getter
+        /**
+         * Get the value of a protected class property.
+         * @param string $property The name of the property
+         * @return mix Returns the value of the property.
+         */
         public function __get( $property ) {
 
             if ( property_exists( $this, $property ) ) {
@@ -47,7 +55,12 @@
 
         }
 
-        // setter
+        /**
+         * Set the value of a protected class property.
+         * @param string $property The name of the property
+         * @param mix $value The value of the property
+         * @return void
+         */
         public function __set( $property, $value ) {
 
             if ( property_exists( $this, $property ) ) {
@@ -56,11 +69,12 @@
 
             }
 
-            return $this;
-
         }
 
-        // read the exercise json file
+        /**
+         * Read and decode the JSON file.
+         * @return void
+         */
         private function readExercise() {
 
             if ( file_exists( $this->path ) ) {
@@ -70,7 +84,7 @@
                 try {
 
                     $this->data = JsonHandler::decode( $src, true );
-                    $_SESSION['exercise_data'] = $this->data;
+                    $_SESSION['exercise_data'] = $this->data; // save the decoded data to session
 
                 } catch( RuntimeException $e ) {
 
@@ -96,7 +110,11 @@
             }
 
         }
-
+        
+        /**
+         * Set the actions for the exercise.
+         * @return void
+         */
         private function setActions() {
 
             $availableActions = $this->data['exercise']['actions'];
@@ -115,18 +133,26 @@
             }
 
         }
-
+        
+        /**
+         * Get the actions for the exercise.
+         * @return array Return an array of exercise actions.
+         */
         public function getActions() {
 
             return $this->actions;
 
         }
-
+        
+        /**
+         * Set the rewind action for the exercise.
+         * @return void
+         */
         private function setRewindAction() {
 
             $context = $this->data['exercise']['rewind'];
 
-            $rewind = new ExerciseReminderAction();
+            $rewind = new ExerciseRewindAction();
             $rewind->id = getValue( $context['id'], "rwd" );
             $rewind->name = getValue( $context['name'], "Rewind" );
             $rewind->icon = getValue( $context['icon'], "rewind" );
@@ -139,14 +165,17 @@
             $this->rewind_action = $rewind;
 
         }
-
+        
+        /**
+         * Get the rewind action for the exercise.
+         * @return object Return the ExerciseRewindAction object.
+         */
         public function getRewindAction() {
 
             return $this->rewind_action;
 
         }
 
-    }
-
+    } // end Exercise class
 
 ?>

@@ -271,8 +271,6 @@ $( function () {
             
         }
         
-        
-          
           return false;
           
     } );
@@ -329,10 +327,18 @@ function onYouTubeIframeAPIReady() {
 
         $( '#videoPlayBtn' ).on( 'click', function() {
             
-            $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
+            $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
                 
-                $( '#videoPlayBtn' ).hide();
-                video.player.playVideo();
+                if ( data >= 1 ) {
+                    
+                    $( '#videoPlayBtn' ).hide();
+                    video.player.playVideo();
+                    
+                } else {
+                    
+                    $( '.sherlock_wrapper' ).showTransition( 'SORRY!', 'You already attempted this exercise.<br /><a href="?page=exercises">Back to Exercises</a>' );
+                    
+                }
         
             } );
 
@@ -742,11 +748,11 @@ $.fn.extendedCooldown = function() {
     }
 
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
-
+        
         if ( response ) {
             
             $.get('includes/views/score_view.php', function( res ) {
-
+                
                 $.fn.hideTransition();
                 $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 1000 );
 

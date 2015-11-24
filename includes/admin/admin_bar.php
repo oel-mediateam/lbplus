@@ -2,20 +2,26 @@
     
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include '404.php';
         exit();
         
     }
     
+    // ↓↓↓↓↓ display for signed in Google users only ↓↓↓↓↓
+    
 ?>
 
 <nav class="admin_bar">
-     <h1>Sherlock</h1>
+    
+     <h1><?php echo APP_NAME; ?></h1>
+     
      <ul>
          <?php
             
+            // if oauth url is not set (aka, user signed in)
+            // display the Google user profile photo
+            // and the Google signout link
             if ( !isset( $authUrl ) ) {
                 
                 echo '<li><a title="Sign Out" class="signout" href="?logout"><span class="icon-signout"></span></a></li>';
@@ -25,4 +31,5 @@
              
         ?>
      </ul>
+     
 </nav>
