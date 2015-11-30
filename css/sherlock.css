@@ -989,6 +989,27 @@ a:hover {
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none; }
+  .sherlock_wrapper .sherlock_mode_msg {
+    position: absolute;
+    padding: 0.3125rem;
+    font-size: 80%;
+    text-align: center;
+    top: 0;
+    left: 45%;
+    background-color: #d61811;
+    color: #fff;
+    line-height: normal;
+    cursor: default;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-border-radius-bottomleft: 0.1875rem;
+    -webkit-border-bottom-left-radius: 0.1875rem;
+    border-bottom-left-radius: 0.1875rem;
+    -moz-border-radius-bottomright: 0.1875rem;
+    -webkit-border-bottom-right-radius: 0.1875rem;
+    border-bottom-right-radius: 0.1875rem; }
   .sherlock_wrapper .transition_overlay {
     position: absolute;
     width: 100%;

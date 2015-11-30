@@ -1573,6 +1573,23 @@ a:hover {
         @include user-select(none);
 
     }
+    
+    .sherlock_mode_msg {
+        
+        position: absolute;
+        padding: rem( 5px );
+        font-size: 80%;
+        text-align: center;
+        top: 0;
+        left: 45%;
+        background-color: #d61811;
+        color: #fff;
+        line-height: normal;
+        cursor: default;
+        @include user-select(none);
+        @include border-bottom-radius( rem( 3px ) );
+        
+    }
 
     // TRANSITION OVERLAY
     .transition_overlay {

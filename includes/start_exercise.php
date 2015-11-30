@@ -39,14 +39,18 @@
                 
             }
             
-            $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'],
-                                            $exercise_info['exercise_id'], ( $attempt + 1 ) );
-                                            
-            echo 1;
+            if ( $exercise_info['exrs_type_id'] != 3 ) {
+                
+                $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'],
+                                     $exercise_info['exercise_id'], ( $attempt + 1 ) );
+                
+            }
+                                         
+            echo true;
             
         } else {
             
-            echo 1;
+            echo true;
             
         }
                                           

@@ -219,7 +219,7 @@ $( function () {
                                 
                             }
                             
-                            $( '.exercise_info .meta' ).append( ( result.time_limit > 0 ) ? ' | Time limit: <strong>' + result.time_limit + '</strong>' : '' );
+                            $( '.exercise_info .meta' ).append( ( result.exrs_type_id > 0 ) ? ' | Exercise type: <strong>' + $.fn.getExerciseType( result.exrs_type_id ) + '</strong>' : '' );
                             
                         }
                         
@@ -274,6 +274,12 @@ $( function () {
           return false;
           
     } );
+    
+    if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
+        
+        $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
+        
+    }
 
 } );
 
@@ -396,7 +402,9 @@ function onYouTubeIframeAPIReady() {
                     $( '.btn.rewind' ).clickAction();
 
                     // Begin updating progress bar
-                    updatePrgrsInterval = setInterval( updateProgress, 100 );
+                    updatePrgrsInterval = setInterval( function() {
+                            $.fn.updateProgress( video );
+                        } , 100 );
 
                     // start listening to tag events
                     $.fn.tagHoverAction();
@@ -482,7 +490,7 @@ $.fn.clickAction = function() {
                 
                 video.player.pauseVideo();
                 video.player.seekTo( rewindLength );
-                updateProgress();
+                $.fn.updateProgress( video );
                 
                 $( '#videoPlayBtn' ).html( '<span class="icon-paused"></span><br /><small>PAUSED</small>' )
                                     .addClass( 'paused' ).show();
@@ -715,7 +723,7 @@ $.fn.extendedCooldown = function() {
  * @author Ethan Lin
  * @since 0.0.1
  *
- * @param string, string
+ * @param none
  * @return void
  *
  */
@@ -749,7 +757,7 @@ $.fn.extendedCooldown = function() {
 
     $.post( 'includes/student_input.php', {student: studentResponses}, function( response ) {
         
-        if ( response ) {
+        if ( response  === 1 || response === '1' ) {
             
             $.get('includes/views/score_view.php', function( res ) {
                 
@@ -758,6 +766,10 @@ $.fn.extendedCooldown = function() {
 
             } );
 
+        } else {
+            
+            $( '.sherlock_wrapper' ).showTransition( 'Something went wrong...', 'Sherlock lost his writting pen.' );
+            
         }
 
     } );
@@ -766,21 +778,21 @@ $.fn.extendedCooldown = function() {
 
 /****** UTILITY FUNCTIONS *******/
 
- /**
-  * Set the progress bar width and the elapsed time
-  * according to the current video progress.
-  * This is called continuously once the video starts.
-  *
-  * @author Mike Kellum
-  * @since 0.0.1
-  *
-  * @param none
-  * @return void
-  *
-  */
-function updateProgress() {
-
-    var curTimeMs = video.player.getCurrentTime();
+/**
+* Set the progress bar width and the elapsed time
+* according to the current video progress.
+* This is called continuously once the video starts.
+*
+* @author Mike Kellum
+* @since 0.0.1
+*
+* @param object
+* @return void
+*
+*/
+$.fn.updateProgress = function( video ) {
+  
+  var curTimeMs = video.player.getCurrentTime();
 
     if ( video.segmented ) {
 
@@ -793,5 +805,44 @@ function updateProgress() {
 
     $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
+  
+};
 
-}
+
+/**
+* Get the exercise type context by exercise ID
+*
+* @author Ethan Lin
+* @since 1.0.0
+*
+* @param id
+* @return string|null
+*
+*/
+$.fn.getExerciseType = function( id ) {
+  
+  var type = null;
+  
+  switch ( Number( id ) ) {
+      
+    case 1:
+        type = 'Demonstration';
+        break;
+    case 2:
+        type = 'Development Testing Purposes';
+        break;
+    case 3:
+        type = 'Training';
+        break;
+    case 4:
+        type = 'Assignment';
+        break;
+    default:
+        type = null;
+        break;
+      
+  }
+  
+  return type;
+  
+};

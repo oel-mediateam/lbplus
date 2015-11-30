@@ -4,7 +4,7 @@
         
         session_start();
         
-        if ( !isset( $_SESSION['user_exercise_id'] ) && !isset( $_SESSION['lti'] ) ) {
+        if ( !isset( $_SESSION['student_data'] ) && !isset( $_SESSION['lti'] ) ) {
         
             header( 'HTTP/1.0 404 File Not Found', 404 );
             include '404.php';
@@ -215,10 +215,14 @@
         
         if ( !isLTIUser() ) {
             
-            $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
-        
-            if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
-                exit("Update score error.");
+            if ( $exercise_info['exrs_type_id'] != 3 ) {
+                
+                $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
+                
+                if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
+                    exit("Update score error.");
+                }
+                
             }
             
         } else {

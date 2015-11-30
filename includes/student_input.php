@@ -26,133 +26,146 @@
         $data = $_SESSION['exercise_data'];
         $exercise_actions = $data['exercise']['actions'];
         array_push( $exercise_actions, $data['exercise']['rewind'] );
-
+        
         $inputs = $_POST['student'];
-
         $student_action_arrays = array();
-
-        foreach( $inputs as $student_input ) {
-
-            $student_action = array();
-            $student_action['id'] = $student_input['id'];
-            $student_action['name'] = $student_input['name'];
-            $student_action['timestamped'] = $student_input['timestamped'];
-
-            foreach ( $exercise_actions as $action ) {
-
-                if ( $student_action['id'] == getValue( $action['id'], 'rwd' ) ) {
-
-                    if ( isset( $action['positions'] ) ) {
-
-                        foreach ( $action['positions'] as $pos ) {
-
-                            $time = toSeconds( $student_action['timestamped'] );
-                            $begin = toSeconds( $pos['begin'] );
-                            $end = toSeconds( $pos['end'] );
-
-                            if ( $time >= $begin && $time <= $end ) {
-
-                                $student_action['positive'] = $action['points'];
-                                break;
-
+        
+        if ( $inputs != -1 ) {
+        
+            foreach( $inputs as $student_input ) {
+    
+                $student_action = array();
+                $student_action['id'] = $student_input['id'];
+                $student_action['name'] = $student_input['name'];
+                $student_action['timestamped'] = $student_input['timestamped'];
+    
+                foreach ( $exercise_actions as $action ) {
+    
+                    if ( $student_action['id'] == getValue( $action['id'], 'rwd' ) ) {
+    
+                        if ( isset( $action['positions'] ) ) {
+    
+                            foreach ( $action['positions'] as $pos ) {
+    
+                                $time = toSeconds( $student_action['timestamped'] );
+                                $begin = toSeconds( $pos['begin'] );
+                                $end = toSeconds( $pos['end'] );
+    
+                                if ( $time >= $begin && $time <= $end ) {
+    
+                                    $student_action['positive'] = $action['points'];
+                                    break;
+    
+                                }
+    
                             }
-
+    
+                            if ( !isset( $student_action['positive'] ) ) {
+    
+                                $student_action['negative'] = getValue( $action['miss'], 0 );
+    
+                            }
+    
                         }
-
-                        if ( !isset( $student_action['positive'] ) ) {
-
-                            $student_action['negative'] = getValue( $action['miss'], 0 );
-
-                        }
-
+    
+                        break;
+    
                     }
-
-                    break;
-
+    
                 }
-
+    
+                array_push( $student_action_arrays, $student_action );
+    
             }
-
-            array_push( $student_action_arrays, $student_action );
-
+            
         }
         
         // save to session for score view
-        $_SESSION['student_data'] = $student_action_arrays; 
+        $_SESSION['student_data'] = $student_action_arrays;
         
-        // set json encoded student input data for file writing
-        $content = json_encode( $student_action_arrays );
+        $exercise_info = unserialize( $_SESSION['exercise_info'] );
         
-        $doWrite = false;
-        
-        if ( isLTIUser() ) {
+        if ( $exercise_info['exrs_type_id'] != 3 ) {
             
-            if ( getLTIData( 'lis_result_sourcedid' ) ) {
+            // set json encoded student input data for file writing
+            $content = json_encode( $student_action_arrays );
             
-                $directory = 'data/student/' . getLTILMS();
-                $subdirectory = $directory . '/' . date('n-j-Y');
+            $doWrite = false;
+            
+            if ( isLTIUser() ) {
+            
+                if ( getLTIData( 'lis_result_sourcedid' ) ) {
                 
-                if ( !file_exists( $directory ) ) {
-                
-                    mkdir( $directory, 0777, true );
+                    $directory = 'data/student/' . getLTILMS();
+                    $subdirectory = $directory . '/' . date('n-j-Y');
+                    
+                    if ( !file_exists( $directory ) ) {
+                    
+                        mkdir( $directory, 0777, true );
+                        
+                    }
+                    
+                    if ( !file_exists( $subdirectory ) ) {
+                        
+                        mkdir( $subdirectory, 0777, true );
+                        
+                    }
+                    
+                    $fileName = getLTIData( 'lis_result_sourcedid' ) . '_' . time();
+                    $file = $subdirectory . '/' . $fileName . '.json';
+                    
+                    $doWrite = true;
                     
                 }
                 
-                if ( !file_exists( $subdirectory ) ) {
-                    
-                    mkdir( $subdirectory, 0777, true );
-                    
-                }
+            } else {
                 
-                $fileName = getLTIData( 'lis_result_sourcedid' ) . '_' . time();
-                $file = $subdirectory . '/' . $fileName . '.json';
+                $fileName = $_SESSION['user_exercise_id'] . '_' . time();
+                $file = 'data/student/' . $fileName . '.json';
                 
                 $doWrite = true;
                 
             }
             
-        } else {
-            
-            $fileName = $_SESSION['user_exercise_id'] . '_' . time();
-            $file = 'data/student/' . $fileName . '.json';
-            
-            $doWrite = true;
-            
-        }
-        
-        if ( $doWrite ) {
-            
-            $fp = fopen( $file, 'wb' );
-
-            if ( $fp ) {
-
-                if ( fwrite( $fp, $content ) === false ) {
-
-                    unlink( $fp );
-                    exit( 'Error writing data to file.' );
-
-                } else {
-
-                    fclose( $fp );
-                    
-                    if ( !isLTIUser() ) {
+            if ( $doWrite ) {
+                
+                $fp = fopen( $file, 'wb' );
+    
+                if ( $fp ) {
+    
+                    if ( fwrite( $fp, $content ) === false ) {
+    
+                        unlink( $fp );
+                        exit( 'Error writing data to file.' );
+    
+                    } else {
+    
+                        fclose( $fp );
                         
-                        if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $fileName ) == 0 ) {
-
-                            exit('update failed');
+                        if ( !isLTIUser() ) {
                             
-                        };
+                            if ( DB::updateStuSrc( $_SESSION['user_exercise_id'], $fileName ) == 0 ) {
+    
+                                exit('update failed');
+                                
+                            };
+                            
+                        }
                         
+                        echo true;
+    
                     }
-                    
-                    echo true;
-
+    
+                } else {
+    
+                    exit( 'Error opening file.' );
+    
                 }
-
+                
             } else {
-
-                exit( 'Error opening file.' );
-
+                
+                echo true;
+                
             }
             
         } else {
