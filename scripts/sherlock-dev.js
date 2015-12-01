@@ -435,7 +435,7 @@ function onYouTubeIframeAPIReady() {
                         $( '.btn[data-action-id]:eq('+j+')' ).clickAction();
 
                     }
-
+                    
                     $( '.btn.rewind' ).removeClass( 'disabled' );
                     $( '.btn.rewind' ).clickAction();
 
@@ -448,7 +448,21 @@ function onYouTubeIframeAPIReady() {
                     $.fn.tagHoverAction();
 
                 }
+                
+                $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
 
+            break;
+            
+            case YT.PlayerState.BUFFERING:
+                
+                $( '#videoPlayBtn' ).html( '<span class="icon-spinner"></span><br /><small>BUFFERING</small>' ).addClass( 'paused' ).show();
+                
+                for ( var d = 0; d < $( '.btn[data-action-id]' ).length; d++ ) {
+
+                    $( '.btn[data-action-id]:eq('+d+')' ).addClass( 'disabled' );
+
+                }
+                                
             break;
 
         }
@@ -537,7 +551,6 @@ $.fn.clickAction = function() {
 
                 setTimeout( function() {
                     
-                    $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
                     $( '.sherlock_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
                     video.player.playVideo();
                     
@@ -643,7 +656,7 @@ $.fn.tagHoverAction = function() {
  * The cooldown event to execute when an action button triggered it
  * @author Ethan Lin
  * @since 0.0.1
- *
+ * 
  * @param none
  * @return void
  *
@@ -667,11 +680,11 @@ $.fn.cooldown = function() {
         button.addClass( 'disabled' );
 
     }
-
+        
     // minus one limit and update displayed number
     limits--;
     limitElement.html( limits );
-
+    
     // if no limit is 0
     if ( limits <= 0 ) {
 
