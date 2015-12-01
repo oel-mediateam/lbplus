@@ -1279,6 +1279,41 @@ a:hover {
             	border-top: 16px solid #3fb33f;
 
             }
+            
+            .hint_tag {
+                
+                position: absolute;
+                width: rem( 20px );
+                height: rem( 15px );
+                bottom: rem( 3px );
+                left: 0;
+                font-size: rem( 10px );
+                text-align: center;
+                line-height: rem( 10px );
+                color: #fff;
+                background-color: #b01937;
+                padding: rem( 5px ) 0 0;
+                cursor: default;
+                @include border-radius( 50% );
+                z-index: 1;
+                
+            }
+            
+            .hint_tag:after {
+                
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	top: rem( -6px );
+            	left: rem( 6px );
+            	border-left: 4px solid transparent;
+            	border-right: 4px solid transparent;
+            	border-bottom: 8px solid #b01937;
+            	z-index: -1;
+                
+            }
 
             .progress_bar {
 
@@ -1313,6 +1348,8 @@ a:hover {
                     width: 0;
                     height: rem( 10px );
                     background: #686868;
+                    border-right: rem( 2px ) solid #3cdfd7;
+                    @include box-sizing( border-box );
 
                 }
 

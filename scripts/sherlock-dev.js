@@ -356,15 +356,17 @@ function onYouTubeIframeAPIReady() {
                         var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
                         var width = right - left;
                         
-                        $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;"></div>' );
+                        var span = '<span class="hint_tag" style="left:'+ ( left + 15 + ( width / 2 ) ) +'px;"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
                         
+                        $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;"></div>' );
+                        $( '.progress_bar_holder' ).append( span );
                     }
                     
                 }
                 
             } );
             
-        }
+        } // end training mode
         
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
         
@@ -609,7 +611,7 @@ $.fn.addTag = function() {
                '" style="left:' + barPx + 'px;' +
                'z-index:' + (tagCount++) +
                '">' + icon +
-               '</span></span>';
+               '</span>';
 
     var studentTag = {
 
@@ -856,7 +858,7 @@ $.fn.updateProgress = function( video ) {
     var newWidth = Math.floor( ( 100 / video.duration ) * curTimeMs );
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
-    $( '.progress_bar .progressed' ).css( "width", newWidth + "%" );
+    $( '.progress_bar .progressed' ).css( "width", $( '.progress_bar').width() * ( newWidth / 100 ) + "px" );
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
   
 };
@@ -906,4 +908,21 @@ $.fn.toSecond = function( value ) {
 
     return ( Number( timestring[0] ) * 60 ) + Number( timestring[1] );
     
+};
+
+$.fn.initialism = function( str ) {
+    
+    var spacePos = str.indexOf( ' ' );
+    var firstChar = str.slice( 0, 1 );
+    
+    if ( spacePos > 0 ) {
+        
+        var secondChar = str.slice( spacePos + 1, spacePos + 2 );
+        
+        return firstChar + secondChar;
+        
+    }
+    
+    return firstChar;
+
 };
