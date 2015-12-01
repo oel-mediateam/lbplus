@@ -89,6 +89,8 @@ $( function () {
         
     }
     
+    $( '#videoPlayBtn' ).html( '<span class="icon-spinner"></span><br /><small>WAIT</small>' ).addClass( 'paused' );
+    
     // if it is a training mode
     if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
         
@@ -250,6 +252,7 @@ $( function () {
         
     } // end selection element if/else
     
+    // for LTI resource link selection
     $( '#lti_selection' ).click( function() {
         
         var url = $( 'input[name="return_url"]' ).val();
@@ -364,7 +367,8 @@ function onYouTubeIframeAPIReady() {
         }
         
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
-
+        
+        $( '#videoPlayBtn' ).html( 'START' ).removeClass( 'paused' );
         $( '#videoPlayBtn' ).on( 'click', function() {
             
             $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
@@ -736,6 +740,8 @@ $.fn.extendedCooldown = function() {
  $.fn.showTransition = function( heading, subheading, hideSpinner ) {
     
     hideSpinner = typeof hideSpinner !== 'undefined' ? hideSpinner : false;
+    
+    $.fn.hideTransition();
     
     if ( hideSpinner === false ) {
         
