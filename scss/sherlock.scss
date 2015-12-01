@@ -1219,7 +1219,7 @@ a:hover {
 
     // CONTROLS
     .sherlock_controls {
-
+        
         height: rem( 60px );
         background: $darkerFontColor;
         @include box-sizing( "border-box" );
@@ -1229,7 +1229,7 @@ a:hover {
         	@include user-select(none);
 
     	}
-
+        
         .progress_bar_holder {
 
             position: relative;
@@ -1285,6 +1285,27 @@ a:hover {
                 width: rem( 640px );
                 height: rem( 10px );
                 background: #888888;
+                
+                .tag_hints_holder {
+            
+                    display: block;
+                    position: absolute;
+                    width: rem( 640px );
+                    height: rem( 10px );
+                    
+                    .hint {
+                        
+                        position: absolute;
+                        width: rem( 3px );
+                        height: rem( 10px );
+                        top: 0;
+                        left: 9px;
+                        background-color: lime;
+                        @include opacity( .50 );
+                        
+                    }
+                    
+                }
 
                 .progressed {
 
@@ -1567,7 +1588,7 @@ a:hover {
         width: 50%;
         font-size: 80%;
         text-align: right;
-        top: rem( 15px );
+        top: 0;
         right: rem( 25px );
         cursor: default;
         @include user-select(none);
@@ -1578,16 +1599,18 @@ a:hover {
         
         position: absolute;
         padding: rem( 5px );
-        font-size: 80%;
+        width: 100%;
+        font-size: 60%;
         text-align: center;
         top: 0;
-        left: 45%;
-        background-color: #d61811;
-        color: #fff;
+        left: 0;
+        background-color: #f1ffbc;
+        font-weight: bold;
+        text-transform: uppercase;
         line-height: normal;
         cursor: default;
+        @include box-sizing( 'border-box' );
         @include user-select(none);
-        @include border-bottom-radius( rem( 3px ) );
         
     }
 

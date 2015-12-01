@@ -108,7 +108,6 @@
 
             <?php
 
-
                 foreach( $actions as $action ) {
 
                     $button = '<div class="btn disabled" data-cooldown="' . $action->cooldown . '" data-action-id="' . $action->id . '">';
@@ -164,6 +163,7 @@
         <!-- Tags go here -->
 
         <div class="progress_bar">
+            <div class="tag_hints_holder"></div>
             <span class="progressed"></span>
             <?php
 

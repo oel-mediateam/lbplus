@@ -19,7 +19,7 @@
         },
         "scoreViewHeading": "",
         "allowRetake": "",
-        "allowNew": "",
+        "displayLimits": null,
         "actions": [
 
             {

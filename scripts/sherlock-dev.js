@@ -33,6 +33,7 @@ var video = {
 var tagCount = 0;
 var updatePrgrsInterval;
 var studentResponses = [];
+var trainingMode = false;
 
 /****** CORE *******/
 
@@ -85,6 +86,14 @@ $( function () {
             return false;
             
         } );
+        
+    }
+    
+    // if it is a training mode
+    if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
+        
+        $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
+        trainingMode = true;
         
     }
     
@@ -274,12 +283,6 @@ $( function () {
           return false;
           
     } );
-    
-    if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
-        
-        $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
-        
-    }
 
 } );
 
@@ -328,7 +331,38 @@ function onYouTubeIframeAPIReady() {
             video.duration = video.player.getDuration();
 
         }
-
+        
+        // if it is a training mode
+        if ( trainingMode ) {
+            
+            $.post( 'includes/get_exercise_from_session.php', { id: 1 }, function( data ) {
+                
+                var numActions = data.length;
+                var hintBarWidth = $( '.tag_hints_holder' ).width();
+                
+                for ( var a = 0; a < numActions; a++ ) {
+                    
+                    var numPos = data[a].positions.length;
+                    
+                    for ( var p = 0; p < numPos; p++ ) {
+                        
+                        var begin = $.fn.toSecond( data[a].positions[p].begin );
+                        var end = $.fn.toSecond( data[a].positions[p].end );
+                        
+                        var left = Math.floor( hintBarWidth * ( 100 / video.duration * begin ) / 100 );
+                        var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
+                        var width = right - left;
+                        
+                        $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;"></div>' );
+                        
+                    }
+                    
+                }
+                
+            } );
+            
+        }
+        
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
         $( '#videoPlayBtn' ).on( 'click', function() {
@@ -845,4 +879,12 @@ $.fn.getExerciseType = function( id ) {
   
   return type;
   
+};
+
+$.fn.toSecond = function( value ) {
+    
+    var timestring = value.split( ':' );
+
+    return ( Number( timestring[0] ) * 60 ) + Number( timestring[1] );
+    
 };

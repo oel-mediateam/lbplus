@@ -213,48 +213,48 @@
         
         $percentage = $fraction * 100;
         
-        if ( !isLTIUser() ) {
-            
-            if ( $exercise_info['exrs_type_id'] != 3 ) {
+        if ( $exercise_info['exrs_type_id'] != 3 ) {
+        
+            if ( !isLTIUser() ) {
                 
-                $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
+                    $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
+                    
+                    if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
+                        exit("Update score error.");
+                    }
                 
-                if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
-                    exit("Update score error.");
+            } else {
+                
+                 // pass score to LTI
+                if ( $sourcedid = getLTIData('lis_result_sourcedid') ) {
+                    
+                    $lti = unserialize( LTI );
+                    
+                    $consumer = new LTI_Tool_Consumer( $lti['key'], LTI_Data_Connector::getDataConnector( '', 'none' ) );
+                    $consumer->name = $lti['name'];
+                    $consumer->secret = $lti['secret'];
+                    $consumer->enabled = TRUE;
+                    $consumer->lti_version = LTI_Tool_Provider::LTI_VERSION1;
+                    
+                    $resource_link = new LTI_Sherlock_Resource_Link( $consumer, getLTIData('resource_link_id') );
+                    $resource_link->setSetting( 'lis_outcome_service_url', getLTIData('lis_outcome_service_url') );
+                    $resource_link->setSetting( 'context_id', getLTIData('context_id') );
+                    $resource_link->setSetting( 'ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url') );
+                    
+                    $outcome = new LTI_Sherlock_Outcome( $sourcedid, $fraction, '' );
+                    $ok = $resource_link->doOutcomesService( LTI_Resource_Link::EXT_WRITE, $outcome );
+                    
+                    if ( !$ok ) {
+                        
+                        echo $resource_link->ext_response;
+                        exit('Something went wrong when trying to pass back grade. Please contact your instructor.');
+                        
+                    }
+                    
                 }
                 
             }
-            
-        } else {
-            
-             // pass score to LTI
-            if ( $sourcedid = getLTIData('lis_result_sourcedid') ) {
-                
-                $lti = unserialize( LTI );
-                
-                $consumer = new LTI_Tool_Consumer( $lti['key'], LTI_Data_Connector::getDataConnector( '', 'none' ) );
-                $consumer->name = $lti['name'];
-                $consumer->secret = $lti['secret'];
-                $consumer->enabled = TRUE;
-                $consumer->lti_version = LTI_Tool_Provider::LTI_VERSION1;
-                
-                $resource_link = new LTI_Sherlock_Resource_Link( $consumer, getLTIData('resource_link_id') );
-                $resource_link->setSetting( 'lis_outcome_service_url', getLTIData('lis_outcome_service_url') );
-                $resource_link->setSetting( 'context_id', getLTIData('context_id') );
-                $resource_link->setSetting( 'ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url') );
-                
-                $outcome = new LTI_Sherlock_Outcome( $sourcedid, $fraction, '' );
-                $ok = $resource_link->doOutcomesService( LTI_Resource_Link::EXT_WRITE, $outcome );
-                
-                if ( !$ok ) {
-                    
-                    echo $resource_link->ext_response;
-                    exit('Something went wrong when trying to pass back grade. Please contact your instructor.');
-                    
-                }
-                
-            }
-            
+        
         }
 
     }

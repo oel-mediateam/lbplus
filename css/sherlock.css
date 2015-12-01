@@ -753,6 +753,20 @@ a:hover {
         width: 40rem;
         height: 0.625rem;
         background: #888888; }
+        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .tag_hints_holder {
+          display: block;
+          position: absolute;
+          width: 40rem;
+          height: 0.625rem; }
+          .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .tag_hints_holder .hint {
+            position: absolute;
+            width: 0.1875rem;
+            height: 0.625rem;
+            top: 0;
+            left: 9px;
+            background-color: lime;
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+            opacity: 0.5; }
         .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .progressed {
           display: block;
           width: 0;
@@ -982,7 +996,7 @@ a:hover {
     width: 50%;
     font-size: 80%;
     text-align: right;
-    top: 0.9375rem;
+    top: 0;
     right: 1.5625rem;
     cursor: default;
     -moz-user-select: -moz-none;
@@ -992,24 +1006,23 @@ a:hover {
   .sherlock_wrapper .sherlock_mode_msg {
     position: absolute;
     padding: 0.3125rem;
-    font-size: 80%;
+    width: 100%;
+    font-size: 60%;
     text-align: center;
     top: 0;
-    left: 45%;
-    background-color: #d61811;
-    color: #fff;
+    left: 0;
+    background-color: #f1ffbc;
+    font-weight: bold;
+    text-transform: uppercase;
     line-height: normal;
     cursor: default;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     -moz-user-select: -moz-none;
     -ms-user-select: none;
     -webkit-user-select: none;
-    user-select: none;
-    -moz-border-radius-bottomleft: 0.1875rem;
-    -webkit-border-bottom-left-radius: 0.1875rem;
-    border-bottom-left-radius: 0.1875rem;
-    -moz-border-radius-bottomright: 0.1875rem;
-    -webkit-border-bottom-right-radius: 0.1875rem;
-    border-bottom-right-radius: 0.1875rem; }
+    user-select: none; }
   .sherlock_wrapper .transition_overlay {
     position: absolute;
     width: 100%;
