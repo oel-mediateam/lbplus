@@ -1294,9 +1294,16 @@ a:hover {
                 background-color: #b01937;
                 padding: rem( 5px ) 0 0;
                 cursor: default;
+                @include opacity(.5);
+                @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
                 @include border-radius( 50% );
-                z-index: 1;
                 
+            }
+            
+            .hint_tag:hover {
+
+                @include box-shadow( 0 0 rem( 6px ) #000 );
+
             }
             
             .hint_tag:after {
@@ -1316,7 +1323,8 @@ a:hover {
             }
 
             .progress_bar {
-
+                
+                position: relative;
                 width: rem( 640px );
                 height: rem( 10px );
                 background: #888888;
@@ -1341,14 +1349,23 @@ a:hover {
                     }
                     
                 }
-
+                
+                .scrubber {
+                    
+                    position: absolute;
+                    width: rem( 1px );
+                    height: rem( 10px );
+                    background-color: #3cdfd7;
+                    z-index: 0;
+                    
+                }
+                
                 .progressed {
 
                     display: block;
                     width: 0;
                     height: rem( 10px );
                     background: #686868;
-                    border-right: rem( 2px ) solid #3cdfd7;
                     @include box-sizing( border-box );
 
                 }
@@ -1709,6 +1726,15 @@ a:hover {
 
 }
 
+.blink-faster {
+
+    @include animation-properties( (animation-name: blink-faster) );
+    @include animation-properties( (animation-duration: 1s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
 .spin {
 
     display: inline-block;
@@ -1723,6 +1749,28 @@ a:hover {
 }
 
 @include keyframes( blink ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( .5 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
+
+    }
+
+}
+
+@include keyframes( blink-faster ) {
 
     0% {
 

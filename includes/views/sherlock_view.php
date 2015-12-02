@@ -164,6 +164,7 @@
 
         <div class="progress_bar">
             <div class="tag_hints_holder"></div>
+            <span class="scrubber"></span>
             <span class="progressed"></span>
             <?php
 

@@ -24,7 +24,8 @@ var video = {
     'start': 0,
     'end': 0,
     'duration': null,
-    'rewinded': false
+    'rewinded': false,
+    'started': false
 
 };
 
@@ -34,6 +35,8 @@ var tagCount = 0;
 var updatePrgrsInterval;
 var studentResponses = [];
 var trainingMode = false;
+var pauseOnce = true;
+var preCount = null;
 
 /****** CORE *******/
 
@@ -351,15 +354,18 @@ function onYouTubeIframeAPIReady() {
                         
                         var begin = $.fn.toSecond( data[a].positions[p].begin );
                         var end = $.fn.toSecond( data[a].positions[p].end );
+                        var mid = ( ( end - begin ) / 2) + begin;
                         
                         var left = Math.floor( hintBarWidth * ( 100 / video.duration * begin ) / 100 );
                         var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
                         var width = right - left;
+                        var midWidth = ( left + 15 + ( width / 2 ) );
                         
-                        var span = '<span class="hint_tag" style="left:'+ ( left + 15 + ( width / 2 ) ) +'px;"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
+                        var span = '<span class="hint_tag" style="left:'+ midWidth +'px;"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
                         
-                        $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;"></div>' );
+                        $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;" data-begin="'+begin+'" data-end="'+end+'" data-mid="'+mid+'" data-id="'+data[a].id+'"></div>' );
                         $( '.progress_bar_holder' ).append( span );
+                        
                     }
                     
                 }
@@ -427,9 +433,9 @@ function onYouTubeIframeAPIReady() {
             break;
 
             case YT.PlayerState.PLAYING:
-
-                if ( !video.rewinded ) {
-
+                
+                if ( !video.started  ) {
+                    
                     // add clicked event listener to all action buttons
                     for ( var j = 0; j < $( '.btn[data-action-id]' ).length; j++ ) {
 
@@ -440,16 +446,18 @@ function onYouTubeIframeAPIReady() {
                     
                     $( '.btn.rewind' ).removeClass( 'disabled' );
                     $( '.btn.rewind' ).clickAction();
-
-                    // Begin updating progress bar
-                    updatePrgrsInterval = setInterval( function() {
-                            $.fn.updateProgress( video );
-                        } , 100 );
-
-                    // start listening to tag events
-                    $.fn.tagHoverAction();
+                    
+                    video.started = true;
 
                 }
+                
+                // Begin updating progress bar
+                updatePrgrsInterval = setInterval( function() {
+                        $.fn.updateProgress( video );
+                    } , 100 );
+
+                // start listening to tag events
+                $.fn.tagHoverAction();
                 
                 $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
 
@@ -465,6 +473,13 @@ function onYouTubeIframeAPIReady() {
 
                 }
                                 
+            break;
+            
+            case YT.PlayerState.PAUSED:
+                
+                // clear update progress bar interval
+                clearInterval( updatePrgrsInterval );
+                
             break;
 
         }
@@ -544,7 +559,7 @@ $.fn.clickAction = function() {
                 
                 video.player.pauseVideo();
                 video.player.seekTo( rewindLength );
-                $.fn.updateProgress( video );
+                preCount = null;
                 
                 $( '#videoPlayBtn' ).html( '<span class="icon-paused"></span><br /><small>PAUSED</small>' )
                                     .addClass( 'paused' ).show();
@@ -554,6 +569,7 @@ $.fn.clickAction = function() {
                 setTimeout( function() {
                     
                     $( '.sherlock_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
+                    
                     video.player.playVideo();
                     
                     if ( clickedBtns !== null ) {
@@ -562,13 +578,21 @@ $.fn.clickAction = function() {
                         
                     }
 
-                } , 3000);
-
+                }, 3000);
 
                 video.rewinded = true;
 
+            } else {
+                
+                if ( trainingMode ) {
+                    
+                    video.player.playVideo();
+                    pauseOnce = false;
+                    
+                }
+                
             }
-
+            
             // Add icon to the progress bar
             // and start cooldown
             $( this ).addTag();
@@ -856,10 +880,61 @@ $.fn.updateProgress = function( video ) {
     }
 
     var newWidth = Math.floor( ( 100 / video.duration ) * curTimeMs );
+    var width = $( '.progress_bar').width() * ( newWidth / 100 );
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
-    $( '.progress_bar .progressed' ).css( "width", $( '.progress_bar').width() * ( newWidth / 100 ) + "px" );
+    $( '.progress_bar .progressed' ).css( "width", width + "px" );
+    $( '.progress_bar .scrubber' ).css( 'left', width + "px" );
     $( '.progress_bar .time .elapsed' ).html( formattedTime );
+    
+    if ( trainingMode ) {
+        
+        var objTouched = $( '.scrubber' ).hitTestObject( '.hint' );
+        
+        if ( objTouched ) {
+            
+            for ( var o = 0; o < objTouched.length; o++ ) {
+                
+                var begin = Number( objTouched[o].attributes[2].nodeValue );
+                var end = Number( objTouched[o].attributes[3].nodeValue );
+                var mid = Number( objTouched[o].attributes[4].nodeValue );
+                
+                if ( curTimeMs > begin && curTimeMs < end ) {
+                    
+                    $( '.progress_bar_holder .hint_tag:eq('+o+')' ).css('opacity',1);
+                    $( '.progress_bar_holder .hint_tag:eq('+preCount+')' ).css('z-index',0).removeClass('blink-faster');
+                    
+                    if ( preCount !== o ) {
+                        
+                        $( '.progress_bar_holder .hint_tag:eq('+preCount+')' ).removeClass('blink-faster');
+                        pauseOnce = true;
+                        preCount = o;
+                        
+                    }
+                    
+                    if ( curTimeMs > mid && curTimeMs < end ) {
+                        
+                        if ( pauseOnce ) {
+                            
+                            video.player.seekTo( mid, false);
+                            video.player.pauseVideo();
+                            $( '.progress_bar_holder .hint_tag:eq('+o+')' ).css('z-index',1).addClass('blink-faster');
+                            pauseOnce = false;
+                            
+                        }
+                        
+                    }
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+    }
   
 };
 
@@ -925,4 +1000,33 @@ $.fn.initialism = function( str ) {
     
     return firstChar;
 
+};
+
+$.fn.hitTestObject = function( selector ) {
+    
+    var compares = $(selector);
+    var l = this.size();
+    var m = compares.size();
+    
+    for( var i = 0; i < l; i++ ) {
+        
+       var bounds = this.get(i).getBoundingClientRect();
+       
+        for( var j = 0; j < m; j++ ) {
+            
+           var compare = compares.get(j).getBoundingClientRect();
+           
+           if( !( bounds.right < compare.left || bounds.left > compare.right ||
+                bounds.bottom < compare.top || bounds.top > compare.bottom ) ) {
+                    
+					return $(selector);   
+					
+            }
+            
+        }
+        
+    }
+    
+	return false;
+	
 };
