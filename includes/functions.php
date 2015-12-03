@@ -163,6 +163,31 @@
             
         }
         
+        // if request is a review mode
+        if ( isset( $request['review'] ) ) {
+            
+            // set the exercise information from session
+            $exercise_info = unserialize( $_SESSION['exercise_info'] );
+            
+            // check to see if retake value match the exercise id
+            if ( $request['review'] == $exercise_info['exercise_id'] ) {
+                
+                $view = 'includes/views/sherlock_review_view.php';
+    
+                unset( $request['review'] );
+                return $view;
+            
+            // redirect back to the exercise selection view with error
+            } else {
+                
+                $_SESSION['error'] = "Review error.";
+                header( 'Location: ./?page=exercises' );
+                exit();
+                
+            }
+            
+        }
+        
         // if request is a page
         if ( isset( $request['page'] ) ) {
             
@@ -179,6 +204,17 @@
                 unset( $request['page'] );
                 
                 $view = 'includes/views/selection.php';
+                
+                return $view;
+                
+            }
+            
+            // score page
+            if ( $request['page'] == 'score' ) {
+                
+                unset( $request['page'] );
+                
+                $view = 'includes/views/score_view.php';
                 
                 return $view;
                 

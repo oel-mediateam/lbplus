@@ -1492,6 +1492,30 @@ a:hover {
                 @include clearfix();
 
             }
+            
+            .btn.backToScore {
+
+                @include button();
+                width: 100%;
+                height: rem( 60px );
+                margin: 0;
+                
+                .action_name {
+
+                    @include button_name();
+                    width: 100%;
+                    height: rem( 60px );
+                    text-align: center;
+                    font-size: 130%;
+                    color: #fff;
+                    text-decoration: none;
+                    line-height: normal;
+                    padding: rem( 18px ) rem( $gutter ) 0 ;
+                    float: none;
+
+                }
+
+            }
 
         } // end main controls for lb view
 
@@ -1624,6 +1648,20 @@ a:hover {
                 }
 
             }
+            
+            // next button
+            .btn.close {
+
+                @extend .btn.retake;
+                float: right;
+
+                .action_name {
+
+                    border-top-color: #c72848;
+
+                }
+
+            }
 
         } // end score view main controls
 
@@ -1658,13 +1696,25 @@ a:hover {
         text-align: center;
         top: 0;
         left: 0;
-        background-color: #f1ffbc;
+        background-color: #ccc;
         font-weight: bold;
         text-transform: uppercase;
         line-height: normal;
         cursor: default;
         @include box-sizing( 'border-box' );
         @include user-select(none);
+        
+    }
+    
+    .sherlock_mode_msg.training {
+            
+        background-color: #f1ffbc;
+        
+    }
+    
+    .sherlock_mode_msg.review {
+            
+        background-color: #bcd1ff;
         
     }
 

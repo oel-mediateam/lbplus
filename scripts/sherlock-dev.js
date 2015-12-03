@@ -35,6 +35,7 @@ var tagCount = 0;
 var updatePrgrsInterval;
 var studentResponses = [];
 var trainingMode = false;
+var reviewMode = false;
 var pauseOnce = true;
 var preCount = null;
 
@@ -99,6 +100,11 @@ $( function () {
         
         $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
         trainingMode = true;
+        
+    } else if ( $( '.sherlock_view' ).data( 'mode' ) === 'review' ) {
+        
+        $( '.sherlock_mode_msg' ).html( 'Review Mode' ).removeClass( 'hide' );
+        reviewMode = true;
         
     }
     
@@ -338,8 +344,8 @@ function onYouTubeIframeAPIReady() {
 
         }
         
-        // if it is a training mode
-        if ( trainingMode ) {
+        // if it is a training and review mode
+        if ( trainingMode || reviewMode ) {
             
             $.post( 'includes/get_exercise_from_session.php', { id: 1 }, function( data ) {
                 
@@ -361,10 +367,11 @@ function onYouTubeIframeAPIReady() {
                         var width = right - left;
                         var midWidth = ( left + 15 + ( width / 2 ) );
                         
-                        var span = '<span class="hint_tag" style="left:'+ midWidth +'px;"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
+                        var span = '<span class="hint_tag" style="left:'+ midWidth +'px; '+ ( reviewMode ? 'opacity:1;' : '' ) +'"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
                         
                         $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;" data-begin="'+begin+'" data-end="'+end+'" data-mid="'+mid+'" data-id="'+data[a].id+'"></div>' );
                         $( '.progress_bar_holder' ).append( span );
+                        
                         
                     }
                     
@@ -372,7 +379,18 @@ function onYouTubeIframeAPIReady() {
                 
             } );
             
-        } // end training mode
+            if ( reviewMode ) {
+                            
+                $.post( 'includes/get_student_data_from_session.php', { id: 1 }, function( data ) {
+                    
+                    console.log(data);
+                    //TODOs
+                    
+                } );
+                
+            } // end review
+            
+        } // end training and review mode
         
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
         

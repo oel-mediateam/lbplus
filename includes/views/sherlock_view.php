@@ -90,7 +90,7 @@
 <?php if ( $exercise_exists ) { ?>
 <section class="sherlock_view" <?php echo $exercise_info['exrs_type_id'] == 3 ? 'data-mode=training' : ''; ?>>
     
-    <div class="sherlock_mode_msg hide"></div>
+    <div class="sherlock_mode_msg training hide"></div>
     <div class="sherlock_status_msg hide"></div>
 
     <h1><?php echo $exercise->name; ?></h1>

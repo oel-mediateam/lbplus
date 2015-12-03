@@ -959,6 +959,42 @@ a:hover {
       .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind:after {
         overflow: hidden;
         *zoom: 1; }
+      .sherlock_wrapper .sherlock_controls .main_controls .btn.backToScore {
+        position: relative;
+        width: 14.0625rem;
+        height: 3.125rem;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 1rem 0;
+        width: 100%;
+        height: 3.75rem;
+        margin: 0; }
+        .sherlock_wrapper .sherlock_controls .main_controls .btn.backToScore .action_name {
+          display: block;
+          width: 10.9375rem;
+          height: 3.125rem;
+          padding: 1rem 0.6875rem;
+          background: #354cb1;
+          float: left;
+          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+          opacity: 1;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          -moz-transition: opacity 0.5s, background 0.5s;
+          -o-transition: opacity 0.5s, background 0.5s;
+          -webkit-transition: opacity 0.5s, background 0.5s;
+          transition: opacity 0.5s, background 0.5s;
+          width: 100%;
+          height: 3.75rem;
+          text-align: center;
+          font-size: 130%;
+          color: #fff;
+          text-decoration: none;
+          line-height: normal;
+          padding: 1.125rem 1rem 0;
+          float: none; }
     .sherlock_wrapper .sherlock_controls .main_controls.score_view {
       width: 100%;
       height: 3.75rem;
@@ -980,7 +1016,7 @@ a:hover {
         height: 3.75rem; }
       .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.full {
         width: 100%; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next {
+      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close {
         float: left;
         margin: 0;
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
@@ -989,7 +1025,7 @@ a:hover {
         -o-transition: opacity 0.5s, background 0.5s;
         -webkit-transition: opacity 0.5s, background 0.5s;
         transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next .action_name {
+        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close .action_name {
           display: block;
           width: 10.9375rem;
           height: 3.125rem;
@@ -1015,18 +1051,18 @@ a:hover {
           padding-top: 0.625rem;
           background: none;
           border-top: 0.3125rem solid #c77028; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover {
+      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:hover {
         filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
         opacity: 1;
         -moz-transition: opacity 0.5s, background 0.5s;
         -o-transition: opacity 0.5s, background 0.5s;
         -webkit-transition: opacity 0.5s, background 0.5s;
         transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover .action_name {
+        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:hover .action_name {
           color: #fff; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .icon {
+      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:active .icon {
         background: #1f3dc1; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .action_name {
+      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:active .action_name {
         background: #18309c; }
       .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new .action_name {
         border-top-color: #5cc627; }
@@ -1036,6 +1072,10 @@ a:hover {
         float: right; }
         .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next .action_name {
           border-top-color: #c328c7; }
+      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close {
+        float: right; }
+        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close .action_name {
+          border-top-color: #c72848; }
   .sherlock_wrapper .sherlock_controls:after {
     overflow: hidden;
     *zoom: 1; }
@@ -1059,7 +1099,7 @@ a:hover {
     text-align: center;
     top: 0;
     left: 0;
-    background-color: #f1ffbc;
+    background-color: #ccc;
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal;
@@ -1071,6 +1111,10 @@ a:hover {
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none; }
+  .sherlock_wrapper .sherlock_mode_msg.training {
+    background-color: #f1ffbc; }
+  .sherlock_wrapper .sherlock_mode_msg.review {
+    background-color: #bcd1ff; }
   .sherlock_wrapper .transition_overlay {
     position: absolute;
     width: 100%;

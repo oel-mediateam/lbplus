@@ -213,7 +213,7 @@
         
         $percentage = $fraction * 100;
         
-        if ( $exercise_info['exrs_type_id'] != 3 ) {
+        if ( $exercise_info['exrs_type_id'] != 3 || !isset( $_SESSION['isReview'] ) ) {
         
             if ( !isLTIUser() ) {
                 
@@ -342,7 +342,23 @@
 
     <div class="main_controls score_view">
 
-        <div class="left">&nbsp;</div>
+        <div class="left">
+            
+            <?php
+                
+                if ( !isLTIUser() ) {
+                    
+                    //if ( $exercise_info['exrs_type_id' ] != 3 ) {
+                    
+                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">Review</span></a>';
+                    
+                    //}
+                    
+                }
+                    
+            ?>
+                
+        </div>
 
         <div class="center">
 
@@ -392,7 +408,11 @@
                     
                 } else {
                     
-                    echo '<a class="btn retake full" href="javascript:window.close();"><span class="action_name">&times;  CLOSE</span></a>';
+                    if ( $exercise_info['exrs_type_id' ] != 3 ) {
+                        
+                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">&times;  Review</span></a>';
+                        
+                    }
                     
                 }
                 
@@ -414,8 +434,12 @@
                 
                 if ( !isLTIUser() ) {
                 
-                    echo '<a class="btn previous full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>';
+                    echo '<a class="btn next full" href="?page=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>';
                 
+                } else {
+                    
+                    echo '<a class="btn close full" href="javascript:window.close();"><span class="action_name">&times; CLOSE</span></a>';
+                    
                 }
                 
             ?>
@@ -426,15 +450,32 @@
 
 </nav>
 <?php
-
+    
 // clear data and destory session
-unset( $_SESSION['exercise_data'],
-       $_SESSION['student_data'],
-       $_SESSION['started'],
-       $exercise_data,
-       $student_data,
-       $action_array,
-       $result_array
-     );
+/*
+if ( $exercise_info['exrs_type_id' ] != 3 ) {
+    
+    unset( $_SESSION['started'],
+           $exercise_data,
+           $student_data,
+           $_SESSION['isReview'],
+           $action_array,
+           $result_array
+         );
+    
+} else {
+*/
+    
+    unset( $_SESSION['exercise_data'],
+           //$_SESSION['student_data'],
+           $_SESSION['started'],
+           $_SESSION['isReview'],
+           $exercise_data,
+           $student_data,
+           $action_array,
+           $result_array
+         );
+    
+// }
 
 ?>
