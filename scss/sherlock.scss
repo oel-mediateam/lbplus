@@ -1301,7 +1301,8 @@ a:hover {
             }
             
             .hint_tag:hover {
-
+            
+                @include opacity( 1 );
                 @include box-shadow( 0 0 rem( 6px ) #000 );
 
             }
@@ -1318,7 +1319,6 @@ a:hover {
             	border-left: 4px solid transparent;
             	border-right: 4px solid transparent;
             	border-bottom: 8px solid #b01937;
-            	z-index: -1;
                 
             }
 
@@ -1728,6 +1728,7 @@ a:hover {
 
 .blink-faster {
 
+    z-index: 99;
     @include animation-properties( (animation-name: blink-faster) );
     @include animation-properties( (animation-duration: 1s) );
     @include animation-properties( (animation-timing-function: ease-in-out) );

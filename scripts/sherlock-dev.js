@@ -420,7 +420,8 @@ function onYouTubeIframeAPIReady() {
                 // clear update progress bar interval
                 clearInterval( updatePrgrsInterval );
 
-                $( '.progress_bar .progressed' ).css( "width", "100%" );
+                $( '.progress_bar .progressed' ).css( "width", $( ".progress_bar" ).width() + "px" );
+                $( '.progress_bar .scrubber' ).css( "left", $( ".progress_bar" ).width() + "px" );
                 $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
 
                 setTimeout( function() {
@@ -675,6 +676,22 @@ $.fn.tagHoverAction = function() {
         $( this ).css( 'z-index', $( this ).data( 'count' ) );
 
     } );
+    
+    if ( trainingMode ) {
+        
+        $( '.progress_bar_holder' ).on( 'mouseover', '.hint_tag', function() {
+
+            $( this ).css( 'z-index', 99 );
+    
+        } );
+    
+        $( '.progress_bar_holder' ).on( 'mouseout', '.hint_tag', function() {
+    
+            $( this ).css( 'z-index', 0 );
+    
+        } );
+        
+    }
 
 };
 
@@ -864,7 +881,7 @@ $.fn.extendedCooldown = function() {
 *
 * @author Mike Kellum
 * @since 0.0.1
-*
+* @update 1.0.0
 * @param object
 * @return void
 *
@@ -901,8 +918,8 @@ $.fn.updateProgress = function( video ) {
                 
                 if ( curTimeMs > begin && curTimeMs < end ) {
                     
-                    $( '.progress_bar_holder .hint_tag:eq('+o+')' ).css('opacity',1);
-                    $( '.progress_bar_holder .hint_tag:eq('+preCount+')' ).css('z-index',0).removeClass('blink-faster');
+                    $( '.progress_bar_holder .hint_tag:eq('+o+')' ).animate({'opacity':1});
+                    $( '.progress_bar_holder .hint_tag:eq('+preCount+')' ).removeClass('blink-faster');
                     
                     if ( preCount !== o ) {
                         
@@ -916,9 +933,8 @@ $.fn.updateProgress = function( video ) {
                         
                         if ( pauseOnce ) {
                             
-                            video.player.seekTo( mid, false);
                             video.player.pauseVideo();
-                            $( '.progress_bar_holder .hint_tag:eq('+o+')' ).css('z-index',1).addClass('blink-faster');
+                            $( '.progress_bar_holder .hint_tag:eq('+o+')' ).addClass('blink-faster');
                             pauseOnce = false;
                             
                         }
