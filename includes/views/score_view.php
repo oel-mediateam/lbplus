@@ -366,11 +366,15 @@
                 
                 if ( !isLTIUser() ) {
                     
-                    //if ( $exercise_info['exrs_type_id' ] != 3 ) {
+                    if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                     
                         echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">Review</span></a>';
                     
-                    //}
+                    } else {
+                        
+                        echo '&nbsp;';
+                        
+                    }
                     
                 }
                     
@@ -426,9 +430,13 @@
                     
                 } else {
                     
-                    if ( $exercise_info['exrs_type_id' ] != 3 ) {
+                    if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                         
-                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">&times;  Review</span></a>';
+                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">Review</span></a>';
+                        
+                    } else {
+                        
+                        echo '&nbsp;';
                         
                     }
                     
@@ -468,14 +476,34 @@
 
 </nav>
 <?php
-    
+
 // clear data and destory session
-unset( 
+if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
+    
+    unset( 
        $_SESSION['started'],
        $exercise_data,
        $student_data,
        $action_array,
        $result_array
+       
      );
+    
+} else {
+    
+    unset( $_SESSION['exercise_info'],
+           $_SESSION['exercise_data'],
+           $_SESSION['student_data'],
+           $_SESSION['started'],
+           $exercise_info,
+           $exercise_data,
+           $student_data,
+           $action_array,
+           $result_array
+       
+     );
+    
+}
+
 
 ?>

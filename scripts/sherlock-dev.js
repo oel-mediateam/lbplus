@@ -394,25 +394,33 @@ function onYouTubeIframeAPIReady() {
         
         $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
         
-        $( '#videoPlayBtn' ).html( 'START' ).removeClass( 'paused' );
-        $( '#videoPlayBtn' ).on( 'click', function() {
+        if ( reviewMode ) {
             
-            $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
+            $( '#videoPlayBtn' ).html( 'READY' ).css('cursor', 'default').removeClass( 'paused' );
+            
+        } else {
+            
+            $( '#videoPlayBtn' ).html( 'START' ).removeClass( 'paused' );
+            $( '#videoPlayBtn' ).on( 'click', function() {
                 
-                if ( data >= 1 ) {
+                $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
                     
-                    $( '#videoPlayBtn' ).hide();
-                    video.player.playVideo();
-                    
-                } else {
-                    
-                    $( '.sherlock_wrapper' ).showTransition( 'SORRY!', 'You already attempted this exercise.<br /><a href="?page=exercises">Back to Exercises</a>' );
-                    
-                }
-        
+                    if ( data >= 1 ) {
+                        
+                        $( '#videoPlayBtn' ).hide();
+                        video.player.playVideo();
+                        
+                    } else {
+                        
+                        $( '.sherlock_wrapper' ).showTransition( 'SORRY!', 'You already attempted this exercise.<br /><a href="?page=exercises">Back to Exercises</a>' );
+                        
+                    }
+            
+                } );
+    
             } );
-
-        } );
+            
+        }
 
     } );
 

@@ -35,7 +35,11 @@
 
         <div class="sherlock_actions">
 
-            <!-- something can go here if any -->
+            <p>Click your (green) tag on the timeline below to view more details.</p>
+            
+            <p>Click the green highlighted area on the timeline below to play section of that video.</p>
+            
+            <p>Notes: Any tags that are not inside the green area will not have the option to play section of video.</p>
 
         </div>
 

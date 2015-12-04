@@ -166,7 +166,14 @@
         // if request is a review mode
         if ( isset( $request['review'] ) ) {
             
-            // set the exercise information from session
+            if ( !isset( $_SESSION['exercise_info'] ) ) {
+                
+                header( 'HTTP/1.0 404 File Not Found', 404 );
+                include 'views/404.php';
+                exit();
+                
+            }
+            
             $exercise_info = unserialize( $_SESSION['exercise_info'] );
             
             // check to see if retake value match the exercise id
@@ -213,6 +220,14 @@
             if ( $request['page'] == 'score' ) {
                 
                 unset( $request['page'] );
+                
+                if ( !isset( $_SESSION['isReview'] ) ) {
+                
+                    header( 'HTTP/1.0 404 File Not Found', 404 );
+                    include 'views/404.php';
+                    exit();
+                    
+                }
                 
                 $view = 'includes/views/score_view.php';
                 
@@ -432,6 +447,22 @@
         }
         
         return null;
+        
+    }
+    
+    function allowReview( $id ) {
+        
+        switch( $id ) {
+            
+            case '3':
+            case '5':
+                return false;
+                break;
+            default:
+                return true;
+                break;
+            
+        }
         
     }
 
