@@ -368,7 +368,7 @@
                     
                     if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                     
-                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">Review</span></a>';
+                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
                     
                     } else {
                         
@@ -432,7 +432,7 @@
                     
                     if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                         
-                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name">Review</span></a>';
+                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
                         
                     } else {
                         
@@ -464,7 +464,7 @@
                 
                 } else {
                     
-                    echo '<a class="btn close full" href="javascript:window.close();"><span class="action_name">&times; CLOSE</span></a>';
+                    echo '<a class="btn close full" href="javascript:window.close();"><span class="action_name"><span class="icon-close"></span>  CLOSE</span></a>';
                     
                 }
                 

@@ -50,7 +50,7 @@
  <nav class="sherlock_controls">
      <div class="main_controls score_view">
 
-        <button id="lti_selection" class="btn new full" name="select"><span class="action_name">SELECT</span></button>
+        <button id="lti_selection" class="btn new full" name="select"><span class="action_name"><span class="icon-selection"></span> SELECT</span></button>
         
      </div>
  </nav>

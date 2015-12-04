@@ -34,12 +34,16 @@
         </div>
 
         <div class="sherlock_actions">
-
-            <p>Click your (green) tag on the timeline below to view more details.</p>
             
-            <p>Click the green highlighted area on the timeline below to play section of that video.</p>
+            <div class="reviewVideoControls">
+                <div class="btn videoControls play"><span class="action_name"><span class="icon-play"></span></span></div>
+                <div class="btn videoControls pause disabled"><span class="action_name"><span class="icon-paused"></span></span></div>
+                <div class="btn videoControls backTen disabled"><span class="action_name"><span class="icon-retake"></span> 10</span></div>
+            </div>
             
-            <p>Notes: Any tags that are not inside the green area will not have the option to play section of video.</p>
+            <div class="reviewContent">
+                <p>Select the red tag for more details.</p>
+            </div>
 
         </div>
 

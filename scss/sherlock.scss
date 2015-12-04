@@ -630,7 +630,7 @@ a:hover {
                         font-size: 200%;
                         font-weight: bold;
                         line-height: normal;
-                        background: #5cc627;
+                        background: #2e832e;
                         padding: rem( 21px ) rem( $gutter ) 0;
                         top: rem( 140px );
                         left: rem( 245px );
@@ -759,6 +759,59 @@ a:hover {
 
                     @include clearfix();
 
+                }
+                
+                .reviewVideoControls {
+                    
+                    float: left;
+                    clear: both;
+                    margin: 0 0 rem( $gutter );
+                    
+                    .btn.videoControls {
+                    
+                        width: rem( 64px );
+                        height: rem( 30px );
+                        margin: 0 rem( $gutter ) 0 0;
+                        float: left;
+                        
+                        .action_name {
+    
+                            width: 100%;
+                            height: rem( 30px );
+                            padding: rem( 6px ) 0 0;
+                            line-height: normal;
+                            text-align: center;
+                            @include box-sizing(border-box);
+    
+                        }
+                        
+                    }
+                    
+                    .btn.videoControls:last-child {
+                        
+                        margin-right: 0;
+                        
+                    }
+                    
+                }
+                
+                .btn.videoControls.playSegment {
+                    
+                    width: 100%;
+                    height: rem( 30px );
+                    margin: 0 rem( $gutter ) 0 0;
+                    
+                    .action_name {
+
+                        width: 100%;
+                        height: rem( 30px );
+                        padding: rem( 4px ) 0 0;
+                        line-height: normal;
+                        text-align: center;
+                        @include box-sizing(border-box);
+
+                    }
+                    
                 }
 
             }
@@ -1233,7 +1286,7 @@ a:hover {
         .progress_bar_holder {
 
             position: relative;
-            background: $darkerFontColor;
+            background: #000000;
             padding: rem( 25px ) rem( 25px ) 0;
             height: rem( 60px );
             float: left;
@@ -1251,7 +1304,7 @@ a:hover {
                 text-align: center;
                 line-height: rem( 14px );
                 color: #fff;
-                background-color: #3fb33f;
+                background-color: #2e832e;
                 padding: rem( 8px ) 0 0 rem( 1px );
                 cursor: default;
                 @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
@@ -1276,7 +1329,7 @@ a:hover {
             	left: rem( 7px );
             	border-left: 8px solid transparent;
             	border-right: 8px solid transparent;
-            	border-top: 16px solid #3fb33f;
+            	border-top: 16px solid #2e832e;
 
             }
             
@@ -1291,7 +1344,7 @@ a:hover {
                 text-align: center;
                 line-height: rem( 10px );
                 color: #fff;
-                background-color: #b01937;
+                background-color: #e02349;
                 padding: rem( 5px ) 0 0;
                 cursor: default;
                 @include opacity(.5);
@@ -1318,7 +1371,7 @@ a:hover {
             	left: rem( 6px );
             	border-left: 4px solid transparent;
             	border-right: 4px solid transparent;
-            	border-bottom: 8px solid #b01937;
+            	border-bottom: 8px solid #e02349;
                 
             }
 
@@ -1327,7 +1380,7 @@ a:hover {
                 position: relative;
                 width: rem( 640px );
                 height: rem( 10px );
-                background: #888888;
+                background: #686868;
                 
                 .tag_hints_holder {
             
@@ -1343,8 +1396,8 @@ a:hover {
                         height: rem( 10px );
                         top: 0;
                         left: 9px;
-                        background-color: lime;
-                        @include opacity( .50 );
+                        background-color: #1e561e;
+                        @include opacity( .75 );
                         
                     }
                     
@@ -1365,7 +1418,7 @@ a:hover {
                     display: block;
                     width: 0;
                     height: rem( 10px );
-                    background: #686868;
+                    background: #ffffff;
                     @include box-sizing( border-box );
 
                 }

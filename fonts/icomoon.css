@@ -23,6 +23,9 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-rewind:before {
+	content: "\e900";
+}
 .icon-retake:before {
 	content: "\eaa8";
 }
@@ -37,9 +40,6 @@
 }
 .icon-previous:before {
 	content: "\edc3";
-}
-.icon-rewind:before {
-	content: "\eaa6";
 }
 .icon-spinner:before {
 	content: "\eb20";
@@ -59,9 +59,6 @@
 .icon-user-cancel:before {
 	content: "\eaf8";
 }
-.icon-trash:before {
-	content: "\ebfa";
-}
 .icon-start:before {
 	content: "\ec48";
 }
@@ -74,21 +71,12 @@
 .icon-signout:before {
 	content: "\ed78";
 }
-.icon-dashboard:before {
-	content: "\ee80";
+.icon-review:before {
+	content: "\ec22";
 }
-.icon-home:before {
-	content: "\e901";
+.icon-close:before {
+	content: "\ed6a";
 }
-.icon-edit:before {
-	content: "\e90e";
-}
-.icon-users:before {
-	content: "\eb09";
-}
-.icon-download:before {
-	content: "\ec8a";
-}
-.icon-upload:before {
-	content: "\ec8b";
+.icon-play:before {
+	content: "\ed82";
 }
