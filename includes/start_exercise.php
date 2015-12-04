@@ -25,6 +25,18 @@
         
         $exercise_info = unserialize( $_SESSION['exercise_info'] );
         
+        if ( isset( $_SESSION['isReview'] ) ) {
+            
+            unset( $_SESSION['isReview'] );
+            
+        }
+        
+        if ( isset( $_SESSION['student_data'] ) ) {
+            
+            unset( $_SESSION['student_data'] );
+            
+        }
+        
         if ( !isLTIUser() ) {
             
             $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );

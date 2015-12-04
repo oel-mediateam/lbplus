@@ -59,7 +59,7 @@
 
     <div class="main_controls">
 
-        <div class="btn backToScore"><a class="action_name" href="?page=score">Back to Score</a></div>
+        <div class="btn backToScore"><a class="action_name" href="?page=score">Back to Score <span class="icon-next"></span></a></div>
 
     </div>
 
