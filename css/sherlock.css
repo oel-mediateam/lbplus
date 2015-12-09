@@ -344,6 +344,26 @@ a:hover {
             cursor: default; }
             .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small {
               font-size: 60%; }
+          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox {
+            position: absolute;
+            width: 100%;
+            height: 22.5rem;
+            line-height: 22.5rem;
+            z-index: 11;
+            background: rgba(255, 255, 255, 0.9); }
+            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .reasoning, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .reasoning {
+              display: inline-block;
+              padding: 0 0.875rem;
+              vertical-align: middle;
+              line-height: 1.25rem; }
+            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .action, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .action {
+              display: block;
+              position: absolute;
+              width: 100%;
+              bottom: 0.875rem;
+              left: 0;
+              text-align: center;
+              line-height: normal; }
         .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe {
           width: 100%;
           height: 100%; }
@@ -487,6 +507,14 @@ a:hover {
               box-sizing: border-box; }
           .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls:last-child, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls:last-child {
             margin-right: 0; }
+        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewContent p, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewContent p {
+          margin: 0.875rem 0;
+          font-size: 0.875rem;
+          line-height: 1.125rem;
+          -moz-user-select: text;
+          -ms-user-select: text;
+          -webkit-user-select: text;
+          user-select: text; }
         .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment {
           width: 100%;
           height: 1.875rem;

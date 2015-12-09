@@ -98,7 +98,7 @@
     <div class="sherlock_interaction_wrapper">
 
         <div class="sherlock_media">
-            <div class="overlay"><div id="videoPlayBtn">START</div></div>
+            <div class="overlay"><div id="videoPlayBtn">START</div><div class="reasoningBox hide"><span class="reasoning"></span><span class="action"></span></div></div>
             <div id="ytv" data-video-id="<?php echo $exercise_info['video_src']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
         </div>
 

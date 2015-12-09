@@ -364,6 +364,8 @@ function onYouTubeIframeAPIReady() {
                     
                     for ( var p = 0; p < numPos; p++ ) {
                         
+                        var reason = data[a].positions[p].reason;
+                        
                         var begin = $.fn.toSecond( data[a].positions[p].begin );
                         var end = $.fn.toSecond( data[a].positions[p].end );
                         var mid = ( ( end - begin ) / 2) + begin;
@@ -373,9 +375,10 @@ function onYouTubeIframeAPIReady() {
                         var width = right - left;
                         var midWidth = ( left + 15 + ( width / 2 ) );
                         
-                        var span = '<span class="hint_tag" style="left:'+ midWidth +'px; '+ ( reviewMode ? 'opacity:1;' : '' ) +'" data-begin="'+begin+'" data-end="'+end+'" data-name="'+data[a].name+'"><span>'+$.fn.initialism(data[a].name)+'</span></span>';
+                        var span = '<span class="hint_tag" style="left:' + midWidth + 'px; ' + ( reviewMode ? 'opacity:1;' : '' ) + '" data-begin="' + begin + '" data-end="' + end + '" data-name="' + data[a].name + '" data-reason="' + reason + '"><span>' + $.fn.initialism( data[a].name ) + '</span></span>';
                         
                         $( '.tag_hints_holder' ).append( '<div class="hint" style="left:'+left+'px; width:'+width+'px;" data-begin="'+begin+'" data-end="'+end+'" data-mid="'+mid+'" data-id="'+data[a].id+'" data-name="'+data[a].name+'"></div>' );
+                        
                         $( '.progress_bar_holder' ).append( span );
                         
                     }
@@ -988,7 +991,8 @@ $.fn.showHintTagInfo = function() {
         var name = $(this).data('name');
         var begin = $(this).data('begin');
         var end = $(this).data('end');
-        var info = '<p><strong>'+name+'</strong><br />Begin: '+ moment( begin * 1000 ).format( 'mm:ss' ) +'<br />End: '+moment( end * 1000 ).format( 'mm:ss' )+'</p><div class="btn videoControls playSegment"><span class="action_name">Play Segment</span></div>';
+        var reason = $(this).data('reason');
+        var info = '<p><strong>'+name+'</strong><br />'+ moment( begin * 1000 ).format( 'mm:ss' ) +' &mdash; '+moment( end * 1000 ).format( 'mm:ss' )+'</p><p>'+reason+'</p><div class="btn videoControls playSegment"><span class="action_name">Play Segment</span></div>';
         
         $( '.sherlock_actions .reviewContent' ).html(info);
         
@@ -1006,8 +1010,6 @@ $.fn.showHintTagInfo = function() {
     } );
     
 };
-
-/****** UTILITY FUNCTIONS *******/
 
 /**
 * Set the progress bar width and the elapsed time
@@ -1051,10 +1053,13 @@ $.fn.updateProgress = function( video ) {
                 var end = Number( objTouched[o].attributes[3].nodeValue );
                 var mid = Number( objTouched[o].attributes[4].nodeValue );
                 
+                var tag = $( '.progress_bar_holder .hint_tag:eq('+o+')' );
+                
                 if ( curTimeMs > begin && curTimeMs < end ) {
                     
-                    $( '.progress_bar_holder .hint_tag:eq('+o+')' ).animate({'opacity':1});
+                    tag.animate({'opacity':1});
                     $( '.progress_bar_holder .hint_tag:eq('+preCount+')' ).removeClass('blink-faster');
+                    $( '.reasoningBox' ).hideReasoning();
                     
                     if ( preCount !== o ) {
                         
@@ -1069,7 +1074,8 @@ $.fn.updateProgress = function( video ) {
                         if ( pauseOnce ) {
                             
                             video.player.pauseVideo();
-                            $( '.progress_bar_holder .hint_tag:eq('+o+')' ).addClass('blink-faster');
+                            $( '.reasoningBox' ).showReasoning( tag.data( 'reason' ), 'Click "<strong>' + tag.data( 'name' ) + '</strong>" button to continue.' );
+                            tag.addClass('blink-faster');
                             pauseOnce = false;
                             
                         }
@@ -1104,6 +1110,25 @@ $.fn.updateProgress = function( video ) {
   
 };
 
+$.fn.showReasoning = function( reason, action ) {
+    
+    action = typeof action !== 'undefined' ? action : '';
+    
+    $( this ).find( '.reasoning' ).html( reason );
+    $( this ).find( '.action' ).html( action );
+    $( this ).fadeIn();
+    
+};
+
+$.fn.hideReasoning = function() {
+    
+    $( this ).find( '.reasoning' ).html( '' );
+    $( this ).find( '.action' ).html( '' );
+    $( this ).fadeOut();
+    
+};
+
+/****** UTILITY FUNCTIONS *******/
 
 /**
 * Get the exercise type context by exercise ID

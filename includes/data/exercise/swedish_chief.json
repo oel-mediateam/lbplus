@@ -1,7 +1,7 @@
 {
     "exercise": {
 
-        "name": "",
+        "name": "Swedish Chef",
         "actionHeading": "",
         "videoStart": "",
         "videoEnd": "",
@@ -31,35 +31,40 @@
                     {
 
                         "begin": "00:09",
-                        "end": "00:12"
+                        "end": "00:12",
+                        "reason": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
                     },
 
                     {
 
                         "begin": "00:24",
-                        "end": "00:27"
+                        "end": "00:27",
+                        "reason": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
                     },
 
 					{
 
                         "begin": "00:30",
-                        "end": "00:33"
+                        "end": "00:33",
+                        "reason": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
 
                     },
                     
                     {
 
                         "begin": "00:39",
-                        "end": "00:42"
+                        "end": "00:42",
+                        "reason": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
                     },
                     
                     {
 
                         "begin": "00:42",
-                        "end": "00:45"
+                        "end": "00:45",
+                        "reason": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
                     }
 
@@ -79,13 +84,19 @@
                 "positions": [
 
                     {
+                        
                         "begin": "00:14",
-                        "end": "00:17"
+                        "end": "00:17",
+                        "reason": "Vitae vitae dickel french connection accumsan glendullan el presidente pellentesque ornare, kremlin colonel euismod himenaeos."
+                        
                     },
 					
 					{
+    					
                         "begin": "00:18",
-                        "end": "00:20"
+                        "end": "00:20",
+                        "reason": "Gimlet colorado bulldog, caridan, isle of jura? Enim, etiam posuere farnell dui; speyside aliquam blandit old etonian, ad. Consectetur nam fleischmann's one-balled dictator potenti madras quis hiram walker in?"
+                        
                     }
 
                 ],
@@ -105,7 +116,8 @@
 
                     {
                         "begin": "00:33",
-                        "end": "00:37"
+                        "end": "00:37",
+                        "reason": "Moonwalk malesuada police gazette ad seagrams morbi fames staten island ferry mint julep ac? Morbi varius, saketini augue glenkinchie porta auctor aliquam--hurricane etiam blair athol bibendum cursus spanish coffee glenfiddich adipiscing. Eros gordon's fames donec, sem iaculis id phasellus royal arrival?"
                     }
 
                 ],

@@ -491,8 +491,7 @@ if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
     
 } else {
     
-    unset( $_SESSION['exercise_info'],
-           $_SESSION['exercise_data'],
+    unset( $_SESSION['exercise_data'],
            $_SESSION['student_data'],
            $_SESSION['started'],
            $exercise_info,
