@@ -14,21 +14,9 @@
         
     }
     
-    if ( isset( $_SESSION['isReview'] ) ) {
+    require_once '../config.php';
+    require_once '../functions.php';
         
-        if ( $_SESSION['isReview'] ) {
-            
-            require_once 'includes/config.php';
-            require_once 'includes/functions.php';
-            
-        }
-        
-    } else {
-    
-        require_once '../config.php';
-        require_once '../functions.php';
-        
-    }
     
     // get the exercise information
     $exercise_info = unserialize( $_SESSION['exercise_info'] );
@@ -368,7 +356,7 @@
                     
                     if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                     
-                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
+                        echo '<a id="goToReview" class="btn previous full" href="#"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
                     
                     } else {
                         
@@ -432,7 +420,7 @@
                     
                     if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                         
-                        echo '<a class="btn previous full" href="?review='.$exercise_info['exercise_id'].'"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
+                        echo '<a id="goToReview" class="btn previous full" href="#"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
                         
                     } else {
                         

@@ -83,6 +83,8 @@
         $actions = $exercise->getActions();
         $rewindAction = $exercise->getRewindAction();
         
+        $_SESSION['videoSegment'] = serialize( array( $exercise->name, $exercise->videoStart, $exercise->videoEnd ) );
+        
     }
 
 ?>

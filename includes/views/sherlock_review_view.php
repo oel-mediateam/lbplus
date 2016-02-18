@@ -1,5 +1,11 @@
 <?php
+    
+    if ( !isset( $_SESSION ) ) {
 
+        session_start();
+        
+    }
+    
     if ( !isset( $_SESSION['exercise_info'] ) && !isset( $_SESSION['student_data'] ) ) {
         
         header( 'HTTP/1.0 404 File Not Found', 404 );
@@ -8,15 +14,12 @@
 
     }
     
-    require_once 'includes/exercise.php';
-    require_once 'includes/functions.php';
+    require_once '../functions.php';
     
     $_SESSION['isReview'] = true;
     
     $exercise_info = unserialize( $_SESSION['exercise_info'] );
-    $exercise = new Exercise( $exercise_info['markup_src'] );
-    $actions = $exercise->getActions();
-    $rewindAction = $exercise->getRewindAction();
+    $videoBeginEnd = unserialize( $_SESSION['videoSegment'] );
 
 ?>
 
@@ -24,13 +27,13 @@
     
     <div class="sherlock_mode_msg review hide"></div>
     
-    <h1><?php echo $exercise->name; ?></h1>
+    <h1><?php echo $videoBeginEnd[0] ?></h1>
 
     <div class="sherlock_interaction_wrapper">
 
         <div class="sherlock_media">
             <div class="overlay"><div id="videoPlayBtn"></div></div>
-            <div id="ytv" data-video-id="<?php echo $exercise_info['video_src']; ?>" data-start="<?php echo $exercise->videoStart; ?>" data-end="<?php echo $exercise->videoEnd; ?>"></div>
+            <div id="ytv" data-video-id="<?php echo $exercise_info['video_src']; ?>" data-start="<?php echo $videoBeginEnd[1] ?>" data-end="<?php echo $videoBeginEnd[2]; ?>"></div>
         </div>
 
         <div class="sherlock_actions">
@@ -67,7 +70,7 @@
 
     <div class="main_controls">
 
-        <div class="btn backToScore"><a class="action_name" href="?page=score">Back to Score <span class="icon-next"></span></a></div>
+        <div class="btn backToScore"><a id="goToScore" class="action_name" href="#">Back to Score <span class="icon-next"></span></a></div>
 
     </div>
 

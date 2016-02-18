@@ -101,19 +101,6 @@ $( function () {
     
     $( '#videoPlayBtn' ).html( '<span class="icon-spinner"></span><br /><small>WAIT</small>' ).addClass( 'paused' );
     
-    // if it is a training mode
-    if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
-        
-        $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
-        trainingMode = true;
-        
-    } else if ( $( '.sherlock_view' ).data( 'mode' ) === 'review' ) {
-        
-        $( '.sherlock_mode_msg' ).html( 'Review Mode' ).removeClass( 'hide' );
-        reviewMode = true;
-        
-    }
-    
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
     
@@ -301,6 +288,20 @@ $( function () {
           return false;
           
     } );
+    
+    $( 'body' ).on( 'click', '#goToReview', function() {
+        
+        $.fn.goToReview();
+        return false;
+        
+    } );
+    
+    $( 'body' ).on( 'click', '#goToScore', function() {
+        
+        $.fn.goToScore();
+        return false;
+        
+    } );
 
 } );
 
@@ -350,7 +351,19 @@ function onYouTubeIframeAPIReady() {
 
         }
         
-        // if it is a training and review mode
+        // if it is a training mode
+        if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
+            
+            $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
+            trainingMode = true;
+            
+        } else if ( $( '.sherlock_view' ).data( 'mode' ) === 'review' ) {
+            
+            reviewMode = true;
+            
+        }
+        
+        // if it is a training or review mode
         if ( trainingMode || reviewMode ) {
             
             $.post( 'includes/get_exercise_from_session.php', { id: 1 }, function( data ) {
@@ -984,6 +997,16 @@ $.fn.extendedCooldown = function() {
 
  };
 
+/**
+ * display the hint tag info
+ *
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
 $.fn.showHintTagInfo = function() {
     
     $( this ).on( 'click', function() {
@@ -1007,6 +1030,50 @@ $.fn.showHintTagInfo = function() {
             
         } );
         
+    } );
+    
+};
+
+/**
+ * Display review page
+ *
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
+ 
+$.fn.goToReview = function() {
+    
+    $.post( 'includes/views/sherlock_review_view.php', function( res ) {
+        
+        $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 'fast' );
+        $( '.sherlock_mode_msg' ).html( 'Review Mode' ).removeClass( 'hide' );
+        onYouTubeIframeAPIReady();
+
+    } );
+    
+};
+
+/**
+ * Display score page
+ *
+ * @author Ethan Lin
+ * @since 0.0.1
+ *
+ * @param none
+ * @return void
+ *
+ */
+ 
+$.fn.goToScore = function() {
+    
+    $.post('includes/views/score_view.php', function( res ) {
+                
+        $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 'fast' );
+
     } );
     
 };
