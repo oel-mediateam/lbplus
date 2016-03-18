@@ -497,6 +497,9 @@ form {
         background-color: darken($select-background, 5);
         z-index: 999;
         
+        height: rem( 270px );
+        overflow-y: scroll;
+        
         li {
             
             margin: 0;
@@ -1125,6 +1128,7 @@ a:hover {
             .profile_img {
                 
                 width: rem( 150px );
+                height: rem( 150px );
                 margin: rem( $gutter ) auto;
                 overflow: hidden;
                 border: rem( 3px ) solid #0f75b9;

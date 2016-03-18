@@ -236,7 +236,9 @@ form .select-options {
   padding: 0;
   list-style: none;
   background-color: #e5e5e5;
-  z-index: 999; }
+  z-index: 999;
+  height: 16.875rem;
+  overflow-y: scroll; }
   form .select-options li {
     margin: 0;
     padding: 0.75rem 0;
@@ -655,6 +657,7 @@ a:hover {
         border-color: #0f75b9; }
       .sherlock_wrapper .sherlock_view .signin_view .profile_img, .sherlock_wrapper .lti_sherlock_view .signin_view .profile_img {
         width: 9.375rem;
+        height: 9.375rem;
         margin: 1rem auto;
         overflow: hidden;
         border: 0.1875rem solid #0f75b9;
