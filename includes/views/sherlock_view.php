@@ -16,6 +16,7 @@
         require_once 'includes/config.php';
         require_once 'includes/admin/lti/LTI_Sherlock.php';
         
+/*
         if ( $sourcedid = getLTIData('lis_result_sourcedid') ) {
             
             $lti = unserialize( LTI );
@@ -31,6 +32,7 @@
             $resource_link->setSetting( 'context_id', getLTIData('context_id') );
             $resource_link->setSetting( 'ext_ims_lis_basic_outcome_url', getLTIData('ext_ims_lis_basic_outcome_url') );
             
+
             $outcome = new LTI_Sherlock_Outcome( $sourcedid );
             
             if ( $resource_link->doOutcomesService( LTI_Resource_Link::EXT_READ, $outcome ) ) {
@@ -44,8 +46,10 @@
                 }
                 
             }
+
             
         }
+*/
         
         saveLTIData( $_REQUEST );
         
