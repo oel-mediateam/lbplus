@@ -1,0 +1,215 @@
+{
+    "exercise": {
+
+        "name": "",
+        "actionHeading": "",
+        "videoStart": "00:00",
+        "videoEnd": "03:08",
+        "showVideoTimecode": null,
+        "rewind": {
+            "id": "",
+            "name": "",
+            "icon": "",
+            "length": 5,
+            "cooldown": 4,
+            "limits": 3,
+            "graded": false,
+            "points": "",
+            "enabled": null
+        },
+        "scoreViewHeading": "",
+        "displayLimits": null,
+        "actions": [
+
+            {
+
+                "id":1,
+                "name": "Agreement",
+                "icon": "",
+                "positions": [
+
+                    {
+
+                        "begin": "01:03",
+                        "end": "01:06"
+
+                    },
+
+                    {
+
+                        "begin": "01:39",
+                        "end": "01:43"
+
+                    },
+
+					{
+
+                        "begin": "01:52",
+                        "end": "01:57"
+
+                    }
+
+                ],
+                "points": 10,
+                "miss": 5,
+                "cooldown": 3,
+                "limits": 5
+
+            },
+
+            {
+
+                "id": 2,
+                "name": "Disagreement",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:12",
+                        "end": "00:18"
+                    },
+					
+					{
+                        "begin": "00:50",
+                        "end": "00:56"
+                    },
+                    
+                    {
+                        "begin": "01:58",
+                        "end": "02:03"
+                    },
+                    
+                    {
+                        "begin": "02:23",
+                        "end": "02:26"
+                    }
+
+                ],
+                "points": 10,
+                "miss": 5,
+                "cooldown": 3,
+                "limits": 6
+
+            },
+
+            {
+
+                "id": 3,
+                "name": "Nonverbal Acknowledgment",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:26",
+                        "end": "00:29"
+                    },
+					
+					{
+                        "begin": "00:32",
+                        "end": "00:35"
+                    },
+					
+					{
+                        "begin": "00:35",
+                        "end": "00:38"
+                    },
+                    
+                    {
+                        "begin": "00:38",
+                        "end": "00:41"
+                    }
+
+                ],
+                "points": 4,
+                "miss": 2,
+                "cooldown": 2,
+                "limits": 6
+
+            },
+
+            {
+
+                "id": 4,
+                "name": "Evidence",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:08",
+                        "end": "00:12"
+                    },
+
+                    {
+                        "begin": "00:57",
+                        "end": "01:03"
+                    },
+                    
+                    {
+                        "begin": "01:07",
+                        "end": "01:18"
+                    },
+                    
+                    {
+                    	"begin": "02:43",
+                        "end": "02:52"
+                    
+                    }
+
+                ],
+                "points": 4,
+                "miss": 2,
+                "cooldown": 3,
+                "limits": 6
+
+            },
+
+            {
+
+                "id": 5,
+                "name": "Interrupting",
+                "icon": "",
+                "positions": [
+
+                    {
+                        "begin": "00:55",
+                        "end": "00:58"
+                    },
+					
+					{
+                        "begin": "01:04",
+                        "end": "01:07"
+                    },
+					
+					{
+                        "begin": "02:10",
+                        "end": "02:13"
+                    },
+					
+					{
+                        "begin": "02:21",
+                        "end": "02:25"
+                    },
+					
+					{
+                        "begin": "02:27",
+                        "end": "02:30"
+                    },
+					
+                    {
+                        "begin": "2:57",
+                        "end": "3:00"
+                    }
+
+                ],
+                "points": 8,
+                "miss": 4,
+                "cooldown": 2,
+                "limits": 8
+
+            }
+
+        ]
+
+    }
+
+}

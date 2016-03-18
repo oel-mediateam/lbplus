@@ -19,5 +19,3 @@ bower_components/
 #ignore student json file
 **/includes/data/student/
 
-#ignore exercise json file
-**/includes/data/exercise/
