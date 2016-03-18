@@ -412,7 +412,7 @@
     	    
     	    try {
         	    
-        	    $sql = 'SELECT exercise_id, name FROM exercise WHERE status_id = 1';
+        	    $sql = 'SELECT exercise_id, name FROM exercise WHERE status_id = 1 ORDER BY exercise_id DESC';
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
