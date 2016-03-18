@@ -32,7 +32,7 @@
 
                         "begin": "00:09",
                         "end": "00:12",
-                        "reason": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        "reason": "Lorem &ldquo;ipsum&rdquo; dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
                     },
 

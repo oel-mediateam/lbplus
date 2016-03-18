@@ -13,6 +13,7 @@
 /* global YT */
 /* global onYouTubeIframeAPIReady */
 /* global moment */
+/* global ActiveXObject */
 
 // video object
 var video = {
@@ -51,6 +52,14 @@ var preCount = null;
 $( function () {
     
     'use strict';
+    
+    if ( $.fn.flashExist() && $.fn.isIE() ) {
+        
+        $( ".sherlock_container" ).html("<h1>Sorry, your web browser is not supported.</h1><p>Please try using latest stable version of <a href=\"https://www.mozilla.org\" target=\"_blank\">Mozilla Firefox</a>, <a href=\"https://www.google.com/chrome/browser/desktop/\" target=\"_blank\">Google Chrome</a>, or <a href=\"http://www.apple.com/safari/\" target=\"_blank\">Safari</a>.</p>");
+        
+        return 0;
+        
+    }
     
     if ( $( '#google_revoke_connection' ).length ) {
         
@@ -1287,4 +1296,50 @@ $.fn.hitTestObject = function( selector ) {
     
 	return false;
 	
+};
+
+$.fn.flashExist = function() {
+    
+    var a;
+    
+    try {
+        
+        a = new ActiveXObject('Shockwave'+'Flash'+'.'+'Shockwave'+'Flash');
+        
+    } catch(e) {
+        
+        a = navigator.plugins['Shockwave'+' '+'Flash'];
+        
+    }
+    
+    return!!a;
+    
+};
+
+$.fn.isIE = function() {
+    
+    var ua = window.navigator.userAgent;
+
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+    // IE 10 or older => return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+    
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+    // IE 11 => return version number
+    var rv = ua.indexOf('rv:');
+    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+    
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+    // Edge (IE 12+) => return version number
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+    
+    // other browser
+    return false;
+    
 };
