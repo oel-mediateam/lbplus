@@ -1,17 +1,18 @@
 <?php
     
-    // if started session data is not true
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
         exit();
 
     }
     
-    // return the first letter of the 
-    // first and second words in the string
+    /**
+     * Get the first letter of the first and second words in a string.
+     * @param string $str The string to manipulate
+     * @return string Returns the first letters of the first two words.
+     */
     function initialism( $str ) {
 
         $result =  preg_replace('~\b(\w)|.~', '$1', $str);
@@ -26,15 +27,19 @@
 
     }
     
-    // return the value if set in JSON
-    // otherwise return a specified default value
+    /**
+     * Evalute the value and set default value if empty
+     * @param mix $val The value to check
+     * @param mix $default The value to set as default
+     * @return mix Returns the value.
+     */
     function getValue( $val, $default ) {
 
         $result = trim( $val );
 
         if ( is_bool( $val ) ) {
 
-            if ( !isset($val) ) {
+            if ( !isset( $val ) ) {
 
                 $result = $default;
 
@@ -58,17 +63,24 @@
 
     }
     
-    // return time string in seconds
-    function toSeconds( $ms ) {
+    /**
+     * Convert time string to seconds.
+     * @param string $timestring The value to check
+     * @return int Returns the time string in seconds.
+     */
+    function toSeconds( $timestring ) {
 
-        $ms = explode(":", $ms);
+        $timestring = explode(":", $timestring);
 
-        return $result = ( $ms[0] * 60 ) + $ms[1];
+        return $result = ( $timestring[0] * 60 ) + $timestring[1];
 
     }
     
-    // return the a score message based
-    // on the percentage of the score
+    /**
+     * Get the score message based on the score.
+     * @param double $score The score to evaluate
+     * @return string Returns the appropriate message.
+     */
     function scoreMessage( $score ) {
 
         $msg = "";
@@ -97,20 +109,25 @@
 
     }
     
-    // get views
+    /**
+     * Get page view based teh header request.
+     * @param mix $request The request from the header
+     * @return string Returns the path to the appropriate view.
+     */
     function getView( $request ) {
         
-        // if request is exercise
-        if ( isset( $request['start'] ) ) {
+        // if request is from an exercise selection
+        if ( isset( $request['go'] ) ) {
         
             $view = 'includes/views/' . $request['view'] . '.php';
             
-            // check exercise id
+            // check if exercise exists
             if ( isset( $request['exercise'] ) && $request['exercise'] != 'hide' ) {
                 
                 unset( $request['start'], $request['view'], $request['exercise'] );
                 return $view;
-                
+            
+            // redirect back to exercise selection view with error
             } else {
                 
                 $_SESSION['error'] = "Please select an exercise.";
@@ -121,17 +138,21 @@
             
         }
         
-        // if request is retake
+        // if request is a retake
         if ( isset( $request['retake'] ) ) {
             
+            // set the exercise information from session
             $exercise_info = unserialize( $_SESSION['exercise_info'] );
             
+            // check to see if retake value match the exercise id
             if ( $request['retake'] == $exercise_info['exercise_id'] ) {
                 
-                $view = 'includes/views/lbplus_view.php';
+                $view = 'includes/views/sherlock_view.php';
+    
                 unset( $request['retake'] );
                 return $view;
-                
+            
+            // redirect back to the exercise selection view with error
             } else {
                 
                 $_SESSION['error'] = "Retake error. Please manually select the exercise below.";
@@ -142,19 +163,21 @@
             
         }
         
-        // if request is page
+        // if request is a page
         if ( isset( $request['page'] ) ) {
             
+            // if Google access token is not set; redirect to signin
+            if ( !isset( $_SESSION['access_token'] ) ) {
+                    
+                header( 'Location: ./' );
+                
+            }
+            
+            // exercises selection page
             if ( $request['page'] == 'exercises' ) {
                 
-                if ( !isset( $_SESSION['access_token'] ) ) {
-                    
-                    header( 'Location: ./' );
-                    
-                }
-                
-                // exercise selection page
                 unset( $request['page'] );
+                
                 $view = 'includes/views/selection.php';
                 
                 return $view;
@@ -163,28 +186,232 @@
             
         }
         
-        // default view
+        // if request contains LTI POST parameters
+        if ( isset( $request['oauth_consumer_key'] ) ) {
+            
+            $view = 'includes/views/lti_selection.php';
+            
+            // and is for an exercise
+            if ( isset( $request['exercise'] ) ) {
+                
+                $view = 'includes/views/sherlock_view.php';
+                
+            }
+            
+            return $view;
+            
+        }
+        
+        // default view if none of the above
         $view = 'includes/views/signin.php';
         
         return $view;
         
     }
     
-    function isPermitted( $id, $role ) {
+    /**
+     * Check to see if the user is admin.
+     * @param int $id The user ID
+     * @return boolean Returns true or false.
+     */
+    function isAdmin( $id = null ) {
         
-        if ( isset( $id ) ) {
+        if ( !isset( $id ) ) {
             
-            $userRole = DB::getRole( $id );
+            $id = $_SESSION['signed_in_user_id'];
             
-            if ( $userRole >= $role ) {
+        }
+            
+        $userRole = DB::getRole( $id );
+        
+        if ( $userRole >= 3 ) {
+            
+            return TRUE;
+            
+        }
+            
+        return FALSE;
+        
+    }
+    
+    
+    /**
+     * LTI RELATED FUNCTIONS
+     * @ignore
+     */
+     
+     
+     /**
+     * Save the LTI POST parameter to session.
+     * @param mix $data The header POST data
+     * @return void
+     */
+    function saveLTIData( $data ) {
+        
+        if ( $data !== null ) {
+            
+            $_SESSION['lti'] = serialize( $data );
+            
+        }
+        
+    }
+    
+    /**
+     * Get the LTI data from session.
+     * @param mix $query The name of the requested property
+     * @return mix|null Returns the requested value or null if not found.
+     */
+    function getLTIData( $query ) {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            if ( isset( $lti[$query] ) ) {
                 
-                return true;
+                return $lti[$query];
+                
+            } else {
+                
+                return null;
                 
             }
             
         }
         
+        return null;
+        
+    }
+    
+    /**
+     * Remove LTI data from session.
+     * @return void
+     */
+    function unsetLTIData() {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            unset( $_SESSION['lti'] );
+            
+        }
+        
+    }
+    
+    /**
+     * Check to see if user is an LTI user.
+     * @return boolean Returns true or false.
+     */
+    function isLTIUser() {
+        
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            if ( isset( $lti['user_id'] ) ) {
+                
+                return true;
+                
+            }
+        
+        }
+        
         return false;
+        
+    }
+    
+    /**
+     * Get the consumer family code from the LTI parameters.
+     * @return string|null Returns code or null if not found.
+     */
+    function getLTILMS() {
+            
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            if ( isset( $lti['tool_consumer_info_product_family_code'] ) ) {
+                
+                return $lti['tool_consumer_info_product_family_code'];
+                
+            }
+            
+        }
+        
+        return null;
+        
+    }
+    
+    /**
+     * Get the course ID from the LTI parameters.
+     * @return int|null Returns course ID or null if not found.
+     */
+    function getLTICourseID() {
+            
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            switch( getLTILMS() ) {
+            
+                case 'canvas':
+                
+                    return $lti['custom_canvas_course_id'];
+                    break;
+                
+                default:
+                
+                    return null;
+                
+            }
+            
+        }
+        
+        return null;
+        
+    }
+    
+    /**
+     * Get the assignment ID from the LTI parameters.
+     * @return int|null Returns assignment ID or null if not found.
+     */
+    function getLTIAssignmentID() {
+            
+        if ( isset( $_SESSION['lti'] ) ) {
+            
+            $lti = unserialize( $_SESSION['lti'] );
+            
+            switch( getLTILMS() ) {
+            
+                case 'canvas':
+                
+                    return $lti['custom_canvas_assignment_id'];
+                    break;
+                
+                default:
+                
+                    return null;
+                
+            }
+            
+        }
+        
+        return null;
+        
+    }
+    
+    function allowReview( $id ) {
+        
+        switch( $id ) {
+            
+            case '3':
+            case '5':
+                return false;
+                break;
+            default:
+                return true;
+                break;
+            
+        }
         
     }
 

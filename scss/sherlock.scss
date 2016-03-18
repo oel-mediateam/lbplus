@@ -334,15 +334,82 @@ code {
 
 form {
     
-    * {
+    $select-color: #2f2f2f;
+    $select-background: #f2f2f2;
+    $select-height: rem( 37px );
+    
+    label {
         
-        outline: none;
+        display: block;
+        margin: rem( $gutter / 2 ) 0 0;
         
     }
     
-    $select-color: #2f2f2f;
-    $select-background: #f2f2f2;
-    $select-height: 40px; 
+    input {
+        
+        font-size: 16px;
+        border: rem( 1px ) solid #cdcdcd;
+        padding: rem( 8px );
+        @include box-sizing( border-box );
+        
+    }
+    
+    input[type="text"], input[type="number"], input[type="file"] {
+        
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        margin: rem( $gutter / 2 ) 0 0;
+        
+    }
+    
+    input[type="file"] {
+        
+        padding: rem( 8px ) 0;
+        border: none;
+        
+    }
+    
+    textarea {
+        
+        @extend input[type="text"];
+        width: 100%;
+        height: rem( 109px );
+        border: rem( 1px ) solid #cdcdcd;
+        padding: rem( 8px );
+        font-size: 16px;
+        font-weight: bold;
+        @include box-sizing( border-box );
+        resize: none;
+        
+    } 
+    
+    .half {
+        
+        width: 49.5%;
+        float: left;
+        
+    }
+    
+    .half:nth-child(odd) {
+        
+        margin-right: 1%;
+        
+    }
+    
+    .quarter {
+        
+        width: 33%;
+        margin-right: .44%;
+        float: left;
+        
+    }
+    
+    .quarter:nth-child(3n+3) {
+        
+        margin-right: 0;
+        
+    }
     
     .select-hidden {
         
@@ -353,7 +420,7 @@ form {
     }
     
     .select {
-        
+    
         cursor: pointer;
         display: block;
         position: relative;
@@ -362,6 +429,7 @@ form {
         color: $select-color;
         width: 100%;
         height: $select-height;
+        outline: none;
     
     }
     
@@ -373,9 +441,10 @@ form {
         bottom: 0;
         left: 0;
         background-color: $select-background;
-        padding: rem( 8px ) rem( 15px );
+        padding: rem( 8px ) rem( 15px ) 0;
         font-weight: bold;
         @include transition( all 0.2s ease-in );
+        outline: none;
         
         &:after {
             
@@ -428,6 +497,9 @@ form {
         background-color: darken($select-background, 5);
         z-index: 999;
         
+        height: rem( 270px );
+        overflow-y: scroll;
+        
         li {
             
             margin: 0;
@@ -453,14 +525,17 @@ form {
         
     }
     
-    button {
-        
-        margin: 0;
-        padding: 0;
-        background-color: transparent;
-        border: none;
-        
-    }
+}
+
+button {
+    
+    font-family: $defaultFont;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-weight: normal;
+    outline: none;
     
 }
 
@@ -476,17 +551,36 @@ a:hover {
     
 }
 
+.hide {
+    
+    display: none;
+    
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 /******** LB PLUS ********/
 
-.lbplus_wrapper {
+// WRAPPER
+.sherlock_wrapper {
 
     position: relative;
     width: rem( 940px );
     height: rem( 529px );
     margin: 0 auto;
-
+    
+    .sherlock_container {
+        
+        margin: rem( $gutter ) 0;
+        
+    }
+    
     // CONTENT
-    .lbplus_view {
+    .sherlock_view {
 
         position: relative;
         height: rem( 469px );
@@ -504,7 +598,7 @@ a:hover {
         }
 
         // INTERACTION (MEDIA & ACTIONS)
-        .lbplus_interaction_wrapper {
+        .sherlock_interaction_wrapper {
 
             margin-bottom: 0;
 
@@ -514,7 +608,7 @@ a:hover {
 
         	}
 
-            .lbplus_media {
+            .sherlock_media {
 
                 position: relative;
                 width: rem( 640px );
@@ -539,7 +633,7 @@ a:hover {
                         font-size: 200%;
                         font-weight: bold;
                         line-height: normal;
-                        background: #5cc627;
+                        background: #2e832e;
                         padding: rem( 21px ) rem( $gutter ) 0;
                         top: rem( 140px );
                         left: rem( 245px );
@@ -548,6 +642,54 @@ a:hover {
                         @include border-radius( rem( 3px ) );
                         @include box-shadow( 0 0 rem( 6px ) $darkerFontColor);
 
+                    }
+                    
+                    #videoPlayBtn.paused {
+
+                        
+                        padding-top: rem( 14px );
+                        line-height: .4;
+                        background: #c7284d;
+                        cursor: default;
+                        
+                        small {
+                            
+                            font-size: 60%;
+                            
+                        }
+
+                    }
+                    
+                    .reasoningBox {
+                        
+                        position: absolute;
+                        width: 100%;
+                        height: rem( 360px );
+                        line-height: rem( 360px );
+                        z-index: 11;
+                        background: rgba(255, 255, 255, 0.9);
+                        
+                        .reasoning {
+                            
+                            display: inline-block;
+                            padding: 0 rem( 14px );
+                            vertical-align: middle;
+                            line-height: rem( 20px ); 
+                            
+                        }
+                        
+                        .action {
+                            
+                            display: block;
+                            position: absolute;
+                            width: 100%;
+                            bottom: rem( 14px );
+                            left: 0;
+                            text-align: center;
+                            line-height: normal; 
+                            
+                        }
+                        
                     }
 
                 }
@@ -561,7 +703,7 @@ a:hover {
 
             }
 
-            .lbplus_actions {
+            .sherlock_actions {
 
                 width: rem( 225px );
                 margin: 0 0 0 rem( 23px );
@@ -587,6 +729,12 @@ a:hover {
 
                         @include button_limits();
 
+                    }
+                    
+                    .limits.hide {
+                        
+                        display: none
+                        
                     }
 
                     .icon {
@@ -647,13 +795,79 @@ a:hover {
                     @include clearfix();
 
                 }
+                
+                .reviewVideoControls {
+                    
+                    float: left;
+                    clear: both;
+                    margin: 0 0 rem( $gutter );
+                    
+                    .btn.videoControls {
+                    
+                        width: rem( 64px );
+                        height: rem( 30px );
+                        margin: 0 rem( $gutter ) 0 0;
+                        float: left;
+                        
+                        .action_name {
+    
+                            width: 100%;
+                            height: rem( 30px );
+                            padding: rem( 6px ) 0 0;
+                            line-height: normal;
+                            text-align: center;
+                            @include box-sizing(border-box);
+    
+                        }
+                        
+                    }
+                    
+                    .btn.videoControls:last-child {
+                        
+                        margin-right: 0;
+                        
+                    }
+                    
+                }
+                
+                .reviewContent {
+                    
+                    p {
+                        
+                        margin: rem( 14px ) 0;
+                        font-size: rem( 14px );
+                        line-height: rem( 18px );
+                        @include user-select(text);
+                        
+                    }
+                    
+                }
+                
+                .btn.videoControls.playSegment {
+                    
+                    width: 100%;
+                    height: rem( 30px );
+                    margin: 0 rem( $gutter ) 0 0;
+                    
+                    .action_name {
+
+                        width: 100%;
+                        height: rem( 30px );
+                        padding: rem( 4px ) 0 0;
+                        line-height: normal;
+                        text-align: center;
+                        @include box-sizing(border-box);
+
+                    }
+                    
+                }
 
             }
 
         } // end interaction wrapper
 
         // clear fix
-        .lbplus_interaction_wrapper:after {
+        .sherlock_interaction_wrapper:after {
 
             @include clearfix();
 
@@ -661,85 +875,166 @@ a:hover {
 
         // score wrapper
         .score_view {
-
-            margin-top: rem( $gutter * -1 );
-
-            .actions_results {
-
-                width: rem( 296px );
-                padding: 0 rem( 10px );
-                @include box-sizing( 'border-box' );
+        
+            width: 100%;
+            
+            .overview {
+                
+                width: 100%;
                 float: left;
+                clear: both;
+                
+                .percentage {
 
-                p:nth-of-type(odd) {
-
-                    font-size: rem( 18px );
-                    font-weight: 500;
-
+                    width: 20%;
+                    padding: 0 rem( 10px );
+                    text-align: center;
+                    @include box-sizing( 'border-box' );
+                    float: left;
+    
+                    .percent {
+    
+                        display: block;
+                        font-size: rem( 46px );
+                        line-height: rem( 46px );
+                        font-weight: bold;
+    
+                    }
+    
+                    .status {
+    
+                        display: block;
+                        font-size: rem( 22px );
+                        line-height: rem( 22px );
+                        margin-top: rem( $gutter / 2 );
+                        font-style: italic;
+    
+                    }
+    
                 }
+                
+                .actions_stars {
 
+                    width: 80%;
+                    padding: 0 0 0 rem( 10px );
+                    @include box-sizing( 'border-box' );
+                    float: left;
+                    
+                    .star_earned {
+                        
+                        width: 20%;
+                        padding: 0 0 0 rem( 5px );
+                        @include box-sizing( 'border-box' );
+                        float: left;
+                        
+                        p {
+                            
+                            margin-top: 0;
+                            margin-bottom: rem( $gutter / 2 );
+                            font-size: rem( 16px );
+                            font-weight: 500;
+                            text-align: center;
+                            
+                        }
+                        
+                        .stars {
+                            
+                            font-size: 160%;
+                            font-weight: normal;
+                            
+                            small {
+                                
+                                font-size: 60%;
+                                
+                            }
+                            
+                        }
+                        
+                    }
+    
+                }
+                
             }
-
-            .miss-hits {
-
-                width: rem( 296px );
-                padding: 0 rem( 10px );
-                @include box-sizing( 'border-box' );
-                float: left;
-
-                .heading {
-
-                    margin: rem( $gutter ) 0;
-                    font-weight: bold;
-                    padding: 0 0 rem( 3px );
-                    border-bottom: rem( 2px ) solid $darkerFontColor;
-
+            
+            .analysis {
+                    
+                margin-top: rem( $gutter );
+                    
+                table {
+                    
+                    width: 100%;
+                    
+                    th {
+                        
+                        white-space: nowrap;
+                        font-weight: bold;
+                        text-align: center;
+                        padding: rem( 5px );
+                        
+                        small {
+                            
+                            font-family: 60%;
+                            font-weight: normal;
+                            
+                        }
+                        
+                    }
+                    
+                    td {
+                        
+                        @extend th;
+                        
+                        font-weight: normal;
+                        line-height: normal;
+                        
+                    }
+                    
+                    tbody {
+                        
+                        tr {
+                        
+                            td:first-child {
+                                
+                                text-align: right;
+                                
+                            }
+                            
+                        }
+                        
+                        tr:nth-child(odd) {
+                            
+                            background-color: #e8e8e8;
+                            
+                        }
+                        
+                        tr:last-child {
+                            
+                            background-color: transparent;
+                            
+                        }
+                        
+                        .topBorder {
+                            
+                            border-top: rem( 2px ) solid #2f2f2f;
+                            
+                        }
+                        
+                    }
+                    
                 }
-
-                p {
-
-                    margin: rem( $gutter / 2 ) 0;
-
+                
+                .leftBorder {
+                            
+                    border-left: rem( 2px ) solid #2f2f2f;
+                    
                 }
-
-                p.incorrect {
-
-                    margin: rem( $gutter / 3 ) 0;
-                    font-size: rem( 14px );
-                    line-height: rem( 16px );
-                    padding-left: rem( 16px );
-
+                
+                .totalScore {
+                    text-align: right;
+                    font-size: 150%;
+                    
                 }
-
-            }
-
-            .percentage {
-
-                width: rem( 296px );
-                padding: rem( 125px ) rem( 10px ) 0;
-                text-align: center;
-                @include box-sizing( 'border-box' );
-                float: left;
-
-                .percent {
-
-                    display: block;
-                    font-size: rem( 46px );
-                    line-height: rem( 46px );
-                    font-weight: bold;
-
-                }
-
-                .status {
-
-                    display: block;
-                    font-size: rem( 26px );
-                    line-height: rem( 26px );
-                    font-style: italic;
-                    margin-top: rem( $gutter );
-
-                }
-
+                
             }
 
         } // end score_view
@@ -770,7 +1065,6 @@ a:hover {
                     }
                     
                 }
-                
                 
                 .meta {
                     
@@ -834,6 +1128,7 @@ a:hover {
             .profile_img {
                 
                 width: rem( 150px );
+                height: rem( 150px );
                 margin: rem( $gutter ) auto;
                 overflow: hidden;
                 border: rem( 3px ) solid #0f75b9;
@@ -1009,16 +1304,24 @@ a:hover {
         }
 
     } // end content
-
-    .score_view:after {
-
-        @include clearfix();
-
+    
+    .lti_sherlock_view {
+        
+        @extend .sherlock_view;
+        
+        height: rem( 384px );
+        
+        .selection_view {
+            
+            padding: 0;
+            
+        }
+        
     }
 
     // CONTROLS
-    .lbplus_controls {
-
+    .sherlock_controls {
+        
         height: rem( 60px );
         background: $darkerFontColor;
         @include box-sizing( "border-box" );
@@ -1028,11 +1331,11 @@ a:hover {
         	@include user-select(none);
 
     	}
-
+        
         .progress_bar_holder {
 
             position: relative;
-            background: $darkerFontColor;
+            background: #000000;
             padding: rem( 25px ) rem( 25px ) 0;
             height: rem( 60px );
             float: left;
@@ -1050,7 +1353,7 @@ a:hover {
                 text-align: center;
                 line-height: rem( 14px );
                 color: #fff;
-                background-color: #3fb33f;
+                background-color: #2e832e;
                 padding: rem( 8px ) 0 0 rem( 1px );
                 cursor: default;
                 @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
@@ -1075,22 +1378,97 @@ a:hover {
             	left: rem( 7px );
             	border-left: 8px solid transparent;
             	border-right: 8px solid transparent;
-            	border-top: 16px solid #3fb33f;
+            	border-top: 16px solid #2e832e;
 
+            }
+            
+            .hint_tag {
+                
+                position: absolute;
+                width: rem( 20px );
+                height: rem( 15px );
+                bottom: rem( 3px );
+                left: 0;
+                font-size: rem( 10px );
+                text-align: center;
+                line-height: rem( 10px );
+                color: #fff;
+                background-color: #e02349;
+                padding: rem( 5px ) 0 0;
+                cursor: default;
+                @include opacity(.5);
+                @include box-shadow( 0 0 rem( 4px ) $defaultFontColor );
+                @include border-radius( 50% );
+                
+            }
+            
+            .hint_tag:hover {
+            
+                @include opacity( 1 );
+                @include box-shadow( 0 0 rem( 6px ) #000 );
+
+            }
+            
+            .hint_tag:after {
+                
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	top: rem( -6px );
+            	left: rem( 6px );
+            	border-left: 4px solid transparent;
+            	border-right: 4px solid transparent;
+            	border-bottom: 8px solid #e02349;
+                
             }
 
             .progress_bar {
-
+                
+                position: relative;
                 width: rem( 640px );
                 height: rem( 10px );
-                background: #888888;
-
+                background: #686868;
+                
+                .tag_hints_holder {
+            
+                    display: block;
+                    position: absolute;
+                    width: rem( 640px );
+                    height: rem( 10px );
+                    
+                    .hint {
+                        
+                        position: absolute;
+                        width: rem( 3px );
+                        height: rem( 10px );
+                        top: 0;
+                        left: 9px;
+                        background-color: #1e561e;
+                        @include opacity( .75 );
+                        
+                    }
+                    
+                }
+                
+                .scrubber {
+                    
+                    position: absolute;
+                    width: rem( 1px );
+                    height: rem( 10px );
+                    background-color: #3cdfd7;
+                    z-index: 0;
+                    
+                }
+                
                 .progressed {
 
                     display: block;
                     width: 0;
                     height: rem( 10px );
-                    background: #686868;
+                    background: #ffffff;
+                    @include box-sizing( border-box );
 
                 }
 
@@ -1150,6 +1528,12 @@ a:hover {
                     right: rem( 5px );
 
                 }
+                
+                .limits.hide {
+                    
+                    display: none;
+                    
+                }
 
                 .icon {
 
@@ -1208,6 +1592,30 @@ a:hover {
             .btn.rewind:after {
 
                 @include clearfix();
+
+            }
+            
+            .btn.backToScore {
+
+                @include button();
+                width: 100%;
+                height: rem( 60px );
+                margin: 0;
+                
+                .action_name {
+
+                    @include button_name();
+                    width: 100%;
+                    height: rem( 60px );
+                    text-align: center;
+                    font-size: 130%;
+                    color: #fff;
+                    text-decoration: none;
+                    line-height: normal;
+                    padding: rem( 18px ) rem( $gutter ) 0 ;
+                    float: none;
+
+                }
 
             }
 
@@ -1342,29 +1750,74 @@ a:hover {
                 }
 
             }
+            
+            // next button
+            .btn.close {
+
+                @extend .btn.retake;
+                float: right;
+
+                .action_name {
+
+                    border-top-color: #c72848;
+
+                }
+
+            }
 
         } // end score view main controls
 
     } // end controls
 
-    .lbplus_controls:after {
+    .sherlock_controls:after {
 
         @include clearfix();
 
     }
 
     // STATUS MESSAGE
-    .lbplus_status_msg {
+    .sherlock_status_msg {
 
         position: absolute;
         width: 50%;
         font-size: 80%;
         text-align: right;
-        top: rem( 15px );
+        top: 0;
         right: rem( 25px );
         cursor: default;
         @include user-select(none);
 
+    }
+    
+    .sherlock_mode_msg {
+        
+        position: absolute;
+        padding: rem( 5px );
+        width: 100%;
+        font-size: 60%;
+        text-align: center;
+        top: 0;
+        left: 0;
+        background-color: #ccc;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: normal;
+        cursor: default;
+        @include box-sizing( 'border-box' );
+        @include user-select(none);
+        
+    }
+    
+    .sherlock_mode_msg.training {
+            
+        background-color: #f1ffbc;
+        
+    }
+    
+    .sherlock_mode_msg.review {
+            
+        background-color: #bcd1ff;
+        
     }
 
     // TRANSITION OVERLAY
@@ -1395,6 +1848,12 @@ a:hover {
             font-size: 120%;
             font-weight: 200;
             line-height: normal;
+            
+            a, a:visited {
+                
+                color: #f00;
+                
+            }
 
         }
 
@@ -1407,13 +1866,23 @@ a:hover {
 
     }
 
-} // end lbplus_wrapper
+} // end sherlock_wrapper
 
 /* ANIMATIONS */
 .blink {
 
     @include animation-properties( (animation-name: blink) );
-    @include animation-properties( (animation-duration: 2s) );
+    @include animation-properties( (animation-duration: 3s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+.blink-faster {
+
+    z-index: 99;
+    @include animation-properties( (animation-name: blink-faster) );
+    @include animation-properties( (animation-duration: 1s) );
     @include animation-properties( (animation-timing-function: ease-in-out) );
     @include animation-properties( (animation-iteration-count: infinite) );
 
@@ -1442,7 +1911,29 @@ a:hover {
 
     50% {
 
-        @include opacity( 0 );
+        @include opacity( .5 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
+
+    }
+
+}
+
+@include keyframes( blink-faster ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( .5 );
 
     }
 

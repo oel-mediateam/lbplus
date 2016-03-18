@@ -2,7 +2,6 @@
     
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include '404.php';
         exit();
@@ -10,7 +9,7 @@
     }
     
 ?>
- <section class="lbplus_view">
+ <section class="sherlock_view">
      
      <div class="signin_view">
         
@@ -26,19 +25,20 @@
                 
             } else {
                 
-                $dashboardBtn = '';
-                
                 echo '<h1>Hello, ' . $userData['givenName'] . '!</h1>';
                 echo '<p class="profile_img"><img src="' . $userData['picture'] . '" /></p>';
                 echo '<p><strong>' . $userData['email'] . '</strong></p>';
                 
-                if ( isPermitted( $_SESSION['signed_in_user_id'], 2 ) ) {
-                            
-                    $dashboardBtn = '<a class="btn" href="#"><span class="icon-dashboard"></span> Dashboard</a>';
+                if ( DB::getRole( $_SESSION['signed_in_user_id'] ) >= 0 ) {
+                    
+                    echo '<p><a class="btn" href="?page=exercises"><span class="icon-selection"></span> Exercises</a></p>';
+                    
+                } else {
+                    
+                    echo '<p><em>You have no permission to see available exercises.</em></p>';
                     
                 }
                 
-                echo '<p><a class="btn" href="?page=exercises"><span class="icon-selection"></span> Exercises</a> '.$dashboardBtn.'</p>';
                 echo '<p><small><a href="?logout"><span class="icon-signout"></span> Sign Out</a></small></p>';
                 echo '<p><small><a id="google_revoke_connection" href="#"><span class="icon-user-cancel"></span> disconnect this app from your Google Account</a></small></p>';
                 
@@ -52,4 +52,4 @@
     
     </div>
  </section>
- <nav class="lbplus_controls"></nav>
+ <nav class="sherlock_controls"></nav>

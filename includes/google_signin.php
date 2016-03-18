@@ -1,9 +1,7 @@
 <?php
     
-    // if started session data is not true
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
         exit();
@@ -99,7 +97,7 @@
         	
         	if ( isset( $_SESSION['refresh_token'] ) && $_SESSION['refresh_token'] ) {
             	
-            	DB::updateGoogleRefreshToken( $userData['id'], $_SESSION['refresh_token'] );
+            	DB::setGoogleRefreshToken( $userData['id'], $_SESSION['refresh_token'] );
             	
         	}
         	

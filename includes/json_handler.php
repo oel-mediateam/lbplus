@@ -1,15 +1,16 @@
 <?php
 	
-    // if started session data is not true
     if ( !isset( $_SESSION ) ) {
         
-        // redirect to 404 page
         header( 'HTTP/1.0 404 File Not Found', 404 );
         include 'views/404.php';
         exit();
 
     }
-
+    
+    /**
+     * A class to decode JSON data with proper error message.
+     */
     class JsonHandler {
     
         protected static $_messages = array(
@@ -21,7 +22,12 @@
             JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded'
         );
     
-    
+        /**
+         * Decode the JSON data
+         * @param string The JSON string to decode
+         * @param boolean Return result as an associate array
+         * @return array Returns the decode JSON
+         */
         public static function decode( $json, $assoc = false ) {
     
             $result = json_decode( $json, $assoc );
@@ -35,5 +41,5 @@
             throw new RuntimeException( static::$_messages[json_last_error()] );
         }
     
-    }
+    } // end JsonHandler class
 ?>
