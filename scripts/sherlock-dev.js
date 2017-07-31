@@ -36,6 +36,27 @@ var segment = {
     'playing': false
 };
 
+// HTML DOM ELEMENTS
+var el = {
+    
+    google_revoke: '#google_revoke_connection',
+    google_revoke_confirm: '#disconnect-confirm',
+    google_revoke_ok: '#revoke_ok',
+    google_revoke_cancel: '#revoke_cancel',
+    
+    sherlock_wrapper: '#sherlock-wrapper',
+    sherlock_body_container: '#sherlock-wrapper .container',
+    sherlock_grid_container: '#sherlock-wrapper .container .active-exercises.exercise-grid',
+    sherlock_grid_item: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item',
+    exerciseEmbedBtn: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item .thumbnail .embedBtn',
+    currentPage: '.exercise-pagination .controls .pageActions .page-number .currentPage',
+    prevPageBtn: '.exercise-pagination .controls .pageActions .previous',
+    nextPageBtn: '.exercise-pagination .controls .pageActions .next',
+    
+    videoPlayBtn: '#videoPlayBtn'
+    
+};
+
 // hold the count of the tag
 // also use for the z-index
 var tagCount = 0;
@@ -57,7 +78,7 @@ $( function () {
     // display no support message and end further script
     if ( $.fn.flashExist() && $.fn.isIE() ) {
         
-        $( ".sherlock_container" ).html("<h1>Sorry, your web browser is not supported.</h1><p>Please try using latest stable version of <a href=\"https://www.mozilla.org\" target=\"_blank\">Mozilla Firefox</a>, <a href=\"https://www.google.com/chrome/browser/desktop/\" target=\"_blank\">Google Chrome</a>, or <a href=\"http://www.apple.com/safari/\" target=\"_blank\">Safari</a>.</p>");
+        $( el.sherlock_wrapper ).html("<h1>Sorry, your web browser is not supported.</h1><p>Please try using latest stable version of <a href=\"https://www.mozilla.org\" target=\"_blank\">Mozilla Firefox</a>, <a href=\"https://www.google.com/chrome/browser/desktop/\" target=\"_blank\">Google Chrome</a>, or <a href=\"http://www.apple.com/safari/\" target=\"_blank\">Safari</a>.</p>");
         
         return 0;
         
@@ -65,18 +86,18 @@ $( function () {
     
     // google revoke connection ID exists on the DOM
     // add a click listening event for displaying a confirmation dialog
-    if ( $( '#google_revoke_connection' ).length ) {
+    if ( $( el.google_revoke ).length ) {
         
-        $( '#google_revoke_connection' ).on( 'click', function() {
+        $( el.google_revoke ).on( 'click', function() {
             
             
-            $( "#disconnect-confirm" ).removeClass( 'hide' );
+            $( el.google_revoke_confirm ).removeClass( 'hide' );
             
             return false;
             
         } );
         
-        $( '#revoke_ok' ).on( 'click', function() {
+        $( el.google_revoke_ok ).on( 'click', function() {
             
             
             $.post( 'includes/disconnect_google.php', { revoke: 1 }, function() {
@@ -89,10 +110,10 @@ $( function () {
             
         } );
         
-        $( '#revoke_cancel' ).on( 'click', function() {
+        $( el.google_revoke_cancel ).on( 'click', function() {
             
             
-            $( "#disconnect-confirm" ).addClass( 'hide' );
+            $( el.google_revoke_confirm ).addClass( 'hide' );
             
             return false;
             
@@ -100,7 +121,47 @@ $( function () {
         
     }
     
-    $( '#videoPlayBtn' ).html( '<span class="icon-spinner"></span><br /><small>WAIT</small>' ).addClass( 'paused' );
+    
+    $( el.prevPageBtn ).on( 'click', function() {
+        
+        $.fn.goToPage( 'prev' );
+        
+    } );
+    
+    $( el.nextPageBtn ).on( 'click', function() {
+        
+        $.fn.goToPage( 'next' );
+        
+    } );
+    
+    if ( $( el.exerciseEmbedBtn ).length ) {
+        
+        $( el.exerciseEmbedBtn ).on( 'click', function( e ) {
+            
+            e.stopPropagation();
+            e.preventDefault();
+            
+            var exerciseId = $( this ).parent().parent().data( 'exercise' );
+            var protocol = location.protocol;
+            var embedURL = '';
+            
+            if ( protocol.indexOf('s') >= 0 ) {
+                protocol = 'https://';
+            } else {
+                protocol = 'http://';
+            }
+            
+            embedURL = protocol + location.hostname + location.pathname + '?embed=' + exerciseId;
+            
+            alert( 'TODO: a dialog to hold ' + embedURL + ' for copy.' );
+            
+            return false;
+            
+        } );
+        
+    }
+    
+    $( el.videoPlayBtn ).html( '<span class="icon-spinner"></span><br /><small>WAIT</small>' ).addClass( 'paused' );
     
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
@@ -206,44 +267,7 @@ $( function () {
                 
                 e.stopPropagation();
                 
-                var selectValue = $( this ).attr( 'rel' );
-                
-                styledSelect.text( $( this ).text() ).removeClass( 'active' );
-                $this.val( selectValue );
-                list.hide();
-                opened = false;
-                
-                // if it is on the exercise selection view
-                if ( $( '.selection_view' ).length ) {
-                    
-                    $( '.exercise_info' ).remove();
-                
-                    $.post( 'includes/exercise_info.php', { id: selectValue }, function(response) {
-                        
-                        if ( response ) {
-                            
-                            var result = JSON.parse(response);
-                            
-                            $( '.select' ).after( '<div class="exercise_info"><div class="description_box"><p><strong>Description:</strong></p><div class="description"></div></div><p class="meta"></p></div>' );
-                            $( '.exercise_info .description_box .description' ).html( result.description );
-                            
-                            if ( Number( result.allow_retake ) ) {
-                                
-                                $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>unlimited</strong>' );
-                                
-                            } else {
-                                
-                                $( '.exercise_info .meta' ).html( 'Number of attempts: <strong>' + result.attempts + '</strong>' );
-                                
-                            }
-                            
-                            $( '.exercise_info .meta' ).append( result.exrs_type_id > 0 ? ' | Exercise type: <strong>' + $.fn.getExerciseType( result.exrs_type_id ) + '</strong>' : '' );
-                            
-                        }
-                        
-                    } );
-                    
-                }
+                // do something when sort by list item is selected
                 
             } );
           
@@ -1040,6 +1064,45 @@ $.fn.showHintTagInfo = function() {
 };
 
 /**
+ * Pagination
+ *
+ * @author Ethan Lin
+ * @since 1.0.0
+ *
+ * @param none
+ * @return void
+ *
+ */
+ $.fn.goToPage = function( d ) {
+     
+     $.post( 'includes/pagination.php', {direction: d},function( res ) {
+        
+        var obj = JSON.parse( res );
+        var prevBtn = $( el.prevPageBtn );
+        var nextBtn = $( el.nextPage );
+        var isFirstPage = obj[0];
+        var isLastPage = obj[1];
+        
+        if ( isFirstPage ) {
+            prevBtn.prop('disabled', true);
+        } else {
+            prevBtn.prop('disabled', false);
+        }
+        
+        if ( isLastPage ) {
+            nextBtn.prop('disabled', true);
+        } else {
+            nextBtn.prop('disabled', false);
+        }
+        
+        $( el.currentPage ).html( obj[2] );
+        $( el.sherlock_grid_container ).html( obj[3] );
+    
+    } );
+     
+ };
+ 
+/**
  * Display review page
  *
  * @author Ethan Lin
@@ -1054,7 +1117,7 @@ $.fn.goToReview = function() {
     
     $.post( 'includes/views/sherlock_review_view.php', function( res ) {
         
-        $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 'fast' );
+        $( el.sherlock_wrapper ).html( res ).hide().fadeIn( 'fast' );
         $( '.sherlock_mode_msg' ).html( 'Review Mode' ).removeClass( 'hide' );
         onYouTubeIframeAPIReady();
 
@@ -1077,7 +1140,7 @@ $.fn.goToScore = function() {
     
     $.post('includes/views/score_view.php', function( res ) {
                 
-        $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 'fast' );
+        $( el.sherlock_wrapper ).html( res ).hide().fadeIn( 'fast' );
 
     } );
     

@@ -38,20 +38,21 @@
         <div class="exercise-pagination">
             
             <?php 
-                $pageNum = 1;
-                $totalExercises = DB::getNumOfActiveNAExercises();
-                $exercisePerPage = 4;
-                $lastPage = ceil($totalExercises / $exercisePerPage);
                 
-                if ( $pageNum > $lastPage ) {
-                    $pageNum = $lastPage;
+                $_SESSION['pageNum'] = 1;
+                $_SESSION['totalExercises'] = DB::getNumOfActiveNAExercises();
+                $_SESSION['exercisePerPage'] = 4;
+                $_SESSION['lastPage'] = ceil($_SESSION['totalExercises'] / $_SESSION['exercisePerPage']);
+                
+                if ( $_SESSION['pageNum'] > $_SESSION['lastPage'] ) {
+                    $_SESSION['pageNum'] = $_SESSION['lastPage'];
                 }
                 
-                if ( $pageNum < 1 ) {
-                    $pageNum = 1;
+                if ( $_SESSION['pageNum'] < 1 ) {
+                    $_SESSION['pageNum'] = 1;
                 }
                 
-                $limit = ( $pageNum - 1 ) * $exercisePerPage . ', ' . $exercisePerPage;
+                $limit = ( $_SESSION['pageNum'] - 1 ) * $_SESSION['exercisePerPage'] . ', ' . $_SESSION['exercisePerPage'];
             ?>
             
             <div class="controls">
@@ -59,15 +60,15 @@
                 <div class="pageActions">
                     
                     <button class="previous" disabled><i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i></button>
-                    <div class="page-number">1 - 4 of <?php echo $totalExercises; ?> </div>
+                    <div class="page-number">page <?php echo '<span class="currentPage">' . $_SESSION['pageNum'] . '</span> of ' . $_SESSION['lastPage']; ?></div>
                     <button class="next"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
                     
                 </div>
                 
                 <div class="actions">
                     
-                    <select class="filter">
-                        <option value="-1" disabled selected>filter</option>
+                    <select class="sort">
+                        <option value="-1" disabled selected>sort by</option>
                         <?php
                             foreach( $exerciseTypes as &$type ) {
                                 echo '<option val="' . $type['exrs_type_id'] . '">' . $type['name'] . '</option>';
@@ -79,7 +80,7 @@
                 
             </div>
             
-            <div class="exercise-grid">
+            <div class="active-exercises exercise-grid">
                 
                 <?php
                     
@@ -95,7 +96,8 @@
                     
                     foreach( $activeExercises as &$exercise ) {
                         
-                        echo '<a href="?exercise=' . $exercise['exercise_id'] . '" class="grid-item"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div><div class="embedBtn"><button><i class="fa fa-link fa-2x" aria-hidden="true"></i></button></div><img src="http://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
+                        echo '<a href="?exercise=' . $exercise['exercise_id'] . '" class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div><div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div><img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
+                        
                     }
                     
                 ?>
@@ -105,9 +107,7 @@
                     <div class="thumbnail">
                         <div class="start-txt">START</div>
                         <div class="exercise-type-label demo">demo</div>
-                        <div class="embedBtn">
-                            <button><i class="fa fa-link fa-2x" aria-hidden="true"></i></button>
-                        </div>
+                        <div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div>
                     </div>
                     <div class="info">
                         <div class="title">Rocket League Casual</div>

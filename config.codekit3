@@ -864,6 +864,12 @@
 		"oAP": "\/includes\/google_signin.php",
 		"oF": 0
 		},
+	"\/includes\/pagination.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/pagination.php",
+		"oF": 0
+		},
 	"\/includes\/views\/404.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -972,6 +978,12 @@
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
+		},
+	"\/scripts\/sherlock.js.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/scripts\/sherlock.js.map",
+		"oF": 0
 		}
 	},
 "hooks": [

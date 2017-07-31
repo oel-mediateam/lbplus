@@ -67,6 +67,7 @@ h1 {
         margin: 0;
         padding-left: rem( 5px );
         background-color: rgba(#fff, 0.9);
+        z-index: 20;
         
         li {
             padding: rem( 5px ) 0;
@@ -429,27 +430,26 @@ footer {
                     right: rem( 10px );
                     z-index: 10;
                     
-                    button {
-                        
-                        border: none;
-                        width: rem( 40px );
-                        height: rem( 40px );
-                        background-color: #fff;
-                        cursor: pointer;
-                        @include border-radius( 50% );
-                        @include opacity( 0.5 );
-                        
-                        i {
-                            @include rotate( 90deg );
-                        }
-                        
+                    border: none;
+                    width: rem( 40px );
+                    height: rem( 40px );
+                    background-color: #fff;
+                    cursor: pointer;
+                    text-align: center;
+                    padding-top: rem( 7px );
+                    @include border-radius( 50% );
+                    @include opacity( 0.5 );
+                    
+                    i {
+                        font-size: rem( 28px );
+                        @include rotate( 90deg );
                     }
                     
-                    button:hover {
-                        @include opacity( 1 );
-                        @include single-box-shadow( 0, 0, rem( 6px ), 0, #000 );
-                    }
-                    
+                }
+                
+                .embedBtn:hover {
+                    @include opacity( 1 );
+                    @include single-box-shadow( 0, 0, rem( 6px ), 0, #000 );
                 }
                 
                 .exercise-type-label {
