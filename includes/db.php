@@ -51,9 +51,10 @@
     	    
     	    try {
         	    
-        	    $sql = 'SELECT COUNT(*) FROM user WHERE google_id = :id';
+        	    $sql = 'SELECT COUNT(*) FROM external_acct WHERE user_id = :id AND type = :type';
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':id' => $id ) );
+                $query->execute( array( ':id' => $id,
+                                        ':type' => 'Google' ) );
                 
                 if ( $query->fetchColumn() == 1 ) {
                     
@@ -91,13 +92,24 @@
     	    
     	    try {
         	    
-        	    $sql = 'INSERT INTO user(email, first_name, last_name, google_id, google_refresh_token) VALUES( '
-                . ':email, :first_name, :last_name, :id, :token )';
+        	    if ( DB::getUserByGoogle( $email ) == null ) {
+            	    
+            	    $userSQL = 'INSERT INTO user(email, first_name, last_name) VALUES( '
+                    . ':email, :first_name, :last_name )';
                 
-                $query = $db->prepare( $sql );
-                $query->execute( array( ':email'=>$email,
-                                        ':first_name'=>$first_name,
-                                        ':last_name'=>$last_name,
+                    $query = $db->prepare( $userSQL );
+                    $query->execute( array( ':email' => $email,
+                                            ':first_name' => $first_name,
+                                            ':last_name' => $last_name ) );
+                                            
+        	    }
+        	    
+                $exAcctSQL = 'INSERT INTO external_acct(email, type, user_id, token) VALUES( '
+                . ':email, :type, :id, :token )';
+                 
+                $query = $db->prepare( $exAcctSQL );
+                $query->execute( array( ':email' => $email,
+                                        ':type' => 'Google',
                                         ':id'=>$id,
                                         ':token'=>$token ) );
                 
@@ -121,16 +133,17 @@
          * @param int $id Google user ID
          * @return string\null Returns the Google user's refresh token or null if not found. 
          */
-	    public static function getGoogleRefreshToken( $id ) {
+	    public static function getGoogleRefreshToken( $email ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'SELECT google_refresh_token FROM user WHERE user_id = :id';
+        	    $sql = 'SELECT token FROM external_acct WHERE email = :email AND type = :type';
                 
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':id'=>$id ) );
+                $query->execute( array( ':email' => $email,
+                                        ':type' => 'Google' ) );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
                 
                 $db = null;
@@ -139,7 +152,7 @@
                     
                     $result = $query->fetch();
                     
-                    return $result['google_refresh_token'];
+                    return $result['token'];
                     
                 }
                 
@@ -166,9 +179,9 @@
     	    
     	    try {
         	    
-        	    $sql = 'UPDATE user SET google_refresh_token = :token WHERE google_id = :id';
+        	    $sql = 'UPDATE external_acct SET token = :token WHERE user_id = :id AND type = :type';
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':token' => $token, ':id' => $id ) );
+                $query->execute( array( ':token' => $token, ':id' => $id, ':type' => 'Google' ) );
                 
                 $db = null;
                 
@@ -188,25 +201,53 @@
          * @param int $id Google user ID
          * @return int|null Returns the user ID or null if not found. 
          */
-	    public static function getIDByGoogle( $google_id ) {
+	    public static function getUserByGoogle( $email ) {
     	
         	$db = DB::getDB();
         	    
     	    try {
         	    
-        	    $sql = 'SELECT user_id FROM user WHERE google_id = :id';
+        	    $sql = 'SELECT email FROM user WHERE email = :email';
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':id' => $google_id ) );
+                $query->execute( array( ':email' => $email ) );
                 
                 $db = null;
         
                 if ( $query->rowCount() == 1 ) {
                     
                     $result = $query->fetch();
-                    return $result['user_id'];
+                    return $result['email'];
                     
                 }
                 
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get ID by Google.' );
+        	    
+    	    }
+        	
+    	}
+    	
+    	/**
+         * Delete Google External entry after disconnect
+         * @param string $email Google email
+         * @return null. 
+         */
+	    public static function deleteUserByGoogle( $email ) {
+    	
+        	$db = DB::getDB();
+        	    
+    	    try {
+        	    
+        	    $sql = 'DELETE FROM external_acct WHERE email = :email AND type = :type';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':email' => $email,
+                                        ':type' => 'Google' ) );
+                
+                $db = null;
                 return null;
         	    
     	    } catch( PDOException $e ) {
@@ -406,13 +447,14 @@
          * Get all active exercises from the database.
          * @return array Returns an array of active exercises. 
          */
-	    public static function getActiveExercises() {
+	    public static function getActiveExercises( $limit ) {
+
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'SELECT exercise_id, name FROM exercise WHERE status_id = 1 ORDER BY exercise_id DESC';
+        	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
@@ -433,6 +475,69 @@
         	    
         	    $db = null;
         	    exit( 'Failed to get active exercises.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    /**
+         * Get all active non-assessment exercises from the database.
+         * @return array Returns an array of active exercises. 
+         */
+	    public static function getActiveNonAssessmentExercises( $limit ) {
+
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id AND exercise_type.exrs_type_id <> 5  ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
+                $query = $db->prepare( $sql );
+                $query = $db->query( $sql );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $exercises = array();
+            
+                while ( $row = $query->fetch() ) {
+                    
+                    array_push( $exercises, $row );
+                    
+                }
+                
+                $db = null;
+                
+                return $exercises;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get active exercises.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    /**
+         * Get number of all non-assessment exercises from the database.
+         * @return array Returns an array of active exercises. 
+         */
+	    public static function getNumOfActiveNAExercises() {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT COUNT(*) FROM exercise WHERE status_id = 1 AND exrs_type_id <> 5';
+                $query = $db->prepare( $sql );
+                $query = $db->query( $sql );
+                $result = $query->fetch( PDO::FETCH_NUM );
+                    
+                $db = null;
+                return (int)$result[0];
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get attempts.' );
         	    
     	    }
     	    
@@ -656,6 +761,78 @@
         	    
         	    $db = null;
         	    exit( 'Failed to get role.' );
+        	    
+    	    }
+        	
+    	}
+    	
+    	/**
+         * Get the exercise types.
+         * @param none
+         * @return int|null Returns the role ID or null if not found. 
+         */
+	    public static function getExerciseTypes() {
+    	
+        	$db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT exrs_type_id, name FROM exercise_type WHERE exrs_type_id <> 2';
+                $query = $db->prepare( $sql );
+                $query = $db->query( $sql );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $types = array();
+            
+                while ( $row = $query->fetch() ) {
+                    
+                    array_push( $types, $row );
+                    
+                }
+                
+                $db = null;
+                
+                return $types;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get exercise types.' );
+        	    
+    	    }
+        	
+    	}
+    	
+    	/**
+         * Get the exercise type name by type ID.
+         * @param none
+         * @return string|null Returns the type name or null if not found. 
+         */
+	    public static function getExerciseTypeName( $id ) {
+    	
+        	$db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT name FROM exercise_type WHERE exrs_type_id = :id LIMIT 1';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                
+                $db = null;
+                
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result['name'];
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get exercise types.' );
         	    
     	    }
         	

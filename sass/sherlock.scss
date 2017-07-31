@@ -1,0 +1,600 @@
+@import "compass/reset";
+@import "compass/css3/flexbox";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-sizing";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/opacity";
+@import "compass/css3/filter";
+
+@import url("font-awesome.min.css");
+@import url("jquery-ui.css");
+
+$titleFont: 'Righteous', Arial, sans-serif;
+$bodyFont: 'Open Sans', Arial, sans-serif;
+$defaultFontSize: 16px;
+$linkColor: #70a3f7;
+$gutter: 20px;
+
+@function rem( $px ) {
+    @return $px / $defaultFontSize * 1rem;
+};
+
+/* GENERAL */
+
+*, *:before, *:after {
+	@include box-sizing( border-box );
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: $defaultFontSize;
+    margin: 0;
+}
+
+body {
+    position: relative;
+    font-family: $bodyFont;
+    line-height: normal;
+    background-color: #f1f1f1;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: rem( $gutter ) 0;
+}
+
+h1 {
+    font-size: rem( 26px );
+}
+
+.container {
+    padding: 0 rem( $gutter );
+}
+
+.select {
+    
+    cursor: pointer;
+    
+    .select-hidden {
+        display: none;
+    }
+    
+    .select-options {
+        
+        display: none;
+        position: absolute;
+        margin: 0;
+        padding-left: rem( 5px );
+        background-color: rgba(#fff, 0.9);
+        
+        li {
+            padding: rem( 5px ) 0;
+        }
+        
+    }
+    
+}
+
+footer {
+    
+    margin: rem( $gutter ) 0;
+    font-size: rem( 12px );
+    
+    p {
+        margin: 0;
+    }
+    
+}
+
+.hide {
+    display: none !important;
+}
+
+#disconnect-confirm {
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba( 255, 255, 255, 0.75 );
+    
+    @include display-flex();
+    @include justify-content( center );
+    @include align-items( center );
+    
+    .dialog {
+        
+        width: rem( 400px );
+        height: auto;
+        margin: 0 auto;
+        color: #444;
+        background-color: #f1f1f1;
+        padding: rem( $gutter );
+        border: rem( 1px ) solid #444;
+        
+        p {
+            margin: 0 0 rem( 10px ) 0;
+        }
+        
+        p:last-child {
+            margin: 0;
+        }
+        
+        .title {
+            font-weight: bold;
+            color: #f00;
+        }
+        
+    }
+    
+}
+
+.gSignIn {
+
+    img {
+        width: rem( 210px );
+        height: auto;
+    }
+    
+}
+
+/* LANDING PAGE */
+.hero_bg {
+    
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/sherlock_bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    
+    .hero {
+        
+        @include display-flex();
+        @include flex-flow( row wrap );
+        @include align-items( center );
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        background: rgba( 4, 12, 14, 0.5 );
+        
+        .hero_content {
+            
+            @include flex( 1 );
+            text-align: center;
+            
+            .title {
+                font-family: $titleFont;
+                font-size: 514%;
+                line-height: normal;
+                margin-bottom: rem( 50px );
+            }
+        
+            .cta {
+                
+                @include display-flex();
+                @include flex-flow( column nowrap );
+                @include align-items( flex-start );
+                
+                a { 
+                    display: block;
+                    margin: 0 auto;
+                    font-family: $bodyFont;
+                    color: $linkColor;
+                    text-decoration: none;
+                }
+                
+                a:hover {
+                    text-decoration: underline;
+                }
+                
+                .btn {
+                    
+                    @include display-flex();
+                    @include align-items( center );
+                    font-family: 'Roboto', sans-serif;
+                    font-size: rem( 15px );
+                    text-align: left;
+                    color: #fff;
+                    width: rem( 204px );
+                    height: rem( 46px );
+                    background-color: $linkColor;
+                    margin-bottom: rem( 6px );
+                    padding: 0 rem( 13px) 0;
+                    @include border-radius( rem( 3px ) );
+                    @include single-box-shadow( 0, rem( 1px ), rem( 3px ), 0, #444 );
+                    
+                    .icon {
+                        
+                        margin-right: rem( 22px );
+                        
+                        .fa-lg {
+                            font-size: rem( 24px );
+                        }
+                        
+                    }
+                    
+                }
+                
+                .btn:hover {
+                    
+                    text-decoration: none;
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+/* SHERLOCK PAGES */
+#sherlock-wrapper {
+    
+    width: 100%;
+    
+    .navbar {
+        
+        color: #f2f2f2;
+        background-image: url('../images/sherlock_bg.jpg');
+        background-repeat: no-repeat;
+        background-position: 50% 73%;
+        background-color: rgba( 0, 0 , 0, 0.5 );
+        
+        .container {
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include justify-content( flex-start );
+            @include align-items( center );
+            height: rem( 50px );
+        }
+        
+        .site-name {
+            @include flex( 2 1 auto );
+            font-family: $titleFont;
+            font-size: rem( 28px );
+            line-height: rem( 28px );
+            margin-right: rem( 10px );
+        }
+        
+        .user {
+            
+            p {
+                margin: 0;
+            }
+            
+            .signinout {
+                font-size: rem( 12px ); 
+            }
+            
+        }
+        
+    }
+    
+    .exercise-pagination {
+        
+        .controls {
+            
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include justify-content( flex-start );
+            @include align-items( center );
+            color: #444;
+            height: rem( 30px );
+            
+            .pageActions {
+                
+                @include display-flex();
+                @include align-items( center );
+                @include flex( 2 1 auto );
+                
+                .previous, .next {
+                    width: rem( 40px );
+                    color: #444;
+                    text-align: center;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+                
+                button:hover {
+                    color: #000;
+                }
+                
+                button:disabled {
+                    color: #ccc;
+                    cursor: default;
+                }
+                
+            }
+            
+            .actions {
+                
+                @include display-flex();
+                @include flex-flow( row nowrap );
+                @include justify-content( flex-start );
+                
+                .select {
+                    
+                    .select-styled {
+                        position: relative;
+                        width: rem( 150px );
+                        border-bottom: rem( 1px ) solid #ccc;
+                        margin-right: rem( $gutter );
+                        padding: 0 rem( 5px );
+                        //height: rem( 30px );
+                        color: #888;
+                    }
+                    
+                    .select-styled:after {
+                        position: absolute;
+                        top: rem( 0px );
+                        right: rem( 5px );
+                        font-family:'FontAwesome';
+                        font-size: rem( 22px );
+                        content: '\f078';
+                        color: #444;
+                    }
+                    
+                    .active {
+                        color: #000;
+                    }
+                    
+                    .select-options {
+                        
+                        width: rem( 150px );
+                        
+                        li {
+                            color: #666;
+                        }
+                        
+                        li:hover {
+                            color: #000;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+    }
+    
+    .exercise-grid {
+        
+        margin: rem( $gutter ) 0 0;
+        @include display-flex();
+        @include flex-flow( row wrap );
+        @include justify-content( space-between );
+        
+        .grid-item {
+            
+            display: block;
+            width: 100%;
+            height: rem(230px);
+            margin-bottom: rem( $gutter );
+            @include border-radius( rem(5px) rem(5px) 0 0 );
+            border: rem( 1px ) solid #ccc;
+            overflow: hidden;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            
+            .thumbnail {
+                
+                position: relative;
+                width: 100%;
+                height: rem( 150px );
+                background-color: #ccc;
+                border-bottom: rem( 1px ) solid #ccc;
+                overflow: hidden;
+                
+                .start-txt {
+                    position: absolute;
+                    display: none;
+                    @include align-items( center );
+                    @include justify-content( center );
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    text-transform: uppercase;
+                    z-index: 1;
+                    color: #fff;
+                    font-size: rem( 32px );
+                    @include opacity( 0.9 );
+                    @include filter(drop-shadow(0 0 rem(6px) rgba(#000, 0.9)));
+                }
+                
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    @include filter(grayscale(1));
+                    animation-name: colorFadeOut;
+                    animation-duration: 0.75s;
+                    
+                }
+                
+                .embedBtn {
+                    
+                    position: absolute;
+                    top: rem( 10px );
+                    right: rem( 10px );
+                    z-index: 10;
+                    
+                    button {
+                        
+                        border: none;
+                        width: rem( 40px );
+                        height: rem( 40px );
+                        background-color: #fff;
+                        cursor: pointer;
+                        @include border-radius( 50% );
+                        @include opacity( 0.5 );
+                        
+                        i {
+                            @include rotate( 90deg );
+                        }
+                        
+                    }
+                    
+                    button:hover {
+                        @include opacity( 1 );
+                        @include single-box-shadow( 0, 0, rem( 6px ), 0, #000 );
+                    }
+                    
+                }
+                
+                .exercise-type-label {
+                    position: absolute;
+                    top: rem( 10px );
+                    left: rem( 10px );
+                    color: #fff;
+                    font-size: rem( 14px );
+                    min-width: rem( 80px );
+                    text-transform: uppercase;
+                    text-align: center;
+                    padding: rem( 5px ) rem( 6px );
+                    background-color: rgba(#444, 0.9);
+                    @include border-radius( 3px );
+                    @include single-box-shadow( 0, 0, rem( 6px ), 0, #000 );
+                    z-index: 1;
+                }
+                
+                .practice {
+                    background-color: rgba(#4285f4, 0.9);
+                }
+                
+                .training {
+                    background-color: rgba(#3ac14a, 0.9);
+                }
+                
+                .assessment {
+                    background-color: rgba(#ea4335, 0.9);
+                }
+                
+            }
+            
+            .info {
+                
+                padding: rem( $gutter / 2 );
+                
+                .title {
+                    font-weight: bold;
+                }
+                
+                .description {
+                    font-size: rem( 14px );
+                }
+                
+                
+            }
+            
+        }
+        
+        .grid-item:hover {
+            @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
+            
+            .thumbnail {
+                
+                .start-txt {
+                    @include display-flex();
+                }
+                
+                img {
+                    @include filter(grayscale(0));
+                    animation-name: colorFadeIn;
+                    animation-duration: 0.25s;
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    @keyframes colorFadeIn {
+        from { @include filter(grayscale(1)); }
+        to {@include filter(grayscale(0));}
+    }
+    
+    @keyframes colorFadeOut {
+        from { @include filter(grayscale(0)); }
+        to {@include filter(grayscale(1));}
+    }
+    
+    .assessment-samples {
+        
+        position: relative;
+        
+        .assessment-signin {
+            
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            padding: rem( $gutter ) 0;
+            background-color: rgba( #f1f1f1, 0.75);
+            
+            h2, a, p {
+                text-align: center;
+            }
+            
+            h2 {
+                font-size: rem( 24px );
+                font-weight: bold;
+            }
+            
+            a { 
+                display: block;
+                width: rem( 210px );
+                margin: 0 auto;
+                font-family: $bodyFont;
+                color: $linkColor;
+                text-decoration: none;
+            }
+            
+            a:hover {
+                text-decoration: underline;
+            }
+            
+            small {
+                font-size: rem( 12px );
+                font-style: italic;
+            }
+            
+        }
+    
+    }
+    
+}
+
+@media only screen 
+and (min-width : 900px) {
+    
+    .container {
+        width: rem( 900px );
+        margin: 0 auto;
+    }
+    
+    #sherlock-wrapper {
+        
+        .exercise-grid {
+        
+            .grid-item {
+                width: rem(420px);
+            }
+            
+        }
+        
+    }
+    
+}

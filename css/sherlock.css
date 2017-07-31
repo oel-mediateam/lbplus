@@ -1,13 +1,14 @@
-/* RESET */
-html, body, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, blockquote, h6, p, blockquote, pre, code,
+@import url("font-awesome.min.css");
+@import url("jquery-ui.css");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, ol, li,
+dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td, td,
+table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
@@ -19,17 +20,17 @@ time, mark, audio, video {
   font-size: 100%;
   vertical-align: baseline; }
 
-html, body {
+html {
   line-height: 1; }
 
-ol, ul, ol {
+ol, ul {
   list-style: none; }
 
 table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-caption, th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td, td {
+caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }
@@ -46,1323 +47,418 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block; }
 
-/******** GENERAL ********/
-html, body {
-  font-size: 16px; }
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  color: #2f2f2f;
-  line-height: 1.25rem; }
-
-h1, h2, h3, h4, h5, blockquote, h6 {
-  margin: 1rem 0;
-  font-weight: 100;
-  color: #1e1e1e; }
-
-h6 {
-  font-size: 120%;
-  line-height: 1.45rem;
-  font-weight: 400; }
-
-h5, blockquote {
-  font-size: 140%;
-  line-height: 1.65rem;
-  font-weight: 400; }
-
-h4 {
-  font-size: 160%;
-  line-height: 1.85rem;
-  font-weight: 400; }
-
-h3 {
-  font-size: 180%;
-  line-height: 2.05rem;
-  font-weight: 400; }
-
-h2 {
-  font-size: 200%;
-  line-height: 2.25rem; }
-
-h1 {
-  font-size: 220%;
-  line-height: 2.45rem; }
-
-p {
-  margin: 1rem 0; }
-
-small {
-  font-size: 80%;
-  line-height: 1.1rem; }
-
-ul, ol {
-  margin: 1rem 0;
-  list-style-type: disc;
-  list-style-position: outside;
-  padding-left: 1rem; }
-  ul li, ol li {
-    margin-left: 1rem; }
-
-ol {
-  list-style-type: decimal; }
-
-blockquote {
-  position: relative;
-  margin: 1rem 0 1rem 2.25rem; }
-
-blockquote:before {
-  position: absolute;
-  content: "\201C";
-  font-family: Arial, "Lucida Grande", sans-serif;
-  font-size: 250%;
-  color: #2f2f2f;
-  top: 0.3125rem;
-  left: -1.25rem; }
-
-strong {
-  font-weight: bold; }
-
-em {
-  font-style: italic; }
-
-hr {
-  margin: 1rem 0;
-  border-top: 0.0625rem solid #2f2f2f;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-right-width: 0; }
-
-pre, code {
-  font-family: monospace;
-  margin: 1rem 0; }
-
-code {
-  margin: 0; }
-
-form label {
-  display: block;
-  margin: 0.5rem 0 0; }
-form input {
-  font-size: 16px;
-  border: 0.0625rem solid #cdcdcd;
-  padding: 0.5rem;
+/* GENERAL */
+*, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
-form input[type="text"], form textarea, form input[type="number"], form input[type="file"] {
-  font-weight: bold;
-  display: block;
+
+html, body {
   width: 100%;
-  margin: 0.5rem 0 0; }
-form input[type="file"] {
-  padding: 0.5rem 0;
-  border: none; }
-form textarea {
-  width: 100%;
-  height: 6.8125rem;
-  border: 0.0625rem solid #cdcdcd;
-  padding: 0.5rem;
+  height: 100%;
   font-size: 16px;
-  font-weight: bold;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  resize: none; }
-form .half {
-  width: 49.5%;
-  float: left; }
-form .half:nth-child(odd) {
-  margin-right: 1%; }
-form .quarter {
-  width: 33%;
-  margin-right: .44%;
-  float: left; }
-form .quarter:nth-child(3n+3) {
-  margin-right: 0; }
-form .select-hidden {
-  display: none;
-  visibility: hidden;
-  padding-right: 0.625rem; }
-form .select {
-  cursor: pointer;
-  display: block;
+  margin: 0; }
+
+body {
   position: relative;
-  margin: 1rem 0 0;
-  font-size: 16px;
-  color: #2f2f2f;
-  width: 100%;
-  height: 2.3125rem;
-  outline: none; }
-form .select-styled {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #f2f2f2;
-  padding: 0.5rem 0.9375rem 0;
-  font-weight: bold;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  outline: none; }
-  form .select-styled:after {
+  font-family: "Open Sans", Arial, sans-serif;
+  line-height: normal;
+  background-color: #f1f1f1; }
+
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 1.25rem 0; }
+
+h1 {
+  font-size: 1.625rem; }
+
+.container {
+  padding: 0 1.25rem; }
+
+.select {
+  cursor: pointer; }
+  .select .select-hidden {
+    display: none; }
+  .select .select-options {
+    display: none;
     position: absolute;
-    content: "";
-    width: 0;
-    height: 0;
-    border: 0.4375rem solid transparent;
-    border-color: #2f2f2f transparent transparent transparent;
-    top: 1rem;
-    right: 0.625rem; }
-  form .select-styled:hover {
-    background-color: #ededed; }
-  form .select-styled:active, form .select-styled.active {
-    background-color: #e5e5e5; }
-    form .select-styled:active:after, form .select-styled.active:after {
-      top: 0.5625rem;
-      border-color: transparent transparent #2f2f2f transparent; }
-form .select-styled.error {
-  border: 0.0625rem solid #f00; }
-form .select-options {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  background-color: #e5e5e5;
-  z-index: 999;
-  height: 16.875rem;
-  overflow-y: scroll; }
-  form .select-options li {
     margin: 0;
-    padding: 0.75rem 0;
-    text-indent: 0.9375rem;
-    border-top: 0.0625rem solid #d9d9d9;
-    -moz-transition: all 0.15s ease-in;
-    -o-transition: all 0.15s ease-in;
-    -webkit-transition: all 0.15s ease-in;
-    transition: all 0.15s ease-in; }
-    form .select-options li:hover {
-      color: #f2f2f2;
-      background: #2f2f2f; }
-    form .select-options li[rel="hide"] {
-      display: none; }
+    padding-left: 0.3125rem;
+    background-color: rgba(255, 255, 255, 0.9); }
+    .select .select-options li {
+      padding: 0.3125rem 0; }
 
-button {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  font-weight: normal;
-  outline: none; }
-
-a, a:link {
-  text-decoration: none; }
-
-a:hover {
-  text-decoration: underline; }
+footer {
+  margin: 1.25rem 0;
+  font-size: 0.75rem; }
+  footer p {
+    margin: 0; }
 
 .hide {
-  display: none; }
+  display: none !important; }
 
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both; }
+#disconnect-confirm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center; }
+  #disconnect-confirm .dialog {
+    width: 25rem;
+    height: auto;
+    margin: 0 auto;
+    color: #444;
+    background-color: #f1f1f1;
+    padding: 1.25rem;
+    border: 0.0625rem solid #444; }
+    #disconnect-confirm .dialog p {
+      margin: 0 0 0.625rem 0; }
+    #disconnect-confirm .dialog p:last-child {
+      margin: 0; }
+    #disconnect-confirm .dialog .title {
+      font-weight: bold;
+      color: #f00; }
 
-/******** LB PLUS ********/
-.sherlock_wrapper {
-  position: relative;
-  width: 58.75rem;
-  height: 33.0625rem;
-  margin: 0 auto; }
-  .sherlock_wrapper .sherlock_container {
-    margin: 1rem 0; }
-  .sherlock_wrapper .sherlock_view, .sherlock_wrapper .lti_sherlock_view {
-    position: relative;
-    height: 29.3125rem;
-    padding: 1.5625rem 1.5625rem 0 1.5625rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border: 0.0625rem solid #1e1e1e;
-    border-bottom: none;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box; }
-    .sherlock_wrapper .sherlock_view h1:nth-of-type(1), .sherlock_wrapper .lti_sherlock_view h1:nth-of-type(1) {
-      margin-top: 0; }
-    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper {
-      margin-bottom: 0; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper *, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper * {
-        -moz-user-select: -moz-none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-        user-select: none; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media {
-        position: relative;
-        width: 40rem;
-        height: 22.5rem;
-        background: #000;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          z-index: 10; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn {
-            position: absolute;
-            width: 9.375rem;
-            height: 5rem;
-            color: #fff;
-            text-align: center;
-            font-size: 200%;
-            font-weight: bold;
-            line-height: normal;
-            background: #2e832e;
-            padding: 1.3125rem 1rem 0;
-            top: 8.75rem;
-            left: 15.3125rem;
-            cursor: pointer;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            -moz-border-radius: 0.1875rem;
-            -webkit-border-radius: 0.1875rem;
-            border-radius: 0.1875rem;
-            -moz-box-shadow: 0 0 0.375rem #1e1e1e;
-            -webkit-box-shadow: 0 0 0.375rem #1e1e1e;
-            box-shadow: 0 0 0.375rem #1e1e1e; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused {
-            padding-top: 0.875rem;
-            line-height: .4;
-            background: #c7284d;
-            cursor: default; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay #videoPlayBtn.paused small {
-              font-size: 60%; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox {
-            position: absolute;
-            width: 100%;
-            height: 22.5rem;
-            line-height: 22.5rem;
-            z-index: 11;
-            background: rgba(255, 255, 255, 0.9); }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .reasoning, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .reasoning {
-              display: inline-block;
-              padding: 0 0.875rem;
-              vertical-align: middle;
-              line-height: 1.25rem; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .action, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media .overlay .reasoningBox .action {
-              display: block;
-              position: absolute;
-              width: 100%;
-              bottom: 0.875rem;
-              left: 0;
-              text-align: center;
-              line-height: normal; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_media iframe {
-          width: 100%;
-          height: 100%; }
-      .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions {
-        width: 14.0625rem;
-        margin: 0 0 0 1.4375rem;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions h4, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions h4 {
-          text-align: center;
-          line-height: 1.25rem;
-          border-bottom: 1px dashed #2f2f2f;
-          padding-bottom: 10px;
-          margin-top: 0;
-          margin-bottom: 0; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn {
-          position: relative;
-          width: 14.0625rem;
-          height: 3.125rem;
-          color: #fff;
-          font-weight: bold;
-          cursor: pointer;
-          margin: 1rem 0;
-          position: relative; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits {
-            position: absolute;
-            font-size: 0.75rem;
-            font-weight: normal;
-            line-height: normal;
-            padding: 0.1875rem 0.3125rem 0.125rem;
-            top: -0.3125rem;
-            right: -0.3125rem;
-            background-color: #ef3737;
-            -moz-border-radius: 0.1875rem;
-            -webkit-border-radius: 0.1875rem;
-            border-radius: 0.1875rem;
-            z-index: 10; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits.hide, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .limits.hide {
-            display: none; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon {
-            display: block;
-            width: 3.125rem;
-            height: 3.125rem;
-            font-size: 115%;
-            text-align: center;
-            background: #425fdd;
-            padding-top: 0.9375rem;
-            float: left;
-            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-            opacity: 1;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            -moz-transition: opacity 0.5s, background 0.5s;
-            -o-transition: opacity 0.5s, background 0.5s;
-            -webkit-transition: opacity 0.5s, background 0.5s;
-            transition: opacity 0.5s, background 0.5s; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class^="icon-"], .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class^="icon-"], .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class*=" icon-"], .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .icon [class*=" icon-"] {
-              display: block;
-              margin-top: 0.125rem; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name {
-            display: block;
-            width: 10.9375rem;
-            height: 3.125rem;
-            padding: 1rem 0.6875rem;
-            background: #354cb1;
-            float: left;
-            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-            opacity: 1;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            -moz-transition: opacity 0.5s, background 0.5s;
-            -o-transition: opacity 0.5s, background 0.5s;
-            -webkit-transition: opacity 0.5s, background 0.5s;
-            transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name.long, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .action_name.long {
-            font-size: 85%;
-            padding-top: 0.5625rem;
-            line-height: 1rem; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown {
-            display: block;
-            width: 14.0625rem;
-            height: 0.3125rem;
-            background: #ccc;
-            clear: both; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown .progress, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn .cooldown .progress {
-              display: block;
-              height: 0.3125rem;
-              background: #132988; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .icon {
-          background: #1f3dc1; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:active .action_name {
-          background: #18309c; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled {
-          color: #fafafa;
-          cursor: default; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .limits, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .limits {
-            background: #2e2b2b; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .icon, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .icon {
-            background: #515151;
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-            opacity: 0.75;
-            -moz-transition: opacity 0.5s, background 0.5s;
-            -o-transition: opacity 0.5s, background 0.5s;
-            -webkit-transition: opacity 0.5s, background 0.5s;
-            transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .action_name {
-            background: #424242;
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-            opacity: 0.75;
-            -moz-transition: opacity 0.5s, background 0.5s;
-            -o-transition: opacity 0.5s, background 0.5s;
-            -webkit-transition: opacity 0.5s, background 0.5s;
-            transition: opacity 0.5s, background 0.5s; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .cooldown .progress, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.disabled .cooldown .progress {
-            background: #2c2c2c; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:nth-of-type(1), .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:nth-of-type(1) {
-          margin-top: 0.625rem; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:last-child, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:last-child {
-          margin-bottom: 0; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:after, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn:after {
-          overflow: hidden;
-          *zoom: 1; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls {
-          float: left;
-          clear: both;
-          margin: 0 0 1rem; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls {
-            width: 4rem;
-            height: 1.875rem;
-            margin: 0 1rem 0 0;
-            float: left; }
-            .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls .action_name {
-              width: 100%;
-              height: 1.875rem;
-              padding: 0.375rem 0 0;
-              line-height: normal;
-              text-align: center;
-              -moz-box-sizing: border-box;
-              -webkit-box-sizing: border-box;
-              box-sizing: border-box; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls:last-child, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewVideoControls .btn.videoControls:last-child {
-            margin-right: 0; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewContent p, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .reviewContent p {
-          margin: 0.875rem 0;
-          font-size: 0.875rem;
-          line-height: 1.125rem;
-          -moz-user-select: text;
-          -ms-user-select: text;
-          -webkit-user-select: text;
-          user-select: text; }
-        .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment {
-          width: 100%;
-          height: 1.875rem;
-          margin: 0 1rem 0 0; }
-          .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment .action_name, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper .sherlock_actions .btn.videoControls.playSegment .action_name {
-            width: 100%;
-            height: 1.875rem;
-            padding: 0.25rem 0 0;
-            line-height: normal;
-            text-align: center;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
-    .sherlock_wrapper .sherlock_view .sherlock_interaction_wrapper:after, .sherlock_wrapper .lti_sherlock_view .sherlock_interaction_wrapper:after {
-      overflow: hidden;
-      *zoom: 1; }
-    .sherlock_wrapper .sherlock_view .score_view, .sherlock_wrapper .lti_sherlock_view .score_view {
-      width: 100%; }
-      .sherlock_wrapper .sherlock_view .score_view .overview, .sherlock_wrapper .lti_sherlock_view .score_view .overview {
-        width: 100%;
-        float: left;
-        clear: both; }
-        .sherlock_wrapper .sherlock_view .score_view .overview .percentage, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage {
-          width: 20%;
-          padding: 0 0.625rem;
-          text-align: center;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          float: left; }
-          .sherlock_wrapper .sherlock_view .score_view .overview .percentage .percent, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage .percent {
-            display: block;
-            font-size: 2.875rem;
-            line-height: 2.875rem;
-            font-weight: bold; }
-          .sherlock_wrapper .sherlock_view .score_view .overview .percentage .status, .sherlock_wrapper .lti_sherlock_view .score_view .overview .percentage .status {
-            display: block;
-            font-size: 1.375rem;
-            line-height: 1.375rem;
-            margin-top: 0.5rem;
-            font-style: italic; }
-        .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars {
-          width: 80%;
-          padding: 0 0 0 0.625rem;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          float: left; }
-          .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned {
-            width: 20%;
-            padding: 0 0 0 0.3125rem;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            float: left; }
-            .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned p, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned p {
-              margin-top: 0;
-              margin-bottom: 0.5rem;
-              font-size: 1rem;
-              font-weight: 500;
-              text-align: center; }
-            .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned .stars, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned .stars {
-              font-size: 160%;
-              font-weight: normal; }
-              .sherlock_wrapper .sherlock_view .score_view .overview .actions_stars .star_earned .stars small, .sherlock_wrapper .lti_sherlock_view .score_view .overview .actions_stars .star_earned .stars small {
-                font-size: 60%; }
-      .sherlock_wrapper .sherlock_view .score_view .analysis, .sherlock_wrapper .lti_sherlock_view .score_view .analysis {
-        margin-top: 1rem; }
-        .sherlock_wrapper .sherlock_view .score_view .analysis table, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table {
-          width: 100%; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table th, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table th, .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td {
-            white-space: nowrap;
-            font-weight: bold;
-            text-align: center;
-            padding: 0.3125rem; }
-            .sherlock_wrapper .sherlock_view .score_view .analysis table th small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table th small, .sherlock_wrapper .sherlock_view .score_view .analysis table td small, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td small {
-              font-family: 60%;
-              font-weight: normal; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table td, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table td {
-            font-weight: normal;
-            line-height: normal; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr td:first-child, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr td:first-child {
-            text-align: right; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr:nth-child(odd), .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr:nth-child(odd) {
-            background-color: #e8e8e8; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody tr:last-child, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody tr:last-child {
-            background-color: transparent; }
-          .sherlock_wrapper .sherlock_view .score_view .analysis table tbody .topBorder, .sherlock_wrapper .lti_sherlock_view .score_view .analysis table tbody .topBorder {
-            border-top: 0.125rem solid #2f2f2f; }
-        .sherlock_wrapper .sherlock_view .score_view .analysis .leftBorder, .sherlock_wrapper .lti_sherlock_view .score_view .analysis .leftBorder {
-          border-left: 0.125rem solid #2f2f2f; }
-        .sherlock_wrapper .sherlock_view .score_view .analysis .totalScore, .sherlock_wrapper .lti_sherlock_view .score_view .analysis .totalScore {
-          text-align: right;
-          font-size: 150%; }
-    .sherlock_wrapper .sherlock_view .selection_view, .sherlock_wrapper .lti_sherlock_view .selection_view {
-      padding-top: 1.875rem; }
-      .sherlock_wrapper .sherlock_view .selection_view .exercise_info, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info {
-        margin: 0 0 1rem;
-        padding: 1rem; }
-        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .description_box p:first-child, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info .description_box p:first-child {
-          margin-top: 0;
-          font-size: 0.875rem;
-          line-height: normal; }
-        .sherlock_wrapper .sherlock_view .selection_view .exercise_info .meta, .sherlock_wrapper .lti_sherlock_view .selection_view .exercise_info .meta {
-          margin-bottom: 0; }
-    .sherlock_wrapper .sherlock_view .signin_view, .sherlock_wrapper .lti_sherlock_view .signin_view {
-      width: 50%;
-      margin: 0 auto;
-      text-align: center;
-      padding: 1rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .btn, .sherlock_wrapper .lti_sherlock_view .signin_view .btn {
-        display: inline-block;
-        margin: 0;
-        font-size: 0.875rem;
-        font-weight: bold;
-        color: #6f6f6f;
-        text-decoration: none;
-        padding: 0.625rem;
-        border: 0.0625rem solid #6f6f6f;
-        -moz-border-radius: 0.1875rem;
-        -webkit-border-radius: 0.1875rem;
-        border-radius: 0.1875rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .btn:hover, .sherlock_wrapper .lti_sherlock_view .signin_view .btn:hover {
-        color: #2f2f2f;
-        border-color: #2f2f2f; }
-      .sherlock_wrapper .sherlock_view .signin_view .signin, .sherlock_wrapper .lti_sherlock_view .signin_view .signin {
-        display: block;
-        width: 50%;
-        margin: 1rem auto;
-        font-size: 1.125rem;
-        padding: 0.9375rem 0.625rem;
-        color: #fff;
-        background-color: #2888c7;
-        border-color: #0f75b9; }
-      .sherlock_wrapper .sherlock_view .signin_view .signin:hover, .sherlock_wrapper .lti_sherlock_view .signin_view .signin:hover {
-        color: #fff;
-        background-color: #0f75b9;
-        border-color: #0f75b9; }
-      .sherlock_wrapper .sherlock_view .signin_view .profile_img, .sherlock_wrapper .lti_sherlock_view .signin_view .profile_img {
-        width: 9.375rem;
-        height: 9.375rem;
-        margin: 1rem auto;
-        overflow: hidden;
-        border: 0.1875rem solid #0f75b9;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border-radius: 50%; }
-        .sherlock_wrapper .sherlock_view .signin_view .profile_img img, .sherlock_wrapper .lti_sherlock_view .signin_view .profile_img img {
-          width: 9.375rem;
-          height: 9.375rem; }
-      .sherlock_wrapper .sherlock_view .signin_view .bigicon, .sherlock_wrapper .lti_sherlock_view .signin_view .bigicon {
-        font-size: 800%; }
-      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection, .sherlock_wrapper .lti_sherlock_view .signin_view #google_revoke_connection {
-        color: #c1c1c1;
-        outline: none; }
-      .sherlock_wrapper .sherlock_view .signin_view #google_revoke_connection:hover, .sherlock_wrapper .lti_sherlock_view .signin_view #google_revoke_connection:hover {
-        color: #f00; }
-      .sherlock_wrapper .sherlock_view .signin_view #disconnect-confirm, .sherlock_wrapper .lti_sherlock_view .signin_view #disconnect-confirm {
-        display: none; }
-    .sherlock_wrapper .sherlock_view .callout, .sherlock_wrapper .lti_sherlock_view .callout {
-      font-size: 80%;
-      line-height: 1.1rem;
-      margin: 1rem 0;
-      border-left: 0.1875rem solid #ccc;
-      padding: 0.625rem;
-      -moz-box-shadow: 0 0 0.25rem #ccc;
-      -webkit-box-shadow: 0 0 0.25rem #ccc;
-      box-shadow: 0 0 0.25rem #ccc; }
-    .sherlock_wrapper .sherlock_view .danger, .sherlock_wrapper .lti_sherlock_view .danger {
-      color: #ff005a;
-      border-left-color: #ff005a; }
-    .sherlock_wrapper .sherlock_view .info, .sherlock_wrapper .lti_sherlock_view .info {
-      border-left-color: #00aeff; }
-    .sherlock_wrapper .sherlock_view .success, .sherlock_wrapper .lti_sherlock_view .success {
-      border-left-color: #00ff74; }
-    .sherlock_wrapper .sherlock_view .admin_bar, .sherlock_wrapper .lti_sherlock_view .admin_bar {
-      position: absolute;
-      width: 100%;
-      height: 2.4375rem;
-      top: 0;
-      left: 0;
-      background-color: #f9f9f9;
-      border-bottom: 0.0625rem solid #ccc; }
-      .sherlock_wrapper .sherlock_view .admin_bar h1, .sherlock_wrapper .lti_sherlock_view .admin_bar h1 {
-        width: 50%;
-        font-size: 110%;
+.gSignIn img {
+  width: 13.125rem;
+  height: auto; }
+
+/* LANDING PAGE */
+.hero_bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/sherlock_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; }
+  .hero_bg .hero {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background: rgba(4, 12, 14, 0.5); }
+    .hero_bg .hero .hero_content {
+      -webkit-flex: 1;
+      flex: 1;
+      text-align: center; }
+      .hero_bg .hero .hero_content .title {
+        font-family: "Righteous", Arial, sans-serif;
+        font-size: 514%;
         line-height: normal;
-        font-weight: bold;
-        margin: 0;
-        padding: 0.5625rem 0.625rem 0;
-        float: left;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box; }
-      .sherlock_wrapper .sherlock_view .admin_bar ul, .sherlock_wrapper .lti_sherlock_view .admin_bar ul, .sherlock_wrapper .sherlock_view .admin_bar ol, .sherlock_wrapper .lti_sherlock_view .admin_bar ol {
-        width: 50%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        text-align: right;
-        float: left; }
-        .sherlock_wrapper .sherlock_view .admin_bar ul li, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li, .sherlock_wrapper .sherlock_view .admin_bar ol li, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li {
+        margin-bottom: 3.125rem; }
+      .hero_bg .hero .hero_content .cta {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        -webkit-align-items: flex-start;
+        align-items: flex-start; }
+        .hero_bg .hero .hero_content .cta a {
           display: block;
-          margin: 0;
-          padding: 0;
-          float: right; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li .profile, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile {
-            float: left;
-            clear: both;
-            color: #fff;
-            background-color: #9a9a9a; }
-            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile img, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile img, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile img, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile img {
-              display: block;
-              float: left; }
-            .sherlock_wrapper .sherlock_view .admin_bar ul li .profile .name, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li .profile .name, .sherlock_wrapper .sherlock_view .admin_bar ol li .profile .name, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li .profile .name {
-              display: block;
-              padding: 0.625rem 0.625rem 0;
-              float: left; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a, .sherlock_wrapper .sherlock_view .admin_bar ol li a, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a {
-            display: block;
-            width: 100%;
-            height: 2.5rem;
-            text-decoration: none;
-            padding: 0.625rem 0.625rem;
-            border-left: 0.0625rem solid #ccc;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.dashboard, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.dashboard, .sherlock_wrapper .sherlock_view .admin_bar ol li a.dashboard, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.dashboard {
-            color: #fff;
-            background-color: #5d5dff; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signin, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.signin, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signin, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.signin {
-            color: #fff;
-            background-color: #2fc600; }
-          .sherlock_wrapper .sherlock_view .admin_bar ul li a.signout, .sherlock_wrapper .lti_sherlock_view .admin_bar ul li a.signout, .sherlock_wrapper .sherlock_view .admin_bar ol li a.signout, .sherlock_wrapper .lti_sherlock_view .admin_bar ol li a.signout {
-            color: #fff;
-            background-color: #d50000; }
-  .sherlock_wrapper .lti_sherlock_view {
-    height: 24rem; }
-    .sherlock_wrapper .lti_sherlock_view .selection_view {
-      padding: 0; }
-  .sherlock_wrapper .sherlock_controls {
-    height: 3.75rem;
-    background: #1e1e1e;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box; }
-    .sherlock_wrapper .sherlock_controls * {
-      -moz-user-select: -moz-none;
-      -ms-user-select: none;
-      -webkit-user-select: none;
-      user-select: none; }
-    .sherlock_wrapper .sherlock_controls .progress_bar_holder {
-      position: relative;
-      background: #000000;
-      padding: 1.5625rem 1.5625rem 0;
-      height: 3.75rem;
-      float: left;
-      -moz-box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .tag {
-        position: absolute;
-        width: 1.8125rem;
-        height: 1.375rem;
-        top: -0.9375rem;
-        left: 0;
-        font-size: 0.875rem;
-        text-align: center;
-        line-height: 0.875rem;
-        color: #fff;
-        background-color: #2e832e;
-        padding: 0.5rem 0 0 0.0625rem;
-        cursor: default;
-        -moz-box-shadow: 0 0 0.25rem #2f2f2f;
-        -webkit-box-shadow: 0 0 0.25rem #2f2f2f;
-        box-shadow: 0 0 0.25rem #2f2f2f;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border-radius: 50%; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .tag:hover {
-        -moz-box-shadow: 0 0 0.375rem #000;
-        -webkit-box-shadow: 0 0 0.375rem #000;
-        box-shadow: 0 0 0.375rem #000; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .tag:after {
-        position: absolute;
-        display: block;
-        width: 0;
-        height: 0;
-        content: "";
-        bottom: -0.625rem;
-        left: 0.4375rem;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 16px solid #2e832e; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .hint_tag {
-        position: absolute;
-        width: 1.25rem;
-        height: 0.9375rem;
-        bottom: 0.1875rem;
-        left: 0;
-        font-size: 0.625rem;
-        text-align: center;
-        line-height: 0.625rem;
-        color: #fff;
-        background-color: #e02349;
-        padding: 0.3125rem 0 0;
-        cursor: default;
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-        opacity: 0.5;
-        -moz-box-shadow: 0 0 0.25rem #2f2f2f;
-        -webkit-box-shadow: 0 0 0.25rem #2f2f2f;
-        box-shadow: 0 0 0.25rem #2f2f2f;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border-radius: 50%; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .hint_tag:hover {
-        filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-        opacity: 1;
-        -moz-box-shadow: 0 0 0.375rem #000;
-        -webkit-box-shadow: 0 0 0.375rem #000;
-        box-shadow: 0 0 0.375rem #000; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .hint_tag:after {
-        position: absolute;
-        display: block;
-        width: 0;
-        height: 0;
-        content: "";
-        top: -0.375rem;
-        left: 0.375rem;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-bottom: 8px solid #e02349; }
-      .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar {
-        position: relative;
-        width: 40rem;
-        height: 0.625rem;
-        background: #686868; }
-        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .tag_hints_holder {
-          display: block;
-          position: absolute;
-          width: 40rem;
-          height: 0.625rem; }
-          .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .tag_hints_holder .hint {
-            position: absolute;
-            width: 0.1875rem;
-            height: 0.625rem;
-            top: 0;
-            left: 9px;
-            background-color: #1e561e;
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-            opacity: 0.75; }
-        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .scrubber {
-          position: absolute;
-          width: 0.0625rem;
-          height: 0.625rem;
-          background-color: #3cdfd7;
-          z-index: 0; }
-        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .progressed {
-          display: block;
-          width: 0;
-          height: 0.625rem;
-          background: #ffffff;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
-        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .time {
-          width: 100%;
-          font-size: 70%;
+          margin: 0 auto;
+          font-family: "Open Sans", Arial, sans-serif;
+          color: #70a3f7;
+          text-decoration: none; }
+        .hero_bg .hero .hero_content .cta a:hover {
+          text-decoration: underline; }
+        .hero_bg .hero .hero_content .cta .btn {
+          display: -webkit-flex;
+          display: flex;
+          -webkit-align-items: center;
+          align-items: center;
+          font-family: 'Roboto', sans-serif;
+          font-size: 0.9375rem;
+          text-align: left;
           color: #fff;
-          float: left;
-          clear: both; }
-          .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .time .elapsed, .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .time .duration {
-            display: block;
-            width: 50%;
-            float: left; }
-          .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .time .duration {
-            text-align: right; }
-        .sherlock_wrapper .sherlock_controls .progress_bar_holder .progress_bar .time:after {
-          overflow: hidden;
-          *zoom: 1; }
-    .sherlock_wrapper .sherlock_controls .main_controls {
-      width: 15.625rem;
-      height: 3.75rem;
-      color: #fff;
-      float: left; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind {
-        position: relative;
-        width: 14.0625rem;
-        height: 3.125rem;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 1rem 0;
-        width: 100%;
-        margin-top: -0.625rem; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .limits {
-          position: absolute;
-          font-size: 0.75rem;
-          font-weight: normal;
-          line-height: normal;
-          padding: 0.1875rem 0.3125rem 0.125rem;
-          top: -0.3125rem;
-          right: -0.3125rem;
-          background-color: #ef3737;
+          width: 12.75rem;
+          height: 2.875rem;
+          background-color: #70a3f7;
+          margin-bottom: 0.375rem;
+          padding: 0 0.8125rem 0;
           -moz-border-radius: 0.1875rem;
           -webkit-border-radius: 0.1875rem;
           border-radius: 0.1875rem;
-          z-index: 10;
-          top: -0.3125rem;
-          right: 0.3125rem; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .limits.hide {
-          display: none; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .icon {
-          display: block;
-          width: 3.125rem;
-          height: 3.125rem;
-          font-size: 115%;
-          text-align: center;
-          background: #425fdd;
-          padding-top: 0.9375rem;
-          float: left;
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s;
-          width: 25%;
-          height: 4.0625rem;
-          font-size: 130%;
-          padding-top: 1.25rem; }
-          .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .icon [class^="icon-"], .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .icon [class*=" icon-"] {
-            display: block;
-            margin-top: 0.125rem; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .action_name {
-          display: block;
-          width: 10.9375rem;
-          height: 3.125rem;
-          padding: 1rem 0.6875rem;
-          background: #354cb1;
-          float: left;
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s;
-          width: 75%;
-          height: 4.0625rem;
-          font-size: 130%;
-          padding: 1.5rem 1rem; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .cooldown {
-          display: block;
-          width: 14.0625rem;
-          height: 0.3125rem;
-          background: #ccc;
-          clear: both;
-          width: 100%; }
-          .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind .cooldown .progress {
-            display: block;
-            height: 0.3125rem;
-            background: #132988; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind:active .icon {
-        background: #1f3dc1; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind:active .action_name {
-        background: #18309c; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled {
-        color: #fafafa;
-        cursor: default; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .limits {
-          background: #2e2b2b; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .icon {
-          background: #515151;
-          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-          opacity: 0.75;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .action_name {
-          background: #424242;
-          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-          opacity: 0.75;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .cooldown .progress {
-          background: #2c2c2c; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .icon {
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind.disabled .action_name {
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.rewind:after {
-        overflow: hidden;
-        *zoom: 1; }
-      .sherlock_wrapper .sherlock_controls .main_controls .btn.backToScore {
-        position: relative;
-        width: 14.0625rem;
-        height: 3.125rem;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 1rem 0;
-        width: 100%;
-        height: 3.75rem;
-        margin: 0; }
-        .sherlock_wrapper .sherlock_controls .main_controls .btn.backToScore .action_name {
-          display: block;
-          width: 10.9375rem;
-          height: 3.125rem;
-          padding: 1rem 0.6875rem;
-          background: #354cb1;
-          float: left;
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s;
-          width: 100%;
-          height: 3.75rem;
-          text-align: center;
-          font-size: 130%;
-          color: #fff;
-          text-decoration: none;
-          line-height: normal;
-          padding: 1.125rem 1rem 0;
-          float: none; }
-    .sherlock_wrapper .sherlock_controls .main_controls.score_view {
-      width: 100%;
-      height: 3.75rem;
-      color: #fff; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .left, .sherlock_wrapper .sherlock_controls .main_controls.score_view .center, .sherlock_wrapper .sherlock_controls .main_controls.score_view .right {
-        width: 33.3333%;
-        float: left; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .right {
-        text-align: right; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn {
-        position: relative;
-        width: 14.0625rem;
-        height: 3.125rem;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 1rem 0;
-        width: 50%;
-        height: 3.75rem; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.full {
-        width: 100%; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close {
-        float: left;
-        margin: 0;
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-        opacity: 0.5;
-        -moz-transition: opacity 0.5s, background 0.5s;
-        -o-transition: opacity 0.5s, background 0.5s;
-        -webkit-transition: opacity 0.5s, background 0.5s;
-        transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close .action_name {
-          display: block;
-          width: 10.9375rem;
-          height: 3.125rem;
-          padding: 1rem 0.6875rem;
-          background: #354cb1;
-          float: left;
-          filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-          opacity: 1;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          -moz-transition: opacity 0.5s, background 0.5s;
-          -o-transition: opacity 0.5s, background 0.5s;
-          -webkit-transition: opacity 0.5s, background 0.5s;
-          transition: opacity 0.5s, background 0.5s;
-          width: 100%;
-          color: #b5b5b5;
-          font-weight: 100;
-          font-size: 2rem;
-          line-height: 2rem;
-          text-align: center;
-          height: 3.75rem;
-          padding-top: 0.625rem;
-          background: none;
-          border-top: 0.3125rem solid #c77028; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:hover {
-        filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-        opacity: 1;
-        -moz-transition: opacity 0.5s, background 0.5s;
-        -o-transition: opacity 0.5s, background 0.5s;
-        -webkit-transition: opacity 0.5s, background 0.5s;
-        transition: opacity 0.5s, background 0.5s; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:hover .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:hover .action_name {
-          color: #fff; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .icon, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:active .icon {
-        background: #1f3dc1; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.retake:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next:active .action_name, .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close:active .action_name {
-        background: #18309c; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.new .action_name {
-        border-top-color: #5cc627; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.previous .action_name {
-        border-top-color: #2888c7; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next {
-        float: right; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.next .action_name {
-          border-top-color: #c328c7; }
-      .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close {
-        float: right; }
-        .sherlock_wrapper .sherlock_controls .main_controls.score_view .btn.close .action_name {
-          border-top-color: #c72848; }
-  .sherlock_wrapper .sherlock_controls:after {
-    overflow: hidden;
-    *zoom: 1; }
-  .sherlock_wrapper .sherlock_status_msg {
-    position: absolute;
-    width: 50%;
-    font-size: 80%;
-    text-align: right;
-    top: 0;
-    right: 1.5625rem;
-    cursor: default;
-    -moz-user-select: -moz-none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none; }
-  .sherlock_wrapper .sherlock_mode_msg {
-    position: absolute;
-    padding: 0.3125rem;
-    width: 100%;
-    font-size: 60%;
-    text-align: center;
-    top: 0;
-    left: 0;
-    background-color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: normal;
-    cursor: default;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -moz-user-select: -moz-none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none; }
-  .sherlock_wrapper .sherlock_mode_msg.training {
-    background-color: #f1ffbc; }
-  .sherlock_wrapper .sherlock_mode_msg.review {
-    background-color: #bcd1ff; }
-  .sherlock_wrapper .transition_overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    padding: 8.75rem 1rem 0;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-    opacity: 0.9;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    z-index: 99; }
-    .sherlock_wrapper .transition_overlay .heading, .sherlock_wrapper .transition_overlay .loading {
-      font-size: 400%;
-      text-transform: uppercase;
-      text-align: center;
-      font-weight: 100;
-      line-height: normal; }
-    .sherlock_wrapper .transition_overlay .subheading {
-      text-align: center;
-      font-size: 120%;
-      font-weight: 200;
-      line-height: normal; }
-      .sherlock_wrapper .transition_overlay .subheading a, .sherlock_wrapper .transition_overlay .subheading a:visited {
-        color: #f00; }
-    .sherlock_wrapper .transition_overlay .loading {
-      margin-top: 1rem; }
+          -moz-box-shadow: 0 0.0625rem 0.1875rem 0 #444;
+          -webkit-box-shadow: 0 0.0625rem 0.1875rem 0 #444;
+          box-shadow: 0 0.0625rem 0.1875rem 0 #444; }
+          .hero_bg .hero .hero_content .cta .btn .icon {
+            margin-right: 1.375rem; }
+            .hero_bg .hero .hero_content .cta .btn .icon .fa-lg {
+              font-size: 1.5rem; }
+        .hero_bg .hero .hero_content .cta .btn:hover {
+          text-decoration: none; }
 
-/* ANIMATIONS */
-.blink {
-  -moz-animation-name: blink;
-  -webkit-animation-name: blink;
-  animation-name: blink;
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  animation-duration: 3s;
-  -moz-animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-  -moz-animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite; }
-
-.blink-faster {
-  z-index: 99;
-  -moz-animation-name: blink-faster;
-  -webkit-animation-name: blink-faster;
-  animation-name: blink-faster;
-  -moz-animation-duration: 1s;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -moz-animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-  -moz-animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite; }
-
-.spin {
-  display: inline-block;
-  width: 4rem;
-  height: 4rem;
-  -moz-animation-name: spin;
-  -webkit-animation-name: spin;
-  animation-name: spin;
-  -moz-animation-duration: 2s;
-  -webkit-animation-duration: 2s;
-  animation-duration: 2s;
-  -moz-animation-timing-function: linear;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  -moz-animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -moz-transform-origin: center center;
-  -ms-transform-origin: center center;
-  -webkit-transform-origin: center center;
-  transform-origin: center center; }
-
-@-moz-keyframes blink {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@-webkit-keyframes blink {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@keyframes blink {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@-moz-keyframes blink-faster {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@-webkit-keyframes blink-faster {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@keyframes blink-faster {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.5; }
-  100% {
-    opacity: 1; } }
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  to {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-@keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  to {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-.ui-dialog {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  background-color: #f9f9f9;
-  border: 0.0625rem solid #1e1e1e; }
-  .ui-dialog .ui-dialog-title {
-    font-weight: bold;
-    font-size: 1.125rem;
-    margin: 0; }
-  .ui-dialog .ui-dialog-content p:first-child {
-    margin-top: 0; }
-  .ui-dialog .ui-dialog-content p:last-child {
-    margin-bottom: 0; }
-  .ui-dialog .ui-dialog-buttonpane {
-    margin: 0; }
-    .ui-dialog .ui-dialog-buttonpane .ui-button {
-      font-size: 0.875rem;
-      font-weight: bold;
-      color: #6f6f6f;
-      text-decoration: none;
-      border: 0.0625rem solid #6f6f6f;
-      line-height: 0;
-      background-color: transparent;
-      -moz-border-radius: 0.1875rem;
-      -webkit-border-radius: 0.1875rem;
-      border-radius: 0.1875rem;
-      -moz-user-select: -moz-none;
-      -ms-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
-      outline: none; }
-    .ui-dialog .ui-dialog-buttonpane .ui-button:hover {
-      color: #2f2f2f;
-      border-color: #2f2f2f; }
-
-.ui-dialog.no-close .ui-dialog-titlebar-close {
-  display: none; }
-.ui-dialog.no-close .ui-dialog-title {
+/* SHERLOCK PAGES */
+#sherlock-wrapper {
   width: 100%; }
+  #sherlock-wrapper .navbar {
+    color: #f2f2f2;
+    background-image: url("../images/sherlock_bg.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 73%;
+    background-color: rgba(0, 0, 0, 0.5); }
+    #sherlock-wrapper .navbar .container {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-align-items: center;
+      align-items: center;
+      height: 3.125rem; }
+    #sherlock-wrapper .navbar .site-name {
+      -webkit-flex: 2 1 auto;
+      flex: 2 1 auto;
+      font-family: "Righteous", Arial, sans-serif;
+      font-size: 1.75rem;
+      line-height: 1.75rem;
+      margin-right: 0.625rem; }
+    #sherlock-wrapper .navbar .user p {
+      margin: 0; }
+    #sherlock-wrapper .navbar .user .signinout {
+      font-size: 0.75rem; }
+  #sherlock-wrapper .exercise-pagination .controls {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-align-items: center;
+    align-items: center;
+    color: #444;
+    height: 1.875rem; }
+    #sherlock-wrapper .exercise-pagination .controls .pageActions {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-flex: 2 1 auto;
+      flex: 2 1 auto; }
+      #sherlock-wrapper .exercise-pagination .controls .pageActions .previous, #sherlock-wrapper .exercise-pagination .controls .pageActions .next {
+        width: 2.5rem;
+        color: #444;
+        text-align: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer; }
+      #sherlock-wrapper .exercise-pagination .controls .pageActions button:hover {
+        color: #000; }
+      #sherlock-wrapper .exercise-pagination .controls .pageActions button:disabled {
+        color: #ccc;
+        cursor: default; }
+    #sherlock-wrapper .exercise-pagination .controls .actions {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start; }
+      #sherlock-wrapper .exercise-pagination .controls .actions .select .select-styled {
+        position: relative;
+        width: 9.375rem;
+        border-bottom: 0.0625rem solid #ccc;
+        margin-right: 1.25rem;
+        padding: 0 0.3125rem;
+        color: #888; }
+      #sherlock-wrapper .exercise-pagination .controls .actions .select .select-styled:after {
+        position: absolute;
+        top: 0rem;
+        right: 0.3125rem;
+        font-family: 'FontAwesome';
+        font-size: 1.375rem;
+        content: '\f078';
+        color: #444; }
+      #sherlock-wrapper .exercise-pagination .controls .actions .select .active {
+        color: #000; }
+      #sherlock-wrapper .exercise-pagination .controls .actions .select .select-options {
+        width: 9.375rem; }
+        #sherlock-wrapper .exercise-pagination .controls .actions .select .select-options li {
+          color: #666; }
+        #sherlock-wrapper .exercise-pagination .controls .actions .select .select-options li:hover {
+          color: #000; }
+  #sherlock-wrapper .exercise-grid {
+    margin: 1.25rem 0 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between; }
+    #sherlock-wrapper .exercise-grid .grid-item {
+      display: block;
+      width: 100%;
+      height: 14.375rem;
+      margin-bottom: 1.25rem;
+      -moz-border-radius: 0.3125rem 0.3125rem 0 0;
+      -webkit-border-radius: 0.3125rem;
+      border-radius: 0.3125rem 0.3125rem 0 0;
+      border: 0.0625rem solid #ccc;
+      overflow: hidden;
+      color: #000;
+      text-decoration: none;
+      cursor: pointer; }
+      #sherlock-wrapper .exercise-grid .grid-item .thumbnail {
+        position: relative;
+        width: 100%;
+        height: 9.375rem;
+        background-color: #ccc;
+        border-bottom: 0.0625rem solid #ccc;
+        overflow: hidden; }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .start-txt {
+          position: absolute;
+          display: none;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-justify-content: center;
+          justify-content: center;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          text-transform: uppercase;
+          z-index: 1;
+          color: #fff;
+          font-size: 2rem;
+          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+          opacity: 0.9;
+          -webkit-filter: drop-shadow(0 0 0.375rem rgba(0, 0, 0, 0.9));
+          filter: drop-shadow(0 0 0.375rem rgba(0, 0, 0, 0.9)); }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+          animation-name: colorFadeOut;
+          animation-duration: 0.75s; }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .embedBtn {
+          position: absolute;
+          top: 0.625rem;
+          right: 0.625rem;
+          z-index: 10; }
+          #sherlock-wrapper .exercise-grid .grid-item .thumbnail .embedBtn button {
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #fff;
+            cursor: pointer;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+            opacity: 0.5; }
+            #sherlock-wrapper .exercise-grid .grid-item .thumbnail .embedBtn button i {
+              -moz-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+              -webkit-transform: rotate(90deg);
+              transform: rotate(90deg); }
+          #sherlock-wrapper .exercise-grid .grid-item .thumbnail .embedBtn button:hover {
+            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+            opacity: 1;
+            -moz-box-shadow: 0 0 0.375rem 0 #000;
+            -webkit-box-shadow: 0 0 0.375rem 0 #000;
+            box-shadow: 0 0 0.375rem 0 #000; }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .exercise-type-label {
+          position: absolute;
+          top: 0.625rem;
+          left: 0.625rem;
+          color: #fff;
+          font-size: 0.875rem;
+          min-width: 5rem;
+          text-transform: uppercase;
+          text-align: center;
+          padding: 0.3125rem 0.375rem;
+          background-color: rgba(68, 68, 68, 0.9);
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          -moz-box-shadow: 0 0 0.375rem 0 #000;
+          -webkit-box-shadow: 0 0 0.375rem 0 #000;
+          box-shadow: 0 0 0.375rem 0 #000;
+          z-index: 1; }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .practice {
+          background-color: rgba(66, 133, 244, 0.9); }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .training {
+          background-color: rgba(58, 193, 74, 0.9); }
+        #sherlock-wrapper .exercise-grid .grid-item .thumbnail .assessment {
+          background-color: rgba(234, 67, 53, 0.9); }
+      #sherlock-wrapper .exercise-grid .grid-item .info {
+        padding: 0.625rem; }
+        #sherlock-wrapper .exercise-grid .grid-item .info .title {
+          font-weight: bold; }
+        #sherlock-wrapper .exercise-grid .grid-item .info .description {
+          font-size: 0.875rem; }
+    #sherlock-wrapper .exercise-grid .grid-item:hover {
+      -moz-box-shadow: 0 0 0.375rem 0 #ccc;
+      -webkit-box-shadow: 0 0 0.375rem 0 #ccc;
+      box-shadow: 0 0 0.375rem 0 #ccc; }
+      #sherlock-wrapper .exercise-grid .grid-item:hover .thumbnail .start-txt {
+        display: -webkit-flex;
+        display: flex; }
+      #sherlock-wrapper .exercise-grid .grid-item:hover .thumbnail img {
+        -webkit-filter: grayscale(0);
+        filter: grayscale(0);
+        animation-name: colorFadeIn;
+        animation-duration: 0.25s; }
+@keyframes colorFadeIn {
+  from {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1); }
+  to {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0); } }
+@keyframes colorFadeOut {
+  from {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0); }
+  to {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1); } }
+  #sherlock-wrapper .assessment-samples {
+    position: relative; }
+    #sherlock-wrapper .assessment-samples .assessment-signin {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      padding: 1.25rem 0;
+      background-color: rgba(241, 241, 241, 0.75); }
+      #sherlock-wrapper .assessment-samples .assessment-signin h2, #sherlock-wrapper .assessment-samples .assessment-signin a, #sherlock-wrapper .assessment-samples .assessment-signin p {
+        text-align: center; }
+      #sherlock-wrapper .assessment-samples .assessment-signin h2 {
+        font-size: 1.5rem;
+        font-weight: bold; }
+      #sherlock-wrapper .assessment-samples .assessment-signin a {
+        display: block;
+        width: 13.125rem;
+        margin: 0 auto;
+        font-family: "Open Sans", Arial, sans-serif;
+        color: #70a3f7;
+        text-decoration: none; }
+      #sherlock-wrapper .assessment-samples .assessment-signin a:hover {
+        text-decoration: underline; }
+      #sherlock-wrapper .assessment-samples .assessment-signin small {
+        font-size: 0.75rem;
+        font-style: italic; }
 
-.ui-widget-overlay {
-  background: rgba(255, 255, 255, 0.85); }
+@media only screen and (min-width: 900px) {
+  .container {
+    width: 56.25rem;
+    margin: 0 auto; }
+
+  #sherlock-wrapper .exercise-grid .grid-item {
+    width: 26.25rem; } }

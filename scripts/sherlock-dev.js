@@ -53,6 +53,8 @@ $( function () {
     
     'use strict';
     
+    // the browser has flash support and is Internet Explorer
+    // display no support message and end further script
     if ( $.fn.flashExist() && $.fn.isIE() ) {
         
         $( ".sherlock_container" ).html("<h1>Sorry, your web browser is not supported.</h1><p>Please try using latest stable version of <a href=\"https://www.mozilla.org\" target=\"_blank\">Mozilla Firefox</a>, <a href=\"https://www.google.com/chrome/browser/desktop/\" target=\"_blank\">Google Chrome</a>, or <a href=\"http://www.apple.com/safari/\" target=\"_blank\">Safari</a>.</p>");
@@ -61,46 +63,36 @@ $( function () {
         
     }
     
+    // google revoke connection ID exists on the DOM
+    // add a click listening event for displaying a confirmation dialog
     if ( $( '#google_revoke_connection' ).length ) {
         
-        $( '#google_revoke_connection' ).click( function() {
+        $( '#google_revoke_connection' ).on( 'click', function() {
             
-            $( '#disconnect-confirm' ).dialog( {
-                
-                dialogClass: "no-close",
-                title: 'Disconnect Google Account',
-                position: { my: "center", at: "center", of: $( '.signin_view' ) },
-                resizable: false,
-                draggable: false,
-                width: 300,
-                height: 215,
-                modal: true,
-                buttons: {
-                    OK: function() {
-                        
-                        $( this ).dialog( "close" );
-                        
-                        $( '.sherlock_wrapper' ).showTransition( 'Revoke Access', 'Disconnecting Google account. Please wait...' );
-                        
-                        setTimeout( function() {
+            
+            $( "#disconnect-confirm" ).removeClass( 'hide' );
+            
+            return false;
+            
+        } );
+        
+        $( '#revoke_ok' ).on( 'click', function() {
+            
+            
+            $.post( 'includes/disconnect_google.php', { revoke: 1 }, function() {
                             
-                            $.post( 'includes/disconnect_google.php', { revoke: 1 }, function() {
-                            
-                                location.reload();
-                                
-                            } );
-                            
-                        }, 3000);
-                        
-                    },
-                    Cancel: function() {
-                        
-                        $( this ).dialog( "close" );
-                        
-                    }
-                }
+                location.reload();
                 
             } );
+            
+            return false;
+            
+        } );
+        
+        $( '#revoke_cancel' ).on( 'click', function() {
+            
+            
+            $( "#disconnect-confirm" ).addClass( 'hide' );
             
             return false;
             
@@ -171,10 +163,14 @@ $( function () {
           
             for ( var i = 0; i < numberOfOptions; i++ ) {
                 
-                $('<li />', {
-                    text: $this.children( 'option' ).eq( i ).text(),
-                    rel: $this.children( 'option' ).eq( i ).val(),
-                }).appendTo( list );
+                if ( !$this.children( 'option' ).eq( i )[0].disabled ) {
+                    
+                    $('<li />', {
+                        text: $this.children( 'option' ).eq( i ).text(),
+                        'data-id': $this.children( 'option' ).eq( i )[0].attributes[0].value
+                    }).appendTo( list );
+                    
+                }
                 
             }
           
@@ -241,7 +237,7 @@ $( function () {
                                 
                             }
                             
-                            $( '.exercise_info .meta' ).append( ( result.exrs_type_id > 0 ) ? ' | Exercise type: <strong>' + $.fn.getExerciseType( result.exrs_type_id ) + '</strong>' : '' );
+                            $( '.exercise_info .meta' ).append( result.exrs_type_id > 0 ? ' | Exercise type: <strong>' + $.fn.getExerciseType( result.exrs_type_id ) + '</strong>' : '' );
                             
                         }
                         
@@ -395,7 +391,7 @@ function onYouTubeIframeAPIReady() {
                         var left = Math.floor( hintBarWidth * ( 100 / video.duration * begin ) / 100 );
                         var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
                         var width = right - left;
-                        var midWidth = ( left + 15 + ( width / 2 ) );
+                        var midWidth = left + 15 + ( width / 2 );
                         
                         var span = '<span class="hint_tag" style="left:' + midWidth + 'px; ' + ( reviewMode ? 'opacity:1;' : '' ) + '" data-begin="' + begin + '" data-end="' + end + '" data-name="' + data[a].name + '" data-reason="' + reason + '"><span>' + $.fn.initialism( data[a].name ) + '</span></span>';
                         
@@ -768,7 +764,7 @@ $.fn.addTag = function() {
                '" data-time="' + formattedTime +
                '" data-count="' + tagCount +
                '" style="left:' + barPx + 'px;' +
-               'z-index:' + (tagCount++) +
+               'z-index:' + tagCount++ +
                '">' + icon +
                '</span>';
 
@@ -1223,16 +1219,19 @@ $.fn.getExerciseType = function( id ) {
   switch ( Number( id ) ) {
       
     case 1:
-        type = 'Demonstration';
+        type = 'Demo';
         break;
     case 2:
-        type = 'Development Testing Purposes';
+        type = 'Dev Testing';
         break;
     case 3:
         type = 'Training';
         break;
     case 4:
-        type = 'Assignment';
+        type = 'Practice';
+        break;
+    case 5:
+        type = 'Assessment';
         break;
     default:
         type = null;

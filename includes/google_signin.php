@@ -29,7 +29,7 @@
     //Logout
     if ( isset( $_REQUEST['logout'] ) ) {
         
-      unset( $_SESSION['access_token'], $_SESSION['signed_in_user_id'] );
+      unset( $_SESSION['access_token'], $_SESSION['signed_in_user_email'] );
       $client->revokeToken();
       header( 'Location: ' . filter_var( $google['redirect_uri'], FILTER_SANITIZE_URL ) );
       
@@ -56,9 +56,9 @@
     //Refresh Access Token to make Request
     if ( $client->isAccessTokenExpired() ) {
         
-        if ( isset( $_SESSION['signed_in_user_id'] ) && $_SESSION['signed_in_user_id'] ) {
+        if ( isset( $_SESSION['signed_in_user_email'] ) && $_SESSION['signed_in_user_email'] ) {
             
-            $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_id'] );
+            $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_email'] );
         
             if ( $refreshToken ) {
                 
@@ -105,7 +105,7 @@
         
       }
       
-      $_SESSION['signed_in_user_id'] = DB::getIDByGoogle( $userData['id'] );
+      $_SESSION['signed_in_user_email'] = DB::getUserByGoogle( $userData['email'] );
       $_SESSION['access_token'] = $client->getAccessToken();
       
     } else {

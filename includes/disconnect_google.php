@@ -19,11 +19,12 @@
         require_once 'google_signin.php';
         
         // get the refresh token from the database
-        $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_id'] );
+        $refreshToken = DB::getGoogleRefreshToken( $_SESSION['signed_in_user_email'] );
         
         // signout the user
         $client->revokeToken();
-        unset( $_SESSION['access_token'], $_SESSION['signed_in_user_id'] );
+        DB::deleteUserByGoogle( $_SESSION['signed_in_user_email'] );
+        unset( $_SESSION['access_token'], $_SESSION['signed_in_user_email'] );
         
         // use cURL session to request Google to revoke the refresh token
         $curl = curl_init();
