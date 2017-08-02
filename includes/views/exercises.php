@@ -32,8 +32,9 @@
     
     <div class="container">
         
-        <h1>Training and Practice Exercises</h1>
-        <p>Please select the training or practice exercise that you would like to attempt. Training and practice exercises are not graded and have no restrictions. At the end of the exercise, a score will be calculated and presented but will not be retained. Once you started an exercise, you will not be able to come back to this page until the exercise is completed.</p>
+        <h1><?php echo isset( $_SESSION['signed_in_user_email'] ) ? 'Exercises' : 'Training and Practice Exercises'; ?></h1>
+        
+        <p>Please select exercise that you would like to attempt. Demo, training, and practice exercises are not graded and have no restrictions. At the end of each exercise, a score will be calculated and presented. The score will be recorded or retained only for assessment exercises. Once you started an exercise, you will not be able to come back to this page until the exercise is completed.</p>
         
         <div class="exercise-pagination">
             
@@ -51,6 +52,8 @@
                 if ( $_SESSION['pageNum'] < 1 ) {
                     $_SESSION['pageNum'] = 1;
                 }
+                
+                $_SESSION['sortby'] = '';
                 
                 $limit = ( $_SESSION['pageNum'] - 1 ) * $_SESSION['exercisePerPage'] . ', ' . $_SESSION['exercisePerPage'];
             ?>
@@ -71,7 +74,13 @@
                         <option value="-1" disabled selected>sort by</option>
                         <?php
                             foreach( $exerciseTypes as &$type ) {
-                                echo '<option val="' . $type['exrs_type_id'] . '">' . $type['name'] . '</option>';
+                                
+                                if ( $type['name'] == 'Assessment' && !isset( $_SESSION['signed_in_user_email'] ) ) {
+                                    continue;
+                                }
+                                
+                                echo '<option val="' . $type['name'] . '">' . $type['name'] . '</option>';
+                                
                             }
                         ?>
                     </select>
@@ -86,11 +95,11 @@
                     
                     if ( isset( $_SESSION['signed_in_user_email'] ) ) {
                         
-                        $activeExercises = DB::getActiveExercises( $limit );
+                        $activeExercises = DB::getActiveExercises( $limit, $_SESSION['sortby'] );
                         
                     } else {
                         
-                        $activeExercises = DB::getActiveNonAssessmentExercises( $limit );
+                        $activeExercises = DB::getActiveNonAssessmentExercises( $limit, $_SESSION['sortby'] );
                         
                     }
                     

@@ -447,14 +447,22 @@
          * Get all active exercises from the database.
          * @return array Returns an array of active exercises. 
          */
-	    public static function getActiveExercises( $limit ) {
+	    public static function getActiveExercises( $limit, $sort ) {
 
-    	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
+        	    if ( isset( $sort ) || !empty( $sort ) ) {
+        	        
+        	        $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id ORDER BY (CASE exercise_type.name WHEN \'' . $sort . '\' THEN 1 ELSE 2 END) ASC, exercise.exercise_id ASC LIMIT ' . $limit;
+        	        
+        	    } else {
+            	    
+            	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
+            	    
+        	    }
+        	    
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
@@ -484,13 +492,22 @@
          * Get all active non-assessment exercises from the database.
          * @return array Returns an array of active exercises. 
          */
-	    public static function getActiveNonAssessmentExercises( $limit ) {
+	    public static function getActiveNonAssessmentExercises( $limit, $sort ) {
 
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id AND exercise_type.exrs_type_id <> 5  ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
+        	    if ( isset( $sort ) || !empty( $sort ) ) {
+            	    
+            	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id AND exercise_type.exrs_type_id <> 5 ORDER BY (CASE exercise_type.name WHEN \'' . $sort . '\' THEN 1 ELSE 2 END) ASC, exercise.exercise_id ASC LIMIT ' . $limit;
+            	    
+        	    } else {
+            	    
+            	    $sql = 'SELECT exercise.exercise_id, exercise.video_src, exercise.name, exercise.description, exercise_type.name AS type_name FROM exercise JOIN exercise_type WHERE exercise.status_id = 1 AND exercise.exrs_type_id = exercise_type.exrs_type_id AND exercise_type.exrs_type_id <> 5 ORDER BY exercise.exercise_id ASC LIMIT ' . $limit;
+            	    
+        	    }
+        	    
                 $query = $db->prepare( $sql );
                 $query = $db->query( $sql );
                 $query->setFetchMode( PDO::FETCH_ASSOC );

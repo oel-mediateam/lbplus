@@ -90,20 +90,15 @@ $( function () {
         
         $( el.google_revoke ).on( 'click', function() {
             
-            
             $( el.google_revoke_confirm ).removeClass( 'hide' );
-            
             return false;
             
         } );
         
         $( el.google_revoke_ok ).on( 'click', function() {
             
-            
-            $.post( 'includes/disconnect_google.php', { revoke: 1 }, function() {
-                            
+            $.post( 'includes/disconnect_google.php', { revoke: 1 }, function() {          
                 location.reload();
-                
             } );
             
             return false;
@@ -112,26 +107,19 @@ $( function () {
         
         $( el.google_revoke_cancel ).on( 'click', function() {
             
-            
             $( el.google_revoke_confirm ).addClass( 'hide' );
-            
             return false;
             
         } );
         
     }
     
-    
     $( el.prevPageBtn ).on( 'click', function() {
-        
         $.fn.goToPage( 'prev' );
-        
     } );
     
     $( el.nextPageBtn ).on( 'click', function() {
-        
         $.fn.goToPage( 'next' );
-        
     } );
     
     if ( $( el.exerciseEmbedBtn ).length ) {
@@ -197,10 +185,10 @@ $( function () {
         
     } // end YouTube if/else
     
-    // if there are select elements
-    if ( $( 'select' ).length ) {
+    // if there are sort select elements
+    if ( $( '.sort' ).length ) {
         
-        $( 'select' ).each( function() {
+        $( '.sort' ).each( function() {
     
             var $this = $( this );
             var opened = false;
@@ -267,8 +255,20 @@ $( function () {
                 
                 e.stopPropagation();
                 
-                // do something when sort by list item is selected
+                var selectValue = $( this ).data( 'id' );
                 
+                styledSelect.text( $( this ).text() ).removeClass( 'active' );
+                $this.val( selectValue );
+                list.hide();
+                opened = false;
+                
+                // do something when sort by list item is selected
+                $.post( 'includes/sortby.php', { sort: selectValue }, function( res ) {
+                    
+                    $.fn.displayExercises( res );
+                    
+                } );
+                               
             } );
           
             $( document, styledSelect ).click( function() {
@@ -1077,7 +1077,15 @@ $.fn.showHintTagInfo = function() {
      
      $.post( 'includes/pagination.php', {direction: d},function( res ) {
         
-        var obj = JSON.parse( res );
+        $.fn.displayExercises( res );
+    
+    } );
+     
+ };
+ 
+ $.fn.displayExercises = function( data ) {
+     
+     var obj = JSON.parse( data );
         var prevBtn = $( el.prevPageBtn );
         var nextBtn = $( el.nextPage );
         var isFirstPage = obj[0];
@@ -1097,10 +1105,8 @@ $.fn.showHintTagInfo = function() {
         
         $( el.currentPage ).html( obj[2] );
         $( el.sherlock_grid_container ).html( obj[3] );
-    
-    } );
      
- };
+ }
  
 /**
  * Display review page

@@ -47,11 +47,11 @@
         
         if ( isset( $_SESSION['signed_in_user_email'] ) ) {
                         
-            $activeExercises = DB::getActiveExercises( $limit );
+            $activeExercises = DB::getActiveExercises( $limit, $_SESSION['sortby'] );
             
         } else {
             
-            $activeExercises = DB::getActiveNonAssessmentExercises( $limit );
+            $activeExercises = DB::getActiveNonAssessmentExercises( $limit, $_SESSION['sortby'] );
             
         }
         
