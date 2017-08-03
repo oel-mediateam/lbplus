@@ -1,11 +1,14 @@
 @import "compass/reset";
+@import "compass/css3/animation";
 @import "compass/css3/flexbox";
 @import "compass/css3/border-radius";
 @import "compass/css3/box-sizing";
 @import "compass/css3/box-shadow";
 @import "compass/css3/transform";
+@import "compass/css3/transition";
 @import "compass/css3/opacity";
 @import "compass/css3/filter";
+@import "compass/css3/user-interface";
 
 @import url("font-awesome.min.css");
 @import url("jquery-ui.css");
@@ -19,6 +22,173 @@ $gutter: 20px;
 @function rem( $px ) {
     @return $px / $defaultFontSize * 1rem;
 };
+
+@mixin smooth_fade() {
+
+    @include transition(opacity .5s, background .5s);
+
+}
+
+@mixin button() {
+    
+    @include display-flex();
+    @include flex-flow( row wrap );
+    @include align-self( flex-start );
+    position: relative;
+    width: rem( 185px );
+    height: rem( 40px );
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin: rem( 10px ) 0 0;
+
+}
+
+@mixin button_limits() {
+
+    position: absolute;
+    font-size: rem( 12px );
+    font-weight: normal;
+    line-height: normal;
+    padding: rem( 2px ) rem( 5px ) rem( 2px );
+    top: rem( -5px );
+    right: rem( -5px );
+    background-color: #ea4335;
+    @include border-radius( rem( 3px ) );
+    z-index: 10;
+
+
+}
+
+@mixin button_icon() {
+
+    @include display-flex();
+    @include flex-flow( row nowrap );
+    @include justify-content( center );
+    @include align-items( center );
+    width: rem( 35px );
+    height: rem( 35px );
+    font-size: rem( 18px );
+    font-weight: bold;
+    background: #0f74ed;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+    [class^="icon-"], [class*=" icon-"] {
+
+        display: block;
+        margin-top: rem( 2px );
+
+    }
+
+}
+
+@mixin button_name() {
+
+    @include display-flex();
+    @include flex-flow( row nowrap );
+    @include align-items( center );
+    width: rem( 150px );
+    height: rem( 35px );
+    font-weight: normal;
+    font-size: rem( 14px );
+    padding: 0 0 0 rem( 5px );
+    background: #4285f4;
+
+    @include opacity( 1 );
+    @include box-sizing( "border-box" );
+    @include smooth_fade();
+
+}
+
+@mixin button_cooldown() {
+
+    display: block;
+    width: rem( 185px );
+    height: rem( 5px );
+    background: #ccc;
+    clear: both;
+
+    .progress {
+
+        display: block;
+        height: rem( 5px );
+        background: #106bc6;
+
+    }
+
+}
+
+@mixin button_active() {
+
+    .icon {
+
+        background: #1f3dc1;
+
+    }
+
+    .action_name {
+
+        background: #18309c;
+
+    }
+
+}
+
+@mixin button_disabled() {
+
+    color: #fafafa;
+    cursor: default;
+
+    .limits {
+
+        background: #404040;
+
+    }
+
+    .icon {
+
+        background: #424242;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
+
+    .action_name {
+
+        background: #515151;
+        @include opacity( .75 );
+        @include smooth_fade();
+
+    }
+
+    .cooldown {
+
+        .progress {
+
+            background: #404040;
+
+        }
+
+    }
+
+}
+
+@mixin reg_btn() {
+    
+    width: rem( 190px );
+    height: rem( 40px );
+    background-color: #0f74ed;
+    @include single-box-shadow( 0, rem( 2px ), rem( 1px ), 0, #888 );
+    border: none;
+    color: #fff;
+    font-size: rem( 14px );
+    font-weight: normal;
+    cursor: pointer;
+    
+}
 
 /* GENERAL */
 
@@ -88,50 +258,6 @@ footer {
     
 }
 
-.hide {
-    display: none !important;
-}
-
-#disconnect-confirm {
-    
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba( 255, 255, 255, 0.75 );
-    
-    @include display-flex();
-    @include justify-content( center );
-    @include align-items( center );
-    
-    .dialog {
-        
-        width: rem( 400px );
-        height: auto;
-        margin: 0 auto;
-        color: #444;
-        background-color: #f1f1f1;
-        padding: rem( $gutter );
-        border: rem( 1px ) solid #444;
-        
-        p {
-            margin: 0 0 rem( 10px ) 0;
-        }
-        
-        p:last-child {
-            margin: 0;
-        }
-        
-        .title {
-            font-weight: bold;
-            color: #f00;
-        }
-        
-    }
-    
-}
-
 .gSignIn {
 
     img {
@@ -139,6 +265,68 @@ footer {
         height: auto;
     }
     
+}
+
+.transition_overlay {
+    
+    @include display-flex();
+    @include flex-flow( column wrap );
+    @include align-items( center );
+    @include justify-content( center );
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba( #f1f1f1, 0.95 );
+    padding: 0 rem( $gutter );
+    z-index: 999;
+
+    .heading {
+
+        font-size: 400%;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 100;
+        line-height: normal;
+
+    }
+
+    .subheading {
+        text-align: center;
+        font-size: 120%;
+        font-weight: 200;
+        line-height: normal;
+    }
+
+    .loading {
+        @extend .heading;
+        margin-top: rem( $gutter );
+    }
+    
+    .actions {
+        
+        margin-top: rem( $gutter );
+        
+        button {
+            @include reg_btn();
+        }
+        
+        #revoke_ok {
+            background-color: #ea4335;
+            margin-right: rem( $gutter );
+        }
+        
+        #revoke_cancel {
+            background-color: #444;
+        }
+        
+    }
+
+}
+
+.hide {
+    display: none !important;
 }
 
 /* LANDING PAGE */
@@ -236,14 +424,36 @@ footer {
 #sherlock-wrapper {
     
     width: 100%;
+    position: relative;
     
+    // error message
+    .error_msg {
+        
+        h2 {
+            font-size: 400%;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            margin: rem( $gutter * 2 ) 0 0; 
+        }
+        
+        p {
+            text-align: center;
+            font-size: 120%;
+            margin: 0 0 rem( $gutter * 2 );
+        }
+        
+    }
+    
+    // top banner/nav bar
     .navbar {
         
         color: #f2f2f2;
-        background-image: url('../images/sherlock_bg.jpg');
+        
+        background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+        url('../images/sherlock_bg.jpg');
         background-repeat: no-repeat;
         background-position: 50% 73%;
-        background-color: rgba( 0, 0 , 0, 0.5 );
         
         .container {
             @include display-flex();
@@ -261,6 +471,10 @@ footer {
             margin-right: rem( 10px );
         }
         
+        .center {
+            text-align: center;
+        }
+        
         .user {
             
             p {
@@ -273,6 +487,37 @@ footer {
             
         }
         
+        .exercise-type-mode {
+            color: #fff;
+            font-size: rem( 14px );
+            min-width: rem( 80px );
+            text-transform: uppercase;
+            text-align: center;
+            padding: rem( 5px ) rem( 6px );
+            background-color: #444;
+            @include border-radius( 3px );
+            @include single-box-shadow( 0, 0, rem( 6px ), 0, #333 );
+        }
+        
+        .practice {
+            background-color: #4285f4;
+        }
+        
+        .training {
+            background-color: #3ac14a;
+        }
+        
+        .assessment {
+            background-color: #ea4335;
+        }
+        
+    }
+    
+    .darken {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../images/sherlock_bg.jpg');
+        background-repeat: no-repeat;
+        background-position: 50% 73%;
     }
     
     .exercise-pagination {
@@ -575,6 +820,607 @@ footer {
     
     }
     
+    
+    // sherlock exercise view
+    .sherlock_view {
+        
+        margin: rem( $gutter ) 0;
+        
+        .sherlock_interaction_wrapper {
+            
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include justify-content( flex-start );
+            
+            * {
+
+            	@include user-select(none);
+
+        	}
+
+            .sherlock_media {
+
+                position: relative;
+                width: rem( 640px );
+                height: rem( 360px );
+                background: #000;
+                
+                .sherlock_status_msg {
+                    position: absolute;
+                    width: 100%;
+                    height: auto;
+                    z-index: 10;
+                    padding: rem( 5px );
+                    background-color: rgba( 255, 255, 255, 0.75 );
+                }
+                
+                .overlay {
+
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+
+                    #videoPlayBtn {
+
+                        position: absolute;
+                        width: rem( 150px );
+                        height: rem( 80px );
+                        color: #fff;
+                        text-align: center;
+                        font-size: 200%;
+                        font-weight: bold;
+                        line-height: normal;
+                        background: #2e832e;
+                        padding: rem( 18px ) rem( $gutter ) 0;
+                        top: rem( 140px );
+                        left: rem( 245px );
+                        cursor: pointer;
+                        @include box-sizing( 'border-box' );
+                        @include border-radius( rem( 3px ) );
+                        @include box-shadow( 0 0 rem( 6px ) #333);
+
+                    }
+                    
+                    #videoPlayBtn.paused {
+
+                        
+                        padding-top: rem( 14px );
+                        line-height: .4;
+                        background: #c7284d;
+                        cursor: default;
+                        
+                        small {
+                            
+                            font-size: 60%;
+                            
+                        }
+
+                    }
+                    
+                    .reasoningBox {
+                        
+                        position: absolute;
+                        width: 100%;
+                        height: rem( 360px );
+                        line-height: rem( 360px );
+                        z-index: 11;
+                        background: rgba(255, 255, 255, 0.9);
+                        
+                        .reasoning {
+                            
+                            display: inline-block;
+                            padding: 0 rem( 14px );
+                            vertical-align: middle;
+                            line-height: rem( 20px ); 
+                            
+                        }
+                        
+                        .action {
+                            
+                            display: block;
+                            position: absolute;
+                            width: 100%;
+                            bottom: rem( 14px );
+                            left: 0;
+                            text-align: center;
+                            line-height: normal;
+                            
+                            strong {
+                                font-weight: bold;
+                            }
+                            
+                        }
+                        
+                    }
+
+                }
+
+                iframe {
+
+                    width: 100%;
+                    height: 100%;
+
+                }
+
+            }
+
+            .sherlock_actions {
+                
+                @include display-flex();
+                @include flex-flow( column nowrap );
+                width: rem( 210px );
+                margin: 0 0 0 rem( 10px );
+                background-color: #fff;
+                padding: 0 rem( 10px );
+                @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
+
+                h4 {
+                    
+                    width: 100%;
+                    text-align: center;
+                    color: #767676;
+                    border-bottom: 1px solid #e2e2e2;
+                    padding: rem( 10px );
+                    margin: 0;
+
+                }
+                
+                .exr_actions {
+                    @include flex(2 0 auto);
+                }
+                
+                .rewind_action {
+                    border-top: 1px solid #e2e2e2;
+                    margin: rem( 10px ) 0;
+                }
+                
+                .btn {
+
+                    @include button();
+
+                    .limits {
+                        @include button_limits();
+                    }
+                    
+                    .limits.hide {
+                        display: none;
+                    }
+
+                    .icon {
+                        @include button_icon();
+                    }
+
+                    .action_name {
+                        @include button_name();
+                    }
+
+                    .action_name.long {
+                        font-size: 1vw;
+                    }
+
+                    .cooldown {
+                        @include button_cooldown();
+                    }
+
+                }
+
+                .btn:active {
+                    @include button_active();
+                }
+
+                .btn.disabled {
+                    @include button_disabled();
+                }
+                
+                .reviewVideoControls {
+                    
+                    float: left;
+                    clear: both;
+                    margin: 0 0 rem( $gutter );
+                    
+                    .btn.videoControls {
+                    
+                        width: rem( 64px );
+                        height: rem( 30px );
+                        margin: 0 rem( $gutter ) 0 0;
+                        float: left;
+                        
+                        .action_name {
+    
+                            width: 100%;
+                            height: rem( 30px );
+                            padding: rem( 6px ) 0 0;
+                            line-height: normal;
+                            text-align: center;
+                            @include box-sizing(border-box);
+    
+                        }
+                        
+                    }
+                    
+                    .btn.videoControls:last-child {
+                        
+                        margin-right: 0;
+                        
+                    }
+                    
+                }
+                
+                .reviewContent {
+                    
+                    p {
+                        
+                        margin: rem( 14px ) 0;
+                        font-size: rem( 14px );
+                        line-height: rem( 18px );
+                        @include user-select(text);
+                        
+                    }
+                    
+                }
+                
+                .btn.videoControls.playSegment {
+                    
+                    width: 100%;
+                    height: rem( 30px );
+                    margin: 0 rem( $gutter ) 0 0;
+                    
+                    .action_name {
+
+                        width: 100%;
+                        height: rem( 30px );
+                        padding: rem( 4px ) 0 0;
+                        line-height: normal;
+                        text-align: center;
+                        @include box-sizing(border-box);
+
+                    }
+                    
+                }
+
+            }
+
+        } // end interaction wrapper
+        
+        // score wrapper
+        .score_view {
+        
+            width: 100%;
+            
+            .overview {
+                
+                width: 100%;
+                float: left;
+                clear: both;
+                
+                .percentage {
+
+                    width: 20%;
+                    padding: 0 rem( 10px );
+                    text-align: center;
+                    @include box-sizing( 'border-box' );
+                    float: left;
+    
+                    .percent {
+    
+                        display: block;
+                        font-size: rem( 46px );
+                        line-height: rem( 46px );
+                        font-weight: bold;
+    
+                    }
+    
+                    .status {
+    
+                        display: block;
+                        font-size: rem( 22px );
+                        line-height: rem( 22px );
+                        margin-top: rem( $gutter / 2 );
+                        font-style: italic;
+    
+                    }
+    
+                }
+                
+                .actions_stars {
+
+                    width: 80%;
+                    padding: 0 0 0 rem( 10px );
+                    @include box-sizing( 'border-box' );
+                    float: left;
+                    
+                    .star_earned {
+                        
+                        width: 20%;
+                        padding: 0 0 0 rem( 5px );
+                        @include box-sizing( 'border-box' );
+                        float: left;
+                        
+                        p {
+                            
+                            margin-top: 0;
+                            margin-bottom: rem( $gutter / 2 );
+                            font-size: rem( 16px );
+                            font-weight: 500;
+                            text-align: center;
+                            
+                        }
+                        
+                        .stars {
+                            
+                            font-size: 160%;
+                            font-weight: normal;
+                            
+                            small {
+                                
+                                font-size: 60%;
+                                
+                            }
+                            
+                        }
+                        
+                    }
+    
+                }
+                
+            }
+            
+            .analysis {
+                    
+                margin-top: rem( $gutter );
+                    
+                table {
+                    
+                    width: 100%;
+                    
+                    th {
+                        
+                        white-space: nowrap;
+                        font-weight: bold;
+                        text-align: center;
+                        padding: rem( 5px );
+                        
+                        small {
+                            
+                            font-family: 60%;
+                            font-weight: normal;
+                            
+                        }
+                        
+                    }
+                    
+                    td {
+                        
+                        @extend th;
+                        
+                        font-weight: normal;
+                        line-height: normal;
+                        
+                    }
+                    
+                    tbody {
+                        
+                        tr {
+                        
+                            td:first-child {
+                                
+                                text-align: right;
+                                
+                            }
+                            
+                        }
+                        
+                        tr:nth-child(odd) {
+                            
+                            background-color: #e8e8e8;
+                            
+                        }
+                        
+                        tr:last-child {
+                            
+                            background-color: transparent;
+                            
+                        }
+                        
+                        .topBorder {
+                            
+                            border-top: rem( 2px ) solid #2f2f2f;
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                .leftBorder {
+                            
+                    border-left: rem( 2px ) solid #2f2f2f;
+                    
+                }
+                
+                .totalScore {
+                    text-align: right;
+                    font-size: 150%;
+                    
+                }
+                
+            }
+
+        } // end score_view
+
+    }
+    
+    .sherlock_controls {
+        
+        @include display-flex();
+        @include flex-flow( row nowrap );
+        @include align-items( center );
+        @include justify-content( center );
+        width: rem( 860px );
+        height: rem( 60px );
+        background: #fff;
+        padding: 0 rem( 10px );
+        
+        @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
+
+        * {
+        	@include user-select(none);
+    	}
+        
+        .elapsed {
+            margin-right: rem( 12px );
+        }
+
+        .duration {
+            margin-left: rem( 12px );
+        }
+        
+        .progress_bar_holder {
+
+            position: relative;
+
+            .tag {
+
+                position: absolute;
+                width: rem( 25px );
+                height: rem( 25px );
+                top: rem( -25px );
+                left: 0;
+                font-size: rem( 14px );
+                text-align: center;
+                line-height: rem( 14px );
+                color: #fff;
+                background-color: #2e832e;
+                padding: rem( 6px ) 0 0;
+                cursor: default;
+                @include box-shadow( 0 0 rem( 4px ) #2f2f2f );
+                @include border-radius( 50% );
+
+            }
+
+            .tag:hover {
+                @include box-shadow( 0 0 rem( 6px ) #000 );
+            }
+
+            .tag:after {
+
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	bottom: rem( -6px );
+            	left: rem( 5px );
+            	border-left: 8px solid transparent;
+            	border-right: 8px solid transparent;
+            	border-top: 12px solid #2e832e;
+
+            }
+            
+            .hint_tag {
+                
+                position: absolute;
+                width: rem( 20px );
+                height: rem( 20px );
+                bottom: rem( 3px );
+                top: rem( 12px );
+                left: 0;
+                font-size: rem( 10px );
+                text-align: center;
+                line-height: rem( 10px );
+                color: #fff;
+                background-color: #0f74ed;
+                padding: rem( 5px ) 0 0;
+                cursor: default;
+                @include opacity(.55);
+                @include box-shadow( 0 0 rem( 4px ) #ccc );
+                @include border-radius( 50% );
+                
+            }
+            
+            .hint_tag:hover {
+            
+                @include opacity( 1 );
+                @include box-shadow( 0 0 rem( 4px ) #444 );
+
+            }
+            
+            .hint_tag:after {
+                
+                position: absolute;
+                display: block;
+                width: 0;
+            	height: 0;
+            	content: "";
+            	top: rem( -6px );
+            	left: rem( 6px );
+            	border-left: 4px solid transparent;
+            	border-right: 4px solid transparent;
+            	border-bottom: 8px solid #0f74ed;
+                
+            }
+
+            .progress_bar {
+                
+                position: relative;
+                width: rem( 735px );
+                height: rem( 10px );
+                background: #444444;
+                @include box-shadow( 0 rem( 1px )rem( 1px ) #888 );
+                
+                .tag_hints_holder {
+            
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: rem( 10px );
+                    
+                    .hint {
+                        
+                        position: absolute;
+                        width: rem( 3px );
+                        height: rem( 10px );
+                        top: 0;
+                        background-color: rgba( #3ac14a, 0.75 );
+                        
+                    }
+                    
+                }
+                
+                .scrubber {
+                    
+                    position: absolute;
+                    width: rem( 3px );
+                    height: rem( 20px );
+                    top: rem( -5px );
+                    left: rem( -1px );
+                    background-color: #4285f4;
+                    @include border-radius( 2px );
+                    @include box-shadow( rem( -1px ) 0 rem( 1px ) #888 );
+                    z-index: 0;
+                    
+                }
+                
+                .progressed {
+                    
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: block;
+                    width: 0;
+                    height: rem( 10px );
+                    background: #4285f4;
+                    z-index: 0;
+
+                }
+
+            }
+
+        }  // end progress_bar_holder
+
+    } // end controls
+    
 }
 
 @media only screen 
@@ -597,4 +1443,68 @@ and (min-width : 900px) {
         
     }
     
+}
+
+/* ANIMATIONS */
+.blink {
+
+    @include animation-properties( (animation-name: blink) );
+    @include animation-properties( (animation-duration: 3s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+.blink-faster {
+
+    z-index: 99;
+    @include animation-properties( (animation-name: blink-faster) );
+    @include animation-properties( (animation-duration: 1s) );
+    @include animation-properties( (animation-timing-function: ease-in-out) );
+    @include animation-properties( (animation-iteration-count: infinite) );
+
+}
+
+@include keyframes( blink ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( .5 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
+
+    }
+
+}
+
+@include keyframes( blink-faster ) {
+
+    0% {
+
+        @include opacity( 1 );
+
+    }
+
+    50% {
+
+        @include opacity( .5 );
+
+    }
+
+    100% {
+
+        @include opacity( 1 );
+
+    }
+
 }

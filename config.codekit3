@@ -34,7 +34,7 @@
 		"uCM": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -840,6 +840,100 @@
 		"oAP": "\/includes\/config.php",
 		"oF": 0
 		},
+	"\/includes\/data\/exercise\/activelisteninginterviewbasic.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/activelisteninginterviewbasic-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/ansrsourcebad.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/ansrsourcebad-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/ansrsourcegood.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/ansrsourcegood-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/rocketleague1.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/rocketleague1-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/sample_exercise.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/sample_exercise-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/sherlocktraining1.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/sherlocktraining1-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/sherlocktraining2.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/sherlocktraining2-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/exercise\/swedish_chief.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/exercise\/swedish_chief-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/index.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/data\/index.php",
+		"oF": 0
+		},
+	"\/includes\/data\/student\/116_1488396586.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/student\/116_1488396586-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/student\/117_1488398960.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/student\/117_1488398960-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/includes\/data\/student\/sample_student.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/includes\/data\/student\/sample_student-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/includes\/db.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -852,16 +946,46 @@
 		"oAP": "\/includes\/disconnect_google.php",
 		"oF": 0
 		},
+	"\/includes\/exercise_action.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/exercise_action.php",
+		"oF": 0
+		},
+	"\/includes\/exercise_class.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/exercise_class.php",
+		"oF": 0
+		},
 	"\/includes\/functions.php": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/functions.php",
 		"oF": 0
 		},
+	"\/includes\/get_exercise_from_session.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/get_exercise_from_session.php",
+		"oF": 0
+		},
+	"\/includes\/get_student_data_from_session.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/get_student_data_from_session.php",
+		"oF": 0
+		},
 	"\/includes\/google_signin.php": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/google_signin.php",
+		"oF": 0
+		},
+	"\/includes\/json_handler.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/json_handler.php",
 		"oF": 0
 		},
 	"\/includes\/pagination.php": {
@@ -876,10 +1000,28 @@
 		"oAP": "\/includes\/sortby.php",
 		"oF": 0
 		},
+	"\/includes\/start_exercise.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/start_exercise.php",
+		"oF": 0
+		},
+	"\/includes\/student_input.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/student_input.php",
+		"oF": 0
+		},
 	"\/includes\/views\/404.php": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/views\/404.php",
+		"oF": 0
+		},
+	"\/includes\/views\/exercise.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/views\/exercise.php",
 		"oF": 0
 		},
 	"\/includes\/views\/exercises.php": {
@@ -904,6 +1046,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/views\/landing.php",
+		"oF": 0
+		},
+	"\/includes\/views\/score.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/views\/score.php",
 		"oF": 0
 		},
 	"\/index.php": {

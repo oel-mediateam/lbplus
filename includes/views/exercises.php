@@ -10,6 +10,37 @@
     
     $exerciseTypes = DB::getExerciseTypes();
     
+    $_SESSION['pageNum'] = 1;
+    $_SESSION['totalExercises'] = DB::getNumOfActiveNAExercises();
+    $_SESSION['exercisePerPage'] = 4;
+    $_SESSION['lastPage'] = ceil($_SESSION['totalExercises'] / $_SESSION['exercisePerPage']);
+    
+    if ( $_SESSION['pageNum'] > $_SESSION['lastPage'] ) {
+        $_SESSION['pageNum'] = $_SESSION['lastPage'];
+    }
+    
+    if ( $_SESSION['pageNum'] < 1 ) {
+        $_SESSION['pageNum'] = 1;
+    }
+    
+    $_SESSION['sortby'] = '';
+    
+    $limit = ( $_SESSION['pageNum'] - 1 ) * $_SESSION['exercisePerPage'] . ', ' . $_SESSION['exercisePerPage'];
+    
+    if ( isset( $_SESSION['signed_in_user_email'] ) ) {
+        
+        $pageTitle = "Exercises";
+        $activeExercises = DB::getActiveExercises( $limit, $_SESSION['sortby'] );
+        $signedIn = true;
+        
+    } else {
+        
+        $pageTitle = "Training and Practice Exercises";
+        $activeExercises = DB::getActiveNonAssessmentExercises( $limit, $_SESSION['sortby'] );
+        $signedIn = false;
+        
+    }
+    
 ?>
 
 <div id="sherlock-wrapper">
@@ -20,7 +51,7 @@
             
             <div class="site-name">Sherlock</div>
             <div class="user">
-                <?php if ( isset( $_SESSION['signed_in_user_email'] ) ) : ?>
+                <?php if ( $signedIn ) : ?>
                 <p class="name">Hello, <?php echo $userData['givenName']; ?>!</p>
                 <p class="signinout"><a href="?logout">Sign Out</a> | <a id="google_revoke_connection" href="javascript:void(0);">revoke</a></p>
                 <?php endif; ?>
@@ -32,31 +63,11 @@
     
     <div class="container">
         
-        <h1><?php echo isset( $_SESSION['signed_in_user_email'] ) ? 'Exercises' : 'Training and Practice Exercises'; ?></h1>
+        <h1><?php echo $pageTitle; ?></h1>
         
         <p>Please select exercise that you would like to attempt. Demo, training, and practice exercises are not graded and have no restrictions. At the end of each exercise, a score will be calculated and presented. The score will be recorded or retained only for assessment exercises. Once you started an exercise, you will not be able to come back to this page until the exercise is completed.</p>
         
         <div class="exercise-pagination">
-            
-            <?php 
-                
-                $_SESSION['pageNum'] = 1;
-                $_SESSION['totalExercises'] = DB::getNumOfActiveNAExercises();
-                $_SESSION['exercisePerPage'] = 4;
-                $_SESSION['lastPage'] = ceil($_SESSION['totalExercises'] / $_SESSION['exercisePerPage']);
-                
-                if ( $_SESSION['pageNum'] > $_SESSION['lastPage'] ) {
-                    $_SESSION['pageNum'] = $_SESSION['lastPage'];
-                }
-                
-                if ( $_SESSION['pageNum'] < 1 ) {
-                    $_SESSION['pageNum'] = 1;
-                }
-                
-                $_SESSION['sortby'] = '';
-                
-                $limit = ( $_SESSION['pageNum'] - 1 ) * $_SESSION['exercisePerPage'] . ', ' . $_SESSION['exercisePerPage'];
-            ?>
             
             <div class="controls">
                 
@@ -64,7 +75,8 @@
                     
                     <button class="previous" disabled><i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i></button>
                     <div class="page-number">page <?php echo '<span class="currentPage">' . $_SESSION['pageNum'] . '</span> of ' . $_SESSION['lastPage']; ?></div>
-                    <button class="next"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+                    
+                    <button class="next" <?php echo $_SESSION['lastPage'] == 1 ? 'disabled' : ''; ?>><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
                     
                 </div>
                 
@@ -75,7 +87,7 @@
                         <?php
                             foreach( $exerciseTypes as &$type ) {
                                 
-                                if ( $type['name'] == 'Assessment' && !isset( $_SESSION['signed_in_user_email'] ) ) {
+                                if ( $type['name'] == 'Assessment' && $signedIn == false ) {
                                     continue;
                                 }
                                 
@@ -93,16 +105,6 @@
                 
                 <?php
                     
-                    if ( isset( $_SESSION['signed_in_user_email'] ) ) {
-                        
-                        $activeExercises = DB::getActiveExercises( $limit, $_SESSION['sortby'] );
-                        
-                    } else {
-                        
-                        $activeExercises = DB::getActiveNonAssessmentExercises( $limit, $_SESSION['sortby'] );
-                        
-                    }
-                    
                     foreach( $activeExercises as &$exercise ) {
                         
                         echo '<a href="?exercise=' . $exercise['exercise_id'] . '" class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div><div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div><img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
@@ -111,26 +113,12 @@
                     
                 ?>
                 
-<!--
-                <a class="grid-item">
-                    <div class="thumbnail">
-                        <div class="start-txt">START</div>
-                        <div class="exercise-type-label demo">demo</div>
-                        <div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div>
-                    </div>
-                    <div class="info">
-                        <div class="title">Rocket League Casual</div>
-                        <div class="description">Footage of a Rocket League game. Code for blue team.</div>
-                    </div>
-                </a>
--->
-                
             </div>
             
         </div>
         
         <!-- Sign in with Google if user is not signed in -->
-        <?php if ( !isset( $_SESSION['signed_in_user_email'] ) ) : ?>
+        <?php if ( $signedIn == false ) : ?>
         <div class="assessment-samples">
             
             <div class="exercise-grid">
@@ -160,12 +148,10 @@
 </div> <!-- Sherlock wrapper -->
 
 <!-- Revoke Google Popup Dialog -->
-<?php if ( isset( $_SESSION['signed_in_user_email'] ) ) : ?>
-<div id="disconnect-confirm" class="hide">
-    <div class="dialog">
-        <p class="title">Revoke Google Access</p>
-        <p>If you decided to come back, you may have to go through the consent screen for authorization again. Are you sure?</p>
-        <p><button id="revoke_ok">OK</button> <button id="revoke_cancel">Cancel</button></p>
-    </div>
+<?php if ( $signedIn ) : ?>
+<div id="disconnect-confirm" class="transition_overlay hide">
+    <div class="heading">Revoke Google Access</div>
+    <div class="subheading">If you decided to come back, you may have to go through authorization process again.<br>Are you sure?</div>
+    <div class="actions"><button id="revoke_ok">Yes, I am sure.</button> <button id="revoke_cancel">No, I am not.</button></div>
 </div>
 <?php endif; ?>

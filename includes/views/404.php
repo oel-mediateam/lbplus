@@ -1,14 +1,36 @@
-<?php require_once 'header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sherlock</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Righteous|Roboto:500" rel="stylesheet">
+    <link href="../../css/sherlock.css" rel="stylesheet" media="all">
+</head>
+<body>
 
-<main class="sherlock_wrapper" role="main">
-
-    <div class="sherlock_container">
-
-        <h1>Sorry, the page you requested was not found.</h1>
-        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+<div id="sherlock-wrapper">
+    
+    <nav class="navbar">
+        
+        <div class="container">
+            
+            <div class="site-name center">Sherlock</div>
+            
+        </div>
+        
+    </nav>
+    
+    <div class="container">
+        
+        <div class="error_msg">
+            <h2>404<br>Page not found!</h2>
+            <p>The page you are looking for might have been removed or is temporarily unavailable.<br>
+                <a href="../../">Home</a>
+            </p>
+        </div>
 
     </div>
 
-</main>
+</div>
 
-<?php require_once 'footer.php'; ?>
+<?php require_once('footer.php'); ?>

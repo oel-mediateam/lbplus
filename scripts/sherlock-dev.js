@@ -45,7 +45,7 @@ var el = {
     google_revoke_cancel: '#revoke_cancel',
     
     sherlock_wrapper: '#sherlock-wrapper',
-    sherlock_body_container: '#sherlock-wrapper .container',
+    sherlock_body_container: '#sherlock-wrapper .container.body',
     sherlock_grid_container: '#sherlock-wrapper .container .active-exercises.exercise-grid',
     sherlock_grid_item: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item',
     exerciseEmbedBtn: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item .thumbnail .embedBtn',
@@ -59,10 +59,13 @@ var el = {
 
 // hold the count of the tag
 // also use for the z-index
-var tagCount = 0;
+var tagCount = 1;
 var updatePrgrsInterval;
 var studentResponses = [];
 var trainingMode = false;
+var practiceMode = false;
+var demoMode = false;
+var assessmentMode = false;
 var reviewMode = false;
 var pauseOnce = true;
 var preCount = null;
@@ -90,7 +93,9 @@ $( function () {
         
         $( el.google_revoke ).on( 'click', function() {
             
-            $( el.google_revoke_confirm ).removeClass( 'hide' );
+            $( el.google_revoke_confirm ).fadeIn( function() {
+                $( this ).removeClass( 'hide' ).css( 'display', '' );
+            } );
             return false;
             
         } );
@@ -107,7 +112,7 @@ $( function () {
         
         $( el.google_revoke_cancel ).on( 'click', function() {
             
-            $( el.google_revoke_confirm ).addClass( 'hide' );
+            $( el.google_revoke_confirm ).fadeOut();
             return false;
             
         } );
@@ -149,7 +154,7 @@ $( function () {
         
     }
     
-    $( el.videoPlayBtn ).html( '<span class="icon-spinner"></span><br /><small>WAIT</small>' ).addClass( 'paused' );
+    $( el.videoPlayBtn ).html( '<i class="fa fa-spinner fa-spin"></i><br><small>WAIT</small>' ).addClass( 'paused' );
     
     // get/set/load YouTube video ID
     video.vId = $( '#' + video.selector ).data( 'video-id' );
@@ -381,15 +386,27 @@ function onYouTubeIframeAPIReady() {
         }
         
         // if it is a training mode
-        if ( $( '.sherlock_view' ).data( 'mode' ) === 'training' ) {
+        switch ( $( '.sherlock_view' ).data( 'mode' ) ) {
             
-            $( '.sherlock_mode_msg' ).html( 'Training Mode' ).removeClass( 'hide' );
-            trainingMode = true;
+            case 'training':
+                trainingMode = true;
+            break;
             
-        } else if ( $( '.sherlock_view' ).data( 'mode' ) === 'review' ) {
+            case 'practice':
+                practiceMode = true;
+            break;
             
-            reviewMode = true;
+            case 'demo':
+                demoMode = true;
+            break;
             
+            case 'assessment':
+                assessmentMode = true;
+            break;
+            
+            case 'review':
+                reviewMode = true;
+                
         }
         
         // if it is a training or review mode
@@ -415,7 +432,7 @@ function onYouTubeIframeAPIReady() {
                         var left = Math.floor( hintBarWidth * ( 100 / video.duration * begin ) / 100 );
                         var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
                         var width = right - left;
-                        var midWidth = left + 15 + ( width / 2 );
+                        var midWidth = left - 8 + ( width / 2 );
                         
                         var span = '<span class="hint_tag" style="left:' + midWidth + 'px; ' + ( reviewMode ? 'opacity:1;' : '' ) + '" data-begin="' + begin + '" data-end="' + end + '" data-name="' + data[a].name + '" data-reason="' + reason + '"><span>' + $.fn.initialism( data[a].name ) + '</span></span>';
                         
@@ -490,28 +507,20 @@ function onYouTubeIframeAPIReady() {
             
         } // end training and review mode
         
-        $( '.progress_bar .time .duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+        $( '.duration' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
         
         if ( reviewMode ) {
             
-            $( '#videoPlayBtn' ).html( 'READY' ).css('cursor', 'default').removeClass( 'paused' );
+            $( el.videoPlayBtn ).html( 'READY' ).css('cursor', 'default').removeClass( 'paused' );
             
         } else {
             
-            $( '#videoPlayBtn' ).html( 'START' ).removeClass( 'paused' );
-            $( '#videoPlayBtn' ).on( 'click', function() {
+            $( el.videoPlayBtn ).html( 'START' ).removeClass( 'paused' );
+            $( el.videoPlayBtn ).on( 'click', function() {
                 
-                $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
+                $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
                     
-                    if ( data >= 1 ) {
-                        
-                        video.player.playVideo();
-                        
-                    } else {
-                        
-                        $( '.sherlock_wrapper' ).showTransition( 'SORRY!', 'You already attempted this exercise.<br /><a href="?page=exercises">Back to Exercises</a>' );
-                        
-                    }
+                    video.player.playVideo();
             
                 } );
     
@@ -531,8 +540,8 @@ function onYouTubeIframeAPIReady() {
                 
                 if ( !reviewMode ) {
                     
-                    $( '.sherlock_wrapper' ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
-                    $( '#videoPlayBtn' ).html( 'ENDED' ).show();
+                    $( el.sherlock_wrapper ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
+                    $( el.videoPlayBtn ).html( 'ENDED' ).show();
     
                     for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
     
@@ -553,13 +562,13 @@ function onYouTubeIframeAPIReady() {
                     
                     $( '.btn.videoControls.play' ).removeClass( 'disabled' );
                     $( '.btn.videoControls.pause' ).addClass( 'disabled' );
-                    $( '#videoPlayBtn' ).removeClass( 'paused' ).html( 'READY' ).show();
+                    $( el.videoPlayBtn ).removeClass( 'paused' ).html( 'READY' ).show();
                     
                 }
                 
                 $( '.progress_bar .progressed' ).css( "width", $( ".progress_bar" ).width() + "px" );
                 $( '.progress_bar .scrubber' ).css( "left", $( ".progress_bar" ).width() + "px" );
-                $( '.progress_bar .time .elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+                $( '.elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
                 
                 // clear update progress bar interval
                 clearInterval( updatePrgrsInterval );
@@ -719,11 +728,11 @@ $.fn.clickAction = function() {
                 $( '#videoPlayBtn' ).html( '<span class="icon-paused"></span><br /><small>PAUSED</small>' )
                                     .addClass( 'paused' ).show();
                 $( '.sherlock_status_msg' ).html( 'Video paused ... will resume shortly.' )
-                                         .removeClass( 'hide' ).addClass( 'blink' );
+                                         .removeClass( 'hide' );
 
                 setTimeout( function() {
                     
-                    $( '.sherlock_status_msg' ).html( '' ).addClass( 'hide' ).removeClass( 'blink' );
+                    $( '.sherlock_status_msg' ).html( '' ).addClass( 'hide' );
                     
                     video.player.playVideo();
                     
@@ -780,7 +789,7 @@ $.fn.addTag = function() {
     var actionId = $( this ).data( 'action-id' );
     var actionName = $( this ).find( '.action_name' ).html();
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
-    var barPx = $( '.progress_bar .progressed' ).width() + 10; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
+    var barPx = $( '.progress_bar .progressed' ).width() - 12; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
     var icon = $( this ).find( '.icon' ).html();
 
     // Build the span
@@ -860,13 +869,12 @@ $.fn.tagHoverAction = function() {
  */
 $.fn.cooldown = function() {
 
-    var index = $( this ).index( '.btn' );
     var button = $( this );
     var buttonWidth = button.width();
-    var cooldownTimeInSecond = Number( button.attr( 'data-cooldown' ) ) * 1000;
-    var cooldownBarElement = button.find( '.cooldown .progress' );
-    var cooldownBar = $( cooldownBarElement.selector + ':eq(' + index + ')' );
-
+    var cooldownTimeInSecond = Number( button.data( 'cooldown' ) ) * 1000;
+    var cooldownBarElement = button.children()[3];
+    var cooldownBar = $( cooldownBarElement );
+    
     // get the button limits
     var limitElement = $( this ).find( '.limits' );
     var limits = Number ( limitElement.html() );
@@ -955,11 +963,11 @@ $.fn.extendedCooldown = function() {
     
     if ( hideSpinner === false ) {
         
-        $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
+        $( this ).before( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
         
     } else {
         
-        $( this ).prepend( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
+        $( this ).before( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
         
     }
     
@@ -1009,16 +1017,16 @@ $.fn.extendedCooldown = function() {
         
         if ( response  === 1 || response === '1' ) {
             
-            $.get('includes/views/score_view.php', function( res ) {
+            $.get('includes/views/score.php', function( res ) {
                 
                 $.fn.hideTransition();
-                $( '.sherlock_wrapper .sherlock_container' ).html( res ).hide().fadeIn( 1000 );
+                $( el.sherlock_body_container ).html( res ).hide().fadeIn( 1000 );
 
             } );
 
         } else {
             
-            $( '.sherlock_wrapper' ).showTransition( 'Something went wrong...', 'Sherlock lost his writting pen.' );
+            $( el.sherlock_wrapper ).showTransition( 'Something went wrong...', 'Sherlock lost his writting pen.' );
             
         }
 
@@ -1085,9 +1093,9 @@ $.fn.showHintTagInfo = function() {
  
  $.fn.displayExercises = function( data ) {
      
-     var obj = JSON.parse( data );
+        var obj = JSON.parse( data );
         var prevBtn = $( el.prevPageBtn );
-        var nextBtn = $( el.nextPage );
+        var nextBtn = $( el.nextPageBtn );
         var isFirstPage = obj[0];
         var isLastPage = obj[1];
         
@@ -1124,7 +1132,6 @@ $.fn.goToReview = function() {
     $.post( 'includes/views/sherlock_review_view.php', function( res ) {
         
         $( el.sherlock_wrapper ).html( res ).hide().fadeIn( 'fast' );
-        $( '.sherlock_mode_msg' ).html( 'Review Mode' ).removeClass( 'hide' );
         onYouTubeIframeAPIReady();
 
     } );
@@ -1179,12 +1186,12 @@ $.fn.updateProgress = function( video ) {
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
     $( '.progress_bar .progressed' ).css( "width", width + "px" );
-    $( '.progress_bar .scrubber' ).css( 'left', width + "px" );
-    $( '.progress_bar .time .elapsed' ).html( formattedTime );
+    $( '.progress_bar .scrubber' ).css( 'left', ( width - 1 ) + "px" );
+    $( '.elapsed' ).html( formattedTime );
     
     if ( trainingMode ) {
         
-        var objTouched = $( '.scrubber' ).hitTestObject( '.hint' );
+        var objTouched = $( '.progress_bar .scrubber' ).hitTestObject( '.hint' );
         
         if ( objTouched ) {
             
@@ -1257,7 +1264,7 @@ $.fn.showReasoning = function( reason, action ) {
     
     $( this ).find( '.reasoning' ).html( reason );
     $( this ).find( '.action' ).html( action );
-    $( this ).fadeIn();
+    $( this ).fadeIn().removeClass( 'hide' );
     
 };
 
@@ -1340,24 +1347,19 @@ $.fn.initialism = function( str ) {
 $.fn.hitTestObject = function( selector ) {
     
     var compares = $(selector);
-    var l = this.size();
-    var m = compares.size();
+    var m = compares.length;
     
-    for( var i = 0; i < l; i++ ) {
+    var bounds = this.get(0).getBoundingClientRect();
+   
+    for( var i = 0; i < m; i++ ) {
         
-       var bounds = this.get(i).getBoundingClientRect();
+       var compare = compares.get(i).getBoundingClientRect();
        
-        for( var j = 0; j < m; j++ ) {
-            
-           var compare = compares.get(j).getBoundingClientRect();
-           
-           if( !( bounds.right < compare.left || bounds.left > compare.right ||
-                bounds.bottom < compare.top || bounds.top > compare.bottom ) ) {
-                    
-					return $(selector);   
-					
-            }
-            
+       if( !( bounds.right < compare.left || bounds.left > compare.right ||
+            bounds.bottom < compare.top || bounds.top > compare.bottom ) ) {
+                
+				return $( selector );   
+				
         }
         
     }

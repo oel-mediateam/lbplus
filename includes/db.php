@@ -232,7 +232,7 @@
     	}
     	
     	/**
-         * Delete Google External entry after disconnect
+         * Delete Google external account after disconnect
          * @param string $email Google email
          * @return null. 
          */
@@ -253,7 +253,7 @@
     	    } catch( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Failed to get ID by Google.' );
+        	    exit( 'Failed to delete Google account.' );
         	    
     	    }
         	
@@ -572,6 +572,42 @@
     	    try {
         	    
         	    $sql = 'SELECT * FROM exercise WHERE exercise_id = :id';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id' => $id ) );
+                $query->setFetchMode( PDO::FETCH_ASSOC );
+                
+                $db = null;
+        
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result;
+                    
+                }
+                
+                return null;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get exercise.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    /**
+         * Get an active non-assessment exercise from the database.
+         * @param int $id Exercise ID
+         * @return array|null Returns an array of exercise information or null if not found. 
+         */
+	    public static function getActiveNAExercise( $id ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT exr.*, exercise_type.name AS exr_type_name FROM exercise AS exr JOIN exercise_type ON exr.exrs_type_id = exercise_type.exrs_type_id WHERE exr.exercise_id = :id AND exr.status_id = 1 AND exr.exrs_type_id <> 5';
                 $query = $db->prepare( $sql );
                 $query->execute( array( ':id' => $id ) );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
