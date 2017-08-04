@@ -247,6 +247,10 @@ h1 {
     
 }
 
+strong {
+    font-weight: bold;
+}
+
 footer {
     
     margin: rem( $gutter ) 0;
@@ -254,6 +258,7 @@ footer {
     
     p {
         margin: 0;
+        text-align: center;
     }
     
 }
@@ -509,6 +514,14 @@ footer {
         
         .assessment {
             background-color: #ea4335;
+        }
+        
+        .score {
+            background-color: #fbbc05;
+        }
+        
+        .review {
+            background-color: #4285f4;
         }
         
     }
@@ -1082,173 +1095,139 @@ footer {
             }
 
         } // end interaction wrapper
+
+    }
+    
+    .sherlock_score_view {
         
-        // score wrapper
-        .score_view {
-        
-            width: 100%;
+        .grade_box {
             
-            .overview {
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include align-items( center );
+            width: 100%;
+            height: rem( 50px );
+            background-color: #fff;
+            margin-top: rem( $gutter );
+            padding: 0 rem( 10px );
+            font-size: rem( 40px );
+            line-height: 0;
+            @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
+            
+            .percentage {
+                font-weight: bold;
+            }
+            
+            .feedback {
+                @include flex(2 1 auto);
+                font-style: italic;
+                text-align: center;
+                font-size: rem( 24px );
+            }
+            
+            .fraction {
+                font-weight: bold;
+            }
+            
+        }
+        
+        .analysis_box {
+            
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include justify-content( flex-start );
+            margin: rem( 10px ) 0;
+            
+            .box {
                 
-                width: 100%;
-                float: left;
-                clear: both;
+                @include flex(1 0 auto);
+                min-width: rem( 164px );
+                margin-right: rem( 10px );
+                background-color: #fff;
+                @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
                 
-                .percentage {
-
-                    width: 20%;
-                    padding: 0 rem( 10px );
-                    text-align: center;
-                    @include box-sizing( 'border-box' );
-                    float: left;
-    
-                    .percent {
-    
-                        display: block;
-                        font-size: rem( 46px );
-                        line-height: rem( 46px );
-                        font-weight: bold;
-    
-                    }
-    
-                    .status {
-    
-                        display: block;
-                        font-size: rem( 22px );
-                        line-height: rem( 22px );
-                        margin-top: rem( $gutter / 2 );
-                        font-style: italic;
-    
-                    }
-    
-                }
-                
-                .actions_stars {
-
-                    width: 80%;
-                    padding: 0 0 0 rem( 10px );
-                    @include box-sizing( 'border-box' );
-                    float: left;
+                .top {
                     
-                    .star_earned {
+                    @include display-flex();
+                    @include flex-flow( column nowrap );
+                    @include align-items( center );
+                    @include align-content( center );
+                    margin: rem( 10px ) 0;
+            
+                    .progress-bar {
                         
-                        width: 20%;
-                        padding: 0 0 0 rem( 5px );
-                        @include box-sizing( 'border-box' );
-                        float: left;
+                        position: relative;
+                        display: inline-block;
+                        width: rem( 150px );
+                        height: rem( 150px );
+                        padding: 0;
+                        
+                        canvas {
+                            width: rem( 150px );
+                            height: rem( 150px );
+                        }
+                        
+                        .progress-active {
+                            position: relative;
+                            top: rem( -155px );
+                        }
                         
                         p {
-                            
-                            margin-top: 0;
-                            margin-bottom: rem( $gutter / 2 );
-                            font-size: rem( 16px );
-                            font-weight: 500;
+                            position: absolute;
+                            margin: 0;
+                            padding: 0;
+                            top: rem( 55px );
+                            width: rem( 150px );
+                            font-size: rem( 40px );
+                            font-weight: bold;
                             text-align: center;
-                            
-                        }
-                        
-                        .stars {
-                            
-                            font-size: 160%;
-                            font-weight: normal;
-                            
-                            small {
-                                
-                                font-size: 60%;
-                                
-                            }
-                            
+                            line-height: rem( 40px );
                         }
                         
                     }
-    
+                    
+                    .name {
+                        margin-top: rem( 10px );
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                    
+                }
+                
+                .bottom {
+                    
+                    background-color: #7f7f7f;
+                    font-size: rem( 14px );
+                    color: #fff;
+                    padding: rem( 10px );
+                    
+                    .heading {
+                        font-weight: 100;
+                        font-size: rem( 12px );
+                    }
+                    
+                    p {
+                        margin: 0;
+                    }
+                    
                 }
                 
             }
             
-            .analysis {
-                    
-                margin-top: rem( $gutter );
-                    
-                table {
-                    
-                    width: 100%;
-                    
-                    th {
-                        
-                        white-space: nowrap;
-                        font-weight: bold;
-                        text-align: center;
-                        padding: rem( 5px );
-                        
-                        small {
-                            
-                            font-family: 60%;
-                            font-weight: normal;
-                            
-                        }
-                        
-                    }
-                    
-                    td {
-                        
-                        @extend th;
-                        
-                        font-weight: normal;
-                        line-height: normal;
-                        
-                    }
-                    
-                    tbody {
-                        
-                        tr {
-                        
-                            td:first-child {
-                                
-                                text-align: right;
-                                
-                            }
-                            
-                        }
-                        
-                        tr:nth-child(odd) {
-                            
-                            background-color: #e8e8e8;
-                            
-                        }
-                        
-                        tr:last-child {
-                            
-                            background-color: transparent;
-                            
-                        }
-                        
-                        .topBorder {
-                            
-                            border-top: rem( 2px ) solid #2f2f2f;
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-                .leftBorder {
-                            
-                    border-left: rem( 2px ) solid #2f2f2f;
-                    
-                }
-                
-                .totalScore {
-                    text-align: right;
-                    font-size: 150%;
-                    
-                }
-                
+            .box:last-child {
+                margin-right: 0;
             }
-
-        } // end score_view
-
+            
+        }
+        
+        .bonus {
+            background-color: #fff;
+            height: rem( 42px );
+            margin: rem( 10px ) 0;
+            padding: rem( 10px );
+            @include single-box-shadow( 0, 0, rem( 6px ), 0, #ccc );
+        }
+        
     }
     
     .sherlock_controls {
@@ -1420,6 +1399,47 @@ footer {
         }  // end progress_bar_holder
 
     } // end controls
+    
+    .score_controls {
+        
+        @include display-flex();
+        @include flex-flow( row nowrap );
+        @include justify-content( flex-end );
+        
+        a {
+            @include reg_btn();
+            @include display-flex();
+            @include flex-flow(column nowrap);
+            @include align-items( center );
+            @include justify-content( center );
+            position: relative;
+            text-decoration: none;
+            margin-right: rem( 10px );
+        }
+        
+        a:last-child {
+            margin-right: 0;
+        }
+        
+        .review, .close {
+            
+            .icon {
+                 position: absolute;
+                 left: rem( 10px );
+            }
+            
+        }
+        
+        .exercises {
+            
+            .icon {
+                 position: absolute;
+                 right: rem( 10px );
+            }
+            
+        }
+        
+    }
     
 }
 

@@ -330,6 +330,7 @@
         
         switch( $id ) {
             
+            case '3':
             case '5':
                 return false;
                 break;

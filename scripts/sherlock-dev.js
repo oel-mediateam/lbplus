@@ -45,6 +45,7 @@ var el = {
     google_revoke_cancel: '#revoke_cancel',
     
     sherlock_wrapper: '#sherlock-wrapper',
+    sherlock_banner_label: '#sherlock-wrapper .navbar .container .exercise-type-mode',
     sherlock_body_container: '#sherlock-wrapper .container.body',
     sherlock_grid_container: '#sherlock-wrapper .container .active-exercises.exercise-grid',
     sherlock_grid_item: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item',
@@ -347,13 +348,13 @@ function onYouTubeIframeAPIReady() {
 
         'autoplay': 0,
         'controls': 0,
-        'disablekb': 0,
         'enablejsapi': 0,
         'iv_load_policy': 3,
         'loop': 0,
         'modestbranding': 1,
         'rel': 0,
-        'showinfo': 0
+        'showinfo': 0,
+        'disablekb': 1
 
     };
 
@@ -1020,8 +1021,15 @@ $.fn.extendedCooldown = function() {
             $.get('includes/views/score.php', function( res ) {
                 
                 $.fn.hideTransition();
-                $( el.sherlock_body_container ).html( res ).hide().fadeIn( 1000 );
-
+                $( el.sherlock_banner_label ).html( 'score' ).removeClass().addClass( 'exercise-type-mode score' );
+                $( el.sherlock_body_container ).hide().html( res ).fadeIn( 1000 );
+                
+                for ( var i = 0; i < $('.progress-bar').length; i++ ) {
+                    
+                    $.fn.drawProgressBar( i + 1 );
+                    
+                }
+                
             } );
 
         } else {
@@ -1033,6 +1041,64 @@ $.fn.extendedCooldown = function() {
     } );
 
  };
+ 
+ $.fn.drawProgressBar = function( index ) {
+     
+	var pCaption = $( '#progressPercent' + index );
+	var iProgress = document.getElementById('inactiveProgress' + index);
+	var aProgress = document.getElementById('activeProgress' + index);
+	var iProgressCTX = iProgress.getContext('2d');
+	
+	var percentage = pCaption.data('percent');
+	
+	$.fn.drawInactiveProgress(iProgressCTX);
+	$.fn.drawProgress(aProgress, percentage);
+	
+ };
+ 
+ $.fn.drawInactiveProgress = function( iProgressCTX ) {
+     
+    iProgressCTX.lineCap = 'square';
+    
+    //progress bar
+    iProgressCTX.beginPath();
+    iProgressCTX.lineWidth = 0;
+    iProgressCTX.fillStyle = '#e6e6e6';
+    iProgressCTX.arc(75,75,75,0,2*Math.PI);
+    iProgressCTX.fill();
+    
+    //progressbar caption
+    iProgressCTX.beginPath();
+    iProgressCTX.lineWidth = 0;
+    iProgressCTX.fillStyle = '#fff';
+    iProgressCTX.arc(75,75,65,0,2*Math.PI);
+    iProgressCTX.fill();
+     
+ };
+ 
+$.fn.drawProgress = function(bar, percentage) {
+    
+	var barCTX = bar.getContext("2d");
+	var quarterTurn = Math.PI / 2;
+	var endingAngle = ((2*percentage) * Math.PI) - quarterTurn;
+	var startingAngle = 0 - quarterTurn;
+
+	bar.width = bar.width;
+	barCTX.lineCap = 'square';
+    
+    barCTX.beginPath();
+	barCTX.lineWidth = 5;
+	barCTX.strokeStyle = '#ccc';
+	barCTX.arc(75,75,70,0,2*Math.PI);
+	barCTX.stroke();
+    
+	barCTX.beginPath();
+	barCTX.lineWidth = 5;
+	barCTX.strokeStyle = '#3ac14a';
+	barCTX.arc(75,75,70,startingAngle, endingAngle);
+	barCTX.stroke();
+	
+}
 
 /**
  * display the hint tag info

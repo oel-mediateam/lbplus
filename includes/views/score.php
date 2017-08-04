@@ -43,7 +43,7 @@
     $exercise_actions = $exercise_data['actions'];
     
     // variable holding the heading of the score view
-    $scoreHeading = getValue( $exercise_data['scoreViewHeading'], 'Your Score' );
+    // $scoreHeading = getValue( $exercise_data['scoreViewHeading'], 'Your Score' );
     
     // variables holding the conditional flag for
     // allowing bonus (grading rewind) and
@@ -126,9 +126,6 @@
         $pCount = 0;
         $nCount = 0;
         
-        // output the action name for star
-        $starMsg .= '<div class="star_earned"><p>'. $action['name'] .'</p>';
-        
         // inner loop to student data for comparison
         foreach ( $student_data as $student ) {
             
@@ -161,56 +158,6 @@
         $r['numIncorrect'] = $nCount;
         
         array_push( $result_array, $r );
-        
-        /******* getting stars *******/
-        
-        // varibles holding the result of a calcualate
-        // to determine the number of stars earned out of 3
-        $numStars = round( ( $earned / $action['possiblePoint'] ) * 3, 1 );
-        $numStars = explode( '.', (string) $numStars );
-        
-        // variable holding number of full stars earned
-        $numFullStars = $numStars[0];
-        
-        // variable holding number of half star earned
-        // if applicable
-        $numHalfStar = ( isset( $numStars[1] ) ) ? 1 : 0;
-        
-        // varible holding number of empty stars left
-        $numEmptyStars = 3 - ( $numFullStars + $numHalfStar );
-        
-        // declare an empty stars varible
-        $stars = '';
-        
-        // full star loop
-        for( $i = 0; $i < $numFullStars; $i++ ) {
-            
-            // concatenate string to the stars varible
-            $stars .= '<span class="icon-star-full"></span> ';
-
-        }
-        
-        // half star loop
-        for( $j = 0; $j < $numHalfStar; $j++ ) {
-            
-            // concatenate string to the stars varible
-            $stars .= '<span class="icon-star-half"></span> ';
-
-        }
-        
-        // empty star loop
-        for( $k = 0; $k < $numEmptyStars; $k++ ) {
-            
-            // concatenate string to the stars varible
-            $stars .= '<span class="icon-star-empty"></span> ';
-
-        }
-        
-        // output the stars and total points earned
-        // out of total possible for that action
-        $starMsg .= '<p class="stars">' . $stars . '<br /><small>' . $pCount . '/' . $action['possible'] . '</small></p></div>';
-        
-        /******* end getting stars *******/
 
     } // end loop
     
@@ -218,7 +165,6 @@
     // percentage varible and to the database
     $totalEarned = $positiveEarned + $rewindPointsEarned - $negativeEarned;
     $fraction = round( $totalEarned / $possilbePoints, 2 );
-    
     $percentage = $fraction * 100;
     
     if ( $exercise_info['exrs_type_id'] === 5 && isset( $_SESSION['isReview'] ) === false ) {
@@ -267,102 +213,87 @@
 
 ?>
 
-<section class="sherlock_view">
-
-    <h1><?php echo $scoreHeading; ?></h1>
-
-    <div class="score_view">
-        
-        <div class="overview">
-        
-        <div class="percentage">
-            <span class="percent"><?php echo $percentage; ?>%</span>
-            <span class="status"><?php echo scoreMessage( $percentage ); ?></span>
-        </div>
-        
-        <div class="actions_stars">
-
-            <?php echo $starMsg; ?>
-
-        </div>
-        
-        </div>
-        
-        <div class="clearfix"></div>
-        
-        <div class="analysis">
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Total Correct <br><small>(# of correct &times; value)</small></th>
-                        <th>&minus;</th>
-                        <th>Total Incorrect <br /><small>(# of incorrect &times; value)</small></th>
-                        <th>=</th>
-                        <th>Total</th>
-                        <th class="leftBorder">Possible<br />Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <?php
-                        
-                        foreach ( $result_array as $r ) {
-                            
-                            $totalCorrect = $r['points'] * $r['numCorrect'];
-                            $totalIncorrect = $r['missPoint'] * $r['numIncorrect'];
-                            $total = ( $r['points'] * $r['numCorrect'] ) - ( $r['missPoint'] * $r['numIncorrect'] );
-                            
-                            echo '<tr>';
-                            echo '<td>' . $r['name'] . '</td>';
-                            echo '<td>' . $totalCorrect . ' <small>(' .$r['numCorrect'] . ' &times; ' . $r['points'] . ')</small></td>';
-                            echo '<td>&nbsp;</td>';
-                            echo '<td>' . $totalIncorrect . ' <small>(' . $r['numIncorrect'] . ' &times; ' . $r['missPoint'] . ')</small></td>';
-                            echo '<td>&nbsp;</td>';
-                            echo '<td>' . $total . '</td>';
-                            echo '<td class="leftBorder">' . $r['possiblePoint'] . '</td></tr>';
-                            
-                        }
-                        
-                        echo '<tr><td colspan="5">&nbsp;</td><td class="topBorder"><strong>' . $totalEarned . '</strong></td><td class="topBorder"><strong>'. $possilbePoints .'</strong></td></tr>';
-                        
-                    ?>
-                    
-                </tbody>
-            </table>
-
-            <?php if ( $rewindGraded  ) { ?>
-            <p>Bonus points earned: <strong><?php echo $rewindPointsEarned; ?></strong></p>
-            <? } ?>
-
-            <p class="totalScore">Score: <strong><?php echo $totalEarned; ?> / <?php echo $possilbePoints; ?> = <?php echo $fraction; ?> (<?php echo $percentage; ?>%)</strong></p>
-
-        </div>
-
+<div class="sherlock_score_view">
+    
+    <div class="grade_box">
+        <div class="percentage"><?php echo $percentage; ?>%</div>
+        <div class="feedback"><?php echo scoreMessage( $percentage ); ?></div>
+        <div class="fraction"><?php echo $totalEarned + $rewindPointsEarned . '/' . $possilbePoints; ?></div>
     </div>
+    
+    <div class="analysis_box">
+            
+        <?php
+            
+            $count = 1;
+            
+            foreach ( $result_array as $r ) {
+                        
+                $totalCorrect = $r['points'] * $r['numCorrect'];
+                $totalIncorrect = $r['missPoint'] * $r['numIncorrect'];
+                $total = ( $r['points'] * $r['numCorrect'] ) - ( $r['missPoint'] * $r['numIncorrect'] );
+                $actionPercent = $r['numCorrect'] / $r['possible'];
+                
+                echo '<div class="box">';
+                echo '<div class="top">';
+                echo '<div class="progress-bar">';
+                echo '<canvas id="inactiveProgress'.$count.'" class="progress-inactive" height="150px" width="150px"></canvas>';
+                echo '<canvas id="activeProgress'.$count.'" class="progress-active" height="150px" width="150px"></canvas>';
+                echo '<p id="progressPercent'.$count.'" data-percent="' . $actionPercent . '">' . $r['numCorrect'] . '/' . $r['possible'] . '</p>';
+                echo '</div>';
+                echo '<div class="name">' . $r['name'] . '</div>';
+                echo '</div>';
+                echo '<div class="bottom">';
+                echo '<div class="heading">Number of targets</div>';
+                echo '<p><strong>' . $r['possible'] . '</strong></p>';
+                echo '<div class="heading">Hits</div>';
+                echo '<p><strong>' . $r['numCorrect'] . '</strong></p>';
+                echo '<div class="heading">Misses</div>';
+                echo '<p><strong>' . $r['numIncorrect'] . '</strong></p>';
+                echo '<div class="heading">Points per hit</div>';
+                echo '<p><strong>' . $r['points'] . '</strong></p>';
+                echo '<div class="heading">Points earned</div>';
+                echo '<p><strong>' . $totalCorrect . '</strong></p>';
+                echo '<div class="heading">Points deducted</div>';
+                echo '<p><strong>' . $totalIncorrect . '</strong></p>';
+                echo '<div class="heading">Total points possible</div>';
+                echo '<p><strong>' . $r['possiblePoint'] . '</strong></p>';
+                echo '</div>';
+                echo '</div>';
+                
+                $count++;
+                
+            }
+            
+        ?>
+        
+    </div>
+    
+    <?php if ( $rewindGraded  ) { ?>
+    <div class="bonus">Bonus points earned: <strong><?php echo $rewindPointsEarned; ?></strong></div>
+    <? } ?>
 
-</section>
+</div>
 
-<div class="sherlock_controls">
+<div class="score_controls">
         
     <?php
         
         if ( allowReview( $exercise_info['exrs_type_id' ] ) ) {
                     
-            echo '<a id="goToReview" class="btn previous full" href="#"><span class="action_name"><span class="icon-review"></span> Review</span></a>';
+            echo '<a id="goToReview" class="btn review" href="#"><span class="icon"><i class="fa fa-chevron-left"></i></span><span class="action_name">Review</span></a>';
             
         }
          
         if ( !isLTIUser() ) {
             
-            echo '<a class="btn" href="?exercise=' . $exercise_info['exercise_id'] . '"><span class="action_name"><span class="icon-retake"></span>  Retake</span></a>';
+            echo '<a class="btn retake" href="?exercise=' . $exercise_info['exercise_id'] . '"><span class="action_name">Retake</span></a>';
             
-            echo '<a class="btn" href="?view=exercises"><span class="action_name"><span class="icon-selection"></span> Exercises</span></a>';
+            echo '<a class="btn exercises" href="?view=exercises"><span class="action_name">Exercises</span><span class="icon"><i class="fa fa-chevron-right"></i></span></a>';
         
         } else {
             
-            echo '<a class="btn" href="javascript:window.close();"><span class="action_name"><span class="icon-close"></span>  CLOSE</span></a>';
+            echo '<a class="btn close" href="javascript:window.close();"><span class="icon"><i class="fa fa-close"></i></span><span class="action_name">CLOSE</span></a>';
             
         }
         
