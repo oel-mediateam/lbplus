@@ -837,6 +837,7 @@ footer {
     // sherlock exercise view
     .sherlock_view {
         
+        width: rem( 860px );
         margin: rem( $gutter ) 0;
         
         .sherlock_interaction_wrapper {
@@ -983,11 +984,6 @@ footer {
                     @include flex(2 0 auto);
                 }
                 
-                .rewind_action {
-                    border-top: 1px solid #e2e2e2;
-                    margin: rem( 10px ) 0;
-                }
-                
                 .btn {
 
                     @include button();
@@ -1009,7 +1005,8 @@ footer {
                     }
 
                     .action_name.long {
-                        font-size: 1vw;
+                        font-size: rem( 12px );
+                        line-height: rem( 14px );
                     }
 
                     .cooldown {
@@ -1026,41 +1023,11 @@ footer {
                     @include button_disabled();
                 }
                 
-                .reviewVideoControls {
+                .review_content {
                     
-                    float: left;
-                    clear: both;
-                    margin: 0 0 rem( $gutter );
-                    
-                    .btn.videoControls {
-                    
-                        width: rem( 64px );
-                        height: rem( 30px );
-                        margin: 0 rem( $gutter ) 0 0;
-                        float: left;
-                        
-                        .action_name {
-    
-                            width: 100%;
-                            height: rem( 30px );
-                            padding: rem( 6px ) 0 0;
-                            line-height: normal;
-                            text-align: center;
-                            @include box-sizing(border-box);
-    
-                        }
-                        
-                    }
-                    
-                    .btn.videoControls:last-child {
-                        
-                        margin-right: 0;
-                        
-                    }
-                    
-                }
-                
-                .reviewContent {
+                    @include flex(2 0 auto);
+                    max-height: rem( 239px );
+                    overflow-y: scroll;
                     
                     p {
                         
@@ -1073,21 +1040,37 @@ footer {
                     
                 }
                 
-                .btn.videoControls.playSegment {
+                .play_segment {
                     
                     width: 100%;
-                    height: rem( 30px );
-                    margin: 0 rem( $gutter ) 0 0;
                     
                     .action_name {
-
                         width: 100%;
-                        height: rem( 30px );
-                        padding: rem( 4px ) 0 0;
-                        line-height: normal;
-                        text-align: center;
-                        @include box-sizing(border-box);
-
+                        height: rem( 40px );
+                        @include justify-content(center);
+                    }
+                    
+                }
+                
+                .fixed_bottom_action {
+                    
+                    border-top: 1px solid #e2e2e2;
+                    margin: rem( 10px ) 0;
+                    
+                    .backToScore {
+                        
+                        width: 100%;
+                        
+                        .action_name {
+                            @include flex(2 0 auto);
+                            height: rem( 40px );
+                            @include justify-content(center);
+                        }
+                        
+                        .icon {
+                            height: rem( 40px );
+                        }
+                        
                     }
                     
                 }
@@ -1096,6 +1079,10 @@ footer {
 
         } // end interaction wrapper
 
+    }
+    
+    .sherlock_view.review {
+        
     }
     
     .sherlock_score_view {
@@ -1339,6 +1326,10 @@ footer {
             	border-bottom: 8px solid #0f74ed;
                 
             }
+            
+            .active {
+                @include box-shadow( 0 0 rem( 4px ) #000 );
+            }
 
             .progress_bar {
                 
@@ -1399,6 +1390,33 @@ footer {
         }  // end progress_bar_holder
 
     } // end controls
+    
+    .sherlock_controls.review {
+        
+        .playPauseBtn {
+            @include reg_btn();
+            width: rem( 40px );
+            margin-right: rem( 10px );
+            @include border-radius( rem( 3px ) );
+        }
+        
+        .progress_bar_holder {
+
+            .neg {
+                background-color: #ea4335;
+            }
+            
+            .neg:after {
+            	border-top: 12px solid #ea4335;
+            }
+            
+            .progress_bar {
+                cursor: pointer;
+            }
+
+        }
+
+    } // end review controls
     
     .score_controls {
         

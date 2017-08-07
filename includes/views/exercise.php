@@ -50,7 +50,7 @@
         $actions = $exercise->getActions();
         $rewindAction = $exercise->getRewindAction();
         
-        $_SESSION['videoSegment'] = serialize( array( $exercise->name, $exercise->videoStart, $exercise->videoEnd ) );
+        $_SESSION['videoSegment'] = serialize( array( $exercise->videoStart, $exercise->videoEnd ) );
         
     }
 
@@ -143,35 +143,37 @@
                 
                 </div>
                 
-                <div class="rewind_action">
-
-                    <?php
-            
-                        if ( $rewindAction->enabled ) {
-            
-                            $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action-id="' . $rewindAction->id . '" data-length="' . $rewindAction->length . '">';
+                <!-- rewind button -->
+                <?php
+        
+                    if ( $rewindAction->enabled ) {
+                        
+                        echo '<div class="fixed_bottom_action">';
+                        
+                        $rewindButton = '<div class="btn rewind' . ( ( $rewindAction->graded ) ? ' graded ' : ' ' ) . 'disabled" data-cooldown="' . $rewindAction->cooldown . '" data-action-id="' . $rewindAction->id . '" data-length="' . $rewindAction->length . '">';
+                        
+                        if ( $exercise->displayLimits ) {
                             
-                            if ( $exercise->displayLimits ) {
-                                
-                                $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
-                                
-                            } else {
-                                
-                                $rewindButton .= '<span class="limits hide" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
-                                
-                            }
+                            $rewindButton .= '<span class="limits" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
                             
-                            $rewindButton .= '<span class="icon"><i class="fa fa-' . $rewindAction->icon . '"></i></span>';
-                            $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
-                            $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
-            
-                            echo $rewindButton;
-            
+                        } else {
+                            
+                            $rewindButton .= '<span class="limits hide" data-limit="' . $rewindAction->limits . '">' . $rewindAction->limits . '</span>';
+                            
                         }
-            
-                    ?>
-            
-                </div>
+                        
+                        $rewindButton .= '<span class="icon"><i class="fa fa-' . $rewindAction->icon . '"></i></span>';
+                        $rewindButton .= '<span class="action_name">' . $rewindAction->name . '</span>';
+                        $rewindButton .= '<span class="cooldown"><span class="progress"></span></span></div>';
+        
+                        echo $rewindButton;
+                        
+                        echo '</div>';
+        
+                    }
+        
+                ?>
+                <!-- end rewind button -->
     
             </div>
     

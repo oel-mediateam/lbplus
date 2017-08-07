@@ -34,7 +34,7 @@
 		"uCM": 0
 		},
 	"\/config.rb": {
-		"ft": 8192,
+		"ft": 131072,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -1046,6 +1046,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/views\/landing.php",
+		"oF": 0
+		},
+	"\/includes\/views\/review.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/views\/review.php",
 		"oF": 0
 		},
 	"\/includes\/views\/score.php": {

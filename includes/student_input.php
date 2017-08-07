@@ -38,6 +38,7 @@
                 $student_action['id'] = $student_input['id'];
                 $student_action['name'] = $student_input['name'];
                 $student_action['timestamped'] = $student_input['timestamped'];
+                $student_action['pos'] = $student_input['pos'];
     
                 foreach ( $exercise_actions as $action ) {
     

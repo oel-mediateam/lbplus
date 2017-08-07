@@ -64,9 +64,6 @@ var tagCount = 1;
 var updatePrgrsInterval;
 var studentResponses = [];
 var trainingMode = false;
-var practiceMode = false;
-var demoMode = false;
-var assessmentMode = false;
 var reviewMode = false;
 var pauseOnce = true;
 var preCount = null;
@@ -357,7 +354,9 @@ function onYouTubeIframeAPIReady() {
         'disablekb': 1
 
     };
-
+    
+    var isPlaying = false;
+    
     if ( video.segmented ) {
 
         config.start = video.start;
@@ -393,20 +392,9 @@ function onYouTubeIframeAPIReady() {
                 trainingMode = true;
             break;
             
-            case 'practice':
-                practiceMode = true;
-            break;
-            
-            case 'demo':
-                demoMode = true;
-            break;
-            
-            case 'assessment':
-                assessmentMode = true;
-            break;
-            
             case 'review':
                 reviewMode = true;
+            break;
                 
         }
         
@@ -430,8 +418,9 @@ function onYouTubeIframeAPIReady() {
                         var end = $.fn.toSecond( data[a].positions[p].end );
                         var mid = ( ( end - begin ) / 2) + begin;
                         
-                        var left = Math.floor( hintBarWidth * ( 100 / video.duration * begin ) / 100 );
-                        var right = Math.floor( hintBarWidth * ( 100 / video.duration * end ) / 100 );
+                        var left = hintBarWidth * ( 100 / video.duration * begin ) / 100;
+                        var right = hintBarWidth * ( 100 / video.duration * end ) / 100;
+                        
                         var width = right - left;
                         var midWidth = left - 8 + ( width / 2 );
                         
@@ -448,14 +437,23 @@ function onYouTubeIframeAPIReady() {
             } );
             
             if ( reviewMode ) {
-                            
+                
+                var timeDrag = false;
+                   
                 $.post( 'includes/get_student_data_from_session.php', { id: 1 }, function( data ) {
-               
+                    
                     for ( var t = 0; t < data.length; t++ ) {
 
-                        var time = $.fn.toSecond( data[t].timestamped );
-                        var pos = Math.floor( $( '.progress_bar_holder' ).width() * ( 100 / video.duration * time ) / 100 ) + 10;
-                        var span = '<span class="tag" style="left:'+ pos +'px;"><span>'+$.fn.initialism(data[t].name)+'</span></span>';
+                        var span = '';
+                                                
+                        if ( data[t].negative >= 0 ) {
+                            
+                            span = '<span class="tag neg" style="left:'+ data[t].pos +'px;"><span>'+$.fn.initialism(data[t].name)+'</span></span>';
+                            
+                        } else {
+                            
+                            span = '<span class="tag" style="left:'+ data[t].pos +'px;"><span>'+$.fn.initialism(data[t].name)+'</span></span>';
+                        }
                         
                         $( '.progress_bar_holder' ).append( span );
                         
@@ -466,40 +464,49 @@ function onYouTubeIframeAPIReady() {
                     
                 } );
                 
-                $( '.btn.videoControls.play' ).on( 'click', function() {
+                $( '.playPauseBtn' ).on( 'click', function() {
                     
-                    if ( !$(this).hasClass('disabled') ) {
-                        
+                    if ( isPlaying ) {
+                        video.player.pauseVideo();
+                    } else {
                         video.player.playVideo();
-                        
                     }
                     
                 } );
                 
-                $( '.btn.videoControls.pause' ).on( 'click', function() {
+                $( '.progress_bar' ).on( 'mousedown', function(e) {
                     
-                    if ( !$(this).hasClass('disabled') ) {
-                        
-                        video.player.pauseVideo();
-                        
+                    timeDrag = true;
+                    var pos = e.pageX - $( '.progress_bar' ).offset().left;
+                    $( '.progress_bar  .scrubber' ).css('left', pos);
+                    
+                    $.fn.updateScrubSeek(pos, video);
+                    
+                } );
+                
+                $( '.progress_bar' ).on( 'mouseup', function(e) {
+                    
+                    if ( timeDrag ) {
+                        var pos = e.pageX - $( '.progress_bar' ).offset().left;
+                        timeDrag = false;
+                        $( '.progress_bar  .scrubber' ).css('left', pos);
+                        $.fn.updateScrubSeek(pos, video);
                     }
                     
-                });
+                } );
                 
-                $( '.btn.videoControls.backTen' ).on( 'click', function() {
-                    
-                    if ( !$(this).hasClass('disabled') ) {
+                $( '.progress_bar' ).on( 'mousemove', function(e) {
+
+                    if ( timeDrag ) {
                         
-                        var time = video.player.getCurrentTime() - 10;
-                    
-                        if ( time <= 0 ) {
-                            
-                            time = 0;
-                            
+                        var pos = e.pageX - $( '.progress_bar' ).offset().left;
+                        
+                        if ( pos >= $( this ).width() ) {
+                            pos = $( this ).width();
                         }
                         
-                        video.player.seekTo( time );
-                        
+                        $( '.progress_bar .scrubber' ).css('left', pos);
+                        $.fn.updateScrubSeek(pos, video);
                     }
                     
                 } );
@@ -539,6 +546,11 @@ function onYouTubeIframeAPIReady() {
 
             case YT.PlayerState.ENDED:
                 
+                clearInterval( updatePrgrsInterval );
+                
+                isPlaying = false;
+                $( '.playPauseBtn' ).html( '<i class="fa fa-play"></i>' );
+                
                 if ( !reviewMode ) {
                     
                     $( el.sherlock_wrapper ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
@@ -559,24 +571,30 @@ function onYouTubeIframeAPIReady() {
     
                     }, 3000 );
                     
+                    $( '.progress_bar .progressed' ).css( "width", $( ".progress_bar" ).width() + "px" );
+                    $( '.progress_bar .scrubber' ).css( "left", $( ".progress_bar" ).width() + "px" );
+                    $( '.elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
+                    
                 } else {
                     
-                    $( '.btn.videoControls.play' ).removeClass( 'disabled' );
-                    $( '.btn.videoControls.pause' ).addClass( 'disabled' );
+                    $( '.progress_bar .progressed' ).css( "width", 0 + "px" );
+                    $( '.progress_bar .scrubber' ).css( "left", "" );
                     $( el.videoPlayBtn ).removeClass( 'paused' ).html( 'READY' ).show();
                     
                 }
-                
-                $( '.progress_bar .progressed' ).css( "width", $( ".progress_bar" ).width() + "px" );
-                $( '.progress_bar .scrubber' ).css( "left", $( ".progress_bar" ).width() + "px" );
-                $( '.elapsed' ).html( moment( video.duration * 1000 ).format( 'mm:ss' ) );
-                
-                // clear update progress bar interval
-                clearInterval( updatePrgrsInterval );
 
             break;
 
             case YT.PlayerState.PLAYING:
+                
+                if ( updatePrgrsInterval ) {
+                    
+                    clearInterval( updatePrgrsInterval );
+                    
+                }
+                
+                isPlaying = true;
+                $( '.playPauseBtn' ).html( '<i class="fa fa-pause"></i>' );
                 
                 if ( !reviewMode ) {
                     
@@ -600,18 +618,12 @@ function onYouTubeIframeAPIReady() {
                     // start listening to tag events
                     $.fn.tagHoverAction();
                     
-                } else {
-                    
-                    $( '.btn.videoControls.play' ).addClass( 'disabled' );
-                    $( '.btn.videoControls.pause' ).removeClass( 'disabled' );
-                    $( '.btn.videoControls.backTen' ).removeClass( 'disabled' );
-                    
                 }
 
                 // Begin updating progress bar
                 updatePrgrsInterval = setInterval( function() {
                         $.fn.updateProgress( video );
-                    } , 100 );
+                    } , 1000 );
 
                 $( '#videoPlayBtn' ).hide().removeClass( 'paused' ).html( 'START' );
 
@@ -619,7 +631,7 @@ function onYouTubeIframeAPIReady() {
             
             case YT.PlayerState.BUFFERING:
                 
-                $( '#videoPlayBtn' ).html( '<span class="icon-spinner"></span><br /><small>BUFFERING</small>' ).addClass( 'paused' ).show();
+                $( '#videoPlayBtn' ).html( '<i class="fa fa-spinner fa-spin"></i><br /><small>BUFFERING</small>' ).addClass( 'paused' ).show();
                 
                 if ( !reviewMode ) {
                     
@@ -630,6 +642,8 @@ function onYouTubeIframeAPIReady() {
                     }
                     
                 }
+                
+                isPlaying = false;
                                 
             break;
             
@@ -637,13 +651,8 @@ function onYouTubeIframeAPIReady() {
                 
                 // clear update progress bar interval
                 clearInterval( updatePrgrsInterval );
-                
-                if ( reviewMode ) {
-                    
-                    $( '.btn.videoControls.play' ).removeClass( 'disabled' );
-                    $( '.btn.videoControls.pause' ).addClass( 'disabled' );
-                    
-                }
+                isPlaying = false;
+                $( '.playPauseBtn' ).html( '<i class="fa fa-play"></i>' );
                 
             break;
 
@@ -790,7 +799,7 @@ $.fn.addTag = function() {
     var actionId = $( this ).data( 'action-id' );
     var actionName = $( this ).find( '.action_name' ).html();
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
-    var barPx = $( '.progress_bar .progressed' ).width() - 12; // +10 because that is the half of tag respectively to the width of the progress bar container and the bar itself, i.e., ( container width - progress bar width - tag width ) / 2
+    var barPx = $( '.progress_bar .progressed' ).width() - 12;
     var icon = $( this ).find( '.icon' ).html();
 
     // Build the span
@@ -806,7 +815,8 @@ $.fn.addTag = function() {
 
         "id": actionId,
         "name": actionName,
-        "timestamped": formattedTime
+        "timestamped": formattedTime,
+        'pos': barPx
 
     };
 
@@ -964,7 +974,7 @@ $.fn.extendedCooldown = function() {
     
     if ( hideSpinner === false ) {
         
-        $( this ).before( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div><div class="loading"><span class="icon-spinner spin"></span></div></div>' );
+        $( this ).before( '<div class="transition_overlay"><div class="loading"><i class="fa fa-spinner fa-spin"></i></div><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
         
     } else {
         
@@ -1049,7 +1059,7 @@ $.fn.extendedCooldown = function() {
 	var aProgress = document.getElementById('activeProgress' + index);
 	var iProgressCTX = iProgress.getContext('2d');
 	
-	var percentage = pCaption.data('percent');
+	var percentage = Number( pCaption.data('percent') );
 	
 	$.fn.drawInactiveProgress(iProgressCTX);
 	$.fn.drawProgress(aProgress, percentage);
@@ -1079,9 +1089,6 @@ $.fn.extendedCooldown = function() {
 $.fn.drawProgress = function(bar, percentage) {
     
 	var barCTX = bar.getContext("2d");
-	var quarterTurn = Math.PI / 2;
-	var endingAngle = ((2*percentage) * Math.PI) - quarterTurn;
-	var startingAngle = 0 - quarterTurn;
 
 	bar.width = bar.width;
 	barCTX.lineCap = 'square';
@@ -1092,11 +1099,19 @@ $.fn.drawProgress = function(bar, percentage) {
 	barCTX.arc(75,75,70,0,2*Math.PI);
 	barCTX.stroke();
     
-	barCTX.beginPath();
-	barCTX.lineWidth = 5;
-	barCTX.strokeStyle = '#3ac14a';
-	barCTX.arc(75,75,70,startingAngle, endingAngle);
-	barCTX.stroke();
+    if ( percentage > 0 ) {
+        
+        var quarterTurn = Math.PI / 2;
+    	var endingAngle = ((2*percentage) * Math.PI) - quarterTurn;
+    	var startingAngle = 0 - quarterTurn;
+        
+        barCTX.beginPath();
+    	barCTX.lineWidth = 5;
+    	barCTX.strokeStyle = '#3ac14a';
+    	barCTX.arc(75, 75, 70, startingAngle, endingAngle);
+    	barCTX.stroke();
+        
+    }
 	
 }
 
@@ -1113,25 +1128,34 @@ $.fn.drawProgress = function(bar, percentage) {
 $.fn.showHintTagInfo = function() {
     
     $( this ).on( 'click', function() {
+    
+        $( '.hint_tag' ).removeClass( 'active' );
         
         var name = $(this).data('name');
         var begin = $(this).data('begin');
         var end = $(this).data('end');
         var reason = $(this).data('reason');
-        var info = '<p><strong>'+name+'</strong><br />'+ moment( begin * 1000 ).format( 'mm:ss' ) +' &mdash; '+moment( end * 1000 ).format( 'mm:ss' )+'</p><p>'+reason+'</p><div class="btn videoControls playSegment"><span class="action_name">Play Segment</span></div>';
+        var info = '<p><strong>'+name+'</strong><br />'+ moment( begin * 1000 ).format( 'mm:ss' ) +' &mdash; '+moment( end * 1000 ).format( 'mm:ss' )+'</p><p>'+reason+'</p>';
         
-        $( '.sherlock_actions .reviewContent' ).html(info);
+        $( '.sherlock_actions .review_content' ).html(info);
         
         segment.begin = begin;
         segment.end = end;
         
-        $( '.btn.videoControls.playSegment' ).on( 'click', function(){
-        
-            video.player.seekTo( segment.begin );
-            video.player.playVideo();
-            segment.playing = true;
+        if ( $( '.btn.play_segment' ).hasClass('disabled') ) {
             
-        } );
+            $( '.btn.play_segment' ).removeClass( 'disabled' ).on( 'click', function(){
+        
+                video.player.seekTo( segment.begin );
+                video.player.playVideo();
+                $( '.playPauseBtn' ).html( '<i class="fa fa-pause"></i>' );
+                segment.playing = true;
+                
+            } );
+            
+        }
+        
+        $( this ).addClass('active');
         
     } );
     
@@ -1195,12 +1219,25 @@ $.fn.showHintTagInfo = function() {
  
 $.fn.goToReview = function() {
     
-    $.post( 'includes/views/sherlock_review_view.php', function( res ) {
+    $( '.sherlock_score_view' ).hide();
+    $( '.score_controls' ).hide();
+    $( el.sherlock_banner_label ).html( 'review' ).removeClass().addClass( 'exercise-type-mode review' );
+    
+    if ( $( '.sherlock_view.review' ).length ) {
+    
+        $( '.sherlock_view.review' ).show();
+        $( '.sherlock_controls' ).show();
         
-        $( el.sherlock_wrapper ).html( res ).hide().fadeIn( 'fast' );
-        onYouTubeIframeAPIReady();
-
-    } );
+    } else {
+        
+        $.post( 'includes/views/review.php', function( res ) {
+        
+            $( el.sherlock_body_container ).append( res ).hide().fadeIn( 'fast' );
+            onYouTubeIframeAPIReady();
+    
+        } );
+        
+    }
     
 };
 
@@ -1217,11 +1254,15 @@ $.fn.goToReview = function() {
  
 $.fn.goToScore = function() {
     
-    $.post('includes/views/score_view.php', function( res ) {
-                
-        $( el.sherlock_wrapper ).html( res ).hide().fadeIn( 'fast' );
-
-    } );
+    if ( !$( '.sherlock_score_view' ).is( ':visible' ) ) {
+        
+        $( el.sherlock_banner_label ).html( 'score' ).removeClass().addClass( 'exercise-type-mode score' );
+        $( '.sherlock_score_view' ).show();
+        $( '.score_controls' ).show();
+        $( '.sherlock_view.review' ).hide();
+        $( '.sherlock_controls' ).hide();
+        
+    }
     
 };
 
@@ -1239,15 +1280,13 @@ $.fn.goToScore = function() {
 */
 $.fn.updateProgress = function( video ) {
   
-  var curTimeMs = video.player.getCurrentTime();
+    var curTimeMs = video.player.getCurrentTime();
 
     if ( video.segmented ) {
-
         curTimeMs = video.player.getCurrentTime() - video.start;
-
     }
 
-    var newWidth = Math.floor( ( 100 / video.duration ) * curTimeMs );
+    var newWidth = 100 / video.duration * curTimeMs;
     var width = $( '.progress_bar').width() * ( newWidth / 100 );
     var formattedTime = moment( curTimeMs * 1000 ).format( 'mm:ss' );
 
@@ -1315,6 +1354,7 @@ $.fn.updateProgress = function( video ) {
                 
                 video.player.pauseVideo( segment.end );
                 segment.playing = false;
+                $( '.playPauseBtn' ).html( '<i class="fa fa-play"></i>' );
             
             }
             
@@ -1322,6 +1362,17 @@ $.fn.updateProgress = function( video ) {
         
     }
   
+};
+
+$.fn.updateScrubSeek = function(pos, video) {
+    
+    var seekedTime = video.duration * ( 100 * pos / $( '.progress_bar' ).width() ) / 100;
+    
+    $( '.progress_bar .progressed' ).css( "width", pos + "px" );
+    $( '.progress_bar .scrubber' ).css( 'left', ( pos - 1 ) + "px" );
+    
+    video.player.seekTo( seekedTime );
+    
 };
 
 $.fn.showReasoning = function( reason, action ) {
