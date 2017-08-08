@@ -16,15 +16,6 @@
         
         require_once 'functions.php';
         
-        if ( !isLTIUser() ) {
-            
-            require_once 'config.php';
-            require_once 'db.php';
-            
-        }
-        
-        $exercise_info = unserialize( $_SESSION['exercise_info'] );
-        
         if ( isset( $_SESSION['isReview'] ) ) {
             
             unset( $_SESSION['isReview'] );
@@ -39,30 +30,23 @@
         
         if ( !isLTIUser() ) {
             
-            $attempt = DB::getAttempted( $_SESSION['signed_in_user_id'], $exercise_info['exercise_id'] );
+            require_once 'config.php';
+            require_once 'db.php';
             
-            if ( !$exercise_info['allow_retake'] ) {
+            $exercise_info = unserialize( $_SESSION['exercise_info'] );
+            
+            if ( $exercise_info['exrs_type_id'] == 5 ) {
                 
-                if ( $attempt >= $exercise_info['attempts'] ) {
+                $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_email'],
+                                     $exercise_info['exercise_id'] );
+                                     
+                echo $_SESSION['user_exercise_id'];
                 
-                    exit( 0 );
-                    
-                } 
+            } else {
+                
+                echo $exercise_info['exercise_id'];
                 
             }
-            
-            if ( $exercise_info['exrs_type_id'] != 3 ) {
-                
-                $_SESSION['user_exercise_id'] = DB::setUserExercise( $_SESSION['signed_in_user_id'],
-                                     $exercise_info['exercise_id'], ( $attempt + 1 ) );
-                
-            }
-                                         
-            echo true;
-            
-        } else {
-            
-            echo true;
             
         }
                                           

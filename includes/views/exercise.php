@@ -33,7 +33,20 @@
         
     } else {
         
-        $exerciseToGet = DB::getActiveNAExercise( $_GET['exercise'] );
+        $attempted = false;
+        
+        if ( isset( $_SESSION['signed_in_user_email'] ) ) {
+            
+            $exerciseToGet = DB::getActiveExercise( $_GET['exercise'] );
+            
+            if ( DB::userExerciseExists( $_SESSION['signed_in_user_email'], $exerciseToGet['exercise_id'] ) ) {
+                $attempted = true;
+            }
+            
+        } else {
+            $exerciseToGet = DB::getActiveNAExercise( $_GET['exercise'] );
+        }
+        
         $_SESSION['exercise_info'] = serialize( $exerciseToGet );
         
         if ( sizeof( $exerciseToGet ) ) {
@@ -57,7 +70,7 @@
 ?>
 <div id="sherlock-wrapper">
     
-    <?php if ( $exercise_exists ) { ?>
+    <?php if ( $exercise_exists && !$attempted ) { ?>
     
     <nav class="navbar darken">
         
@@ -220,10 +233,22 @@
 <?php } else { ?>
     
     <div class="error_msg">
-        <h2><i class="fa fa-search fa-3x" aria-hidden="true"></i><br>EXERCISE NOT FOUND!</h2>
-        <p>The exercise that you requested cannot be found or may not be available yet.<br>
-            <a href="?view=exercises">Back to Exercises</a>
-        </p>
+        
+        <?php if ( $attempted ) : ?>
+            
+            <h2><i class="fa fa-warning fa-3x" aria-hidden="true"></i><br>EXERCISE ALREADY ATTEMPTED!</h2>
+            <p>The requested exercise had been attempted.</a>
+            </p>
+            
+        <?php else: ?>
+        
+            <h2><i class="fa fa-search fa-3x" aria-hidden="true"></i><br>EXERCISE NOT FOUND!</h2>
+            <p>The exercise that you requested cannot be found or may not be available yet.</p>
+        
+        <?php endif; ?>
+        
+        <p><a href="?view=exercises">Back to Exercises</a></p>
+        
     </div>
 
 <?php } ?>

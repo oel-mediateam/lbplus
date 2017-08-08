@@ -15,6 +15,20 @@
      */
     function getView( $request ) {
         
+        if ( isset( $_SESSION['signed_in_user_email'] ) ) {
+        
+            if ( isset( $request['exercise'] ) ) {
+                
+                return 'includes/views/exercise.php';
+                
+            } else {
+                
+                return 'includes/views/exercises.php';
+                
+            }
+            
+        }
+        
         // if request is from an exercise selection
         if ( isset( $request['view'] ) ) {
             

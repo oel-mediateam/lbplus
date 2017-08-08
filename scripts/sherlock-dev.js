@@ -526,9 +526,10 @@ function onYouTubeIframeAPIReady() {
             $( el.videoPlayBtn ).html( 'START' ).removeClass( 'paused' );
             $( el.videoPlayBtn ).on( 'click', function() {
                 
-                $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
+                $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
                     
                     video.player.playVideo();
+                    console.log(data);
             
                 } );
     

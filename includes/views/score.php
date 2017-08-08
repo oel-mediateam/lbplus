@@ -167,15 +167,11 @@
     $fraction = round( $totalEarned / $possilbePoints, 2 );
     $percentage = $fraction * 100;
     
-    if ( $exercise_info['exrs_type_id'] === 5 && isset( $_SESSION['isReview'] ) === false ) {
+    if ( $exercise_info['exrs_type_id'] == 5 && isset( $_SESSION['isReview'] ) == false ) {
     
         if ( !isLTIUser() ) {
             
-            $gradeId = DB::addScore( $_SESSION['user_exercise_id'], $fraction );
-            
-            if ( DB::updateScore( $_SESSION['user_exercise_id'], $gradeId ) == 0 ) {
-                exit("Update score error.");
-            }
+            $grade = DB::setScore( $_SESSION['user_exercise_id'], $fraction );
             
         } else {
             
@@ -287,7 +283,12 @@
          
         if ( !isLTIUser() ) {
             
-            echo '<a class="btn retake" href="?exercise=' . $exercise_info['exercise_id'] . '"><span class="action_name">Retake</span></a>';
+            
+            if ( $exercise_info['exrs_type_id' ] != 5 ) {
+                
+                echo '<a class="btn retake" href="?exercise=' . $exercise_info['exercise_id'] . '"><span class="action_name">Retake</span></a>';
+                
+            }
             
             echo '<a class="btn exercises" href="?view=exercises"><span class="action_name">Exercises</span><span class="icon"><i class="fa fa-chevron-right"></i></span></a>';
         

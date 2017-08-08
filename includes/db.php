@@ -340,7 +340,7 @@
                     ':code' => $code
                 
                 ) );
-                //$query = $db->query( $sql );
+                
                 $query->setFetchMode( PDO::FETCH_ASSOC );
                 
                 $exercises = array();
@@ -391,6 +391,41 @@
                     $db = null;
                     
                     return TRUE;
+                    
+                }
+                
+                $db = null;
+                
+                return FALSE;
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get user.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    /**
+         * Get user ID based on signed in email
+         * @param int $id User ID
+         * @return boolean 
+         */
+	    public static function getUserId( $email ) {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT user_id FROM user WHERE email = :email';
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':email' => $email ) );
+                
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result['user_id'];
                     
                 }
                 
@@ -565,13 +600,14 @@
          * @param int $id Exercise ID
          * @return array|null Returns an array of exercise information or null if not found. 
          */
-	    public static function getExercise( $id ) {
+	    public static function getActiveExercise( $id ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'SELECT * FROM exercise WHERE exercise_id = :id';
+        	    $sql = 'SELECT exr.*, exercise_type.name AS exr_type_name FROM exercise AS exr JOIN exercise_type ON exr.exrs_type_id = exercise_type.exrs_type_id WHERE exr.exercise_id = :id AND exr.status_id = 1';
+                $query = $db->prepare( $sql );
                 $query = $db->prepare( $sql );
                 $query->execute( array( ':id' => $id ) );
                 $query->setFetchMode( PDO::FETCH_ASSOC );
@@ -639,19 +675,18 @@
          * @param int $attemt Number of attempts
          * @return int Returns last insert ID. 
          */
-         public static function setUserExercise( $user_id, $exercise_id, $attempt ) {
+         public static function setUserExercise( $user_email, $exercise_id ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'INSERT INTO user_exercise(user_id, exercise_id, num_attempted) VALUES( '
-                . ':user, :exercise, :attempted )';
+        	    $sql = 'INSERT INTO user_exercise(user_id, exercise_id) VALUES( '
+                . ':user, :exercise )';
                 
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':user'=>$user_id,
-                                        ':exercise'=>$exercise_id,
-                                        ':attempted'=>$attempt ) );
+                $query->execute( array( ':user' => DB::getUserId( $user_email ),
+                                        ':exercise' => $exercise_id ) );
                 
                 $id = $db->lastInsertId();
                 
@@ -674,7 +709,7 @@
          * @param int $exercise_id Exercise ID
          * @return int Returns number of attempts. 
          */
-	    public static function getAttempted( $user_id, $exercise_id ) {
+	    public static function userExerciseExists( $user_email, $exercise_id ) {
     	    
     	    $db = DB::getDB();
     	    
@@ -682,7 +717,7 @@
         	    
         	    $sql = 'SELECT COUNT(*) FROM user_exercise WHERE user_id = :user AND exercise_id = :exercise';
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':user' => $user_id, ':exercise' => $exercise_id ) );
+                $query->execute( array( ':user' => DB::getUserID( $user_email ), ':exercise' => $exercise_id ) );
                 $result = $query->fetch( PDO::FETCH_NUM );
                     
                 $db = null;
@@ -726,28 +761,31 @@
 	    }
 	    
 	    /**
-         * Update the score for an exercise and user in the database.
+         * Add score to the database.
          * @param int $id Student exercise ID
          * @param double $score The score in decimals
-         * @return int Returns number row updated. 
+         * @return int Returns last inserted ID. 
          */
-	    public static function updateScore( $id, $score ) {
+	    public static function setScore( $id, $score ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'UPDATE user_exercise SET grade_id = :score WHERE stu_exrs_id = :id';
-                $query = $db->prepare( $sql );
-                $query->execute( array( ':score' => $score, ':id' => $id ) );
+        	    $sql = 'UPDATE user_exercise SET grade = :score WHERE stu_exrs_id = :id';
                 
+                $query = $db->prepare( $sql );
+                $query->execute( array( ':id'=>$id, ':score'=>$score ) );
+                
+                $id = $db->lastInsertId();
                 $db = null;
-                return $query->rowCount();
+                
+                return $id;
         	    
-    	    } catch( PDOException $e ) {
+    	    } catch ( PDOException $e ) {
         	    
         	    $db = null;
-        	    exit( 'Failed to update score.' );
+        	    exit( 'Failed to add score.' );
         	    
     	    }
     	    
@@ -759,21 +797,27 @@
          * @param double $score The score in decimals
          * @return int Returns last inserted ID. 
          */
-	    public static function addScore( $id, $score ) {
+	    public static function getScore( $id ) {
     	    
     	    $db = DB::getDB();
     	    
     	    try {
         	    
-        	    $sql = 'INSERT INTO grade( stu_exrs_id, score ) VALUES( :id, :score )';
+        	    $sql = 'SELECT grade FROM user_exercise WHERE stu_exrs_id = :id';
                 
                 $query = $db->prepare( $sql );
-                $query->execute( array( ':id'=>$id, ':score'=>$score ) );
+                $query->execute( array( ':id'=>$id ) );
                 
-                $id = $db->lastInsertId();
+                if ( $query->rowCount() == 1 ) {
+                    
+                    $result = $query->fetch();
+                    return $result['grade'];
+                    
+                }
+                
                 $db = null;
                 
-                return $id;
+                return null;
         	    
     	    } catch ( PDOException $e ) {
         	    
