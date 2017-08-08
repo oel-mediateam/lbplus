@@ -130,6 +130,25 @@ footer {
     font-size: 120%;
     font-weight: 200;
     line-height: normal; }
+  .transition_overlay textarea {
+    max-width: 100%;
+    width: 23.75rem;
+    height: 3.125rem;
+    resize: none; }
+  .transition_overlay .closeBtn {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    color: #fff;
+    background-color: #ea4335;
+    text-align: center;
+    padding-top: 0.5rem;
+    width: 3.125rem;
+    height: 3.125rem;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    cursor: pointer; }
   .transition_overlay .loading {
     margin-top: 1.25rem; }
   .transition_overlay .actions {

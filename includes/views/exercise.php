@@ -128,7 +128,7 @@
     
                         if ( strlen( trim( $action->icon ) ) ) {
     
-                            $button .= '<span class="icon"><span class="icon-' . $action->icon . '"></span></span>';
+                            $button .= '<span class="icon"><i class="fa fa-' . $action->icon . '"></i></span>';
     
                         } else {
     

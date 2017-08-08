@@ -142,9 +142,9 @@ $( function () {
                 protocol = 'http://';
             }
             
-            embedURL = protocol + location.hostname + location.pathname + '?embed=' + exerciseId;
+            embedURL = protocol + location.hostname + location.pathname + '?exercise=' + exerciseId;
             
-            alert( 'TODO: a dialog to hold ' + embedURL + ' for copy.' );
+            $( el.sherlock_wrapper ).showTransition( 'Embed Exercise', 'Please copy and paste the code below:<p><textarea onclick="this.focus();this.select()" readonly><iframe src="' + embedURL + '" width="900px" height="570px" frameborder="0" scrolling="auto"></iframe></textarea></p>', {spinner: false, closeBtn: true} );
             
             return false;
             
@@ -526,10 +526,9 @@ function onYouTubeIframeAPIReady() {
             $( el.videoPlayBtn ).html( 'START' ).removeClass( 'paused' );
             $( el.videoPlayBtn ).on( 'click', function() {
                 
-                $.post( 'includes/start_exercise.php', { begin: 1 }, function( data ) {
+                $.post( 'includes/start_exercise.php', { begin: 1 }, function() {
                     
                     video.player.playVideo();
-                    console.log(data);
             
                 } );
     
@@ -554,7 +553,7 @@ function onYouTubeIframeAPIReady() {
                 
                 if ( !reviewMode ) {
                     
-                    $( el.sherlock_wrapper ).showTransition( 'Video Ended', 'Calculating results. Please wait...' );
+                    $( el.sherlock_wrapper ).showTransition( 'Video Ended', 'Calculating results. Please wait...', {spinner: true, closeBtn: false} );
                     $( el.videoPlayBtn ).html( 'ENDED' ).show();
     
                     for ( var i = 0; i < $( '.btn[data-action-id]' ).length; i++ ) {
@@ -967,21 +966,28 @@ $.fn.extendedCooldown = function() {
  * @return void
  *
  */
- $.fn.showTransition = function( heading, subheading, hideSpinner ) {
+ $.fn.showTransition = function( heading, subheading, options ) {
     
-    hideSpinner = typeof hideSpinner !== 'undefined' ? hideSpinner : false;
+    options = typeof options !== 'undefined' ? options : false;
     
     $.fn.hideTransition();
     
-    if ( hideSpinner === false ) {
-        
-        $( this ).before( '<div class="transition_overlay"><div class="loading"><i class="fa fa-spinner fa-spin"></i></div><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
-        
-    } else {
-        
-        $( this ).before( '<div class="transition_overlay"><div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
-        
+    var spinner = '';
+    var closeBtn = '';
+    
+    if ( options.spinner ) {
+        spinner = '<div class="loading"><i class="fa fa-spinner fa-spin"></i></div>';
     }
+    
+    if ( options.closeBtn ) {
+        closeBtn = '<div class="closeBtn"><i class="fa fa-close fa-2x"></i></div>';
+    }
+    
+    $( this ).before( '<div class="transition_overlay">' + spinner + closeBtn + '<div class="heading">' + heading + '</div><div class="subheading">' + subheading + '</div></div>' );
+    
+    $( '.transition_overlay .closeBtn' ).on( 'click', function() {
+         $.fn.hideTransition();
+    } );
     
     $( '.transition_overlay' ).css( 'display', 'none' ).fadeIn();
 
@@ -1001,6 +1007,7 @@ $.fn.extendedCooldown = function() {
 
     $( '.transition_overlay' ).fadeOut( function() {
 
+        $( '.transition_overlay .closeBtn' ).off( 'click' );
         $( this ).remove();
 
     } );
@@ -1045,7 +1052,7 @@ $.fn.extendedCooldown = function() {
 
         } else {
             
-            $( el.sherlock_wrapper ).showTransition( 'Something went wrong...', 'Sherlock lost his writting pen.' );
+            $( el.sherlock_wrapper ).showTransition( 'Something went wrong...', 'Sherlock lost his writting pen.', {spinner: false, closeBtn: false} );
             
         }
 

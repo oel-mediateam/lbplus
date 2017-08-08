@@ -34,7 +34,7 @@
 		"uCM": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -46,16 +46,6 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/css\/font-awesome.min-ck.css",
-		"oF": 1,
-		"oS": 0
-		},
-	"\/css\/jquery-ui.css": {
-		"aP": 0,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/css\/jquery-ui-ck.css",
 		"oF": 1,
 		"oS": 0
 		},
