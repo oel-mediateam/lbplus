@@ -11,7 +11,13 @@
     $exerciseTypes = DB::getExerciseTypes();
     
     $_SESSION['pageNum'] = 1;
-    $_SESSION['totalExercises'] = DB::getNumOfActiveNAExercises();
+    
+    if ( isset( $_SESSION['signed_in_user_email'] ) || isLTIUser() ) {
+        $_SESSION['totalExercises'] = DB::getNumOfActiveExercises();
+    } else {
+        $_SESSION['totalExercises'] = DB::getNumOfActiveNAExercises();
+    }
+    
     $_SESSION['exercisePerPage'] = 4;
     $_SESSION['lastPage'] = ceil($_SESSION['totalExercises'] / $_SESSION['exercisePerPage']);
     
@@ -27,9 +33,14 @@
     
     $limit = ( $_SESSION['pageNum'] - 1 ) * $_SESSION['exercisePerPage'] . ', ' . $_SESSION['exercisePerPage'];
     
-    if ( isset( $_SESSION['signed_in_user_email'] ) ) {
+    if ( isset( $_SESSION['signed_in_user_email'] ) || isLTIUser() ) {
         
-        $pageTitle = "Exercises";
+        if ( isLTIUser() ) {
+            $pageTitle = "Select Exercise";
+        } else {
+            $pageTitle = "Exercises";
+        }
+        
         $activeExercises = DB::getActiveExercises( $limit, $_SESSION['sortby'] );
         $signedIn = true;
         
@@ -51,7 +62,7 @@
             
             <div class="site-name">Sherlock</div>
             <div class="user">
-                <?php if ( $signedIn ) : ?>
+                <?php if ( $signedIn && !isLTIUser() ) : ?>
                 <p class="name">Hello, <?php echo $userData['givenName']; ?>!</p>
                 <p class="signinout"><a href="?logout">Sign Out</a> | <a id="google_revoke_connection" href="javascript:void(0);">revoke</a></p>
                 <?php endif; ?>
@@ -65,7 +76,15 @@
         
         <h1><?php echo $pageTitle; ?></h1>
         
+        <?php if ( isLTIUser() ) : ?>
+        
+        <p>Please select exercise that you would like to use.</p>
+        
+        <?php else: ?>
+        
         <p>Please select exercise that you would like to attempt. Demo, training, and practice exercises are not graded and have no restrictions. At the end of each exercise, a score will be calculated and presented. The score will be recorded or retained only for assessment exercises. Once you started an exercise, you will not be able to come back to this page until the exercise is completed.</p>
+        
+        <?php endif; ?>
         
         <div class="exercise-pagination">
             
@@ -107,7 +126,15 @@
                     
                     foreach( $activeExercises as &$exercise ) {
                         
-                        echo '<a href="?exercise=' . $exercise['exercise_id'] . '" class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div><div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div><img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
+                        if ( !isLTIUser() ) {
+                            $embedBtn = '<div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div>';
+                            $href = 'href="?exercise=' . $exercise['exercise_id'] . '"';
+                        } else {
+                            $embedBtn = '';
+                            $href = 'href="javascript:void(0);"';
+                        }
+                        
+                        echo '<a ' . $href . ' class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div>' . $embedBtn . '<img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
                         
                     }
                     
@@ -118,7 +145,7 @@
         </div>
         
         <!-- Sign in with Google if user is not signed in -->
-        <?php if ( $signedIn == false ) : ?>
+        <?php if ( $signedIn == false && !isLTIUser() ) : ?>
         <div class="assessment-samples">
             
             <div class="exercise-grid">
@@ -148,10 +175,18 @@
 </div> <!-- Sherlock wrapper -->
 
 <!-- Revoke Google Popup Dialog -->
-<?php if ( $signedIn ) : ?>
+<?php if ( $signedIn && !isLTIUser() ) : ?>
 <div id="disconnect-confirm" class="transition_overlay hide">
     <div class="heading">Revoke Google Access</div>
     <div class="subheading">If you decided to come back, you may have to go through authorization process again.<br>Are you sure?</div>
     <div class="actions"><button id="revoke_ok">Yes, I am sure.</button> <button id="revoke_cancel">No, I am not.</button></div>
 </div>
+<?php endif; ?>
+
+<!-- Added hidden field if is LTI User -->
+<?php if ( isLTIUser() ) : ?>
+<form>
+    <input type="hidden" name="return_url" value="<?php echo getLTIData( 'launch_presentation_return_url' ); ?>" />
+    <input type="hidden" name="type" value="<?php echo getLTIData( 'ext_content_intended_use' ); ?>" />
+</form>
 <?php endif; ?>

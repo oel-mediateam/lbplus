@@ -287,37 +287,27 @@ $( function () {
     } // end selection element if/else
     
     // for LTI resource link selection
-    $( '#lti_selection' ).click( function() {
+    $( el.sherlock_grid_item ).click( function() {
         
         var url = $( 'input[name="return_url"]' ).val();
-        var exrs_id = $( 'option:selected' ).val();
         var link_type = $( 'input[name="type"]' ).val();
+        var exrs_id = $(this).data('exercise');
         
-        if ( exrs_id !== 'hide' ) {
-            
-            $.ajax({
+        $.ajax( {
             url: "includes/get_lti_link.php",
             type: 'POST',
             data: {
-              return_url: url,
-              id: exrs_id,
-              type: link_type
+                return_url: url,
+                id: exrs_id,
+                type: link_type
             },
-            success: function(data) {
-                
-              window.location.href = data;
-              
+            success: function( uri ) {
+              window.location.href = uri;
             }
-            
-          });
-            
-        } else {
-            
-            $( 'h1' ).after('<div class="callout danger">No exercise was selected. Please select an exercise.</div>' );
-            
-        }
         
-          return false;
+        } );
+        
+        return false;
           
     } );
     

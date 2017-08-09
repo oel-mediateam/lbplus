@@ -16,6 +16,7 @@
         
         require_once 'config.php';
         require_once 'db.php';
+        require_once 'functions.php';
         
         $dir = $_POST['direction'];
         $isLastPage = false;
@@ -56,8 +57,16 @@
         }
         
         foreach( $activeExercises as &$exercise ) {
+                        
+            if ( !isLTIUser() ) {
+                $embedBtn = '<div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div>';
+                $href = 'href="?exercise=' . $exercise['exercise_id'] . '"';
+            } else {
+                $embedBtn = '';
+                $href = 'href="javascript:void(0);"';
+            }
             
-            $result .= '<a href="?exercise=' . $exercise['exercise_id'] . '" class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div><div class="embedBtn"><i class="fa fa-link fa-2x" aria-hidden="true"></i></div><img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';
+            $result .= '<a ' . $href . ' class="grid-item" data-exercise="' . $exercise['exercise_id'] . '"><div class="thumbnail"><div class="start-txt"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></div><div class="exercise-type-label ' . strtolower($exercise['type_name']) . '">' . $exercise['type_name'] . '</div>' . $embedBtn . '<img src="https://img.youtube.com/vi/' . $exercise['video_src'] . '/0.jpg" /></div><div class="info"><div class="title">' . $exercise['name'] . '</div><div class="description">' . $exercise['description'] . '</div></div></a>';;
             
         }
         

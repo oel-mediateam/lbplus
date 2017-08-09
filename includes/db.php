@@ -596,6 +596,33 @@
 	    }
 	    
 	    /**
+         * Get number of all exercises from the database.
+         * @return array Returns an array of active exercises. 
+         */
+	    public static function getNumOfActiveExercises() {
+    	    
+    	    $db = DB::getDB();
+    	    
+    	    try {
+        	    
+        	    $sql = 'SELECT COUNT(*) FROM exercise WHERE status_id = 1';
+                $query = $db->prepare( $sql );
+                $query = $db->query( $sql );
+                $result = $query->fetch( PDO::FETCH_NUM );
+                    
+                $db = null;
+                return (int)$result[0];
+        	    
+    	    } catch( PDOException $e ) {
+        	    
+        	    $db = null;
+        	    exit( 'Failed to get attempts.' );
+        	    
+    	    }
+    	    
+	    }
+	    
+	    /**
          * Get an exercise from the database.
          * @param int $id Exercise ID
          * @return array|null Returns an array of exercise information or null if not found. 

@@ -34,7 +34,7 @@
 		"uCM": 0
 		},
 	"\/config.rb": {
-		"ft": 8192,
+		"ft": 131072,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -968,6 +968,12 @@
 		"oAP": "\/includes\/get_exercise_from_session.php",
 		"oF": 0
 		},
+	"\/includes\/get_lti_link.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/get_lti_link.php",
+		"oF": 0
+		},
 	"\/includes\/get_student_data_from_session.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -984,6 +990,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/json_handler.php",
+		"oF": 0
+		},
+	"\/includes\/lti_config.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/lti_config.xml",
 		"oF": 0
 		},
 	"\/includes\/pagination.php": {

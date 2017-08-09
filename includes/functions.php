@@ -15,34 +15,24 @@
      */
     function getView( $request ) {
         
-        if ( isset( $_SESSION['signed_in_user_email'] ) ) {
+        if ( isset( $_SESSION['signed_in_user_email'] ) || isLTIUser() ) {
         
             if ( isset( $request['exercise'] ) ) {
-                
                 return 'includes/views/exercise.php';
-                
             } else {
-                
                 return 'includes/views/exercises.php';
-                
             }
             
         }
         
         // if request is from an exercise selection
         if ( isset( $request['view'] ) ) {
-            
-            $view = 'includes/views/' . $request['view'] . '.php';
-            return $view;
-            
+            return 'includes/views/' . $request['view'] . '.php';
         }
         
         // if request is from an exercise selection
         if ( isset( $request['exercise'] ) ) {
-            
-            $view = 'includes/views/exercise.php';
-            return $view;
-            
+            return 'includes/views/exercise.php';   
         }
         
         return 'includes/views/landing.php';
