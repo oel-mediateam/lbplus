@@ -49,6 +49,7 @@ var el = {
     sherlock_body_container: '#sherlock-wrapper .container.body',
     sherlock_grid_container: '#sherlock-wrapper .container .active-exercises.exercise-grid',
     sherlock_grid_item: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item',
+    sherlock_grid_item_lti: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item.ltiItem',
     exerciseEmbedBtn: '#sherlock-wrapper .container .active-exercises.exercise-grid .grid-item .thumbnail .embedBtn',
     currentPage: '.exercise-pagination .controls .pageActions .page-number .currentPage',
     prevPageBtn: '.exercise-pagination .controls .pageActions .previous',
@@ -287,7 +288,7 @@ $( function () {
     } // end selection element if/else
     
     // for LTI resource link selection
-    $( el.sherlock_grid_item ).click( function() {
+    $( el.sherlock_grid_item_lti ).click( function() {
         
         var url = $( 'input[name="return_url"]' ).val();
         var link_type = $( 'input[name="type"]' ).val();

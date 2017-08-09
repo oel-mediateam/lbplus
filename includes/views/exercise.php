@@ -10,51 +10,42 @@
     
     require_once 'includes/exercise_class.php';
     require_once 'includes/functions.php';
+        
+    $attempted = false;
     
-    if ( isset( $_REQUEST['oauth_consumer_key'] ) && isset( $_REQUEST['exercise'] ) ) {           
+    if ( isset( $_SESSION['signed_in_user_email'] ) || isset( $_REQUEST['oauth_consumer_key'] ) ) {
         
-        require_once 'includes/config.php';
-        require_once 'includes/admin/lti/LTI_Sherlock.php';
+        $exerciseToGet = DB::getActiveExercise( $_GET['exercise'] );
         
-        saveLTIData( $_REQUEST );
-        
-        $lti = unserialize( $_SESSION['lti'] );
-        
-        if ( $exerciseToGet = DB::getLTIExercise( $lti['exercise'], getLTICourseID(), getLTIData('tool_consumer_info_product_family_code') ) ) {
+        if ( isset( $_REQUEST['oauth_consumer_key'] ) ) {
             
-            $_SESSION['exercise_info'] = serialize( $exerciseToGet );
-            $exercise_exists = true;
+            require_once 'includes/config.php';
+            require_once 'includes/admin/lti/LTI_Sherlock.php';
+            
+            saveLTIData( $_REQUEST );
+            $lti = unserialize( $_SESSION['lti'] );
             
         } else {
-            
-            $exercise_exists = false;
-            
-        }
-        
-    } else {
-        
-        $attempted = false;
-        
-        if ( isset( $_SESSION['signed_in_user_email'] ) ) {
-            
-            $exerciseToGet = DB::getActiveExercise( $_GET['exercise'] );
             
             if ( DB::userExerciseExists( $_SESSION['signed_in_user_email'], $exerciseToGet['exercise_id'] ) ) {
                 $attempted = true;
             }
             
-        } else {
-            $exerciseToGet = DB::getActiveNAExercise( $_GET['exercise'] );
         }
         
-        $_SESSION['exercise_info'] = serialize( $exerciseToGet );
         
-        if ( sizeof( $exerciseToGet ) ) {
-            $exercise_exists = true;
-        } else {
-            $exercise_exists = false;
-        }
+    } else {
         
+        $exerciseToGet = DB::getActiveNAExercise( $_GET['exercise'] );
+        
+    }
+    
+    $_SESSION['exercise_info'] = serialize( $exerciseToGet );
+    
+    if ( sizeof( $exerciseToGet ) ) {
+        $exercise_exists = true;
+    } else {
+        $exercise_exists = false;
     }
     
     if ( $exercise_exists ) {

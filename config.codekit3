@@ -1148,12 +1148,6 @@
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
-		},
-	"\/scripts\/sherlock.js.map": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/scripts\/sherlock.js.map",
-		"oF": 0
 		}
 	},
 "hooks": [

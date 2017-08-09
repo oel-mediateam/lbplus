@@ -167,7 +167,7 @@
     $fraction = round( $totalEarned / $possilbePoints, 2 );
     $percentage = $fraction * 100;
     
-    if ( $exercise_info['exrs_type_id'] == 5 && isset( $_SESSION['isReview'] ) == false ) {
+    if ( /* $exercise_info['exrs_type_id'] == 5 && */ isset( $_SESSION['isReview'] ) == false ) {
     
         if ( !isLTIUser() ) {
             
