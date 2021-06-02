@@ -21,3 +21,4 @@ bower_components/
 
 #ignore exercise json file
 **/includes/data/exercise/
+.DS_Store
